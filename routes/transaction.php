@@ -8,6 +8,8 @@ use Fintech\RestApi\Http\Controllers\Transaction\ManualRefundController;
 use Fintech\RestApi\Http\Controllers\Transaction\OrderController;
 use Fintech\RestApi\Http\Controllers\Transaction\OrderDetailController;
 use Fintech\RestApi\Http\Controllers\Transaction\OrderQueueController;
+use Fintech\RestApi\Http\Controllers\Transaction\RedeemPointController;
+use Fintech\RestApi\Http\Controllers\Transaction\RewardPointController;
 use Fintech\RestApi\Http\Controllers\Transaction\TransactionFormController;
 use Fintech\RestApi\Http\Controllers\Transaction\UserAccountController;
 use Illuminate\Support\Facades\Config;
@@ -57,11 +59,11 @@ if (Config::get('fintech.transaction.enabled')) {
 
         Route::apiResource('manual-refunds', ManualRefundController::class);
 
-        Route::apiResource('reward-points', \Fintech\RestApi\Http\Controllers\Transaction\RewardPointController::class);
-        Route::post('reward-points/{reward_point}/restore', [\Fintech\RestApi\Http\Controllers\Transaction\RewardPointController::class, 'restore'])->name('reward-points.restore');
+        Route::apiResource('reward-points', RewardPointController::class);
+        Route::post('reward-points/{reward_point}/restore', [RewardPointController::class, 'restore'])->name('reward-points.restore');
 
-        Route::apiResource('redeem-points', \Fintech\RestApi\Http\Controllers\Transaction\RedeemPointController::class);
-        Route::post('redeem-points/{redeem_point}/restore', [\Fintech\RestApi\Http\Controllers\Transaction\RedeemPointController::class, 'restore'])->name('redeem-points.restore');
+        Route::apiResource('redeem-points', RedeemPointController::class);
+        Route::post('redeem-points/{redeem_point}/restore', [RedeemPointController::class, 'restore'])->name('redeem-points.restore');
 
         //DO NOT REMOVE THIS LINE//
     });
