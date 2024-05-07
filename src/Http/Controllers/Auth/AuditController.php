@@ -4,24 +4,23 @@ namespace Fintech\RestApi\Http\Controllers\Auth;
 
 use Exception;
 use Fintech\Auth\Facades\Auth;
+use Fintech\Core\Exceptions\DeleteOperationException;
+use Fintech\Core\Traits\ApiResponseTrait;
 use Fintech\RestApi\Http\Requests\Auth\IndexAuditRequest;
 use Fintech\RestApi\Http\Resources\Auth\AuditCollection;
 use Fintech\RestApi\Http\Resources\Auth\AuditResource;
-use Fintech\Core\Exceptions\DeleteOperationException;
-use Fintech\Core\Traits\ApiResponseTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 
 /**
  * Class AuditController
- * @package Fintech\RestApi\Http\Controllers\Auth
  *
  * @lrd:start
  * This class handle create, display, update, delete & restore
  * operation related to Audit
- * @lrd:end
  *
+ * @lrd:end
  */
 class AuditController extends Controller
 {
@@ -32,10 +31,8 @@ class AuditController extends Controller
      * Return a listing of the *Audit* resource as collection.
      *
      * *```paginate=false``` returns all resource as list not pagination*
-     * @lrd:end
      *
-     * @param IndexAuditRequest $request
-     * @return AuditCollection|JsonResponse
+     * @lrd:end
      */
     public function index(IndexAuditRequest $request): AuditCollection|JsonResponse
     {
@@ -55,10 +52,9 @@ class AuditController extends Controller
     /**
      * @lrd:start
      * Return a specified *Audit* resource found by id.
+     *
      * @lrd:end
      *
-     * @param string|int $id
-     * @return AuditResource|JsonResponse
      * @throws ModelNotFoundException
      */
     public function show(string|int $id): AuditResource|JsonResponse
@@ -67,7 +63,7 @@ class AuditController extends Controller
 
             $audit = Auth::audit()->find($id);
 
-            if (!$audit) {
+            if (! $audit) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.audit_model'), $id);
             }
 
@@ -86,10 +82,11 @@ class AuditController extends Controller
     /**
      * @lrd:start
      * Soft delete a specified *Audit* resource using id.
+     *
      * @lrd:end
      *
-     * @param string|int $id
      * @return JsonResponse
+     *
      * @throws ModelNotFoundException
      * @throws DeleteOperationException
      */
@@ -99,11 +96,11 @@ class AuditController extends Controller
 
             $audit = Auth::audit()->find($id);
 
-            if (!$audit) {
+            if (! $audit) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.audit_model'), $id);
             }
 
-            if (!Auth::audit()->destroy($id)) {
+            if (! Auth::audit()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.auth.audit_model'), $id);
             }

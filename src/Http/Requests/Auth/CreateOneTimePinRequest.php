@@ -21,15 +21,13 @@ class CreateOneTimePinRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
-     *
-     * @return array
      */
     public function rules(): array
     {
         return [
             'mobile' => 'required_without_all:email,user|string|min:10|max:15',
             'email' => 'required_without_all:mobile,user|string|email:rfc,dns',
-            'user' => 'required_without_all:mobile,email|integer|min:1'
+            'user' => 'required_without_all:mobile,email|integer|min:1',
         ];
     }
 
@@ -48,7 +46,7 @@ class CreateOneTimePinRequest extends FormRequest
     {
         $key = $this->input('mobile', $this->input('email', $this->input('user')));
 
-        return Str::transliterate(Str::lower($key . '|' . $this->ip()));
+        return Str::transliterate(Str::lower($key.'|'.$this->ip()));
     }
 
     /**
@@ -66,7 +64,7 @@ class CreateOneTimePinRequest extends FormRequest
      */
     public function ensureIsNotRateLimited(): void
     {
-        if (!RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
+        if (! RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
             return;
         }
 

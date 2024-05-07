@@ -14,7 +14,7 @@ use stdClass;
 
 /**
  * Class LoginResource
- * @package Fintech\RestApi\Http\Resources\Auth
+ *
  * @property-read int $id
  * @property-read string $name
  * @property-read string $mobile
@@ -33,6 +33,7 @@ use stdClass;
  * @property-read Carbon $created_at
  * @property-read Carbon $updated_at
  * @property-read Carbon $logged_in_at
+ *
  * @method Collection getAllPermissions()
  * @method Collection getFirstMediaUrl(string $collection)
  * @method NewAccessToken createToken(string $origin)
@@ -42,7 +43,6 @@ class LoginResource extends JsonResource
     /**
      * Get additional data that should be returned with the resource array.
      *
-     * @param Request $request
      * @return array<string, mixed>
      */
     public function with(Request $request): array
@@ -53,10 +53,9 @@ class LoginResource extends JsonResource
 
         $permissionCollection = $this->getAllPermissions();
 
-        if (!$permissionCollection->isEmpty()) {
+        if (! $permissionCollection->isEmpty()) {
             $permissions = $permissionCollection->pluck('name')->toArray();
         }
-
 
         return [
             'access' => [
@@ -71,7 +70,6 @@ class LoginResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param Request $request
      * @return array
      */
     public function toArray(Request $request)

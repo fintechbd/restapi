@@ -29,18 +29,18 @@ class OccupationResource extends JsonResource
         }
 
         return [
-            "id" => $this->getKey(),
-            "name" => $this->name,
-            "code" => $this->code,
-            "enabled" => $this->enabled,
-            "vendor_code" => $this->vendor_code,
-            "catalog_data" => $this->catalog_data,
-            "countries" => $this->countries != null ? $this->countries->pluck('name', 'id')->toArray() : [],
-            "created_at" => $this->created_at,
-            "updated_at" => $this->updated_at,
-            "deleted_at" => $this->deleted_at,
-            "restored_at" => $this->restored_at,
-            "links" => $links
+            'id' => $this->getKey(),
+            'name' => $this->name,
+            'code' => $this->code,
+            'enabled' => $this->enabled,
+            'vendor_code' => $this->vendor_code,
+            'catalog_data' => $this->catalog_data,
+            'countries' => $this->countries != null ? $this->countries->pluck('name', 'id')->toArray() : [],
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'deleted_at' => $this->deleted_at,
+            'restored_at' => $this->restored_at,
+            'links' => $links,
         ];
     }
 }

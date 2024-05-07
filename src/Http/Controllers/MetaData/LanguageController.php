@@ -18,13 +18,12 @@ use Illuminate\Routing\Controller;
 
 /**
  * Class LanguageController
- * @package Fintech\MetaData\Http\Controllers
  *
  * @lrd:start
  * This class handle create, display, update, delete & restore
  * operation related to Language
- * @lrd:end
  *
+ * @lrd:end
  */
 class LanguageController extends Controller
 {
@@ -35,10 +34,8 @@ class LanguageController extends Controller
      * Return a listing of the *Language* resource as collection.
      *
      * *```paginate=false``` returns all resource as list not pagination*
-     * @lrd:end
      *
-     * @param IndexLanguageRequest $request
-     * @return LanguageCollection|JsonResponse
+     * @lrd:end
      */
     public function index(IndexLanguageRequest $request): LanguageCollection|JsonResponse
     {
@@ -58,10 +55,9 @@ class LanguageController extends Controller
     /**
      * @lrd:start
      * Return a specified *Language* resource found by id.
+     *
      * @lrd:end
      *
-     * @param string|int $id
-     * @return LanguageResource|JsonResponse
      * @throws ModelNotFoundException
      */
     public function show(string|int $id): LanguageResource|JsonResponse
@@ -70,7 +66,7 @@ class LanguageController extends Controller
 
             $language = MetaData::language()->find($id);
 
-            if (!$language) {
+            if (! $language) {
                 throw (new ModelNotFoundException())->setModel('Language', $id);
             }
 
@@ -100,7 +96,7 @@ class LanguageController extends Controller
 
             $language = MetaData::language()->find($id);
 
-            if (!$language) {
+            if (! $language) {
                 throw (new ModelNotFoundException())->setModel('Language', $id);
             }
 
@@ -110,9 +106,9 @@ class LanguageController extends Controller
                 throw new Exception(__('metadata::messages.country.language_field_missing'));
             }
 
-            $inputs['enabled'] = !($countryData['language_enabled'] ?? false);
+            $inputs['enabled'] = ! ($countryData['language_enabled'] ?? false);
 
-            if (!MetaData::language()->update($id, $inputs)) {
+            if (! MetaData::language()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException())->setModel('Language', $id);
             }
@@ -132,11 +128,9 @@ class LanguageController extends Controller
     /**
      * @lrd:start
      * Update a specified *Language* resource using id.
+     *
      * @lrd:end
      *
-     * @param UpdateLanguageRequest $request
-     * @param string|int $id
-     * @return JsonResponse
      * @throws ModelNotFoundException
      */
     public function update(UpdateLanguageRequest $request, string|int $id): JsonResponse
@@ -145,13 +139,13 @@ class LanguageController extends Controller
 
             $language = MetaData::language()->find($id);
 
-            if (!$language) {
+            if (! $language) {
                 throw (new ModelNotFoundException())->setModel('Language', $id);
             }
 
             $inputs = $request->validated();
 
-            if (!MetaData::language()->update($id, $inputs)) {
+            if (! MetaData::language()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException())->setModel('Language', $id);
             }
@@ -168,10 +162,6 @@ class LanguageController extends Controller
         }
     }
 
-    /**
-     * @param DropDownRequest $request
-     * @return DropDownCollection|JsonResponse
-     */
     public function dropdown(DropDownRequest $request): DropDownCollection|JsonResponse
     {
         try {
@@ -183,12 +173,12 @@ class LanguageController extends Controller
 
             $attribute = 'code';
 
-            if (!empty($filters['label'])) {
+            if (! empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (!empty($filters['attribute'])) {
+            if (! empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }

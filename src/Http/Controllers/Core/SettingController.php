@@ -21,13 +21,12 @@ use Illuminate\Routing\Controller;
 
 /**
  * Class SettingController
- * @package Fintech\Core\Http\Controllers
  *
  * @lrd:start
  * This class handle create, display, update, delete & restore
  * operation related to setting
- * @lrd:end
  *
+ * @lrd:end
  */
 class SettingController extends Controller
 {
@@ -38,10 +37,8 @@ class SettingController extends Controller
      * Return a listing of the setting resource as collection.
      *
      * *```paginate=false``` returns all resource as list not pagination*
-     * @lrd:end
      *
-     * @param IndexSettingRequest $request
-     * @return SettingCollection|JsonResponse
+     * @lrd:end
      */
     public function index(IndexSettingRequest $request): SettingCollection|JsonResponse
     {
@@ -61,10 +58,9 @@ class SettingController extends Controller
     /**
      * @lrd:start
      * Create a new setting resource in storage.
+     *
      * @lrd:end
      *
-     * @param StoreSettingRequest $request
-     * @return JsonResponse
      * @throws StoreOperationException
      */
     public function store(StoreSettingRequest $request): JsonResponse
@@ -74,13 +70,13 @@ class SettingController extends Controller
 
             $setting = Core::setting()->create($inputs);
 
-            if (!$setting) {
+            if (! $setting) {
                 throw (new StoreOperationException())->setModel(config('fintech.core.setting_model'));
             }
 
             return $this->created([
                 'message' => __('core::messages.resource.created', ['model' => 'Setting']),
-                'id' => $setting->getKey()
+                'id' => $setting->getKey(),
             ]);
 
         } catch (Exception $exception) {
@@ -92,10 +88,9 @@ class SettingController extends Controller
     /**
      * @lrd:start
      * Return a specified setting resource found by id.
+     *
      * @lrd:end
      *
-     * @param string|int $id
-     * @return SettingResource|JsonResponse
      * @throws ModelNotFoundException
      */
     public function show(string|int $id): SettingResource|JsonResponse
@@ -104,7 +99,7 @@ class SettingController extends Controller
 
             $setting = Core::setting()->find($id);
 
-            if (!$setting) {
+            if (! $setting) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.core.setting_model'), $id);
             }
 
@@ -123,11 +118,9 @@ class SettingController extends Controller
     /**
      * @lrd:start
      * Update a specified setting resource using id.
+     *
      * @lrd:end
      *
-     * @param UpdateSettingRequest $request
-     * @param string|int $id
-     * @return JsonResponse
      * @throws ModelNotFoundException
      */
     public function update(UpdateSettingRequest $request, string|int $id): JsonResponse
@@ -136,13 +129,13 @@ class SettingController extends Controller
 
             $setting = Core::setting()->read($id);
 
-            if (!$setting) {
+            if (! $setting) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.core.setting_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!Core::setting()->update($id, $inputs)) {
+            if (! Core::setting()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException())->setModel(config('fintech.core.setting_model'), $id);
             }
@@ -162,10 +155,11 @@ class SettingController extends Controller
     /**
      * @lrd:start
      * Soft delete a specified setting resource using id.
+     *
      * @lrd:end
      *
-     * @param string|int $id
      * @return JsonResponse
+     *
      * @throws ModelNotFoundException
      * @throws DeleteOperationException
      */
@@ -175,11 +169,11 @@ class SettingController extends Controller
 
             $setting = Core::setting()->read($id);
 
-            if (!$setting) {
+            if (! $setting) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.core.setting_model'), $id);
             }
 
-            if (!Core::setting()->destroy($id)) {
+            if (! Core::setting()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.core.setting_model'), $id);
             }
@@ -200,9 +194,9 @@ class SettingController extends Controller
      * @lrd:start
      * Restore the specified setting resource from trash.
      * ** ```Soft Delete``` needs to enabled to use this feature**
+     *
      * @lrd:end
      *
-     * @param string|int $id
      * @return JsonResponse
      */
     public function restore(string|int $id)
@@ -211,11 +205,11 @@ class SettingController extends Controller
 
             $setting = Core::setting()->find($id, true);
 
-            if (!$setting) {
+            if (! $setting) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.core.setting_model'), $id);
             }
 
-            if (!Core::setting()->restore($id)) {
+            if (! Core::setting()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.core.setting_model'), $id);
             }
@@ -238,9 +232,6 @@ class SettingController extends Controller
      * After export job is done system will fire  export completed event
      *
      * @lrd:end
-     *
-     * @param IndexSettingRequest $request
-     * @return JsonResponse
      */
     public function export(IndexSettingRequest $request): JsonResponse
     {
@@ -264,7 +255,6 @@ class SettingController extends Controller
      *
      * @lrd:end
      *
-     * @param ImportSettingRequest $request
      * @return SettingCollection|JsonResponse
      */
     public function import(ImportSettingRequest $request): JsonResponse

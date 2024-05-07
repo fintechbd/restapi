@@ -19,9 +19,6 @@ class DropDownController extends Controller
 
     /**
      * Handle the incoming request.
-     *
-     * @param DropDownRequest $request
-     * @return DropDownCollection|JsonResponse
      */
     public function catalog(DropDownRequest $request): DropDownCollection|JsonResponse
     {
@@ -41,9 +38,6 @@ class DropDownController extends Controller
 
     /**
      * Handle the incoming request.
-     *
-     * @param DropDownRequest $request
-     * @return DropDownCollection|JsonResponse
      */
     public function bloodGroup(DropDownRequest $request): DropDownCollection|JsonResponse
     {
@@ -56,12 +50,12 @@ class DropDownController extends Controller
 
             $attribute = 'code';
 
-            if (!empty($filters['label'])) {
+            if (! empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (!empty($filters['attribute'])) {
+            if (! empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }
@@ -82,9 +76,6 @@ class DropDownController extends Controller
 
     /**
      * Handle the incoming request.
-     *
-     * @param DropDownRequest $request
-     * @return DropDownCollection|JsonResponse
      */
     public function gender(DropDownRequest $request): DropDownCollection|JsonResponse
     {
@@ -97,12 +88,12 @@ class DropDownController extends Controller
 
             $attribute = 'code';
 
-            if (!empty($filters['label'])) {
+            if (! empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (!empty($filters['attribute'])) {
+            if (! empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }
@@ -123,9 +114,6 @@ class DropDownController extends Controller
 
     /**
      * Handle the incoming request.
-     *
-     * @param DropDownRequest $request
-     * @return DropDownCollection|JsonResponse
      */
     public function maritalStatus(DropDownRequest $request): DropDownCollection|JsonResponse
     {
@@ -138,12 +126,12 @@ class DropDownController extends Controller
 
             $attribute = 'code';
 
-            if (!empty($filters['label'])) {
+            if (! empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (!empty($filters['attribute'])) {
+            if (! empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }
@@ -164,9 +152,6 @@ class DropDownController extends Controller
 
     /**
      * Handle the incoming request.
-     *
-     * @param DropDownRequest $request
-     * @return DropDownCollection|JsonResponse
      */
     public function fundSource(DropDownRequest $request): DropDownCollection|JsonResponse
     {
@@ -177,12 +162,12 @@ class DropDownController extends Controller
 
             $attribute = 'id';
 
-            if (!empty($filters['label'])) {
+            if (! empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (!empty($filters['attribute'])) {
+            if (! empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }
@@ -203,9 +188,6 @@ class DropDownController extends Controller
 
     /**
      * Handle the incoming request.
-     *
-     * @param DropDownRequest $request
-     * @return DropDownCollection|JsonResponse
      */
     public function relation(DropDownRequest $request): DropDownCollection|JsonResponse
     {
@@ -216,12 +198,12 @@ class DropDownController extends Controller
 
             $attribute = 'id';
 
-            if (!empty($filters['label'])) {
+            if (! empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (!empty($filters['attribute'])) {
+            if (! empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }
@@ -242,9 +224,6 @@ class DropDownController extends Controller
 
     /**
      * Handle the incoming request.
-     *
-     * @param DropDownRequest $request
-     * @return DropDownCollection|JsonResponse
      */
     public function remittancePurpose(DropDownRequest $request): DropDownCollection|JsonResponse
     {
@@ -255,12 +234,12 @@ class DropDownController extends Controller
 
             $attribute = 'id';
 
-            if (!empty($filters['label'])) {
+            if (! empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (!empty($filters['attribute'])) {
+            if (! empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }
@@ -281,9 +260,6 @@ class DropDownController extends Controller
 
     /**
      * Handle the incoming request.
-     *
-     * @param DropDownRequest $request
-     * @return DropDownCollection|JsonResponse
      */
     public function occupation(DropDownRequest $request): DropDownCollection|JsonResponse
     {
@@ -294,12 +270,12 @@ class DropDownController extends Controller
 
             $attribute = 'id';
 
-            if (!empty($filters['label'])) {
+            if (! empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (!empty($filters['attribute'])) {
+            if (! empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }
@@ -320,9 +296,6 @@ class DropDownController extends Controller
 
     /**
      * Handle the incoming request.
-     *
-     * @param DropDownRequest $request
-     * @return DropDownCollection|JsonResponse
      */
     public function idDocType(DropDownRequest $request): DropDownCollection|JsonResponse
     {
@@ -333,12 +306,12 @@ class DropDownController extends Controller
 
             $attribute = 'code';
 
-            if (!empty($filters['label'])) {
+            if (! empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (!empty($filters['attribute'])) {
+            if (! empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }
@@ -348,7 +321,7 @@ class DropDownController extends Controller
                     'label' => $entry->{$label} ?? 'name',
                     'attribute' => $entry->{$attribute} ?? 'id',
                     'sides' => $entry->sides ?? 1,
-                    'id' => $entry->getKey() ?? null
+                    'id' => $entry->getKey() ?? null,
                 ];
             });
 
@@ -361,9 +334,6 @@ class DropDownController extends Controller
 
     /**
      * Handle the incoming request.
-     *
-     * @param DropDownRequest $request
-     * @return DropDownCollection|JsonResponse
      */
     public function nationality(DropDownRequest $request): DropDownCollection|JsonResponse
     {
@@ -381,16 +351,15 @@ class DropDownController extends Controller
                 $filters['is_serving'] = true;
             }
 
-
             $label = 'nationality';
             $attribute = 'nationality';
 
-            if (!empty($filters['label'])) {
+            if (! empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (!empty($filters['attribute'])) {
+            if (! empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }
@@ -412,10 +381,8 @@ class DropDownController extends Controller
     /**
      * @lrd:start
      * Return a list of phone code of all serving countries only
-     * @lrd:end
      *
-     * @param DropDownRequest $request
-     * @return DropDownCollection|JsonResponse
+     * @lrd:end
      */
     public function phoneCode(DropDownRequest $request): DropDownCollection|JsonResponse
     {
@@ -427,12 +394,12 @@ class DropDownController extends Controller
 
             $attribute = 'phone_code';
 
-            if (!empty($filters['label'])) {
+            if (! empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (!empty($filters['attribute'])) {
+            if (! empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }
@@ -453,9 +420,6 @@ class DropDownController extends Controller
 
     /**
      * Handle the incoming request.
-     *
-     * @param DropDownRequest $request
-     * @return DropDownCollection|JsonResponse
      */
     public function proofOfAddress(DropDownRequest $request): DropDownCollection|JsonResponse
     {
@@ -466,12 +430,12 @@ class DropDownController extends Controller
 
             $attribute = 'code';
 
-            if (!empty($filters['label'])) {
+            if (! empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (!empty($filters['attribute'])) {
+            if (! empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }
@@ -483,7 +447,7 @@ class DropDownController extends Controller
                     'label' => $entry->{$label} ?? 'name',
                     'attribute' => $entry->{$attribute} ?? 'id',
                     'sides' => $entry->sides ?? 1,
-                    'id' => $entry->getKey() ?? null
+                    'id' => $entry->getKey() ?? null,
                 ];
             });
 

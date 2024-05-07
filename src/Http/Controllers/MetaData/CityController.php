@@ -72,7 +72,7 @@ class CityController extends Controller
 
             $city = MetaData::city()->create($inputs);
 
-            if (!$city) {
+            if (! $city) {
                 throw (new StoreOperationException())->setModel(config('fintech.metadata.city_model'));
             }
 
@@ -103,7 +103,7 @@ class CityController extends Controller
 
             $city = MetaData::city()->find($id);
 
-            if (!$city) {
+            if (! $city) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.metadata.city_model'), $id);
             }
 
@@ -134,13 +134,13 @@ class CityController extends Controller
 
             $city = MetaData::city()->find($id);
 
-            if (!$city) {
+            if (! $city) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.metadata.city_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!MetaData::city()->update($id, $inputs)) {
+            if (! MetaData::city()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException())->setModel(config('fintech.metadata.city_model'), $id);
             }
@@ -174,11 +174,11 @@ class CityController extends Controller
 
             $city = MetaData::city()->find($id);
 
-            if (!$city) {
+            if (! $city) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.metadata.city_model'), $id);
             }
 
-            if (!MetaData::city()->destroy($id)) {
+            if (! MetaData::city()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.metadata.city_model'), $id);
             }
@@ -210,11 +210,11 @@ class CityController extends Controller
 
             $city = MetaData::city()->find($id, true);
 
-            if (!$city) {
+            if (! $city) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.metadata.city_model'), $id);
             }
 
-            if (!MetaData::city()->restore($id)) {
+            if (! MetaData::city()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.metadata.city_model'), $id);
             }
@@ -280,9 +280,6 @@ class CityController extends Controller
     /**
      * @LRDparam country_id required|integer|min:1
      * @LRDparam state_id required|integer|min:1
-     *
-     * @param DropDownRequest $request
-     * @return DropDownCollection|JsonResponse
      */
     public function dropdown(DropDownRequest $request): DropDownCollection|JsonResponse
     {
@@ -293,12 +290,12 @@ class CityController extends Controller
 
             $attribute = 'id';
 
-            if (!empty($filters['label'])) {
+            if (! empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (!empty($filters['attribute'])) {
+            if (! empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }

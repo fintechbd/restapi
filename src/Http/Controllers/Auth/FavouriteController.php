@@ -4,30 +4,29 @@ namespace Fintech\RestApi\Http\Controllers\Auth;
 
 use Exception;
 use Fintech\Auth\Facades\Auth;
+use Fintech\Core\Exceptions\DeleteOperationException;
+use Fintech\Core\Exceptions\RestoreOperationException;
+use Fintech\Core\Exceptions\StoreOperationException;
+use Fintech\Core\Exceptions\UpdateOperationException;
+use Fintech\Core\Traits\ApiResponseTrait;
 use Fintech\RestApi\Http\Requests\Auth\ImportFavouriteRequest;
 use Fintech\RestApi\Http\Requests\Auth\IndexFavouriteRequest;
 use Fintech\RestApi\Http\Requests\Auth\StoreFavouriteRequest;
 use Fintech\RestApi\Http\Requests\Auth\UpdateFavouriteRequest;
 use Fintech\RestApi\Http\Resources\Auth\FavouriteCollection;
 use Fintech\RestApi\Http\Resources\Auth\FavouriteResource;
-use Fintech\Core\Exceptions\DeleteOperationException;
-use Fintech\Core\Exceptions\RestoreOperationException;
-use Fintech\Core\Exceptions\StoreOperationException;
-use Fintech\Core\Exceptions\UpdateOperationException;
-use Fintech\Core\Traits\ApiResponseTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 
 /**
  * Class FavouriteController
- * @package Fintech\RestApi\Http\Controllers\Auth
  *
  * @lrd:start
  * This class handle create, display, update, delete & restore
  * operation related to Favourite
- * @lrd:end
  *
+ * @lrd:end
  */
 class FavouriteController extends Controller
 {
@@ -38,10 +37,8 @@ class FavouriteController extends Controller
      * Return a listing of the *Favourite* resource as collection.
      *
      * *```paginate=false``` returns all resource as list not pagination*
-     * @lrd:end
      *
-     * @param IndexFavouriteRequest $request
-     * @return FavouriteCollection|JsonResponse
+     * @lrd:end
      */
     public function index(IndexFavouriteRequest $request): FavouriteCollection|JsonResponse
     {
@@ -61,10 +58,9 @@ class FavouriteController extends Controller
     /**
      * @lrd:start
      * Create a new *Favourite* resource in storage.
+     *
      * @lrd:end
      *
-     * @param StoreFavouriteRequest $request
-     * @return JsonResponse
      * @throws StoreOperationException
      */
     public function store(StoreFavouriteRequest $request): JsonResponse
@@ -74,13 +70,13 @@ class FavouriteController extends Controller
 
             $favourite = Auth::favourite()->create($inputs);
 
-            if (!$favourite) {
+            if (! $favourite) {
                 throw (new StoreOperationException())->setModel(config('fintech.auth.favourite_model'));
             }
 
             return $this->created([
                 'message' => __('core::messages.resource.created', ['model' => 'Favourite']),
-                'id' => $favourite->id
+                'id' => $favourite->id,
             ]);
 
         } catch (Exception $exception) {
@@ -92,10 +88,9 @@ class FavouriteController extends Controller
     /**
      * @lrd:start
      * Return a specified *Favourite* resource found by id.
+     *
      * @lrd:end
      *
-     * @param string|int $id
-     * @return FavouriteResource|JsonResponse
      * @throws ModelNotFoundException
      */
     public function show(string|int $id): FavouriteResource|JsonResponse
@@ -104,7 +99,7 @@ class FavouriteController extends Controller
 
             $favourite = Auth::favourite()->find($id);
 
-            if (!$favourite) {
+            if (! $favourite) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.favourite_model'), $id);
             }
 
@@ -123,11 +118,9 @@ class FavouriteController extends Controller
     /**
      * @lrd:start
      * Update a specified *Favourite* resource using id.
+     *
      * @lrd:end
      *
-     * @param UpdateFavouriteRequest $request
-     * @param string|int $id
-     * @return JsonResponse
      * @throws ModelNotFoundException
      * @throws UpdateOperationException
      */
@@ -137,13 +130,13 @@ class FavouriteController extends Controller
 
             $favourite = Auth::favourite()->find($id);
 
-            if (!$favourite) {
+            if (! $favourite) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.favourite_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!Auth::favourite()->update($id, $inputs)) {
+            if (! Auth::favourite()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException())->setModel(config('fintech.auth.favourite_model'), $id);
             }
@@ -163,10 +156,11 @@ class FavouriteController extends Controller
     /**
      * @lrd:start
      * Soft delete a specified *Favourite* resource using id.
+     *
      * @lrd:end
      *
-     * @param string|int $id
      * @return JsonResponse
+     *
      * @throws ModelNotFoundException
      * @throws DeleteOperationException
      */
@@ -176,11 +170,11 @@ class FavouriteController extends Controller
 
             $favourite = Auth::favourite()->find($id);
 
-            if (!$favourite) {
+            if (! $favourite) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.favourite_model'), $id);
             }
 
-            if (!Auth::favourite()->destroy($id)) {
+            if (! Auth::favourite()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.auth.favourite_model'), $id);
             }
@@ -201,9 +195,9 @@ class FavouriteController extends Controller
      * @lrd:start
      * Restore the specified *Favourite* resource from trash.
      * ** ```Soft Delete``` needs to enabled to use this feature**
+     *
      * @lrd:end
      *
-     * @param string|int $id
      * @return JsonResponse
      */
     public function restore(string|int $id)
@@ -212,11 +206,11 @@ class FavouriteController extends Controller
 
             $favourite = Auth::favourite()->find($id, true);
 
-            if (!$favourite) {
+            if (! $favourite) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.favourite_model'), $id);
             }
 
-            if (!Auth::favourite()->restore($id)) {
+            if (! Auth::favourite()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.auth.favourite_model'), $id);
             }
@@ -239,9 +233,6 @@ class FavouriteController extends Controller
      * After export job is done system will fire  export completed event
      *
      * @lrd:end
-     *
-     * @param IndexFavouriteRequest $request
-     * @return JsonResponse
      */
     public function export(IndexFavouriteRequest $request): JsonResponse
     {
@@ -265,7 +256,6 @@ class FavouriteController extends Controller
      *
      * @lrd:end
      *
-     * @param ImportFavouriteRequest $request
      * @return FavouriteCollection|JsonResponse
      */
     public function import(ImportFavouriteRequest $request): JsonResponse

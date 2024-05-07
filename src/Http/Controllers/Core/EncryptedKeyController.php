@@ -19,8 +19,8 @@ class EncryptedKeyController extends Controller
                 'status' => config('fintech.core.encrypt_response'),
                 'token' => base64_encode(
                     Encryption::key()
-                )
-            ]
+                ),
+            ],
         ]);
     }
 }

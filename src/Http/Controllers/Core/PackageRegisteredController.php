@@ -11,11 +11,6 @@ class PackageRegisteredController extends Controller
 {
     use ApiResponseTrait;
 
-    /**
-     *
-     * @param Request $request
-     * @return PackageCollection
-     */
     public function __invoke(Request $request): PackageCollection
     {
         $packages = collect(config('fintech.core.packages'))
@@ -23,7 +18,7 @@ class PackageRegisteredController extends Controller
                 return [
                     'name' => $package,
                     'code' => $code,
-                    'enabled' => config("fintech.{$code}.enabled", false)
+                    'enabled' => config("fintech.{$code}.enabled", false),
                 ];
             })
             ->values();

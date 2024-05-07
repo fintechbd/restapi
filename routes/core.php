@@ -1,4 +1,5 @@
 <?php
+
 use Fintech\RestApi\Http\Controllers\Core\ApiLogController;
 use Fintech\RestApi\Http\Controllers\Core\ConfigurationController;
 use Fintech\RestApi\Http\Controllers\Core\EncryptedKeyController;

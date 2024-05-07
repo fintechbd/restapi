@@ -64,8 +64,6 @@ class TeamController extends Controller
      * Create a new team resource in storage.
      *
      * @lrd:end
-     * @param StoreTeamRequest $request
-     * @return JsonResponse
      */
     public function store(StoreTeamRequest $request): JsonResponse
     {
@@ -74,7 +72,7 @@ class TeamController extends Controller
 
             $team = Auth::team()->create($inputs);
 
-            if (!$team) {
+            if (! $team) {
                 throw (new StoreOperationException())->setModel(config('fintech.auth.team_model'));
             }
 
@@ -94,8 +92,6 @@ class TeamController extends Controller
      * Return a specified team resource found by id.
      *
      * @lrd:end
-     * @param int|string $id
-     * @return TeamResource|JsonResponse
      */
     public function show(string|int $id): TeamResource|JsonResponse
     {
@@ -103,7 +99,7 @@ class TeamController extends Controller
 
             $team = Auth::team()->find($id);
 
-            if (!$team) {
+            if (! $team) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.team_model'), $id);
             }
 
@@ -124,9 +120,6 @@ class TeamController extends Controller
      * Update a specified team resource using id.
      *
      * @lrd:end
-     * @param UpdateTeamRequest $request
-     * @param int|string $id
-     * @return JsonResponse
      */
     public function update(UpdateTeamRequest $request, string|int $id): JsonResponse
     {
@@ -134,13 +127,13 @@ class TeamController extends Controller
 
             $team = Auth::team()->find($id);
 
-            if (!$team) {
+            if (! $team) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.team_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!Auth::team()->update($id, $inputs)) {
+            if (! Auth::team()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException())->setModel(config('fintech.auth.team_model'), $id);
             }
@@ -163,7 +156,6 @@ class TeamController extends Controller
      *
      * @lrd:end
      *
-     * @param int|string $id
      * @return JsonResponse
      */
     public function destroy(string|int $id)
@@ -172,11 +164,11 @@ class TeamController extends Controller
 
             $team = Auth::team()->find($id);
 
-            if (!$team) {
+            if (! $team) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.team_model'), $id);
             }
 
-            if (!Auth::team()->destroy($id)) {
+            if (! Auth::team()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.auth.team_model'), $id);
             }
@@ -200,7 +192,6 @@ class TeamController extends Controller
      *
      * @lrd:end
      *
-     * @param int|string $id
      * @return JsonResponse
      */
     public function restore(string|int $id)
@@ -209,11 +200,11 @@ class TeamController extends Controller
 
             $team = Auth::team()->find($id, true);
 
-            if (!$team) {
+            if (! $team) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.team_model'), $id);
             }
 
-            if (!Auth::team()->restore($id)) {
+            if (! Auth::team()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.auth.team_model'), $id);
             }
@@ -236,8 +227,6 @@ class TeamController extends Controller
      * After export job is done system will fire  export completed event
      *
      * @lrd:end
-     * @param IndexTeamRequest $request
-     * @return JsonResponse
      */
     public function export(IndexTeamRequest $request): JsonResponse
     {
@@ -260,9 +249,6 @@ class TeamController extends Controller
      * After export job is done system will fire  export completed event
      *
      * @lrd:end
-     *
-     * @param ImportTeamRequest $request
-     * @return TeamCollection|JsonResponse
      */
     public function import(ImportTeamRequest $request): TeamCollection|JsonResponse
     {
@@ -279,10 +265,6 @@ class TeamController extends Controller
         }
     }
 
-    /**
-     * @param DropDownRequest $request
-     * @return DropDownCollection|JsonResponse
-     */
     public function dropdown(DropDownRequest $request): DropDownCollection|JsonResponse
     {
         try {
@@ -292,12 +274,12 @@ class TeamController extends Controller
 
             $attribute = 'id';
 
-            if (!empty($filters['label'])) {
+            if (! empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (!empty($filters['attribute'])) {
+            if (! empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }
@@ -305,7 +287,7 @@ class TeamController extends Controller
             $entries = Auth::team()->list($filters)->map(function ($entry) use ($label, $attribute) {
                 return [
                     'label' => $entry->{$label} ?? 'name',
-                    'attribute' => $entry->{$attribute} ?? 'id'
+                    'attribute' => $entry->{$attribute} ?? 'id',
                 ];
             });
 

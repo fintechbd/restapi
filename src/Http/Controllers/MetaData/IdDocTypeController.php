@@ -21,13 +21,12 @@ use Illuminate\Routing\Controller;
 
 /**
  * Class IdDocTypeController
- * @package Fintech\MetaData\Http\Controllers
  *
  * @lrd:start
  * This class handle create, display, update, delete & restore
  * operation related to IdDocType
- * @lrd:end
  *
+ * @lrd:end
  */
 class IdDocTypeController extends Controller
 {
@@ -38,10 +37,8 @@ class IdDocTypeController extends Controller
      * Return a listing of the *IdDocType* resource as collection.
      *
      * *```paginate=false``` returns all resource as list not pagination*
-     * @lrd:end
      *
-     * @param IndexIdDocTypeRequest $request
-     * @return IdDocTypeCollection|JsonResponse
+     * @lrd:end
      */
     public function index(IndexIdDocTypeRequest $request): IdDocTypeCollection|JsonResponse
     {
@@ -61,10 +58,9 @@ class IdDocTypeController extends Controller
     /**
      * @lrd:start
      * Create a new *IdDocType* resource in storage.
+     *
      * @lrd:end
      *
-     * @param StoreIdDocTypeRequest $request
-     * @return JsonResponse
      * @throws StoreOperationException
      */
     public function store(StoreIdDocTypeRequest $request): JsonResponse
@@ -74,13 +70,13 @@ class IdDocTypeController extends Controller
 
             $idDocType = MetaData::idDocType()->create($inputs);
 
-            if (!$idDocType) {
+            if (! $idDocType) {
                 throw (new StoreOperationException())->setModel(config('fintech.auth.id_doc_type_model'));
             }
 
             return $this->created([
                 'message' => __('core::messages.resource.created', ['model' => 'Id Doc Type']),
-                'id' => $idDocType->getKey()
+                'id' => $idDocType->getKey(),
             ]);
 
         } catch (Exception $exception) {
@@ -92,10 +88,9 @@ class IdDocTypeController extends Controller
     /**
      * @lrd:start
      * Return a specified *IdDocType* resource found by id.
+     *
      * @lrd:end
      *
-     * @param string|int $id
-     * @return IdDocTypeResource|JsonResponse
      * @throws ModelNotFoundException
      */
     public function show(string|int $id): IdDocTypeResource|JsonResponse
@@ -104,7 +99,7 @@ class IdDocTypeController extends Controller
 
             $idDocType = MetaData::idDocType()->find($id);
 
-            if (!$idDocType) {
+            if (! $idDocType) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.id_doc_type_model'), $id);
             }
 
@@ -123,11 +118,9 @@ class IdDocTypeController extends Controller
     /**
      * @lrd:start
      * Update a specified *IdDocType* resource using id.
+     *
      * @lrd:end
      *
-     * @param UpdateIdDocTypeRequest $request
-     * @param string|int $id
-     * @return JsonResponse
      * @throws ModelNotFoundException
      * @throws UpdateOperationException
      */
@@ -137,13 +130,13 @@ class IdDocTypeController extends Controller
 
             $idDocType = MetaData::idDocType()->find($id);
 
-            if (!$idDocType) {
+            if (! $idDocType) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.id_doc_type_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!MetaData::idDocType()->update($id, $inputs)) {
+            if (! MetaData::idDocType()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException())->setModel(config('fintech.auth.id_doc_type_model'), $id);
             }
@@ -163,10 +156,9 @@ class IdDocTypeController extends Controller
     /**
      * @lrd:start
      * Soft delete a specified *IdDocType* resource using id.
+     *
      * @lrd:end
      *
-     * @param string|int $id
-     * @return JsonResponse
      * @throws ModelNotFoundException
      * @throws DeleteOperationException
      */
@@ -176,11 +168,11 @@ class IdDocTypeController extends Controller
 
             $idDocType = MetaData::idDocType()->find($id);
 
-            if (!$idDocType) {
+            if (! $idDocType) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.id_doc_type_model'), $id);
             }
 
-            if (!MetaData::idDocType()->destroy($id)) {
+            if (! MetaData::idDocType()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.auth.id_doc_type_model'), $id);
             }
@@ -201,10 +193,8 @@ class IdDocTypeController extends Controller
      * @lrd:start
      * Restore the specified *IdDocType* resource from trash.
      * ** ```Soft Delete``` needs to enabled to use this feature**
-     * @lrd:end
      *
-     * @param string|int $id
-     * @return JsonResponse
+     * @lrd:end
      */
     public function restore(string|int $id): JsonResponse
     {
@@ -212,11 +202,11 @@ class IdDocTypeController extends Controller
 
             $idDocType = MetaData::idDocType()->find($id, true);
 
-            if (!$idDocType) {
+            if (! $idDocType) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.id_doc_type_model'), $id);
             }
 
-            if (!MetaData::idDocType()->restore($id)) {
+            if (! MetaData::idDocType()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.auth.id_doc_type_model'), $id);
             }
@@ -239,9 +229,6 @@ class IdDocTypeController extends Controller
      * After export job is done system will fire  export completed event
      *
      * @lrd:end
-     *
-     * @param IndexIdDocTypeRequest $request
-     * @return JsonResponse
      */
     public function export(IndexIdDocTypeRequest $request): JsonResponse
     {
@@ -265,7 +252,6 @@ class IdDocTypeController extends Controller
      *
      * @lrd:end
      *
-     * @param ImportIdDocTypeRequest $request
      * @return IdDocTypeCollection|JsonResponse
      */
     public function import(ImportIdDocTypeRequest $request): JsonResponse

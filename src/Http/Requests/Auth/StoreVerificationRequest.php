@@ -24,7 +24,7 @@ class StoreVerificationRequest extends FormRequest
     {
         return [
             'identifier' => 'required|string|in:email,mobile,user',
-            'value' => 'required|string'
+            'value' => 'required|string',
         ];
     }
 }

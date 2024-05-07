@@ -82,4 +82,3 @@ Route::prefix('business')->name('business.')
 Route::prefix('dropdown')->name('business.')->group(function () {
     Route::get('currency-convert-rate', CurrencyRateCalculateController::class)->name('currency-convert-rate');
 });
-

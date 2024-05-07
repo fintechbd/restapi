@@ -11,7 +11,7 @@ class RoleCollection extends ResourceCollection
     /**
      * Transform the resource collection into an array.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return array
      */
     public function toArray($request)
@@ -19,8 +19,8 @@ class RoleCollection extends ResourceCollection
         return $this->collection->map(function ($role) {
             $return = [
                 'id' => $role->getKey(),
-//                'team_id' => $role->team_id ?? null,
-//                'team_name' => ($role->team != null) ? $role->team->name : null,
+                //                'team_id' => $role->team_id ?? null,
+                //                'team_name' => ($role->team != null) ? $role->team->name : null,
                 'name' => $role->name ?? null,
                 'guard_name' => $role->guard_name ?? null,
                 'permissions' => [],
@@ -31,7 +31,7 @@ class RoleCollection extends ResourceCollection
                 'links' => $role->links,
             ];
 
-            if (!$role->permissions->isEmpty()) {
+            if (! $role->permissions->isEmpty()) {
                 foreach ($role->permissions as $permission) {
                     $return['permissions'][] = [
                         'id' => $permission->getKey(),
@@ -66,7 +66,7 @@ class RoleCollection extends ResourceCollection
             'options' => [
                 'dir' => Constant::SORT_DIRECTIONS,
                 'per_page' => Constant::PAGINATE_LENGTHS,
-//                'team_id' => $teams,
+                //                'team_id' => $teams,
                 'sort' => ['id', /*'team_id',*/ 'name', 'guard_name', 'created_at', 'updated_at'],
             ],
             'query' => $request->all(),

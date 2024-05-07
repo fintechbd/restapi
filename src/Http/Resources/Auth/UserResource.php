@@ -12,7 +12,6 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
  * Class UserResource
- * @package Fintech\RestApi\Http\Resources\Auth
  *
  * @property-read int $id
  * @property-read string $name
@@ -33,6 +32,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property mixed $parent
  * @property mixed $parent_id
  * @property mixed $links
+ *
  * @method getKey()
  * @method getFirstMediaUrl(string $string)
  */
@@ -40,9 +40,6 @@ class UserResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
-     *
-     * @param Request $request
-     * @return array
      */
     public function toArray(Request $request): array
     {
@@ -104,7 +101,7 @@ class UserResource extends JsonResource
             'present_country_name' => null,
             'present_post_code' => $profile->present_post_code ?? null,
             'blacklisted' => $profile->blacklisted ?? null,
-            'proof_of_address' => $this->formatMediaCollection($profile->getMedia('proof_of_address'))
+            'proof_of_address' => $this->formatMediaCollection($profile->getMedia('proof_of_address')),
         ];
 
         if (Core::packageExists('MetaData')) {
