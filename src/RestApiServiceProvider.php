@@ -2,9 +2,9 @@
 
 namespace Fintech\RestApi;
 
-use Illuminate\Support\ServiceProvider;
 use Fintech\RestApi\Commands\InstallCommand;
 use Fintech\RestApi\Commands\RestApiCommand;
+use Illuminate\Support\ServiceProvider;
 
 class RestApiServiceProvider extends ServiceProvider
 {
