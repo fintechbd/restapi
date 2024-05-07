@@ -68,5 +68,23 @@
         }
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "suggest": {
+        "owen-it/laravel-auditing": "For model change audit",
+        "fintech/auth": "For user authentication feature",
+        "fintech/airtime": "For bangladesh and international topup feature",
+        "fintech/banco": "For bank related features",
+        "fintech/bell": "For event and notification system",
+        "fintech/business": "For service setting features",
+        "fintech/chat": "For inter system user communication feature",
+        "fintech/ekyc": "For third party eKYC verification feature",
+        "fintech/gift": "For usages reward and redeem feature",
+        "fintech/metadata": "For country state city and other utility services",
+        "fintech/promo": "For promotional event and banner to customer feature",
+        "fintech/reload": "For customer wallet recharge",
+        "fintech/remit": "For sending money to any assigned country",
+        "fintech/sanction": "To verifiy a person is global sanction list or black listed",
+        "fintech/tab": "Pay local and international utility bills",
+        "fintech/transaction": "Multi currency and ordering system feature"
+    }
 }
