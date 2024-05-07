@@ -32,8 +32,8 @@ Route::prefix('banco')->name('banco.')
         Route::apiResource('beneficiary-types', BeneficiaryTypeController::class);
         Route::post('beneficiary-types/{beneficiary_type}/restore', [BeneficiaryTypeController::class, 'restore'])->name('beneficiary-types.restore');
 
-        Route::apiResource('bank-accounts', \Fintech\RestApi\Http\Resources\Banco\BankAccountController::class);
-        Route::post('bank-accounts/{bank_account}/restore', [\Fintech\RestApi\Http\Resources\Banco\BankAccountController::class, 'restore'])->name('bank-accounts.restore');
+        Route::apiResource('bank-accounts', \Fintech\RestApi\Http\Controllers\Banco\BankAccountController::class);
+        Route::post('bank-accounts/{bank_account}/restore', [\Fintech\RestApi\Http\Controllers\Banco\BankAccountController::class, 'restore'])->name('bank-accounts.restore');
 
         //DO NOT REMOVE THIS LINE//
     });
