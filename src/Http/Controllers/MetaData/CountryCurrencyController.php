@@ -6,7 +6,7 @@ use Exception;
 use Fintech\Core\Exceptions\UpdateOperationException;
 use Fintech\Core\Traits\ApiResponseTrait;
 use Fintech\MetaData\Facades\MetaData;
-use Fintech\MetaData\Http\Requests\CountryCurrencyRequest;
+use Fintech\RestApi\Http\Requests\MetaData\CountryCurrencyRequest;
 use Fintech\RestApi\Http\Resources\MetaData\CountryCurrencyCollection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
