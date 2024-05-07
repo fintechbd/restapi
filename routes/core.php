@@ -22,7 +22,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 if (Config::get('fintech.core.enabled')) {
     Route::prefix('core')->name('core.')->group(function () {
         Route::get('session-token', EncryptedKeyController::class);
