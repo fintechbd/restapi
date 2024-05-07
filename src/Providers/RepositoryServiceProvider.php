@@ -1,6 +1,6 @@
 <?php
 
-namespace Fintech\RestApi;
+namespace Fintech\RestApi\Providers;
 
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\Facades\Config;

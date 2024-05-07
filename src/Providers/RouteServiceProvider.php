@@ -1,6 +1,6 @@
 <?php
 
-namespace Fintech\RestApi;
+namespace Fintech\RestApi\Providers;
 
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -20,13 +20,12 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->configureRateLimiting();
 
-        $root_prefix = Config::get('restapi.root_prefix', '');
+        $root_prefix = Config::get('restapi.root_prefix', 'api');
 
         $this->routes(function () use (&$root_prefix) {
-            Route::prefix("{$root_prefix}api")
+            Route::prefix("{$root_prefix}")
                 ->middleware('api')
-                ->namespace($this->namespace)
-                ->group(__DIR__.'/../routes/api.php');
+                ->group(__DIR__.'/../../routes/api.php');
         });
     }
 
@@ -35,7 +34,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function configureRateLimiting()
+    protected function configureRateLimiting(): void
     {
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by(optional($request->user())->id ?: $request->ip());

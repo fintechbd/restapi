@@ -9,7 +9,7 @@ return [
     |--------------------------------------------------------------------------
     | This setting enable the API will be available or not
     */
-    'enabled' => env('PACKAGE_RestApi_ENABLED', true),
+    'enabled' => env('PACKAGE_RESTAPI_ENABLED', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -22,7 +22,7 @@ return [
     | Note: while adding prefix add closing ending slash '/'
     */
 
-    'root_prefix' => 'test/',
+    'root_prefix' => null,
 
     //** Model Config Point Do not Remove **//
 

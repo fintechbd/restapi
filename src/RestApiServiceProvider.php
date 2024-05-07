@@ -19,8 +19,8 @@ class RestApiServiceProvider extends ServiceProvider
             __DIR__.'/../config/restapi.php', 'fintech.restapi'
         );
 
-        $this->app->register(RouteServiceProvider::class);
-        $this->app->register(RepositoryServiceProvider::class);
+        $this->app->register(\Fintech\RestApi\Providers\RouteServiceProvider::class);
+        $this->app->register(\Fintech\RestApi\Providers\RepositoryServiceProvider::class);
     }
 
     /**

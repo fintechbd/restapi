@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
-
+use \Fintech\Core\Facades\Core;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,8 +14,68 @@ use Illuminate\Support\Facades\Route;
 |
 */
 if (Config::get('fintech.restapi.enabled')) {
-    Route::prefix('restapi')->name('restapi.')->group(function () {
+    if(Core::packageExists('Airtime')) {
+        include "airtime.php";
+    }
 
-        //DO NOT REMOVE THIS LINE//
-    });
+    if(Core::packageExists('Auth')) {
+        include "auth.php";
+    }
+
+    if(Core::packageExists('Banco')) {
+        include "banco.php";
+    }
+
+    if(Core::packageExists('Bell')) {
+        include "bell.php";
+    }
+
+    if(Core::packageExists('Business')) {
+        include "business.php";
+    }
+
+    if(Core::packageExists('Chat')) {
+        include "chat.php";
+    }
+
+    if(Core::packageExists('Core')) {
+        include "core.php";
+    }
+
+    if(Core::packageExists('Ekyc')) {
+        include "ekyc.php";
+    }
+
+    if(Core::packageExists('Gift')) {
+        include "gift.php";
+    }
+
+    if(Core::packageExists('MetaData')) {
+        include "metadata.php";
+    }
+
+    if(Core::packageExists('Promo')) {
+        include "promo.php";
+    }
+
+    if(Core::packageExists('Reload')) {
+        include "reload.php";
+    }
+
+    if(Core::packageExists('Remit')) {
+        include "remit.php";
+    }
+
+    if(Core::packageExists('Sanction')) {
+        include "sanction.php";
+    }
+
+    if(Core::packageExists('Tab')) {
+        include "tab.php";
+    }
+
+    if(Core::packageExists('Transaction')) {
+        include "transaction.php";
+    }
+
 }
