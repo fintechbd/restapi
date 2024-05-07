@@ -1,6 +1,6 @@
 <?php
 
-namespace Fintech\RestApi\Http\Resources\Banco;
+namespace Fintech\RestApi\Http\Controllers\Banco;
 
 use Exception;
 use Fintech\Banco\Events\BeneficiaryAdded;

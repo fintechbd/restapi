@@ -1,9 +1,9 @@
 <?php
 
-use Fintech\RestApi\Http\Resources\Banco\BankBranchController;
-use Fintech\RestApi\Http\Resources\Banco\BankController;
-use Fintech\RestApi\Http\Resources\Banco\BeneficiaryController;
-use Fintech\RestApi\Http\Resources\Banco\BeneficiaryTypeController;
+use Fintech\RestApi\Http\Controllers\Banco\BankBranchController;
+use Fintech\RestApi\Http\Controllers\Banco\BankController;
+use Fintech\RestApi\Http\Controllers\Banco\BeneficiaryController;
+use Fintech\RestApi\Http\Controllers\Banco\BeneficiaryTypeController;
 use Illuminate\Support\Facades\Route;
 
 /*
