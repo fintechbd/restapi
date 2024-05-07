@@ -2,9 +2,9 @@
 
 namespace Fintech\RestApi\Tests;
 
+use Fintech\RestApi\RestApiServiceProvider;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Fintech\RestApi\RestApiServiceProvider;
 
 class TestCase extends Orchestra
 {
