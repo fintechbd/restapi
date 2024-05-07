@@ -72,7 +72,7 @@ class CountryController extends Controller
 
             $country = MetaData::country()->create($inputs);
 
-            if (!$country) {
+            if (! $country) {
                 throw (new StoreOperationException())->setModel(config('fintech.metadata.country_model'));
             }
 
@@ -103,7 +103,7 @@ class CountryController extends Controller
 
             $country = MetaData::country()->find($id);
 
-            if (!$country) {
+            if (! $country) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.metadata.country_model'), $id);
             }
 
@@ -136,11 +136,11 @@ class CountryController extends Controller
 
             $country = MetaData::country()->find($id);
 
-            if (!$country) {
+            if (! $country) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.metadata.country_model'), $id);
             }
 
-            if (!MetaData::country()->destroy($id)) {
+            if (! MetaData::country()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.metadata.country_model'), $id);
             }
@@ -172,11 +172,11 @@ class CountryController extends Controller
 
             $country = MetaData::country()->find($id, true);
 
-            if (!$country) {
+            if (! $country) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.metadata.country_model'), $id);
             }
 
-            if (!MetaData::country()->restore($id)) {
+            if (! MetaData::country()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.metadata.country_model'), $id);
             }
@@ -239,10 +239,6 @@ class CountryController extends Controller
         }
     }
 
-    /**
-     * @param DropDownRequest $request
-     * @return DropDownCollection|JsonResponse
-     */
     public function dropdown(DropDownRequest $request): DropDownCollection|JsonResponse
     {
         try {
@@ -252,12 +248,12 @@ class CountryController extends Controller
 
             $attribute = 'id';
 
-            if (!empty($filters['label'])) {
+            if (! empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (!empty($filters['attribute'])) {
+            if (! empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }
@@ -276,16 +272,17 @@ class CountryController extends Controller
         }
     }
 
-
     /**
      * @lrd:start
      * Update a specified country as serving or not.
+     *
      * @lrd:end
      *
      * N.B after toggle update actions follow
-     * @throws ModelNotFoundException
-     * @see \Fintech\MetaData\Observers\CountryObserver
      *
+     * @throws ModelNotFoundException
+     *
+     * @see \Fintech\MetaData\Observers\CountryObserver
      */
     public function toggleServingCountry(string|int $id): JsonResponse
     {
@@ -293,16 +290,16 @@ class CountryController extends Controller
 
             $country = MetaData::country()->find($id);
 
-            if (!$country) {
+            if (! $country) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.metadata.country_model'), $id);
             }
 
             $countryData = $country->country_data;
 
-            $countryData['is_serving'] = !($countryData['is_serving'] ?? false);
+            $countryData['is_serving'] = ! ($countryData['is_serving'] ?? false);
 
             //N.B after toggle update actions check Country Observer
-            if (!MetaData::country()->update($id, ['country_data' => $countryData])) {
+            if (! MetaData::country()->update($id, ['country_data' => $countryData])) {
                 throw (new UpdateOperationException())->setModel(config('fintech.metadata.country_model'), $id);
             }
 
@@ -333,13 +330,13 @@ class CountryController extends Controller
 
             $country = MetaData::country()->find($id);
 
-            if (!$country) {
+            if (! $country) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.metadata.country_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!MetaData::country()->update($id, $inputs)) {
+            if (! MetaData::country()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException())->setModel(config('fintech.metadata.country_model'), $id);
             }

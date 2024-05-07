@@ -33,5 +33,4 @@ class UpdateStateRequest extends FormRequest
             'country_id' => ['integer', 'required', 'min:1'],
         ];
     }
-
 }

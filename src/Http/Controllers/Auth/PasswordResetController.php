@@ -7,11 +7,11 @@ use Exception;
 use Fintech\Auth\Events\PasswordResetRequested;
 use Fintech\Auth\Events\PasswordResetSuccessful;
 use Fintech\Auth\Facades\Auth;
-use Fintech\RestApi\Http\Requests\Auth\ForgotPasswordRequest;
-use Fintech\RestApi\Http\Requests\Auth\PasswordResetRequest;
 use Fintech\Auth\Traits\GuessAuthFieldTrait;
 use Fintech\Core\Exceptions\UpdateOperationException;
 use Fintech\Core\Traits\ApiResponseTrait;
+use Fintech\RestApi\Http\Requests\Auth\ForgotPasswordRequest;
+use Fintech\RestApi\Http\Requests\Auth\PasswordResetRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -26,9 +26,9 @@ class PasswordResetController extends Controller
      * This api receive `login_id` as unique user then as per configuration
      * and send temporary password or reset link or One Time Pin verifcation
      * to proceed
+     *
      * @lrd:end
-     * @param ForgotPasswordRequest $request
-     * @return JsonResponse
+     *
      * @throws Exception
      */
     public function store(ForgotPasswordRequest $request): JsonResponse
@@ -43,7 +43,7 @@ class PasswordResetController extends Controller
 
             $response = Auth::passwordReset()->notifyUser($attemptUser->first());
 
-            if (!$response['status']) {
+            if (! $response['status']) {
                 throw new Exception($response['message']);
             }
 
@@ -59,13 +59,13 @@ class PasswordResetController extends Controller
 
     /**
      * @LRDparam password_confirmation string|required|min:8
+     *
      * @lrd:start
      * This api receive `token`, `password` & `password_confirmation` to reset
      * user with given password. If otp or token didn't match throws exception
      * to proceed
+     *
      * @lrd:end
-     * @param PasswordResetRequest $request
-     * @return JsonResponse
      */
     public function update(PasswordResetRequest $request): JsonResponse
     {
@@ -89,7 +89,7 @@ class PasswordResetController extends Controller
 
             $targetedUser = $targetedUser->first();
 
-            if (!Auth::user()->update($targetedUser->getKey(), [$passwordField => $password])) {
+            if (! Auth::user()->update($targetedUser->getKey(), [$passwordField => $password])) {
                 throw (new UpdateOperationException())->setModel(config('fintech.auth.user_model'), $targetedUser->getKey());
             }
 

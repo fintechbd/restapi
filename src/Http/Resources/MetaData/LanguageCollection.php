@@ -11,12 +11,12 @@ class LanguageCollection extends ResourceCollection
     /**
      * Transform the resource collection into an array.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return array
      */
     public function toArray($request)
     {
-        return $this->collection->map(function ($country) use ($request) {
+        return $this->collection->map(function ($country) {
             $data['id'] = $country->getKey();
             $data['country_id'] = $country->getKey();
             $data['country_name'] = $country->name ?? null;
@@ -37,7 +37,6 @@ class LanguageCollection extends ResourceCollection
     /**
      * Get additional data that should be returned with the resource array.
      *
-     * @param Request $request
      * @return array<string, mixed>
      */
     public function with(Request $request): array

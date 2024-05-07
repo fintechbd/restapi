@@ -3,23 +3,22 @@
 namespace Fintech\RestApi\Http\Controllers\Auth;
 
 use Exception;
-use Fintech\RestApi\Http\Requests\Auth\StoreSettingRequest;
-use Fintech\RestApi\Http\Resources\Auth\SettingResource;
 use Fintech\Core\Facades\Core;
 use Fintech\Core\Supports\Utility;
 use Fintech\Core\Traits\ApiResponseTrait;
+use Fintech\RestApi\Http\Requests\Auth\StoreSettingRequest;
+use Fintech\RestApi\Http\Resources\Auth\SettingResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 
 /**
  * Class SettingController
- * @package Fintech\RestApi\Http\Controllers\Auth
  *
  * @lrd:start
  * This class handle system setting related to individual user
- * @lrd:end
  *
+ * @lrd:end
  */
 class SettingController extends Controller
 {
@@ -29,9 +28,8 @@ class SettingController extends Controller
      * @lrd:start
      * Return a listing of the configurations in key and value format.
      * *`configuration`* value depends on  number of package configured to system
-     * @lrd:end
      *
-     * @return SettingResource|JsonResponse
+     * @lrd:end
      */
     public function index(): SettingResource|JsonResponse
     {
@@ -57,12 +55,11 @@ class SettingController extends Controller
 
     /**
      * @LRDparam package string|required|in:dashboard,other
+     *
      * @lrd:start
      * Update a specified user settings using configuration
-     * @lrd:end
      *
-     * @param StoreSettingRequest $request
-     * @return JsonResponse
+     * @lrd:end
      */
     public function store(StoreSettingRequest $request): JsonResponse
     {
@@ -87,9 +84,9 @@ class SettingController extends Controller
     /**
      * @lrd:start
      * Soft delete a specified setting resource using id.
+     *
      * @lrd:end
      *
-     * @param string $configuration
      * @return JsonResponse
      */
     public function destroy(string $configuration)

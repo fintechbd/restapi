@@ -5,10 +5,10 @@ namespace Fintech\RestApi\Http\Controllers\Auth;
 use Exception;
 use Fintech\Auth\Events\LoggedIn;
 use Fintech\Auth\Events\LoggedOut;
-use Fintech\RestApi\Http\Requests\Auth\LoginRequest;
-use Fintech\RestApi\Http\Resources\Auth\LoginResource;
 use Fintech\Auth\Traits\GuessAuthFieldTrait;
 use Fintech\Core\Traits\ApiResponseTrait;
+use Fintech\RestApi\Http\Requests\Auth\LoginRequest;
+use Fintech\RestApi\Http\Resources\Auth\LoginResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -31,10 +31,8 @@ class AuthenticatedController extends Controller
     /**
      * @lrd:start
      * Handle an incoming authentication request.
-     * @lrd:end
      *
-     * @param LoginRequest $request
-     * @return LoginResource|JsonResponse
+     * @lrd:end
      */
     public function login(LoginRequest $request): LoginResource|JsonResponse
     {
@@ -48,8 +46,7 @@ class AuthenticatedController extends Controller
 
             $attemptUser = \Fintech\Auth\Facades\Auth::user()->login($credentials, 'web');
 
-
-            if (!$attemptUser->can('auth.login')) {
+            if (! $attemptUser->can('auth.login')) {
 
                 Auth::guard('web')->logout();
 

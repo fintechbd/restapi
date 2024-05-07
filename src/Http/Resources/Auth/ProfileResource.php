@@ -13,7 +13,6 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
  * Class ProfileResource
- * @package Fintech\RestApi\Http\Resources\Auth
  *
  * @property-read mixed $profile_data
  * @property-read string $id_type
@@ -31,6 +30,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property-read Carbon $mobile_verified_at
  * @property-read Carbon $created_at
  * @property-read Carbon $updated_at
+ *
  * @method MediaCollection getMedia(string $collection)
  */
 class ProfileResource extends JsonResource
@@ -92,7 +92,7 @@ class ProfileResource extends JsonResource
         return $profile;
     }
 
-    private function processIdDocMedia(MediaCollection $collection = null): array
+    private function processIdDocMedia(?MediaCollection $collection = null): array
     {
         $entries = [];
 
@@ -101,10 +101,11 @@ class ProfileResource extends JsonResource
                 $entries[] = [
                     'side' => $media->getCustomProperty('side'),
                     'type' => $media->getCustomProperty('type'),
-                    'url' => $media->getFullUrl()
+                    'url' => $media->getFullUrl(),
                 ];
             });
         }
+
         return $entries;
     }
 }

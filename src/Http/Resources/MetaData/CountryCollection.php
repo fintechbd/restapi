@@ -10,6 +10,7 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 /**
  * @method getKey()
  * @method getFirstMediaUrl(string $string)
+ *
  * @property mixed $name
  * @property mixed $iso3
  * @property mixed $iso2
@@ -39,9 +40,6 @@ class CountryCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
-     *
-     * @param Request $request
-     * @return array
      */
     public function toArray(Request $request): array
     {
@@ -58,7 +56,7 @@ class CountryCollection extends ResourceCollection
                 'currency_symbol' => $country->currency_symbol,
                 'nationality' => $country->nationality,
                 'timezones' => $country->timezones,
-                'vendor_code' => $country->vendor_code ?? (object)[],
+                'vendor_code' => $country->vendor_code ?? (object) [],
                 'country_data' => $country->country_data,
                 'latitude' => $country->latitude,
                 'longitude' => $country->longitude,
@@ -110,7 +108,7 @@ class CountryCollection extends ResourceCollection
                 'per_page' => Constant::PAGINATE_LENGTHS,
                 'sort' => ['id', 'name', 'created_at', 'updated_at'],
                 'region_id' => $regions,
-                'subregion_id' => $subregions
+                'subregion_id' => $subregions,
             ],
             'query' => $request->all(),
         ];

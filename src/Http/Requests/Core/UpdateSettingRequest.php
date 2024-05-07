@@ -36,7 +36,7 @@ class UpdateSettingRequest extends FormRequest
     protected function prepareForValidation()
     {
         $this->merge([
-            'type' => strtolower($this->input('type', 'string'))
+            'type' => strtolower($this->input('type', 'string')),
         ]);
     }
 }

@@ -11,7 +11,7 @@ class SettingCollection extends ResourceCollection
     /**
      * Transform the resource collection into an array.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return array
      */
     public function toArray($request)
@@ -22,7 +22,6 @@ class SettingCollection extends ResourceCollection
     /**
      * Get additional data that should be returned with the resource array.
      *
-     * @param Request $request
      * @return array<string, mixed>
      */
     public function with(Request $request): array
@@ -32,7 +31,7 @@ class SettingCollection extends ResourceCollection
                 'dir' => Constant::SORT_DIRECTIONS,
                 'per_page' => Constant::PAGINATE_LENGTHS,
                 'sort' => ['id', 'name', 'created_at', 'updated_at'],
-                'package' => config('fintech.core.packages')
+                'package' => config('fintech.core.packages'),
             ],
             'query' => $request->all(),
         ];

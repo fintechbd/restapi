@@ -40,7 +40,7 @@ class UserController extends Controller
     private array $userFields = [
         'name', 'mobile', 'email', 'login_id', 'password', 'pin',
         'language', 'currency', 'app_version', 'fcm_token', 'photo',
-        'roles', 'parent_id'
+        'roles', 'parent_id',
     ];
 
     /**
@@ -67,13 +67,10 @@ class UserController extends Controller
     }
 
     /**
-     *
      * @lrd:start
      * Create a new user resource in storage.
      *
      * @lrd:end
-     * @param StoreUserRequest $request
-     * @return JsonResponse
      */
     public function store(StoreUserRequest $request): JsonResponse
     {
@@ -81,7 +78,7 @@ class UserController extends Controller
 
             $user = Auth::user()->create($request->only($this->userFields));
 
-            if (!$user) {
+            if (! $user) {
                 throw (new StoreOperationException())->setModel(config('fintech.auth.user_model'));
             }
 
@@ -114,7 +111,7 @@ class UserController extends Controller
 
             $user = Auth::user()->find($id);
 
-            if (!$user) {
+            if (! $user) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.user_model'), $id);
             }
 
@@ -145,12 +142,12 @@ class UserController extends Controller
 
             $user = Auth::user()->find($id);
 
-            if (!$user) {
+            if (! $user) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.user_model'), $id);
             }
 
-            if (!Auth::user()->update($id, $request->only($this->userFields)) ||
-                !Auth::profile()->update($user->getKey(), $request->except($this->userFields))) {
+            if (! Auth::user()->update($id, $request->only($this->userFields)) ||
+                ! Auth::profile()->update($user->getKey(), $request->except($this->userFields))) {
 
                 throw (new UpdateOperationException())->setModel(config('fintech.auth.user_model'), $id);
             }
@@ -183,11 +180,11 @@ class UserController extends Controller
 
             $user = Auth::user()->find($id);
 
-            if (!$user) {
+            if (! $user) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.user_model'), $id);
             }
 
-            if (!Auth::user()->destroy($id)) {
+            if (! Auth::user()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.auth.user_model'), $id);
             }
@@ -219,11 +216,11 @@ class UserController extends Controller
 
             $user = Auth::user()->find($id, true);
 
-            if (!$user) {
+            if (! $user) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.user_model'), $id);
             }
 
-            if (!Auth::user()->restore($id)) {
+            if (! Auth::user()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.auth.user_model'), $id);
             }
@@ -268,9 +265,6 @@ class UserController extends Controller
      * After export job is done system will fire  export completed event
      *
      * @lrd:end
-     *
-     * @param ImportUserRequest $request
-     * @return UserCollection|JsonResponse
      */
     public function import(ImportUserRequest $request): UserCollection|JsonResponse
     {
@@ -292,12 +286,8 @@ class UserController extends Controller
      * Reset user pin, password or both from admin panel
      * and send an updated value to targeted user
      * system will also verify which user is requesting
-     * @lrd:end
      *
-     * @param int|string $id
-     * @param string $field
-     * @param UserAuthResetRequest $request
-     * @return JsonResponse
+     * @lrd:end
      */
     public function reset(string|int $id, string $field, UserAuthResetRequest $request): JsonResponse
     {
@@ -308,13 +298,13 @@ class UserController extends Controller
 
             $user = Auth::user()->find($id);
 
-            if (!$user) {
+            if (! $user) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.user_model'), $id);
             }
 
             $response = Auth::user()->reset($user, $field);
 
-            if (!$response['status']) {
+            if (! $response['status']) {
                 throw new Exception($response['response']);
             }
 
@@ -333,10 +323,8 @@ class UserController extends Controller
     /**
      * @lrd:start
      * Change User Status from dropdown values
-     * @lrd:end
      *
-     * @param UserStatusChangeRequest $request
-     * @return JsonResponse
+     * @lrd:end
      */
     public function changeStatus(UserStatusChangeRequest $request): JsonResponse
     {
@@ -344,13 +332,13 @@ class UserController extends Controller
             $inputs = $request->validated();
             $user = Auth::user()->find($inputs['user_id']);
 
-            if (!$user) {
+            if (! $user) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.user_model'), $inputs['user_id']);
             }
 
             $response = Auth::user()->updateRaw($user->getKey(), ['status' => $inputs['status']]);
 
-            if (!$response) {
+            if (! $response) {
                 throw (new UpdateOperationException())->setModel(config('fintech.auth.user_model'), $inputs['user_id']);
             }
 
@@ -366,11 +354,6 @@ class UserController extends Controller
         }
     }
 
-
-    /**
-     * @param DropDownRequest $request
-     * @return DropDownCollection|JsonResponse
-     */
     public function dropdown(DropDownRequest $request): DropDownCollection|JsonResponse
     {
         try {
@@ -380,12 +363,12 @@ class UserController extends Controller
 
             $attribute = 'id';
 
-            if (!empty($filters['label'])) {
+            if (! empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (!empty($filters['attribute'])) {
+            if (! empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }
@@ -393,7 +376,7 @@ class UserController extends Controller
             $entries = Auth::user()->list($filters)->map(function ($entry) use ($label, $attribute) {
                 return [
                     'label' => $entry->{$label} ?? 'name',
-                    'attribute' => $entry->{$attribute} ?? 'id'
+                    'attribute' => $entry->{$attribute} ?? 'id',
                 ];
             });
 
@@ -404,10 +387,6 @@ class UserController extends Controller
         }
     }
 
-    /**
-     * @param DropDownRequest $request
-     * @return DropDownCollection|JsonResponse
-     */
     public function statusDropdown(DropDownRequest $request): DropDownCollection|JsonResponse
     {
         try {

@@ -8,6 +8,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 /**
  * @method getKey()
  * @method getFirstMediaUrl(string $string)
+ *
  * @property mixed $name
  * @property mixed $iso3
  * @property mixed $iso2
@@ -37,9 +38,6 @@ class CountryResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
-     *
-     * @param Request $request
-     * @return array
      */
     public function toArray(Request $request): array
     {
@@ -55,7 +53,7 @@ class CountryResource extends JsonResource
             'currency_symbol' => $this->currency_symbol,
             'nationality' => $this->nationality,
             'timezones' => $this->timezones,
-            'vendor_code' => $this->vendor_code ?? (object)[],
+            'vendor_code' => $this->vendor_code ?? (object) [],
             'country_data' => $this->country_data,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,

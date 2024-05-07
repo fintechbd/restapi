@@ -4,17 +4,17 @@ namespace Fintech\RestApi\Http\Controllers\Auth;
 
 use Exception;
 use Fintech\Auth\Facades\Auth;
+use Fintech\Core\Exceptions\DeleteOperationException;
+use Fintech\Core\Exceptions\RestoreOperationException;
+use Fintech\Core\Exceptions\StoreOperationException;
+use Fintech\Core\Exceptions\UpdateOperationException;
+use Fintech\Core\Traits\ApiResponseTrait;
 use Fintech\RestApi\Http\Requests\Auth\ImportPermissionRequest;
 use Fintech\RestApi\Http\Requests\Auth\IndexPermissionRequest;
 use Fintech\RestApi\Http\Requests\Auth\StorePermissionRequest;
 use Fintech\RestApi\Http\Requests\Auth\UpdatePermissionRequest;
 use Fintech\RestApi\Http\Resources\Auth\PermissionCollection;
 use Fintech\RestApi\Http\Resources\Auth\PermissionResource;
-use Fintech\Core\Exceptions\DeleteOperationException;
-use Fintech\Core\Exceptions\RestoreOperationException;
-use Fintech\Core\Exceptions\StoreOperationException;
-use Fintech\Core\Exceptions\UpdateOperationException;
-use Fintech\Core\Traits\ApiResponseTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -39,8 +39,6 @@ class PermissionController extends Controller
      * *```paginate=false``` returns all resource as list not pagination*
      *
      * @lrd:end
-     * @param IndexPermissionRequest $request
-     * @return PermissionCollection|JsonResponse
      */
     public function index(IndexPermissionRequest $request): PermissionCollection|JsonResponse
     {
@@ -62,8 +60,6 @@ class PermissionController extends Controller
      * Create a new permission resource in storage.
      *
      * @lrd:end
-     * @param StorePermissionRequest $request
-     * @return JsonResponse
      */
     public function store(StorePermissionRequest $request): JsonResponse
     {
@@ -72,7 +68,7 @@ class PermissionController extends Controller
 
             $permission = Auth::permission()->create($inputs);
 
-            if (!$permission) {
+            if (! $permission) {
                 throw (new StoreOperationException())->setModel(config('fintech.auth.permission_model'));
             }
 
@@ -94,8 +90,6 @@ class PermissionController extends Controller
      * Return a specified permission resource found by id.
      *
      * @lrd:end
-     * @param int|string $id
-     * @return PermissionResource|JsonResponse
      */
     public function show(string|int $id): PermissionResource|JsonResponse
     {
@@ -103,7 +97,7 @@ class PermissionController extends Controller
 
             $permission = Auth::permission()->find($id);
 
-            if (!$permission) {
+            if (! $permission) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.permission_model'), $id);
             }
 
@@ -131,13 +125,13 @@ class PermissionController extends Controller
 
             $permission = Auth::permission()->find($id);
 
-            if (!$permission) {
+            if (! $permission) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.permission_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!Auth::permission()->update($id, $inputs)) {
+            if (! Auth::permission()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException())->setModel(config('fintech.auth.permission_model'), $id);
             }
@@ -171,11 +165,11 @@ class PermissionController extends Controller
 
             $permission = Auth::permission()->find($id);
 
-            if (!$permission) {
+            if (! $permission) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.permission_model'), $id);
             }
 
-            if (!Auth::permission()->destroy($id)) {
+            if (! Auth::permission()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.auth.permission_model'), $id);
             }
@@ -199,7 +193,6 @@ class PermissionController extends Controller
      *
      * @lrd:end
      *
-     * @param int|string $id
      * @return JsonResponse
      */
     public function restore(string|int $id)
@@ -208,11 +201,11 @@ class PermissionController extends Controller
 
             $permission = Auth::permission()->find($id, true);
 
-            if (!$permission) {
+            if (! $permission) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.permission_model'), $id);
             }
 
-            if (!Auth::permission()->restore($id)) {
+            if (! Auth::permission()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.auth.permission_model'), $id);
             }
@@ -235,8 +228,6 @@ class PermissionController extends Controller
      * After export job is done system will fire  export completed event
      *
      * @lrd:end
-     * @param IndexPermissionRequest $request
-     * @return JsonResponse
      */
     public function export(IndexPermissionRequest $request): JsonResponse
     {
@@ -259,8 +250,6 @@ class PermissionController extends Controller
      * After export job is done system will fire  export completed event
      *
      * @lrd:end
-     * @param ImportPermissionRequest $request
-     * @return PermissionCollection|JsonResponse
      */
     public function import(ImportPermissionRequest $request): PermissionCollection|JsonResponse
     {

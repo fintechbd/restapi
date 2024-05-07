@@ -15,13 +15,12 @@ use Illuminate\Routing\Controller;
 
 /**
  * Class ApiLogController
- * @package Fintech\Core\Http\Controllers
  *
  * @lrd:start
  * This class handle create, display, update, delete & restore
  * operation related to ApiLog
- * @lrd:end
  *
+ * @lrd:end
  */
 class ApiLogController extends Controller
 {
@@ -32,10 +31,8 @@ class ApiLogController extends Controller
      * Return a listing of the *ApiLog* resource as collection.
      *
      * *```paginate=false``` returns all resource as list not pagination*
-     * @lrd:end
      *
-     * @param IndexApiLogRequest $request
-     * @return ApiLogCollection|JsonResponse
+     * @lrd:end
      */
     public function index(IndexApiLogRequest $request): ApiLogCollection|JsonResponse
     {
@@ -55,10 +52,9 @@ class ApiLogController extends Controller
     /**
      * @lrd:start
      * Return a specified *ApiLog* resource found by id.
+     *
      * @lrd:end
      *
-     * @param string|int $id
-     * @return ApiLogResource|JsonResponse
      * @throws ModelNotFoundException
      */
     public function show(string|int $id): ApiLogResource|JsonResponse
@@ -67,7 +63,7 @@ class ApiLogController extends Controller
 
             $apiLog = Core::apiLog()->find($id);
 
-            if (!$apiLog) {
+            if (! $apiLog) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.core.api_log_model'), $id);
             }
 
@@ -86,10 +82,11 @@ class ApiLogController extends Controller
     /**
      * @lrd:start
      * Soft delete a specified *ApiLog* resource using id.
+     *
      * @lrd:end
      *
-     * @param string|int $id
      * @return JsonResponse
+     *
      * @throws ModelNotFoundException
      */
     public function destroy(string|int $id)
@@ -98,11 +95,11 @@ class ApiLogController extends Controller
 
             $apiLog = Core::apiLog()->find($id);
 
-            if (!$apiLog) {
+            if (! $apiLog) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.core.api_log_model'), $id);
             }
 
-            if (!Core::apiLog()->destroy($id)) {
+            if (! Core::apiLog()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.core.api_log_model'), $id);
             }

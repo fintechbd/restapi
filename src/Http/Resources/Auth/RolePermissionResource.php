@@ -15,7 +15,7 @@ class RolePermissionResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return array
      */
     public function toArray($request)
@@ -30,7 +30,7 @@ class RolePermissionResource extends JsonResource
                 $data[] = [
                     'id' => $permission->getKey(),
                     'name' => $permission->name,
-                    'enabled' => in_array($permission->getKey(), $rolePermissions)
+                    'enabled' => in_array($permission->getKey(), $rolePermissions),
                 ];
             });
 

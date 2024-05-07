@@ -26,7 +26,7 @@ class DropDownRequest extends FormRequest
         return [
             'label' => ['string', 'nullable'],
             'attribute' => ['nullable', 'string'],
-            'paginate' => ['boolean', 'nullable']
+            'paginate' => ['boolean', 'nullable'],
         ];
     }
 

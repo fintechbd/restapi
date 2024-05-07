@@ -24,7 +24,7 @@ class RolePermissionRequest extends FormRequest
     {
         return [
             'permissions' => ['array', 'nullable'],
-            'permissions.*' => ['nullable', 'integer', 'min:1']
+            'permissions.*' => ['nullable', 'integer', 'min:1'],
         ];
     }
 

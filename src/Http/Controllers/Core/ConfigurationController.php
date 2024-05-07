@@ -13,12 +13,11 @@ use Illuminate\Support\Facades\Config;
 
 /**
  * Class ConfigurationController
- * @package Fintech\Core\Http\Controllers
  *
  * @lrd:start
  * This class handle system setting related to all individual packages
- * @lrd:end
  *
+ * @lrd:end
  */
 class ConfigurationController extends Controller
 {
@@ -30,10 +29,8 @@ class ConfigurationController extends Controller
      * @lrd:start
      * Return a listing of the configurations in key and value format.
      * *`configuration`* value depends on  number of package configured to system
-     * @lrd:end
      *
-     * @param string $configuration
-     * @return ConfigurationResource|JsonResponse
+     * @lrd:end
      */
     public function show(string $configuration): ConfigurationResource|JsonResponse
     {
@@ -59,11 +56,8 @@ class ConfigurationController extends Controller
     /**
      * @lrd:start
      * Update a specified package configurations using configuration
-     * @lrd:end
      *
-     * @param Request $request
-     * @param string $configuration
-     * @return JsonResponse
+     * @lrd:end
      */
     public function update(string $configuration, Request $request): JsonResponse
     {
@@ -86,9 +80,9 @@ class ConfigurationController extends Controller
     /**
      * @lrd:start
      * Soft delete a specified setting resource using id.
+     *
      * @lrd:end
      *
-     * @param string $configuration
      * @return JsonResponse
      */
     public function destroy(string $configuration)

@@ -12,10 +12,8 @@ class VerifyIdDocumentController extends Controller
     /**
      * @lrd:start
      * Verify *IdDocType* is already exists or not in storage.
-     * @lrd:end
      *
-     * @param VerifyIdDocTypeRequest $request
-     * @return VerifyIdDocTypeResource|JsonResponse
+     * @lrd:end
      */
     public function __invoke(VerifyIdDocTypeRequest $request): VerifyIdDocTypeResource|JsonResponse
     {

@@ -26,7 +26,7 @@ class CurrencyResource extends JsonResource
             'logo_png' => $this->getFirstMediaUrl('logo_png'),
             'enabled' => $this->country_data['multi_currency_enabled'] ?? false,
             'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at
+            'updated_at' => $this->updated_at,
         ];
     }
 }

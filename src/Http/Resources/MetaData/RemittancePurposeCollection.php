@@ -12,7 +12,7 @@ class RemittancePurposeCollection extends ResourceCollection
     /**
      * Transform the resource collection into an array.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return array
      */
     public function toArray($request)
@@ -33,15 +33,15 @@ class RemittancePurposeCollection extends ResourceCollection
             }
 
             return [
-                "id" => $item->getKey(),
-                "name" => $item->name,
-                "code" => $item->code,
-                "enabled" => $item->enabled,
-                "created_at" => $item->created_at,
-                "updated_at" => $item->updated_at,
-                "deleted_at" => $item->deleted_at,
-                "restored_at" => $item->restored_at,
-                "links" => $links
+                'id' => $item->getKey(),
+                'name' => $item->name,
+                'code' => $item->code,
+                'enabled' => $item->enabled,
+                'created_at' => $item->created_at,
+                'updated_at' => $item->updated_at,
+                'deleted_at' => $item->deleted_at,
+                'restored_at' => $item->restored_at,
+                'links' => $links,
             ];
         })->toArray();
     }

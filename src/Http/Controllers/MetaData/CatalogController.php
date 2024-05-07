@@ -21,13 +21,12 @@ use Illuminate\Routing\Controller;
 
 /**
  * Class CatalogController
- * @package Fintech\MetaData\Http\Controllers
  *
  * @lrd:start
  * This class handle create, display, update, delete & restore
  * operation related to Catalog
- * @lrd:end
  *
+ * @lrd:end
  */
 class CatalogController extends Controller
 {
@@ -38,10 +37,8 @@ class CatalogController extends Controller
      * Return a listing of the *Catalog* resource as collection.
      *
      * *```paginate=false``` returns all resource as list not pagination*
-     * @lrd:end
      *
-     * @param IndexCatalogRequest $request
-     * @return CatalogCollection|JsonResponse
+     * @lrd:end
      */
     public function index(IndexCatalogRequest $request): CatalogCollection|JsonResponse
     {
@@ -61,10 +58,9 @@ class CatalogController extends Controller
     /**
      * @lrd:start
      * Create a new *Catalog* resource in storage.
+     *
      * @lrd:end
      *
-     * @param StoreCatalogRequest $request
-     * @return JsonResponse
      * @throws StoreOperationException
      */
     public function store(StoreCatalogRequest $request): JsonResponse
@@ -74,13 +70,13 @@ class CatalogController extends Controller
 
             $catalog = MetaData::catalog()->create($inputs);
 
-            if (!$catalog) {
+            if (! $catalog) {
                 throw (new StoreOperationException())->setModel(config('fintech.metadata.catalog_model'));
             }
 
             return $this->created([
                 'message' => __('core::messages.resource.created', ['model' => 'Catalog']),
-                'id' => $catalog->id
+                'id' => $catalog->id,
             ]);
 
         } catch (Exception $exception) {
@@ -92,10 +88,9 @@ class CatalogController extends Controller
     /**
      * @lrd:start
      * Return a specified *Catalog* resource found by id.
+     *
      * @lrd:end
      *
-     * @param string|int $id
-     * @return CatalogResource|JsonResponse
      * @throws ModelNotFoundException
      */
     public function show(string|int $id): CatalogResource|JsonResponse
@@ -104,7 +99,7 @@ class CatalogController extends Controller
 
             $catalog = MetaData::catalog()->find($id);
 
-            if (!$catalog) {
+            if (! $catalog) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.metadata.catalog_model'), $id);
             }
 
@@ -123,11 +118,9 @@ class CatalogController extends Controller
     /**
      * @lrd:start
      * Update a specified *Catalog* resource using id.
+     *
      * @lrd:end
      *
-     * @param UpdateCatalogRequest $request
-     * @param string|int $id
-     * @return JsonResponse
      * @throws ModelNotFoundException
      * @throws UpdateOperationException
      */
@@ -137,13 +130,13 @@ class CatalogController extends Controller
 
             $catalog = MetaData::catalog()->find($id);
 
-            if (!$catalog) {
+            if (! $catalog) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.metadata.catalog_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!MetaData::catalog()->update($id, $inputs)) {
+            if (! MetaData::catalog()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException())->setModel(config('fintech.metadata.catalog_model'), $id);
             }
@@ -163,10 +156,11 @@ class CatalogController extends Controller
     /**
      * @lrd:start
      * Soft delete a specified *Catalog* resource using id.
+     *
      * @lrd:end
      *
-     * @param string|int $id
      * @return JsonResponse
+     *
      * @throws ModelNotFoundException
      * @throws DeleteOperationException
      */
@@ -176,11 +170,11 @@ class CatalogController extends Controller
 
             $catalog = MetaData::catalog()->find($id);
 
-            if (!$catalog) {
+            if (! $catalog) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.metadata.catalog_model'), $id);
             }
 
-            if (!MetaData::catalog()->destroy($id)) {
+            if (! MetaData::catalog()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.metadata.catalog_model'), $id);
             }
@@ -201,9 +195,9 @@ class CatalogController extends Controller
      * @lrd:start
      * Restore the specified *Catalog* resource from trash.
      * ** ```Soft Delete``` needs to enabled to use this feature**
+     *
      * @lrd:end
      *
-     * @param string|int $id
      * @return JsonResponse
      */
     public function restore(string|int $id)
@@ -212,11 +206,11 @@ class CatalogController extends Controller
 
             $catalog = MetaData::catalog()->find($id, true);
 
-            if (!$catalog) {
+            if (! $catalog) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.metadata.catalog_model'), $id);
             }
 
-            if (!MetaData::catalog()->restore($id)) {
+            if (! MetaData::catalog()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.metadata.catalog_model'), $id);
             }
@@ -239,9 +233,6 @@ class CatalogController extends Controller
      * After export job is done system will fire  export completed event
      *
      * @lrd:end
-     *
-     * @param IndexCatalogRequest $request
-     * @return JsonResponse
      */
     public function export(IndexCatalogRequest $request): JsonResponse
     {
@@ -265,7 +256,6 @@ class CatalogController extends Controller
      *
      * @lrd:end
      *
-     * @param ImportCatalogRequest $request
      * @return \Fintech\RestApi\Http\Resources\MetaData\CatalogCollection|JsonResponse
      */
     public function import(ImportCatalogRequest $request): JsonResponse

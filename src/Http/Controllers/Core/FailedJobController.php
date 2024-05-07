@@ -18,13 +18,12 @@ use Illuminate\Support\Facades\Artisan;
 
 /**
  * Class FailedJobController
- * @package Fintech\Core\Http\Controllers
  *
  * @lrd:start
  * This class handle create, display, update, delete & restore
  * operation related to FailedJob
- * @lrd:end
  *
+ * @lrd:end
  */
 class FailedJobController extends Controller
 {
@@ -35,10 +34,8 @@ class FailedJobController extends Controller
      * Return a listing of the *FailedJob* resource as collection.
      *
      * *```paginate=false``` returns all resource as list not pagination*
-     * @lrd:end
      *
-     * @param IndexFailedJobRequest $request
-     * @return FailedJobCollection|JsonResponse
+     * @lrd:end
      */
     public function index(IndexFailedJobRequest $request): FailedJobCollection|JsonResponse
     {
@@ -58,10 +55,9 @@ class FailedJobController extends Controller
     /**
      * @lrd:start
      * Return a specified *FailedJob* resource found by id.
+     *
      * @lrd:end
      *
-     * @param string|int $id
-     * @return FailedJobResource|JsonResponse
      * @throws ModelNotFoundException
      */
     public function show(string|int $id): FailedJobResource|JsonResponse
@@ -70,7 +66,7 @@ class FailedJobController extends Controller
 
             $failedJob = Core::failedJob()->find($id);
 
-            if (!$failedJob) {
+            if (! $failedJob) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.core.failed_job_model'), $id);
             }
 
@@ -89,10 +85,11 @@ class FailedJobController extends Controller
     /**
      * @lrd:start
      * Soft delete a specified *FailedJob* resource using id.
+     *
      * @lrd:end
      *
-     * @param string|int $id
      * @return JsonResponse
+     *
      * @throws ModelNotFoundException
      */
     public function destroy(string|int $id)
@@ -101,11 +98,11 @@ class FailedJobController extends Controller
 
             $failedJob = Core::failedJob()->find($id);
 
-            if (!$failedJob) {
+            if (! $failedJob) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.core.failed_job_model'), $id);
             }
 
-            if (!Core::failedJob()->destroy($id)) {
+            if (! Core::failedJob()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.core.failed_job_model'), $id);
             }
@@ -126,9 +123,9 @@ class FailedJobController extends Controller
      * @lrd:start
      * Restore the specified *FailedJob* resource from trash.
      * ** ```Soft Delete``` needs to enabled to use this feature**
+     *
      * @lrd:end
      *
-     * @param string|int $id
      * @return JsonResponse
      */
     public function retry(string|int $id)
@@ -137,7 +134,7 @@ class FailedJobController extends Controller
 
             $failedJob = Core::failedJob()->find($id);
 
-            if (!$failedJob) {
+            if (! $failedJob) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.core.failed_job_model'), $id);
             }
 
@@ -159,9 +156,9 @@ class FailedJobController extends Controller
      * @lrd:start
      * Restore the specified *FailedJob* resource from trash.
      * ** ```Soft Delete``` needs to enabled to use this feature**
+     *
      * @lrd:end
      *
-     * @param Request $request
      * @return JsonResponse
      */
     public function prune(Request $request)
@@ -177,5 +174,4 @@ class FailedJobController extends Controller
             return $this->failed($exception->getMessage());
         }
     }
-
 }

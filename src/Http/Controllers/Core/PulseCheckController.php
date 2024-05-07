@@ -10,12 +10,11 @@ use Illuminate\Routing\Controller;
 
 /**
  * Class PulseCheckController
- * @package Fintech\Core\Http\Controllers
  *
  * @lrd:start
  * This class handle server pulse checker
- * @lrd:end
  *
+ * @lrd:end
  */
 class PulseCheckController extends Controller
 {
@@ -24,19 +23,16 @@ class PulseCheckController extends Controller
     /**
      * @lrd:start
      * This api endpoint will check server status and client user agent integrity
-     * @lrd:end
      *
-     * @param Request $request
-     * @return JsonResponse
+     * @lrd:end
      */
     public function __invoke(Request $request): JsonResponse
     {
         try {
 
-            if (!$this->validTimezone($request)) {
+            if (! $this->validTimezone($request)) {
 
             }
-
 
             return $this->success([]);
 

@@ -15,13 +15,12 @@ use Illuminate\Routing\Controller;
 
 /**
  * Class JobController
- * @package Fintech\Core\Http\Controllers
  *
  * @lrd:start
  * This class handle create, display, update, delete & restore
  * operation related to Job
- * @lrd:end
  *
+ * @lrd:end
  */
 class JobController extends Controller
 {
@@ -32,10 +31,8 @@ class JobController extends Controller
      * Return a listing of the *Job* resource as collection.
      *
      * *```paginate=false``` returns all resource as list not pagination*
-     * @lrd:end
      *
-     * @param IndexJobRequest $request
-     * @return JobCollection|JsonResponse
+     * @lrd:end
      */
     public function index(IndexJobRequest $request): JobCollection|JsonResponse
     {
@@ -55,10 +52,9 @@ class JobController extends Controller
     /**
      * @lrd:start
      * Return a specified *Job* resource found by id.
+     *
      * @lrd:end
      *
-     * @param string|int $id
-     * @return JobResource|JsonResponse
      * @throws ModelNotFoundException
      */
     public function show(string|int $id): JobResource|JsonResponse
@@ -67,7 +63,7 @@ class JobController extends Controller
 
             $job = Core::job()->find($id);
 
-            if (!$job) {
+            if (! $job) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.core.job_model'), $id);
             }
 
@@ -86,10 +82,11 @@ class JobController extends Controller
     /**
      * @lrd:start
      * Soft delete a specified *Job* resource using id.
+     *
      * @lrd:end
      *
-     * @param string|int $id
      * @return JsonResponse
+     *
      * @throws ModelNotFoundException
      * @throws DeleteOperationException
      */
@@ -99,11 +96,11 @@ class JobController extends Controller
 
             $job = Core::job()->read($id);
 
-            if (!$job) {
+            if (! $job) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.core.job_model'), $id);
             }
 
-            if (!Core::job()->destroy($id)) {
+            if (! Core::job()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.core.job_model'), $id);
             }
@@ -119,5 +116,4 @@ class JobController extends Controller
             return $this->failed($exception->getMessage());
         }
     }
-
 }
