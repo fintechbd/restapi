@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -11,7 +13,6 @@
 |
 */
 
-use Illuminate\Support\Facades\Route;
 
 Route::prefix('airtime')->name('airtime.')
     ->middleware(config('fintech.auth.middleware'))
