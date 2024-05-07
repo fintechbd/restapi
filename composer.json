@@ -18,8 +18,7 @@
     "require": {
         "php": "^8.1",
         "fintech/core": "*",
-        "illuminate/contracts": "^10.0",
-        "owen-it/laravel-auditing": "^13.5"
+        "illuminate/contracts": "^10.0"
     },
     "require-dev": {
         "laravel/pint": "^1.0",
@@ -70,7 +69,6 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "suggest": {
-        "owen-it/laravel-auditing": "For model change audit",
         "fintech/auth": "For user authentication feature",
         "fintech/airtime": "For bangladesh and international topup feature",
         "fintech/banco": "For bank related features",
@@ -85,6 +83,7 @@
         "fintech/remit": "For sending money to any assigned country",
         "fintech/sanction": "To verifiy a person is global sanction list or black listed",
         "fintech/tab": "Pay local and international utility bills",
-        "fintech/transaction": "Multi currency and ordering system feature"
+        "fintech/transaction": "Multi currency and ordering system feature",
+        "rakutentech/laravel-request-docs": "Utilized as the documentation generation tool for all fintech packages."
     }
 }
