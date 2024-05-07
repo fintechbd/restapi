@@ -5,6 +5,7 @@ use Fintech\RestApi\Http\Controllers\Bell\TriggerActionController;
 use Fintech\RestApi\Http\Controllers\Bell\TriggerController;
 use Fintech\RestApi\Http\Controllers\Bell\TriggerRecipientController;
 use Fintech\RestApi\Http\Controllers\Bell\TriggerVariableController;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,42 +18,44 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "API" middleware group. Enjoy building your API!
 |
 */
-Route::prefix('bell')->name('bell.')
-    ->middleware(config('fintech.auth.middleware'))
-    ->group(function () {
+if (Config::get('fintech.bell.enabled')) {
+    Route::prefix('bell')->name('bell.')
+        ->middleware(config('fintech.auth.middleware'))
+        ->group(function () {
 
-        Route::get('triggers/sync',
-            [TriggerController::class, 'sync'])
-            ->name('triggers.sync');
-        Route::apiResource('triggers', TriggerController::class);
-        Route::post('triggers/{trigger}/restore',
-            [TriggerController::class, 'restore'])
-            ->name('triggers.restore');
+            Route::get('triggers/sync',
+                [TriggerController::class, 'sync'])
+                ->name('triggers.sync');
+            Route::apiResource('triggers', TriggerController::class);
+            Route::post('triggers/{trigger}/restore',
+                [TriggerController::class, 'restore'])
+                ->name('triggers.restore');
 
-        Route::apiResource('triggers', TriggerController::class);
-        Route::post('triggers/{trigger}/restore',
-            [TriggerController::class, 'restore'])
-            ->name('triggers.restore');
+            Route::apiResource('triggers', TriggerController::class);
+            Route::post('triggers/{trigger}/restore',
+                [TriggerController::class, 'restore'])
+                ->name('triggers.restore');
 
-        Route::apiResource('trigger-recipients', TriggerRecipientController::class);
-        Route::post('trigger-recipients/{trigger_recipient}/restore',
-            [TriggerRecipientController::class, 'restore'])
-            ->name('trigger-recipients.restore');
+            Route::apiResource('trigger-recipients', TriggerRecipientController::class);
+            Route::post('trigger-recipients/{trigger_recipient}/restore',
+                [TriggerRecipientController::class, 'restore'])
+                ->name('trigger-recipients.restore');
 
-        Route::apiResource('trigger-variables', TriggerVariableController::class);
-        Route::post('trigger-variables/{trigger_variable}/restore',
-            [TriggerVariableController::class, 'restore'])
-            ->name('trigger-variables.restore');
+            Route::apiResource('trigger-variables', TriggerVariableController::class);
+            Route::post('trigger-variables/{trigger_variable}/restore',
+                [TriggerVariableController::class, 'restore'])
+                ->name('trigger-variables.restore');
 
-        Route::apiResource('notification-templates', NotificationTemplateController::class);
-        Route::post('notification-templates/{notification_template}/restore',
-            [NotificationTemplateController::class, 'restore'])
-            ->name('notification-templates.restore');
+            Route::apiResource('notification-templates', NotificationTemplateController::class);
+            Route::post('notification-templates/{notification_template}/restore',
+                [NotificationTemplateController::class, 'restore'])
+                ->name('notification-templates.restore');
 
-        Route::apiResource('trigger-actions', TriggerActionController::class);
-        Route::post('trigger-actions/{trigger_action}/restore',
-            [TriggerActionController::class, 'restore'])
-            ->name('trigger-actions.restore');
+            Route::apiResource('trigger-actions', TriggerActionController::class);
+            Route::post('trigger-actions/{trigger_action}/restore',
+                [TriggerActionController::class, 'restore'])
+                ->name('trigger-actions.restore');
 
-        //DO NOT REMOVE THIS LINE//
-    });
+            //DO NOT REMOVE THIS LINE//
+        });
+}

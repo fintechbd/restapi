@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Route;
 use \Fintech\Core\Facades\Core;
 /*
 |--------------------------------------------------------------------------
@@ -77,5 +76,4 @@ if (Config::get('fintech.restapi.enabled')) {
     if(Core::packageExists('Transaction')) {
         include "transaction.php";
     }
-
 }

@@ -1,6 +1,6 @@
 <?php
 
-use Fintech\Tab\Http\Controllers\PayBillController;
+use Fintech\RestApi\Http\Controllers\Tab\PayBillController;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
 

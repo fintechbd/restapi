@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,16 +14,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+if (Config::get('fintech.airtime.enabled')) {
+    Route::prefix('airtime')->name('airtime.')
+        ->middleware(config('fintech.auth.middleware'))
+        ->group(function () {
 
-Route::prefix('airtime')->name('airtime.')
-    ->middleware(config('fintech.auth.middleware'))
-    ->group(function () {
+            Route::apiResource('bangladesh-top-ups', \Fintech\RestApi\Http\Controllers\Airtime\BangladeshTopUpController::class)
+                ->only('index', 'store', 'show');
 
-        Route::apiResource('bangladesh-top-ups', \Fintech\RestApi\Http\Controllers\Airtime\BangladeshTopUpController::class)
-            ->only('index', 'store', 'show');
+            Route::apiResource('international-top-ups', \Fintech\RestApi\Http\Controllers\Airtime\InternationalTopUpController::class)
+                ->only('index', 'store', 'show');
 
-        Route::apiResource('international-top-ups', \Fintech\RestApi\Http\Controllers\Airtime\InternationalTopUpController::class)
-            ->only('index', 'store', 'show');
-
-        //DO NOT REMOVE THIS LINE//
-    });
+            //DO NOT REMOVE THIS LINE//
+        });
+}
