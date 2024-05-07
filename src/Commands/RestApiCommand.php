@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Fintech\RestApi\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class RestApiCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'restapi';
 
     public $description = 'My command';
 

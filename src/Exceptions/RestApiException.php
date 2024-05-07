@@ -1,14 +1,14 @@
 <?php
 
-namespace VendorName\Skeleton\Exceptions;
+namespace Fintech\RestApi\Exceptions;
 
 use Exception;
 use Throwable;
 
 /**
- * Class SkeletonException
+ * Class RestApiException
  */
-class SkeletonException extends Exception
+class RestApiException extends Exception
 {
     /**
      * CoreException constructor.

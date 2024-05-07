@@ -1,8 +1,8 @@
 <?php
 
-namespace VendorName\Skeleton;
+namespace Fintech\RestApi;
 
-class Skeleton
+class RestApi
 {
     //** Crud Service Method Point Do not Remove **//
 }

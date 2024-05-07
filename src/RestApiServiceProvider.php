@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton;
+namespace Fintech\RestApi;
 
 use Illuminate\Support\ServiceProvider;
-use VendorName\Skeleton\Commands\InstallCommand;
-use VendorName\Skeleton\Commands\SkeletonCommand;
+use Fintech\RestApi\Commands\InstallCommand;
+use Fintech\RestApi\Commands\RestApiCommand;
 
-class SkeletonServiceProvider extends ServiceProvider
+class RestApiServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
@@ -16,7 +16,7 @@ class SkeletonServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__.'/../config/skeleton.php', 'fintech.skeleton'
+            __DIR__.'/../config/restapi.php', 'fintech.restapi'
         );
 
         $this->app->register(RouteServiceProvider::class);
@@ -29,27 +29,27 @@ class SkeletonServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->publishes([
-            __DIR__.'/../config/skeleton.php' => config_path('fintech/skeleton.php'),
+            __DIR__.'/../config/restapi.php' => config_path('fintech/restapi.php'),
         ]);
 
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
-        $this->loadTranslationsFrom(__DIR__.'/../lang', 'skeleton');
+        $this->loadTranslationsFrom(__DIR__.'/../lang', 'restapi');
 
         $this->publishes([
-            __DIR__.'/../lang' => $this->app->langPath('vendor/skeleton'),
+            __DIR__.'/../lang' => $this->app->langPath('vendor/restapi'),
         ]);
 
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'skeleton');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'restapi');
 
         $this->publishes([
-            __DIR__.'/../resources/views' => resource_path('views/vendor/skeleton'),
+            __DIR__.'/../resources/views' => resource_path('views/vendor/restapi'),
         ]);
 
         if ($this->app->runningInConsole()) {
             $this->commands([
                 InstallCommand::class,
-                SkeletonCommand::class,
+                RestApiCommand::class,
             ]);
         }
     }
