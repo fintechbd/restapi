@@ -75,7 +75,7 @@ class StateController extends Controller
             }
 
             return $this->created([
-                'message' => __('core::messages.resource.created', ['model' => 'State']),
+                'message' => __('restapi::messages.resource.created', ['model' => 'State']),
                 'id' => $state->getKey(),
             ]);
 
@@ -142,7 +142,7 @@ class StateController extends Controller
                 throw (new UpdateOperationException())->setModel(config('fintech.metadata.state_model'), $id);
             }
 
-            return $this->updated(__('core::messages.resource.updated', ['model' => 'State']));
+            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'State']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -180,7 +180,7 @@ class StateController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.metadata.state_model'), $id);
             }
 
-            return $this->deleted(__('core::messages.resource.deleted', ['model' => 'State']));
+            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'State']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -216,7 +216,7 @@ class StateController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.metadata.state_model'), $id);
             }
 
-            return $this->restored(__('core::messages.resource.restored', ['model' => 'State']));
+            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'State']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -242,7 +242,7 @@ class StateController extends Controller
 
             $statePaginate = MetaData::state()->export($inputs);
 
-            return $this->exported(__('core::messages.resource.exported', ['model' => 'State']));
+            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'State']));
 
         } catch (Exception $exception) {
 

@@ -75,7 +75,7 @@ class SettingController extends Controller
             }
 
             return $this->created([
-                'message' => __('core::messages.resource.created', ['model' => 'Setting']),
+                'message' => __('restapi::messages.resource.created', ['model' => 'Setting']),
                 'id' => $setting->getKey(),
             ]);
 
@@ -140,7 +140,7 @@ class SettingController extends Controller
                 throw (new UpdateOperationException())->setModel(config('fintech.core.setting_model'), $id);
             }
 
-            return $this->updated(__('core::messages.resource.updated', ['model' => 'Setting']));
+            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Setting']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -178,7 +178,7 @@ class SettingController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.core.setting_model'), $id);
             }
 
-            return $this->deleted(__('core::messages.resource.deleted', ['model' => 'Setting']));
+            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Setting']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -214,7 +214,7 @@ class SettingController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.core.setting_model'), $id);
             }
 
-            return $this->restored(__('core::messages.resource.restored', ['model' => 'Setting']));
+            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Setting']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -240,7 +240,7 @@ class SettingController extends Controller
 
             $settingPaginate = Core::setting()->export($inputs);
 
-            return $this->exported(__('core::messages.resource.exported', ['model' => 'Setting']));
+            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Setting']));
 
         } catch (Exception $exception) {
 

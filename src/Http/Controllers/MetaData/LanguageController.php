@@ -150,7 +150,7 @@ class LanguageController extends Controller
                 throw (new UpdateOperationException())->setModel('Language', $id);
             }
 
-            return $this->updated(__('core::messages.resource.updated', ['model' => 'Language']));
+            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Language']));
 
         } catch (ModelNotFoundException $exception) {
 

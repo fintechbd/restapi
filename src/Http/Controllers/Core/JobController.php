@@ -105,7 +105,7 @@ class JobController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.core.job_model'), $id);
             }
 
-            return $this->deleted(__('core::messages.resource.deleted', ['model' => 'Job']));
+            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Job']));
 
         } catch (ModelNotFoundException $exception) {
 

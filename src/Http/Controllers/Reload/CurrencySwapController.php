@@ -183,7 +183,7 @@ class CurrencySwapController extends Controller
                 DB::commit();
 
                 return $this->created([
-                    'message' => __('core::messages.resource.created', ['model' => 'Currency Swap']),
+                    'message' => __('restapi::messages.resource.created', ['model' => 'Currency Swap']),
                     'id' => $currencySwap->id,
                     'spent' => $userUpdatedBalance['spent_amount'],
                 ]);
@@ -223,7 +223,7 @@ class CurrencySwapController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.reload.currency_swap_model'), $id);
             }
 
-            return $this->updated(__('core::messages.resource.updated', ['model' => 'Currency Swap']));
+            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Currency Swap']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -351,7 +351,7 @@ class CurrencySwapController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.reload.currency_swap_model'), $id);
             }
 
-            return $this->deleted(__('core::messages.resource.deleted', ['model' => 'Currency Swap']));
+            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Currency Swap']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -385,7 +385,7 @@ class CurrencySwapController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.reload.currency_swap_model'), $id);
             }
 
-            return $this->restored(__('core::messages.resource.restored', ['model' => 'Currency Swap']));
+            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Currency Swap']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -411,7 +411,7 @@ class CurrencySwapController extends Controller
 
             $currencySwapPaginate = Reload::currencySwap()->export($inputs);
 
-            return $this->exported(__('core::messages.resource.exported', ['model' => 'Currency Swap']));
+            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Currency Swap']));
 
         } catch (Exception $exception) {
 

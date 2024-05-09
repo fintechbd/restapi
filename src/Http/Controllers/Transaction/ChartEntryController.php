@@ -75,7 +75,7 @@ class ChartEntryController extends Controller
             }
 
             return $this->created([
-                'message' => __('core::messages.resource.created', ['model' => 'Chart Entry']),
+                'message' => __('restapi::messages.resource.created', ['model' => 'Chart Entry']),
                 'id' => $chartEntry->id,
             ]);
 
@@ -141,7 +141,7 @@ class ChartEntryController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.transaction.chart_entry_model'), $id);
             }
 
-            return $this->updated(__('core::messages.resource.updated', ['model' => 'Chart Entry']));
+            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Chart Entry']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -179,7 +179,7 @@ class ChartEntryController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.transaction.chart_entry_model'), $id);
             }
 
-            return $this->deleted(__('core::messages.resource.deleted', ['model' => 'Chart Entry']));
+            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Chart Entry']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -215,7 +215,7 @@ class ChartEntryController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.transaction.chart_entry_model'), $id);
             }
 
-            return $this->restored(__('core::messages.resource.restored', ['model' => 'Chart Entry']));
+            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Chart Entry']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -241,7 +241,7 @@ class ChartEntryController extends Controller
 
             $chartEntryPaginate = Transaction::chartEntry()->export($inputs);
 
-            return $this->exported(__('core::messages.resource.exported', ['model' => 'Chart Entry']));
+            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Chart Entry']));
 
         } catch (Exception $exception) {
 

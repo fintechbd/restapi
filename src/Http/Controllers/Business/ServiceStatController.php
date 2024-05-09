@@ -75,7 +75,7 @@ class ServiceStatController extends Controller
             }
 
             return $this->created([
-                'message' => __('core::messages.resource.created', ['model' => 'Service Stat']),
+                'message' => __('restapi::messages.resource.created', ['model' => 'Service Stat']),
                 'id' => $serviceStat,
             ]);
 
@@ -136,7 +136,7 @@ class ServiceStatController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_stat_model'), $id);
             }
 
-            return $this->updated(__('core::messages.resource.updated', ['model' => 'Service Stat']));
+            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Service Stat']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -169,7 +169,7 @@ class ServiceStatController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.business.service_stat_model'), $id);
             }
 
-            return $this->deleted(__('core::messages.resource.deleted', ['model' => 'Service Stat']));
+            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Service Stat']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -203,7 +203,7 @@ class ServiceStatController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.business.service_stat_model'), $id);
             }
 
-            return $this->restored(__('core::messages.resource.restored', ['model' => 'Service Stat']));
+            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Service Stat']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -229,7 +229,7 @@ class ServiceStatController extends Controller
 
             Business::serviceStat()->export($inputs);
 
-            return $this->exported(__('core::messages.resource.exported', ['model' => 'Service Stat']));
+            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Service Stat']));
 
         } catch (Exception $exception) {
 

@@ -148,7 +148,7 @@ class CurrencyController extends Controller
                 throw (new UpdateOperationException())->setModel(config('fintech.metadata.currency_model'), $id);
             }
 
-            return $this->updated(__('core::messages.resource.updated', ['model' => 'Currency']));
+            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Currency']));
 
         } catch (ModelNotFoundException $exception) {
 

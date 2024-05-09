@@ -20,10 +20,10 @@ class RelationCollection extends ResourceCollection
         return $this->collection->map(function ($item) {
 
             $links = [
-                'show' => action_link(route('metadata.relations.show', $item->getKey()), __('core::messages.action.show'), 'get'),
-                'update' => action_link(route('metadata.relations.update', $item->getKey()), __('core::messages.action.update'), 'put'),
-                'destroy' => action_link(route('metadata.relations.destroy', $item->getKey()), __('core::messages.action.destroy'), 'delete'),
-                'restore' => action_link(route('metadata.relations.restore', $item->getKey()), __('core::messages.action.restore'), 'post'),
+                'show' => action_link(route('metadata.relations.show', $item->getKey()), __('restapi::messages.action.show'), 'get'),
+                'update' => action_link(route('metadata.relations.update', $item->getKey()), __('restapi::messages.action.update'), 'put'),
+                'destroy' => action_link(route('metadata.relations.destroy', $item->getKey()), __('restapi::messages.action.destroy'), 'delete'),
+                'restore' => action_link(route('metadata.relations.restore', $item->getKey()), __('restapi::messages.action.restore'), 'post'),
             ];
 
             if ($item->getAttribute('deleted_at') == null) {

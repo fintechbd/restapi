@@ -71,7 +71,7 @@ class BankController extends Controller
             }
 
             return $this->created([
-                'message' => __('core::messages.resource.created', ['model' => 'Bank']),
+                'message' => __('restapi::messages.resource.created', ['model' => 'Bank']),
                 'id' => $bank->getKey(),
             ]);
 
@@ -137,7 +137,7 @@ class BankController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.banco.bank_model'), $id);
             }
 
-            return $this->updated(__('core::messages.resource.updated', ['model' => 'Bank']));
+            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Bank']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -175,7 +175,7 @@ class BankController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.banco.bank_model'), $id);
             }
 
-            return $this->deleted(__('core::messages.resource.deleted', ['model' => 'Bank']));
+            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Bank']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -211,7 +211,7 @@ class BankController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.banco.bank_model'), $id);
             }
 
-            return $this->restored(__('core::messages.resource.restored', ['model' => 'Bank']));
+            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Bank']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -237,7 +237,7 @@ class BankController extends Controller
 
             $bankPaginate = Banco::bank()->export($inputs);
 
-            return $this->exported(__('core::messages.resource.exported', ['model' => 'Bank']));
+            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Bank']));
 
         } catch (Exception $exception) {
 

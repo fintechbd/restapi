@@ -75,7 +75,7 @@ class WalletToPrepaidCardController extends Controller
             }
 
             return $this->created([
-                'message' => __('core::messages.resource.created', ['model' => 'Wallet To Prepaid Card']),
+                'message' => __('restapi::messages.resource.created', ['model' => 'Wallet To Prepaid Card']),
                 'id' => $walletToPrepaidCard->id,
             ]);
 
@@ -141,7 +141,7 @@ class WalletToPrepaidCardController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.reload.wallet_to_prepaid_card_model'), $id);
             }
 
-            return $this->updated(__('core::messages.resource.updated', ['model' => 'Wallet To Prepaid Card']));
+            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Wallet To Prepaid Card']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -179,7 +179,7 @@ class WalletToPrepaidCardController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.reload.wallet_to_prepaid_card_model'), $id);
             }
 
-            return $this->deleted(__('core::messages.resource.deleted', ['model' => 'Wallet To Prepaid Card']));
+            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Wallet To Prepaid Card']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -215,7 +215,7 @@ class WalletToPrepaidCardController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.reload.wallet_to_prepaid_card_model'), $id);
             }
 
-            return $this->restored(__('core::messages.resource.restored', ['model' => 'Wallet To Prepaid Card']));
+            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Wallet To Prepaid Card']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -241,7 +241,7 @@ class WalletToPrepaidCardController extends Controller
 
             $walletToPrepaidCardPaginate = Reload::walletToPrepaidCard()->export($inputs);
 
-            return $this->exported(__('core::messages.resource.exported', ['model' => 'Wallet To Prepaid Card']));
+            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Wallet To Prepaid Card']));
 
         } catch (Exception $exception) {
 

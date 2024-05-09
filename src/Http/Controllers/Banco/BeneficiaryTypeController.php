@@ -71,7 +71,7 @@ class BeneficiaryTypeController extends Controller
             }
 
             return $this->created([
-                'message' => __('core::messages.resource.created', ['model' => 'Beneficiary Type']),
+                'message' => __('restapi::messages.resource.created', ['model' => 'Beneficiary Type']),
                 'id' => $beneficiaryType->getKey(),
             ]);
 
@@ -134,7 +134,7 @@ class BeneficiaryTypeController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.banco.beneficiary_type_model'), $id);
             }
 
-            return $this->updated(__('core::messages.resource.updated', ['model' => 'Beneficiary Type']));
+            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Beneficiary Type']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -167,7 +167,7 @@ class BeneficiaryTypeController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.banco.beneficiary_type_model'), $id);
             }
 
-            return $this->deleted(__('core::messages.resource.deleted', ['model' => 'Beneficiary Type']));
+            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Beneficiary Type']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -201,7 +201,7 @@ class BeneficiaryTypeController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.banco.beneficiary_type_model'), $id);
             }
 
-            return $this->restored(__('core::messages.resource.restored', ['model' => 'Beneficiary Type']));
+            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Beneficiary Type']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -228,7 +228,7 @@ class BeneficiaryTypeController extends Controller
             //$beneficiaryTypePaginate = Banco::beneficiaryType()->export($inputs);
             Banco::beneficiaryType()->export($inputs);
 
-            return $this->exported(__('core::messages.resource.exported', ['model' => 'Beneficiary Type']));
+            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Beneficiary Type']));
 
         } catch (Exception $exception) {
 

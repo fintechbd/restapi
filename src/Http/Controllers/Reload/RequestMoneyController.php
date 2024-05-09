@@ -160,7 +160,7 @@ class RequestMoneyController extends Controller
                 DB::commit();
 
                 return $this->created([
-                    'message' => __('core::messages.resource.created', ['model' => 'Request Money']),
+                    'message' => __('restapi::messages.resource.created', ['model' => 'Request Money']),
                     'id' => $requestMoney->id,
                 ]);
             } else {
@@ -229,7 +229,7 @@ class RequestMoneyController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.reload.request_money_model'), $id);
             }
 
-            return $this->updated(__('core::messages.resource.updated', ['model' => 'Request Money']));
+            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Request Money']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -262,7 +262,7 @@ class RequestMoneyController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.reload.request_money_model'), $id);
             }
 
-            return $this->deleted(__('core::messages.resource.deleted', ['model' => 'Request Money']));
+            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Request Money']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -339,7 +339,7 @@ class RequestMoneyController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.reload.request_money_model'), $id);
             }
 
-            return $this->restored(__('core::messages.resource.restored', ['model' => 'Request Money']));
+            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Request Money']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -366,7 +366,7 @@ class RequestMoneyController extends Controller
             //$requestMoneyPaginate = Reload::requestMoney()->export($inputs);
             Reload::requestMoney()->export($inputs);
 
-            return $this->exported(__('core::messages.resource.exported', ['model' => 'Request Money']));
+            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Request Money']));
 
         } catch (Exception $exception) {
 

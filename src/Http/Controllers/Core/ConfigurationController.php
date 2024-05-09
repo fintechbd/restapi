@@ -69,7 +69,7 @@ class ConfigurationController extends Controller
                 Core::setting()->setValue($configuration, $key, $value, gettype($value));
             }
 
-            return $this->updated(__('core::messages.setting.saved', ['package' => config("fintech.core.packages.{$configuration}", 'System')]));
+            return $this->updated(__('restapi::messages.setting.saved', ['package' => config("fintech.core.packages.{$configuration}", 'System')]));
 
         } catch (Exception $exception) {
 
@@ -95,7 +95,7 @@ class ConfigurationController extends Controller
                 Core::setting()->destroy($setting->getKey());
             }
 
-            return $this->deleted(__('core::messages.setting.deleted', ['model' => ucwords($configuration)]));
+            return $this->deleted(__('restapi::messages.setting.deleted', ['model' => ucwords($configuration)]));
 
         } catch (Exception $exception) {
 

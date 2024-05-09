@@ -85,7 +85,7 @@ class UserController extends Controller
             $profile = Auth::profile()->create($user->getKey(), $request->except($this->userFields));
 
             return $this->created([
-                'message' => __('core::messages.resource.created', ['model' => 'User']),
+                'message' => __('restapi::messages.resource.created', ['model' => 'User']),
                 'id' => $user->getKey(),
             ]);
 
@@ -152,7 +152,7 @@ class UserController extends Controller
                 throw (new UpdateOperationException())->setModel(config('fintech.auth.user_model'), $id);
             }
 
-            return $this->updated(__('core::messages.resource.updated', ['model' => 'User']));
+            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'User']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -189,7 +189,7 @@ class UserController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.auth.user_model'), $id);
             }
 
-            return $this->deleted(__('core::messages.resource.deleted', ['model' => 'User']));
+            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'User']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -225,7 +225,7 @@ class UserController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.auth.user_model'), $id);
             }
 
-            return $this->restored(__('core::messages.resource.restored', ['model' => 'User']));
+            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'User']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -251,7 +251,7 @@ class UserController extends Controller
 
             $userPaginate = Auth::user()->export($inputs);
 
-            return $this->exported(__('core::messages.resource.exported', ['model' => 'User']));
+            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'User']));
 
         } catch (Exception $exception) {
 

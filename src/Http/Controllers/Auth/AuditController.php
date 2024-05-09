@@ -105,7 +105,7 @@ class AuditController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.auth.audit_model'), $id);
             }
 
-            return $this->deleted(__('core::messages.resource.deleted', ['model' => 'Audit']));
+            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Audit']));
 
         } catch (ModelNotFoundException $exception) {
 

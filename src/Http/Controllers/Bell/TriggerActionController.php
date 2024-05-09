@@ -75,7 +75,7 @@ class TriggerActionController extends Controller
             }
 
             return $this->created([
-                'message' => __('core::messages.resource.created', ['model' => 'Trigger Action']),
+                'message' => __('restapi::messages.resource.created', ['model' => 'Trigger Action']),
                 'id' => $triggerAction->id,
             ]);
 
@@ -141,7 +141,7 @@ class TriggerActionController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.bell.trigger_action_model'), $id);
             }
 
-            return $this->updated(__('core::messages.resource.updated', ['model' => 'Trigger Action']));
+            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Trigger Action']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -179,7 +179,7 @@ class TriggerActionController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.bell.trigger_action_model'), $id);
             }
 
-            return $this->deleted(__('core::messages.resource.deleted', ['model' => 'Trigger Action']));
+            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Trigger Action']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -215,7 +215,7 @@ class TriggerActionController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.bell.trigger_action_model'), $id);
             }
 
-            return $this->restored(__('core::messages.resource.restored', ['model' => 'Trigger Action']));
+            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Trigger Action']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -241,7 +241,7 @@ class TriggerActionController extends Controller
 
             $triggerActionPaginate = Bell::triggerAction()->export($inputs);
 
-            return $this->exported(__('core::messages.resource.exported', ['model' => 'Trigger Action']));
+            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Trigger Action']));
 
         } catch (Exception $exception) {
 

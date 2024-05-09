@@ -74,7 +74,7 @@ class ServiceSettingController extends Controller
             }
 
             return $this->created([
-                'message' => __('core::messages.resource.created', ['model' => 'Service Setting']),
+                'message' => __('restapi::messages.resource.created', ['model' => 'Service Setting']),
                 'id' => $serviceSetting->getKey(),
             ]);
 
@@ -137,7 +137,7 @@ class ServiceSettingController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_setting_model'), $id);
             }
 
-            return $this->updated(__('core::messages.resource.updated', ['model' => 'Service Setting']));
+            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Service Setting']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -170,7 +170,7 @@ class ServiceSettingController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.business.service_setting_model'), $id);
             }
 
-            return $this->deleted(__('core::messages.resource.deleted', ['model' => 'Service Setting']));
+            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Service Setting']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -204,7 +204,7 @@ class ServiceSettingController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.business.service_setting_model'), $id);
             }
 
-            return $this->restored(__('core::messages.resource.restored', ['model' => 'Service Setting']));
+            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Service Setting']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -231,7 +231,7 @@ class ServiceSettingController extends Controller
             //$serviceSettingPaginate = Business::serviceSetting()->export($inputs);
             Business::serviceSetting()->export($inputs);
 
-            return $this->exported(__('core::messages.resource.exported', ['model' => 'Service Setting']));
+            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Service Setting']));
 
         } catch (Exception $exception) {
 

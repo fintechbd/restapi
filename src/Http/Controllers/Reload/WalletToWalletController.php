@@ -196,7 +196,7 @@ class WalletToWalletController extends Controller
                 DB::commit();
 
                 return $this->created([
-                    'message' => __('core::messages.resource.created', ['model' => 'Currency Swap']),
+                    'message' => __('restapi::messages.resource.created', ['model' => 'Currency Swap']),
                     'id' => $walletToWallet->id,
                     'spent' => $userUpdatedBalance['spent_amount'],
                 ]);
@@ -236,7 +236,7 @@ class WalletToWalletController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.reload.wallet_to_wallet_model'), $id);
             }
 
-            return $this->updated(__('core::messages.resource.updated', ['model' => 'Wallet To Wallet']));
+            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Wallet To Wallet']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -362,7 +362,7 @@ class WalletToWalletController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.reload.wallet_to_wallet_model'), $id);
             }
 
-            return $this->deleted(__('core::messages.resource.deleted', ['model' => 'Wallet To Wallet']));
+            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Wallet To Wallet']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -396,7 +396,7 @@ class WalletToWalletController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.reload.wallet_to_wallet_model'), $id);
             }
 
-            return $this->restored(__('core::messages.resource.restored', ['model' => 'Wallet To Wallet']));
+            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Wallet To Wallet']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -422,7 +422,7 @@ class WalletToWalletController extends Controller
 
             $walletToWalletPaginate = Reload::walletToWallet()->export($inputs);
 
-            return $this->exported(__('core::messages.resource.exported', ['model' => 'Wallet To Wallet']));
+            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Wallet To Wallet']));
 
         } catch (Exception $exception) {
 

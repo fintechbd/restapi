@@ -144,7 +144,7 @@ class DepositController extends Controller
                 event(new DepositReceived($deposit));
 
                 return $this->created([
-                    'message' => __('core::messages.resource.created', ['model' => 'Deposit']),
+                    'message' => __('restapi::messages.resource.created', ['model' => 'Deposit']),
                     'id' => $deposit->id,
                 ]);
 
@@ -440,7 +440,7 @@ class DepositController extends Controller
 
             $depositPaginate = Reload::deposit()->export($inputs);
 
-            return $this->exported(__('core::messages.resource.exported', ['model' => 'Deposit']));
+            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Deposit']));
 
         } catch (Exception $exception) {
 

@@ -73,7 +73,7 @@ class BankBranchController extends Controller
             }
 
             return $this->created([
-                'message' => __('core::messages.resource.created', ['model' => 'Bank Branch']),
+                'message' => __('restapi::messages.resource.created', ['model' => 'Bank Branch']),
                 'id' => $bankBranch->getKey(),
             ]);
 
@@ -139,7 +139,7 @@ class BankBranchController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.banco.bank_branch_model'), $id);
             }
 
-            return $this->updated(__('core::messages.resource.updated', ['model' => 'Bank Branch']));
+            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Bank Branch']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -177,7 +177,7 @@ class BankBranchController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.banco.bank_branch_model'), $id);
             }
 
-            return $this->deleted(__('core::messages.resource.deleted', ['model' => 'Bank Branch']));
+            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Bank Branch']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -213,7 +213,7 @@ class BankBranchController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.banco.bank_branch_model'), $id);
             }
 
-            return $this->restored(__('core::messages.resource.restored', ['model' => 'Bank Branch']));
+            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Bank Branch']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -239,7 +239,7 @@ class BankBranchController extends Controller
 
             $bankBranchPaginate = Banco::bankBranch()->export($inputs);
 
-            return $this->exported(__('core::messages.resource.exported', ['model' => 'Bank Branch']));
+            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Bank Branch']));
 
         } catch (Exception $exception) {
 

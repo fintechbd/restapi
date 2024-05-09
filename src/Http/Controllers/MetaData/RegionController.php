@@ -77,7 +77,7 @@ class RegionController extends Controller
             }
 
             return $this->created([
-                'message' => __('core::messages.resource.created', ['model' => 'Region']),
+                'message' => __('restapi::messages.resource.created', ['model' => 'Region']),
                 'id' => $region->getKey(),
             ]);
 
@@ -145,7 +145,7 @@ class RegionController extends Controller
                 throw (new UpdateOperationException())->setModel(config('fintech.metadata.region_model'), $id);
             }
 
-            return $this->updated(__('core::messages.resource.updated', ['model' => 'Region']));
+            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Region']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -183,7 +183,7 @@ class RegionController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.metadata.region_model'), $id);
             }
 
-            return $this->deleted(__('core::messages.resource.deleted', ['model' => 'Region']));
+            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Region']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -219,7 +219,7 @@ class RegionController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.metadata.region_model'), $id);
             }
 
-            return $this->restored(__('core::messages.resource.restored', ['model' => 'Region']));
+            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Region']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -245,7 +245,7 @@ class RegionController extends Controller
 
             $regionPaginate = MetaData::region()->export($inputs);
 
-            return $this->exported(__('core::messages.resource.exported', ['model' => 'Region']));
+            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Region']));
 
         } catch (Exception $exception) {
 

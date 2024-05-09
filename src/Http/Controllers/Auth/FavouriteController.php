@@ -75,7 +75,7 @@ class FavouriteController extends Controller
             }
 
             return $this->created([
-                'message' => __('core::messages.resource.created', ['model' => 'Favourite']),
+                'message' => __('restapi::messages.resource.created', ['model' => 'Favourite']),
                 'id' => $favourite->id,
             ]);
 
@@ -141,7 +141,7 @@ class FavouriteController extends Controller
                 throw (new UpdateOperationException())->setModel(config('fintech.auth.favourite_model'), $id);
             }
 
-            return $this->updated(__('core::messages.resource.updated', ['model' => 'Favourite']));
+            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Favourite']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -179,7 +179,7 @@ class FavouriteController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.auth.favourite_model'), $id);
             }
 
-            return $this->deleted(__('core::messages.resource.deleted', ['model' => 'Favourite']));
+            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Favourite']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -215,7 +215,7 @@ class FavouriteController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.auth.favourite_model'), $id);
             }
 
-            return $this->restored(__('core::messages.resource.restored', ['model' => 'Favourite']));
+            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Favourite']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -241,7 +241,7 @@ class FavouriteController extends Controller
 
             $favouritePaginate = Auth::favourite()->export($inputs);
 
-            return $this->exported(__('core::messages.resource.exported', ['model' => 'Favourite']));
+            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Favourite']));
 
         } catch (Exception $exception) {
 

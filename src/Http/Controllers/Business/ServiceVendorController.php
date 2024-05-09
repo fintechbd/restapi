@@ -75,7 +75,7 @@ class ServiceVendorController extends Controller
             }
 
             return $this->created([
-                'message' => __('core::messages.resource.created', ['model' => 'Service Vendor']),
+                'message' => __('restapi::messages.resource.created', ['model' => 'Service Vendor']),
                 'id' => $serviceVendor->id,
             ]);
 
@@ -141,7 +141,7 @@ class ServiceVendorController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_vendor_model'), $id);
             }
 
-            return $this->updated(__('core::messages.resource.updated', ['model' => 'Service Vendor']));
+            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Service Vendor']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -179,7 +179,7 @@ class ServiceVendorController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.business.service_vendor_model'), $id);
             }
 
-            return $this->deleted(__('core::messages.resource.deleted', ['model' => 'Service Vendor']));
+            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Service Vendor']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -215,7 +215,7 @@ class ServiceVendorController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.business.service_vendor_model'), $id);
             }
 
-            return $this->restored(__('core::messages.resource.restored', ['model' => 'Service Vendor']));
+            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Service Vendor']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -241,7 +241,7 @@ class ServiceVendorController extends Controller
 
             $serviceVendorPaginate = Business::serviceVendor()->export($inputs);
 
-            return $this->exported(__('core::messages.resource.exported', ['model' => 'Service Vendor']));
+            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Service Vendor']));
 
         } catch (Exception $exception) {
 

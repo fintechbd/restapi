@@ -75,7 +75,7 @@ class CurrencyRateController extends Controller
             }
 
             return $this->created([
-                'message' => __('core::messages.resource.created', ['model' => 'Currency Rate']),
+                'message' => __('restapi::messages.resource.created', ['model' => 'Currency Rate']),
                 'id' => $currencyRate->id,
             ]);
 
@@ -141,7 +141,7 @@ class CurrencyRateController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.business.currency_rate_model'), $id);
             }
 
-            return $this->updated(__('core::messages.resource.updated', ['model' => 'Currency Rate']));
+            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Currency Rate']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -179,7 +179,7 @@ class CurrencyRateController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.business.currency_rate_model'), $id);
             }
 
-            return $this->deleted(__('core::messages.resource.deleted', ['model' => 'Currency Rate']));
+            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Currency Rate']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -215,7 +215,7 @@ class CurrencyRateController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.business.currency_rate_model'), $id);
             }
 
-            return $this->restored(__('core::messages.resource.restored', ['model' => 'Currency Rate']));
+            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Currency Rate']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -241,7 +241,7 @@ class CurrencyRateController extends Controller
 
             $currencyRatePaginate = Business::currencyRate()->export($inputs);
 
-            return $this->exported(__('core::messages.resource.exported', ['model' => 'Currency Rate']));
+            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Currency Rate']));
 
         } catch (Exception $exception) {
 

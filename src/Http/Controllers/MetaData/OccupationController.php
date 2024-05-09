@@ -75,7 +75,7 @@ class OccupationController extends Controller
             }
 
             return $this->created([
-                'message' => __('core::messages.resource.created', ['model' => 'Occupation']),
+                'message' => __('restapi::messages.resource.created', ['model' => 'Occupation']),
                 'id' => $occupation->getKey(),
             ]);
 
@@ -143,7 +143,7 @@ class OccupationController extends Controller
                 throw (new UpdateOperationException())->setModel(config('fintech.metadata.occupation_model'), $id);
             }
 
-            return $this->updated(__('core::messages.resource.updated', ['model' => 'Occupation']));
+            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Occupation']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -181,7 +181,7 @@ class OccupationController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.metadata.occupation_model'), $id);
             }
 
-            return $this->deleted(__('core::messages.resource.deleted', ['model' => 'Occupation']));
+            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Occupation']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -217,7 +217,7 @@ class OccupationController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.metadata.occupation_model'), $id);
             }
 
-            return $this->restored(__('core::messages.resource.restored', ['model' => 'Occupation']));
+            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Occupation']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -243,7 +243,7 @@ class OccupationController extends Controller
 
             $occupationPaginate = MetaData::occupation()->export($inputs);
 
-            return $this->exported(__('core::messages.resource.exported', ['model' => 'Occupation']));
+            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Occupation']));
 
         } catch (Exception $exception) {
 

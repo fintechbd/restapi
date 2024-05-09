@@ -74,7 +74,7 @@ class PromotionController extends Controller
             }
 
             return $this->created([
-                'message' => __('core::messages.resource.created', ['model' => 'Promotion']),
+                'message' => __('restapi::messages.resource.created', ['model' => 'Promotion']),
                 'id' => $promotion->getKey(),
             ]);
 
@@ -135,7 +135,7 @@ class PromotionController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.promo.promotion_model'), $id);
             }
 
-            return $this->updated(__('core::messages.resource.updated', ['model' => 'Promotion']));
+            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Promotion']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -168,7 +168,7 @@ class PromotionController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.promo.promotion_model'), $id);
             }
 
-            return $this->deleted(__('core::messages.resource.deleted', ['model' => 'Promotion']));
+            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Promotion']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -202,7 +202,7 @@ class PromotionController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.promo.promotion_model'), $id);
             }
 
-            return $this->restored(__('core::messages.resource.restored', ['model' => 'Promotion']));
+            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Promotion']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -228,7 +228,7 @@ class PromotionController extends Controller
 
             $promotionPaginate = Promo::promotion()->export($inputs);
 
-            return $this->exported(__('core::messages.resource.exported', ['model' => 'Promotion']));
+            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Promotion']));
 
         } catch (Exception $exception) {
 

@@ -168,7 +168,7 @@ class BangladeshTopUpController extends Controller
                 event(new BangladeshTopUpRequested($bangladeshTopUp));
 
                 return $this->created([
-                    'message' => __('core::messages.resource.created', ['model' => 'Bangladesh Top Up']),
+                    'message' => __('restapi::messages.resource.created', ['model' => 'Bangladesh Top Up']),
                     'id' => $bangladeshTopUp->id,
                     'spent' => $userUpdatedBalance['spent_amount'],
                 ]);
@@ -209,7 +209,7 @@ class BangladeshTopUpController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.airtime.bangladesh_top_up_model'), $id);
             }
 
-            return $this->updated(__('core::messages.resource.updated', ['model' => 'Bangladesh Top Up']));
+            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Bangladesh Top Up']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -277,7 +277,7 @@ class BangladeshTopUpController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.airtime.bangladesh_top_up_model'), $id);
             }
 
-            return $this->deleted(__('core::messages.resource.deleted', ['model' => 'Bangladesh Top Up']));
+            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Bangladesh Top Up']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -313,7 +313,7 @@ class BangladeshTopUpController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.airtime.bangladesh_top_up_model'), $id);
             }
 
-            return $this->restored(__('core::messages.resource.restored', ['model' => 'Bangladesh Top Up']));
+            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Bangladesh Top Up']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -339,7 +339,7 @@ class BangladeshTopUpController extends Controller
 
             $bangladeshTopUpPaginate = Airtime::bangladeshTopUp()->export($inputs);
 
-            return $this->exported(__('core::messages.resource.exported', ['model' => 'Bangladesh Top Up']));
+            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Bangladesh Top Up']));
 
         } catch (Exception $exception) {
 

@@ -14,6 +14,8 @@ use Fintech\RestApi\Http\Requests\Banco\ImportBeneficiaryRequest;
 use Fintech\RestApi\Http\Requests\Banco\IndexBeneficiaryRequest;
 use Fintech\RestApi\Http\Requests\Banco\StoreBeneficiaryRequest;
 use Fintech\RestApi\Http\Requests\Banco\UpdateBeneficiaryRequest;
+use Fintech\RestApi\Http\Resources\Banco\BeneficiaryCollection;
+use Fintech\RestApi\Http\Resources\Banco\BeneficiaryResource;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -75,7 +77,7 @@ class BeneficiaryController extends Controller
             event(new BeneficiaryAdded($request->user(), $beneficiary));
 
             return $this->created([
-                'message' => __('core::messages.resource.created', ['model' => 'Beneficiary']),
+                'message' => __('restapi::messages.resource.created', ['model' => 'Beneficiary']),
                 'id' => $beneficiary->getKey(),
             ]);
 
@@ -141,7 +143,7 @@ class BeneficiaryController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.banco.beneficiary_model'), $id);
             }
 
-            return $this->updated(__('core::messages.resource.updated', ['model' => 'Beneficiary']));
+            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Beneficiary']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -179,7 +181,7 @@ class BeneficiaryController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.banco.beneficiary_model'), $id);
             }
 
-            return $this->deleted(__('core::messages.resource.deleted', ['model' => 'Beneficiary']));
+            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Beneficiary']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -215,7 +217,7 @@ class BeneficiaryController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.banco.beneficiary_model'), $id);
             }
 
-            return $this->restored(__('core::messages.resource.restored', ['model' => 'Beneficiary']));
+            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Beneficiary']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -241,7 +243,7 @@ class BeneficiaryController extends Controller
 
             $beneficiaryPaginate = Banco::beneficiary()->export($inputs);
 
-            return $this->exported(__('core::messages.resource.exported', ['model' => 'Beneficiary']));
+            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Beneficiary']));
 
         } catch (Exception $exception) {
 

@@ -104,7 +104,7 @@ class ApiLogController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.core.api_log_model'), $id);
             }
 
-            return $this->deleted(__('core::messages.resource.deleted', ['model' => 'Api Log']));
+            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Api Log']));
 
         } catch (ModelNotFoundException $exception) {
 

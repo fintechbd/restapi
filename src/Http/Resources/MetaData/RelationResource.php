@@ -16,10 +16,10 @@ class RelationResource extends JsonResource
     public function toArray($request)
     {
         $links = [
-            'show' => action_link(route('metadata.fund-sources.show', $this->getKey()), __('core::messages.action.show'), 'get'),
-            'update' => action_link(route('metadata.fund-sources.update', $this->getKey()), __('core::messages.action.update'), 'put'),
-            'destroy' => action_link(route('metadata.fund-sources.destroy', $this->getKey()), __('core::messages.action.destroy'), 'delete'),
-            'restore' => action_link(route('metadata.fund-sources.restore', $this->getKey()), __('core::messages.action.restore'), 'post'),
+            'show' => action_link(route('metadata.fund-sources.show', $this->getKey()), __('restapi::messages.action.show'), 'get'),
+            'update' => action_link(route('metadata.fund-sources.update', $this->getKey()), __('restapi::messages.action.update'), 'put'),
+            'destroy' => action_link(route('metadata.fund-sources.destroy', $this->getKey()), __('restapi::messages.action.destroy'), 'delete'),
+            'restore' => action_link(route('metadata.fund-sources.restore', $this->getKey()), __('restapi::messages.action.restore'), 'post'),
         ];
 
         if ($this->getAttribute('deleted_at') == null) {

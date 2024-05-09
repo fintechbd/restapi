@@ -77,7 +77,7 @@ class TeamController extends Controller
             }
 
             return $this->created([
-                'message' => __('core::messages.resource.created', ['model' => 'Team']),
+                'message' => __('restapi::messages.resource.created', ['model' => 'Team']),
                 'id' => $team->getKey(),
             ]);
 
@@ -138,7 +138,7 @@ class TeamController extends Controller
                 throw (new UpdateOperationException())->setModel(config('fintech.auth.team_model'), $id);
             }
 
-            return $this->updated(__('core::messages.resource.updated', ['model' => 'Team']));
+            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Team']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -173,7 +173,7 @@ class TeamController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.auth.team_model'), $id);
             }
 
-            return $this->deleted(__('core::messages.resource.deleted', ['model' => 'Team']));
+            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Team']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -209,7 +209,7 @@ class TeamController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.auth.team_model'), $id);
             }
 
-            return $this->restored(__('core::messages.resource.restored', ['model' => 'Team']));
+            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Team']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -235,7 +235,7 @@ class TeamController extends Controller
 
             $teamPaginate = Auth::team()->export($inputs);
 
-            return $this->exported(__('core::messages.resource.exported', ['model' => 'Team']));
+            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Team']));
 
         } catch (Exception $exception) {
 

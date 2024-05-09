@@ -75,7 +75,7 @@ class ChatParticipantController extends Controller
             }
 
             return $this->created([
-                'message' => __('core::messages.resource.created', ['model' => 'Chat Participant']),
+                'message' => __('restapi::messages.resource.created', ['model' => 'Chat Participant']),
                 'id' => $chatParticipant->id,
             ]);
 
@@ -141,7 +141,7 @@ class ChatParticipantController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.chat.chat_participant_model'), $id);
             }
 
-            return $this->updated(__('core::messages.resource.updated', ['model' => 'Chat Participant']));
+            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Chat Participant']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -179,7 +179,7 @@ class ChatParticipantController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.chat.chat_participant_model'), $id);
             }
 
-            return $this->deleted(__('core::messages.resource.deleted', ['model' => 'Chat Participant']));
+            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Chat Participant']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -215,7 +215,7 @@ class ChatParticipantController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.chat.chat_participant_model'), $id);
             }
 
-            return $this->restored(__('core::messages.resource.restored', ['model' => 'Chat Participant']));
+            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Chat Participant']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -241,7 +241,7 @@ class ChatParticipantController extends Controller
 
             $chatParticipantPaginate = Chat::chatParticipant()->export($inputs);
 
-            return $this->exported(__('core::messages.resource.exported', ['model' => 'Chat Participant']));
+            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Chat Participant']));
 
         } catch (Exception $exception) {
 

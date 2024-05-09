@@ -75,7 +75,7 @@ class RedeemPointController extends Controller
             }
 
             return $this->created([
-                'message' => __('core::messages.resource.created', ['model' => 'Redeem Point']),
+                'message' => __('restapi::messages.resource.created', ['model' => 'Redeem Point']),
                 'id' => $redeemPoint->id,
             ]);
 
@@ -141,7 +141,7 @@ class RedeemPointController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.transaction.redeem_point_model'), $id);
             }
 
-            return $this->updated(__('core::messages.resource.updated', ['model' => 'Redeem Point']));
+            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Redeem Point']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -179,7 +179,7 @@ class RedeemPointController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.transaction.redeem_point_model'), $id);
             }
 
-            return $this->deleted(__('core::messages.resource.deleted', ['model' => 'Redeem Point']));
+            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Redeem Point']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -215,7 +215,7 @@ class RedeemPointController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.transaction.redeem_point_model'), $id);
             }
 
-            return $this->restored(__('core::messages.resource.restored', ['model' => 'Redeem Point']));
+            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Redeem Point']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -241,7 +241,7 @@ class RedeemPointController extends Controller
 
             $redeemPointPaginate = Transaction::redeemPoint()->export($inputs);
 
-            return $this->exported(__('core::messages.resource.exported', ['model' => 'Redeem Point']));
+            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Redeem Point']));
 
         } catch (Exception $exception) {
 
