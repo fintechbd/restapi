@@ -35,6 +35,6 @@ return [
     'setting' => [
         'saved' => ':package configurations saved successfully.',
         'deleted' => ':package configurations restored to defaults.',
-        'failed' => ':package configurations failed to update.'
+        'failed' => ':package configurations failed to update.',
     ],
 ];
