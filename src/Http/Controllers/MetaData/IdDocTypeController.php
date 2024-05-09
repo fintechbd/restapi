@@ -67,7 +67,7 @@ class IdDocTypeController extends Controller
 
             $idDocType = MetaData::idDocType()->create($inputs);
 
-            if (!$idDocType) {
+            if (! $idDocType) {
                 throw (new StoreOperationException())->setModel(config('fintech.auth.id_doc_type_model'));
             }
 
@@ -96,7 +96,7 @@ class IdDocTypeController extends Controller
 
             $idDocType = MetaData::idDocType()->find($id);
 
-            if (!$idDocType) {
+            if (! $idDocType) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.id_doc_type_model'), $id);
             }
 
@@ -127,13 +127,13 @@ class IdDocTypeController extends Controller
 
             $idDocType = MetaData::idDocType()->find($id);
 
-            if (!$idDocType) {
+            if (! $idDocType) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.id_doc_type_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!MetaData::idDocType()->update($id, $inputs)) {
+            if (! MetaData::idDocType()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException())->setModel(config('fintech.auth.id_doc_type_model'), $id);
             }
@@ -165,11 +165,11 @@ class IdDocTypeController extends Controller
 
             $idDocType = MetaData::idDocType()->find($id);
 
-            if (!$idDocType) {
+            if (! $idDocType) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.id_doc_type_model'), $id);
             }
 
-            if (!MetaData::idDocType()->destroy($id)) {
+            if (! MetaData::idDocType()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.auth.id_doc_type_model'), $id);
             }
@@ -199,11 +199,11 @@ class IdDocTypeController extends Controller
 
             $idDocType = MetaData::idDocType()->find($id, true);
 
-            if (!$idDocType) {
+            if (! $idDocType) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.id_doc_type_model'), $id);
             }
 
-            if (!MetaData::idDocType()->restore($id)) {
+            if (! MetaData::idDocType()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.auth.id_doc_type_model'), $id);
             }

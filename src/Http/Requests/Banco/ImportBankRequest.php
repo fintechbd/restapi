@@ -23,8 +23,8 @@ class ImportBankRequest extends FormRequest
     public function rules(): array
     {
         /** @phpstan-ignore-next-line */
-        $bank_id = (int)collect(request()->segments())->last(); //id of the resource
-        $uniqueRule = 'unique:banks,bank_name,' . $bank_id . ',id,deleted_at,NULL';
+        $bank_id = (int) collect(request()->segments())->last(); //id of the resource
+        $uniqueRule = 'unique:banks,bank_name,'.$bank_id.',id,deleted_at,NULL';
 
         return [
             'country_id' => ['required', 'integer'],

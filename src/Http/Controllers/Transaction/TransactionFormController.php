@@ -69,7 +69,7 @@ class TransactionFormController extends Controller
 
             $transactionForm = Transaction::transactionForm()->create($inputs);
 
-            if (!$transactionForm) {
+            if (! $transactionForm) {
                 throw (new StoreOperationException)->setModel(config('fintech.transaction.transaction_form_model'));
             }
 
@@ -98,7 +98,7 @@ class TransactionFormController extends Controller
 
             $transactionForm = Transaction::transactionForm()->find($id);
 
-            if (!$transactionForm) {
+            if (! $transactionForm) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.transaction_form_model'), $id);
             }
 
@@ -129,13 +129,13 @@ class TransactionFormController extends Controller
 
             $transactionForm = Transaction::transactionForm()->find($id);
 
-            if (!$transactionForm) {
+            if (! $transactionForm) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.transaction_form_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!Transaction::transactionForm()->update($id, $inputs)) {
+            if (! Transaction::transactionForm()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.transaction.transaction_form_model'), $id);
             }
@@ -169,11 +169,11 @@ class TransactionFormController extends Controller
 
             $transactionForm = Transaction::transactionForm()->find($id);
 
-            if (!$transactionForm) {
+            if (! $transactionForm) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.transaction_form_model'), $id);
             }
 
-            if (!Transaction::transactionForm()->destroy($id)) {
+            if (! Transaction::transactionForm()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.transaction.transaction_form_model'), $id);
             }
@@ -205,11 +205,11 @@ class TransactionFormController extends Controller
 
             $transactionForm = Transaction::transactionForm()->find($id, true);
 
-            if (!$transactionForm) {
+            if (! $transactionForm) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.transaction_form_model'), $id);
             }
 
-            if (!Transaction::transactionForm()->restore($id)) {
+            if (! Transaction::transactionForm()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.transaction.transaction_form_model'), $id);
             }
@@ -281,12 +281,12 @@ class TransactionFormController extends Controller
 
             $attribute = 'id';
 
-            if (!empty($filters['label'])) {
+            if (! empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (!empty($filters['attribute'])) {
+            if (! empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }

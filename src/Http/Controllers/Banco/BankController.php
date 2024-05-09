@@ -63,7 +63,7 @@ class BankController extends Controller
 
             $bank = Banco::bank()->create($inputs);
 
-            if (!$bank) {
+            if (! $bank) {
                 throw (new StoreOperationException)->setModel(config('fintech.banco.bank_model'));
             }
 
@@ -92,7 +92,7 @@ class BankController extends Controller
 
             $bank = Banco::bank()->find($id);
 
-            if (!$bank) {
+            if (! $bank) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.banco.bank_model'), $id);
             }
 
@@ -123,13 +123,13 @@ class BankController extends Controller
 
             $bank = Banco::bank()->find($id);
 
-            if (!$bank) {
+            if (! $bank) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.banco.bank_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!Banco::bank()->update($id, $inputs)) {
+            if (! Banco::bank()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.banco.bank_model'), $id);
             }
@@ -163,11 +163,11 @@ class BankController extends Controller
 
             $bank = Banco::bank()->find($id);
 
-            if (!$bank) {
+            if (! $bank) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.banco.bank_model'), $id);
             }
 
-            if (!Banco::bank()->destroy($id)) {
+            if (! Banco::bank()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.banco.bank_model'), $id);
             }
@@ -199,11 +199,11 @@ class BankController extends Controller
 
             $bank = Banco::bank()->find($id, true);
 
-            if (!$bank) {
+            if (! $bank) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.banco.bank_model'), $id);
             }
 
-            if (!Banco::bank()->restore($id)) {
+            if (! Banco::bank()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.banco.bank_model'), $id);
             }

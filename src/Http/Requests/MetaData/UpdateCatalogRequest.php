@@ -37,7 +37,7 @@ class UpdateCatalogRequest extends FormRequest
                 'max:255',
                 Rule::unique('catalogs', 'name')
                     ->ignore($modelId)
-                    ->where(fn($query) => $query->where('type', $type)),
+                    ->where(fn ($query) => $query->where('type', $type)),
             ],
             'code' => [
                 'required',
@@ -46,7 +46,7 @@ class UpdateCatalogRequest extends FormRequest
                 'max:255',
                 Rule::unique('catalogs', 'code')
                     ->ignore($modelId)
-                    ->where(fn($query) => $query->where('type', $type)),
+                    ->where(fn ($query) => $query->where('type', $type)),
             ],
             'countries' => ['nullable', 'array'],
             'countries.*' => ['required', 'integer'],

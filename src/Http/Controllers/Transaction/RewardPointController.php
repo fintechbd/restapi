@@ -67,7 +67,7 @@ class RewardPointController extends Controller
 
             $rewardPoint = Transaction::rewardPoint()->create($inputs);
 
-            if (!$rewardPoint) {
+            if (! $rewardPoint) {
                 throw (new StoreOperationException)->setModel(config('fintech.transaction.reward_point_model'));
             }
 
@@ -96,7 +96,7 @@ class RewardPointController extends Controller
 
             $rewardPoint = Transaction::rewardPoint()->find($id);
 
-            if (!$rewardPoint) {
+            if (! $rewardPoint) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.reward_point_model'), $id);
             }
 
@@ -127,13 +127,13 @@ class RewardPointController extends Controller
 
             $rewardPoint = Transaction::rewardPoint()->find($id);
 
-            if (!$rewardPoint) {
+            if (! $rewardPoint) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.reward_point_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!Transaction::rewardPoint()->update($id, $inputs)) {
+            if (! Transaction::rewardPoint()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.transaction.reward_point_model'), $id);
             }
@@ -167,11 +167,11 @@ class RewardPointController extends Controller
 
             $rewardPoint = Transaction::rewardPoint()->find($id);
 
-            if (!$rewardPoint) {
+            if (! $rewardPoint) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.reward_point_model'), $id);
             }
 
-            if (!Transaction::rewardPoint()->destroy($id)) {
+            if (! Transaction::rewardPoint()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.transaction.reward_point_model'), $id);
             }
@@ -203,11 +203,11 @@ class RewardPointController extends Controller
 
             $rewardPoint = Transaction::rewardPoint()->find($id, true);
 
-            if (!$rewardPoint) {
+            if (! $rewardPoint) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.reward_point_model'), $id);
             }
 
-            if (!Transaction::rewardPoint()->restore($id)) {
+            if (! Transaction::rewardPoint()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.transaction.reward_point_model'), $id);
             }

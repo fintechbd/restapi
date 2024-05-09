@@ -25,7 +25,7 @@ class RoleServiceController extends Controller
 
             $role = Auth::role()->find($id);
 
-            if (!$role) {
+            if (! $role) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.role_model'), $id);
             }
 
@@ -53,13 +53,13 @@ class RoleServiceController extends Controller
 
             $role = Auth::role()->find($id);
 
-            if (!$role) {
+            if (! $role) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.role_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!Auth::role()->update($id, $inputs)) {
+            if (! Auth::role()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException())->setModel(config('fintech.auth.role_model'), $id);
             }

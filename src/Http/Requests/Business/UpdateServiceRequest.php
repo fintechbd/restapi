@@ -24,8 +24,8 @@ class UpdateServiceRequest extends FormRequest
     public function rules(): array
     {
         /** @phpstan-ignore-next-line */
-        $service_id = (int)collect(request()->segments())->last(); //id of the resource
-        $uniqueRule = 'unique:services,service_slug,' . $service_id . ',id,service_type_id,' . $this->input('service_type_id') . ',service_vendor_id,' . $this->input('service_vendor_id') . ',deleted_at,NULL';
+        $service_id = (int) collect(request()->segments())->last(); //id of the resource
+        $uniqueRule = 'unique:services,service_slug,'.$service_id.',id,service_type_id,'.$this->input('service_type_id').',service_vendor_id,'.$this->input('service_vendor_id').',deleted_at,NULL';
 
         $rules = [
             'service_type_id' => ['integer', 'required'],

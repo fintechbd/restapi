@@ -23,7 +23,7 @@ class UpdateChartTypeRequest extends FormRequest
      */
     public function rules(): array
     {
-        $uniqueRule = 'unique:' . config('fintech.transaction.chart_type_model', ChartType::class) . ',code,' . $this->route('chart_type');
+        $uniqueRule = 'unique:'.config('fintech.transaction.chart_type_model', ChartType::class).',code,'.$this->route('chart_type');
 
         return [
             'chart_class_id' => ['required', 'integer', 'min:1'],

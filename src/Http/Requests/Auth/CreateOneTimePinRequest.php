@@ -46,7 +46,7 @@ class CreateOneTimePinRequest extends FormRequest
     {
         $key = $this->input('mobile', $this->input('email', $this->input('user')));
 
-        return Str::transliterate(Str::lower($key . '|' . $this->ip()));
+        return Str::transliterate(Str::lower($key.'|'.$this->ip()));
     }
 
     /**
@@ -64,7 +64,7 @@ class CreateOneTimePinRequest extends FormRequest
      */
     public function ensureIsNotRateLimited(): void
     {
-        if (!RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
+        if (! RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
             return;
         }
 

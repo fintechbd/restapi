@@ -67,7 +67,7 @@ class RedeemPointController extends Controller
 
             $redeemPoint = Transaction::redeemPoint()->create($inputs);
 
-            if (!$redeemPoint) {
+            if (! $redeemPoint) {
                 throw (new StoreOperationException)->setModel(config('fintech.transaction.redeem_point_model'));
             }
 
@@ -96,7 +96,7 @@ class RedeemPointController extends Controller
 
             $redeemPoint = Transaction::redeemPoint()->find($id);
 
-            if (!$redeemPoint) {
+            if (! $redeemPoint) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.redeem_point_model'), $id);
             }
 
@@ -127,13 +127,13 @@ class RedeemPointController extends Controller
 
             $redeemPoint = Transaction::redeemPoint()->find($id);
 
-            if (!$redeemPoint) {
+            if (! $redeemPoint) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.redeem_point_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!Transaction::redeemPoint()->update($id, $inputs)) {
+            if (! Transaction::redeemPoint()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.transaction.redeem_point_model'), $id);
             }
@@ -167,11 +167,11 @@ class RedeemPointController extends Controller
 
             $redeemPoint = Transaction::redeemPoint()->find($id);
 
-            if (!$redeemPoint) {
+            if (! $redeemPoint) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.redeem_point_model'), $id);
             }
 
-            if (!Transaction::redeemPoint()->destroy($id)) {
+            if (! Transaction::redeemPoint()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.transaction.redeem_point_model'), $id);
             }
@@ -203,11 +203,11 @@ class RedeemPointController extends Controller
 
             $redeemPoint = Transaction::redeemPoint()->find($id, true);
 
-            if (!$redeemPoint) {
+            if (! $redeemPoint) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.redeem_point_model'), $id);
             }
 
-            if (!Transaction::redeemPoint()->restore($id)) {
+            if (! Transaction::redeemPoint()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.transaction.redeem_point_model'), $id);
             }

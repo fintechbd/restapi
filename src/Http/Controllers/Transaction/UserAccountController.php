@@ -65,7 +65,7 @@ class UserAccountController extends Controller
 
             $userAccount = Transaction::userAccount()->create($inputs);
 
-            if (!$userAccount) {
+            if (! $userAccount) {
                 throw (new StoreOperationException)->setModel(config('fintech.transaction.user_account_model'));
             }
 
@@ -94,7 +94,7 @@ class UserAccountController extends Controller
 
             $userAccount = Transaction::userAccount()->find($id);
 
-            if (!$userAccount) {
+            if (! $userAccount) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.user_account_model'), $id);
             }
 
@@ -127,11 +127,11 @@ class UserAccountController extends Controller
 
             $userAccount = Transaction::userAccount()->find($id);
 
-            if (!$userAccount) {
+            if (! $userAccount) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.user_account_model'), $id);
             }
 
-            if (!Transaction::userAccount()->destroy($id)) {
+            if (! Transaction::userAccount()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.transaction.user_account_model'), $id);
             }
@@ -163,11 +163,11 @@ class UserAccountController extends Controller
 
             $userAccount = Transaction::userAccount()->find($id, true);
 
-            if (!$userAccount) {
+            if (! $userAccount) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.user_account_model'), $id);
             }
 
-            if (!Transaction::userAccount()->restore($id)) {
+            if (! Transaction::userAccount()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.transaction.user_account_model'), $id);
             }
@@ -248,11 +248,11 @@ class UserAccountController extends Controller
 
             $userAccount = Transaction::userAccount()->find($id);
 
-            if (!$userAccount) {
+            if (! $userAccount) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.transaction.user_account_model'), $id);
             }
 
-            if (!Transaction::userAccount()->update($id, ['enabled' => !$userAccount->enabled])) {
+            if (! Transaction::userAccount()->update($id, ['enabled' => ! $userAccount->enabled])) {
                 throw (new UpdateOperationException())->setModel(config('fintech.transaction.user_account_model'), $id);
             }
 
@@ -283,13 +283,13 @@ class UserAccountController extends Controller
 
             $userAccount = Transaction::userAccount()->find($id);
 
-            if (!$userAccount) {
+            if (! $userAccount) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.user_account_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!Transaction::userAccount()->update($id, $inputs)) {
+            if (! Transaction::userAccount()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.transaction.user_account_model'), $id);
             }

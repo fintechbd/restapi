@@ -67,7 +67,7 @@ class ServiceTypeController extends Controller
 
             $serviceType = Business::serviceType()->create($inputs);
 
-            if (!$serviceType) {
+            if (! $serviceType) {
                 throw (new StoreOperationException)->setModel(config('fintech.business.service_type_model'));
             }
 
@@ -96,7 +96,7 @@ class ServiceTypeController extends Controller
 
             $serviceType = Business::serviceType()->find($id);
 
-            if (!$serviceType) {
+            if (! $serviceType) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_type_model'), $id);
             }
 
@@ -124,13 +124,13 @@ class ServiceTypeController extends Controller
 
             $serviceType = Business::serviceType()->find($id);
 
-            if (!$serviceType) {
+            if (! $serviceType) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_type_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!Business::serviceType()->update($id, $inputs)) {
+            if (! Business::serviceType()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_type_model'), $id);
             }
@@ -159,11 +159,11 @@ class ServiceTypeController extends Controller
 
             $serviceType = Business::serviceType()->find($id);
 
-            if (!$serviceType) {
+            if (! $serviceType) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_type_model'), $id);
             }
 
-            if (!Business::serviceType()->destroy($id)) {
+            if (! Business::serviceType()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.business.service_type_model'), $id);
             }
@@ -193,11 +193,11 @@ class ServiceTypeController extends Controller
 
             $serviceType = Business::serviceType()->find($id, true);
 
-            if (!$serviceType) {
+            if (! $serviceType) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_type_model'), $id);
             }
 
-            if (!Business::serviceType()->restore($id)) {
+            if (! Business::serviceType()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.business.service_type_model'), $id);
             }

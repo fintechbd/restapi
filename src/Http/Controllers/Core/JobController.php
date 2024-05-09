@@ -60,7 +60,7 @@ class JobController extends Controller
 
             $job = Core::job()->find($id);
 
-            if (!$job) {
+            if (! $job) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.core.job_model'), $id);
             }
 
@@ -93,11 +93,11 @@ class JobController extends Controller
 
             $job = Core::job()->read($id);
 
-            if (!$job) {
+            if (! $job) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.core.job_model'), $id);
             }
 
-            if (!Core::job()->destroy($id)) {
+            if (! Core::job()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.core.job_model'), $id);
             }

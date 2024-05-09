@@ -27,9 +27,9 @@ class OneTimePinController extends Controller
         $targetField = $request->has('mobile')
             ? 'mobile' :
             (
-            $request->has('email')
-                ? 'email' :
-                ($request->has('user') ? 'user' : null)
+                $request->has('email')
+                    ? 'email' :
+                    ($request->has('user') ? 'user' : null)
             );
 
         $targetValue = $request->input($targetField);
@@ -42,7 +42,7 @@ class OneTimePinController extends Controller
 
             $response = Auth::otp()->create($targetValue);
 
-            if (!$response['status']) {
+            if (! $response['status']) {
                 throw new Exception($response['message']);
             }
 
@@ -64,7 +64,7 @@ class OneTimePinController extends Controller
 
         try {
 
-            if (!Auth::otp()->exists($token)) {
+            if (! Auth::otp()->exists($token)) {
                 throw new Exception(__('auth::messages.verify.invalid'));
             }
 

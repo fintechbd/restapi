@@ -53,7 +53,7 @@ class LoginResource extends JsonResource
 
         $permissionCollection = $this->getAllPermissions();
 
-        if (!$permissionCollection->isEmpty()) {
+        if (! $permissionCollection->isEmpty()) {
             $permissions = $permissionCollection->pluck('name')->toArray();
         }
 

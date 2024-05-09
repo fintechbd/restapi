@@ -69,7 +69,7 @@ class TeamController extends Controller
 
             $team = Auth::team()->create($inputs);
 
-            if (!$team) {
+            if (! $team) {
                 throw (new StoreOperationException())->setModel(config('fintech.auth.team_model'));
             }
 
@@ -96,7 +96,7 @@ class TeamController extends Controller
 
             $team = Auth::team()->find($id);
 
-            if (!$team) {
+            if (! $team) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.team_model'), $id);
             }
 
@@ -124,13 +124,13 @@ class TeamController extends Controller
 
             $team = Auth::team()->find($id);
 
-            if (!$team) {
+            if (! $team) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.team_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!Auth::team()->update($id, $inputs)) {
+            if (! Auth::team()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException())->setModel(config('fintech.auth.team_model'), $id);
             }
@@ -161,11 +161,11 @@ class TeamController extends Controller
 
             $team = Auth::team()->find($id);
 
-            if (!$team) {
+            if (! $team) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.team_model'), $id);
             }
 
-            if (!Auth::team()->destroy($id)) {
+            if (! Auth::team()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.auth.team_model'), $id);
             }
@@ -197,11 +197,11 @@ class TeamController extends Controller
 
             $team = Auth::team()->find($id, true);
 
-            if (!$team) {
+            if (! $team) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.team_model'), $id);
             }
 
-            if (!Auth::team()->restore($id)) {
+            if (! Auth::team()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.auth.team_model'), $id);
             }
@@ -271,12 +271,12 @@ class TeamController extends Controller
 
             $attribute = 'id';
 
-            if (!empty($filters['label'])) {
+            if (! empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (!empty($filters['attribute'])) {
+            if (! empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }

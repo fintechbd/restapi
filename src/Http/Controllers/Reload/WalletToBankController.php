@@ -67,7 +67,7 @@ class WalletToBankController extends Controller
 
             $walletToBank = Reload::walletToBank()->create($inputs);
 
-            if (!$walletToBank) {
+            if (! $walletToBank) {
                 throw (new StoreOperationException)->setModel(config('fintech.reload.wallet_to_bank_model'));
             }
 
@@ -96,7 +96,7 @@ class WalletToBankController extends Controller
 
             $walletToBank = Reload::walletToBank()->find($id);
 
-            if (!$walletToBank) {
+            if (! $walletToBank) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.reload.wallet_to_bank_model'), $id);
             }
 
@@ -127,13 +127,13 @@ class WalletToBankController extends Controller
 
             $walletToBank = Reload::walletToBank()->find($id);
 
-            if (!$walletToBank) {
+            if (! $walletToBank) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.reload.wallet_to_bank_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!Reload::walletToBank()->update($id, $inputs)) {
+            if (! Reload::walletToBank()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.reload.wallet_to_bank_model'), $id);
             }
@@ -167,11 +167,11 @@ class WalletToBankController extends Controller
 
             $walletToBank = Reload::walletToBank()->find($id);
 
-            if (!$walletToBank) {
+            if (! $walletToBank) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.reload.wallet_to_bank_model'), $id);
             }
 
-            if (!Reload::walletToBank()->destroy($id)) {
+            if (! Reload::walletToBank()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.reload.wallet_to_bank_model'), $id);
             }
@@ -203,11 +203,11 @@ class WalletToBankController extends Controller
 
             $walletToBank = Reload::walletToBank()->find($id, true);
 
-            if (!$walletToBank) {
+            if (! $walletToBank) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.reload.wallet_to_bank_model'), $id);
             }
 
-            if (!Reload::walletToBank()->restore($id)) {
+            if (! Reload::walletToBank()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.reload.wallet_to_bank_model'), $id);
             }

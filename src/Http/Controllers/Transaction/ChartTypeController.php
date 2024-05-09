@@ -67,7 +67,7 @@ class ChartTypeController extends Controller
 
             $chartType = Transaction::chartType()->create($inputs);
 
-            if (!$chartType) {
+            if (! $chartType) {
                 throw (new StoreOperationException)->setModel(config('fintech.transaction.chart_type_model'));
             }
 
@@ -96,7 +96,7 @@ class ChartTypeController extends Controller
 
             $chartType = Transaction::chartType()->find($id);
 
-            if (!$chartType) {
+            if (! $chartType) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.chart_type_model'), $id);
             }
 
@@ -127,13 +127,13 @@ class ChartTypeController extends Controller
 
             $chartType = Transaction::chartType()->find($id);
 
-            if (!$chartType) {
+            if (! $chartType) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.chart_type_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!Transaction::chartType()->update($id, $inputs)) {
+            if (! Transaction::chartType()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.transaction.chart_type_model'), $id);
             }
@@ -167,11 +167,11 @@ class ChartTypeController extends Controller
 
             $chartType = Transaction::chartType()->find($id);
 
-            if (!$chartType) {
+            if (! $chartType) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.chart_type_model'), $id);
             }
 
-            if (!Transaction::chartType()->destroy($id)) {
+            if (! Transaction::chartType()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.transaction.chart_type_model'), $id);
             }
@@ -203,11 +203,11 @@ class ChartTypeController extends Controller
 
             $chartType = Transaction::chartType()->find($id, true);
 
-            if (!$chartType) {
+            if (! $chartType) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.chart_type_model'), $id);
             }
 
-            if (!Transaction::chartType()->restore($id)) {
+            if (! Transaction::chartType()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.transaction.chart_type_model'), $id);
             }

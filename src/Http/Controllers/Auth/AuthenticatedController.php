@@ -44,7 +44,7 @@ class AuthenticatedController extends Controller
 
             $attemptUser = \Fintech\Auth\Facades\Auth::user()->login($credentials, 'web');
 
-            if (!$attemptUser->can('auth.login')) {
+            if (! $attemptUser->can('auth.login')) {
 
                 Auth::guard('web')->logout();
 

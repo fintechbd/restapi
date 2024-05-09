@@ -27,7 +27,7 @@ class PulseCheckController extends Controller
     {
         try {
 
-            if (!$this->validTimezone($request)) {
+            if (! $this->validTimezone($request)) {
 
             }
 

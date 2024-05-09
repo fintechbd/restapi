@@ -27,8 +27,8 @@ class ImportBeneficiaryRequest extends FormRequest
     public function rules(): array
     {
         /** @phpstan-ignore-next-line */
-        $beneficiary_id = (int)collect(request()->segments())->last(); //id of the resource
-        $uniqueRule = 'unique:beneficiaries,beneficiary_mobile,' . $beneficiary_id . ',id,user_id,' . $this->input('user_id') . ',beneficiary_type_id,' . $this->input('beneficiary_type_id') . ',deleted_at,NULL';
+        $beneficiary_id = (int) collect(request()->segments())->last(); //id of the resource
+        $uniqueRule = 'unique:beneficiaries,beneficiary_mobile,'.$beneficiary_id.',id,user_id,'.$this->input('user_id').',beneficiary_type_id,'.$this->input('beneficiary_type_id').',deleted_at,NULL';
 
         return [
             'user_id' => ['required', 'integer'],
