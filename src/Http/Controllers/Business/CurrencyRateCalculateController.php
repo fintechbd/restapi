@@ -6,14 +6,11 @@ use Exception;
 use Fintech\Business\Facades\Business;
 use Fintech\RestApi\Http\Requests\Business\ServiceCurrencyRateRequest;
 use Fintech\RestApi\Http\Resources\Business\ServiceCostResource;
-use Fintech\RestApi\Traits\ApiResponseTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 
 class CurrencyRateCalculateController extends Controller
 {
-    use ApiResponseTrait;
-
     /**
      * @lrd:start
      */
@@ -31,7 +28,7 @@ class CurrencyRateCalculateController extends Controller
             return new ServiceCostResource($exchangeRate);
 
         } catch (Exception $exception) {
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 }

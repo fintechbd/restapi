@@ -12,7 +12,7 @@ class SubRegionCollection extends ResourceCollection
     /**
      * Transform the resource collection into an array.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @return array
      */
     public function toArray($request)
@@ -23,7 +23,7 @@ class SubRegionCollection extends ResourceCollection
                 'region_id' => $subregion->region_id ?? null,
                 'region_name' => ($subregion->region != null) ? $subregion->region->name : null,
                 'name' => $subregion->name ?? null,
-                'vendor_code' => $subregion->vendor_code ?? (object) [],
+                'vendor_code' => $subregion->vendor_code ?? (object)[],
                 'subregion_data' => $subregion->subregion_data ?? null,
                 'created_at' => $subregion->created_at,
                 'updated_at' => $subregion->updated_at,

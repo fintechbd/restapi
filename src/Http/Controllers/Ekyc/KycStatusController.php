@@ -14,7 +14,6 @@ use Fintech\RestApi\Http\Requests\Ekyc\StoreKycStatusRequest;
 use Fintech\RestApi\Http\Requests\Ekyc\UpdateKycStatusRequest;
 use Fintech\RestApi\Http\Resources\Ekyc\KycStatusCollection;
 use Fintech\RestApi\Http\Resources\Ekyc\KycStatusResource;
-use Fintech\RestApi\Traits\ApiResponseTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -30,8 +29,6 @@ use Illuminate\Routing\Controller;
  */
 class KycStatusController extends Controller
 {
-    use ApiResponseTrait;
-
     /**
      * @lrd:start
      * Return a listing of the *KycStatus* resource as collection.
@@ -51,7 +48,7 @@ class KycStatusController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -70,7 +67,7 @@ class KycStatusController extends Controller
 
             $kycStatus = Ekyc::kycStatus()->create($inputs);
 
-            if (! $kycStatus) {
+            if (!$kycStatus) {
                 throw (new StoreOperationException)->setModel(config('fintech.ekyc.kyc_status_model'));
             }
 
@@ -81,7 +78,7 @@ class KycStatusController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -99,7 +96,7 @@ class KycStatusController extends Controller
 
             $kycStatus = Ekyc::kycStatus()->find($id);
 
-            if (! $kycStatus) {
+            if (!$kycStatus) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.ekyc.kyc_status_model'), $id);
             }
 
@@ -111,7 +108,7 @@ class KycStatusController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -130,13 +127,13 @@ class KycStatusController extends Controller
 
             $kycStatus = Ekyc::kycStatus()->find($id);
 
-            if (! $kycStatus) {
+            if (!$kycStatus) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.ekyc.kyc_status_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! Ekyc::kycStatus()->update($id, $inputs)) {
+            if (!Ekyc::kycStatus()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.ekyc.kyc_status_model'), $id);
             }
@@ -149,7 +146,7 @@ class KycStatusController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -170,11 +167,11 @@ class KycStatusController extends Controller
 
             $kycStatus = Ekyc::kycStatus()->find($id);
 
-            if (! $kycStatus) {
+            if (!$kycStatus) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.ekyc.kyc_status_model'), $id);
             }
 
-            if (! Ekyc::kycStatus()->destroy($id)) {
+            if (!Ekyc::kycStatus()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.ekyc.kyc_status_model'), $id);
             }
@@ -187,7 +184,7 @@ class KycStatusController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -206,11 +203,11 @@ class KycStatusController extends Controller
 
             $kycStatus = Ekyc::kycStatus()->find($id, true);
 
-            if (! $kycStatus) {
+            if (!$kycStatus) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.ekyc.kyc_status_model'), $id);
             }
 
-            if (! Ekyc::kycStatus()->restore($id)) {
+            if (!Ekyc::kycStatus()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.ekyc.kyc_status_model'), $id);
             }
@@ -223,7 +220,7 @@ class KycStatusController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -245,7 +242,7 @@ class KycStatusController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -269,7 +266,7 @@ class KycStatusController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 }

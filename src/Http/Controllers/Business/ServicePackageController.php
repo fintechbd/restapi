@@ -14,7 +14,6 @@ use Fintech\RestApi\Http\Requests\Business\StoreServicePackageRequest;
 use Fintech\RestApi\Http\Requests\Business\UpdateServicePackageRequest;
 use Fintech\RestApi\Http\Resources\Business\ServicePackageCollection;
 use Fintech\RestApi\Http\Resources\Business\ServicePackageResource;
-use Fintech\RestApi\Traits\ApiResponseTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -30,8 +29,6 @@ use Illuminate\Routing\Controller;
  */
 class ServicePackageController extends Controller
 {
-    use ApiResponseTrait;
-
     /**
      * @lrd:start
      * Return a listing of the *ServicePackage* resource as collection.
@@ -51,7 +48,7 @@ class ServicePackageController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -70,7 +67,7 @@ class ServicePackageController extends Controller
 
             $servicePackage = Business::servicePackage()->create($inputs);
 
-            if (! $servicePackage) {
+            if (!$servicePackage) {
                 throw (new StoreOperationException)->setModel(config('fintech.business.service_package_model'));
             }
 
@@ -81,7 +78,7 @@ class ServicePackageController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -99,7 +96,7 @@ class ServicePackageController extends Controller
 
             $servicePackage = Business::servicePackage()->find($id);
 
-            if (! $servicePackage) {
+            if (!$servicePackage) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_package_model'), $id);
             }
 
@@ -111,7 +108,7 @@ class ServicePackageController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -130,13 +127,13 @@ class ServicePackageController extends Controller
 
             $servicePackage = Business::servicePackage()->find($id);
 
-            if (! $servicePackage) {
+            if (!$servicePackage) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_package_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! Business::servicePackage()->update($id, $inputs)) {
+            if (!Business::servicePackage()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_package_model'), $id);
             }
@@ -149,7 +146,7 @@ class ServicePackageController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -170,11 +167,11 @@ class ServicePackageController extends Controller
 
             $servicePackage = Business::servicePackage()->find($id);
 
-            if (! $servicePackage) {
+            if (!$servicePackage) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_package_model'), $id);
             }
 
-            if (! Business::servicePackage()->destroy($id)) {
+            if (!Business::servicePackage()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.business.service_package_model'), $id);
             }
@@ -187,7 +184,7 @@ class ServicePackageController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -206,11 +203,11 @@ class ServicePackageController extends Controller
 
             $servicePackage = Business::servicePackage()->find($id, true);
 
-            if (! $servicePackage) {
+            if (!$servicePackage) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_package_model'), $id);
             }
 
-            if (! Business::servicePackage()->restore($id)) {
+            if (!Business::servicePackage()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.business.service_package_model'), $id);
             }
@@ -223,7 +220,7 @@ class ServicePackageController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -245,7 +242,7 @@ class ServicePackageController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -269,7 +266,7 @@ class ServicePackageController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 }

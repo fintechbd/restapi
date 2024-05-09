@@ -14,7 +14,6 @@ use Fintech\RestApi\Http\Requests\Business\StoreCurrencyRateRequest;
 use Fintech\RestApi\Http\Requests\Business\UpdateCurrencyRateRequest;
 use Fintech\RestApi\Http\Resources\Business\CurrencyRateCollection;
 use Fintech\RestApi\Http\Resources\Business\CurrencyRateResource;
-use Fintech\RestApi\Traits\ApiResponseTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -30,8 +29,6 @@ use Illuminate\Routing\Controller;
  */
 class CurrencyRateController extends Controller
 {
-    use ApiResponseTrait;
-
     /**
      * @lrd:start
      * Return a listing of the *CurrencyRate* resource as collection.
@@ -51,7 +48,7 @@ class CurrencyRateController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -70,7 +67,7 @@ class CurrencyRateController extends Controller
 
             $currencyRate = Business::currencyRate()->create($inputs);
 
-            if (! $currencyRate) {
+            if (!$currencyRate) {
                 throw (new StoreOperationException)->setModel(config('fintech.business.currency_rate_model'));
             }
 
@@ -81,7 +78,7 @@ class CurrencyRateController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -99,7 +96,7 @@ class CurrencyRateController extends Controller
 
             $currencyRate = Business::currencyRate()->find($id);
 
-            if (! $currencyRate) {
+            if (!$currencyRate) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.currency_rate_model'), $id);
             }
 
@@ -111,7 +108,7 @@ class CurrencyRateController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -130,13 +127,13 @@ class CurrencyRateController extends Controller
 
             $currencyRate = Business::currencyRate()->find($id);
 
-            if (! $currencyRate) {
+            if (!$currencyRate) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.currency_rate_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! Business::currencyRate()->update($id, $inputs)) {
+            if (!Business::currencyRate()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.currency_rate_model'), $id);
             }
@@ -149,7 +146,7 @@ class CurrencyRateController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -170,11 +167,11 @@ class CurrencyRateController extends Controller
 
             $currencyRate = Business::currencyRate()->find($id);
 
-            if (! $currencyRate) {
+            if (!$currencyRate) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.currency_rate_model'), $id);
             }
 
-            if (! Business::currencyRate()->destroy($id)) {
+            if (!Business::currencyRate()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.business.currency_rate_model'), $id);
             }
@@ -187,7 +184,7 @@ class CurrencyRateController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -206,11 +203,11 @@ class CurrencyRateController extends Controller
 
             $currencyRate = Business::currencyRate()->find($id, true);
 
-            if (! $currencyRate) {
+            if (!$currencyRate) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.currency_rate_model'), $id);
             }
 
-            if (! Business::currencyRate()->restore($id)) {
+            if (!Business::currencyRate()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.business.currency_rate_model'), $id);
             }
@@ -223,7 +220,7 @@ class CurrencyRateController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -245,7 +242,7 @@ class CurrencyRateController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -269,7 +266,7 @@ class CurrencyRateController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 }

@@ -14,7 +14,6 @@ use Fintech\Core\Exceptions\DeleteOperationException;
 use Fintech\Core\Exceptions\RestoreOperationException;
 use Fintech\Core\Exceptions\StoreOperationException;
 use Fintech\Core\Exceptions\UpdateOperationException;
-use Fintech\RestApi\Traits\ApiResponseTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -30,8 +29,6 @@ use Illuminate\Routing\Controller;
  */
 class ChatParticipantController extends Controller
 {
-    use ApiResponseTrait;
-
     /**
      * @lrd:start
      * Return a listing of the *ChatParticipant* resource as collection.
@@ -51,7 +48,7 @@ class ChatParticipantController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -70,7 +67,7 @@ class ChatParticipantController extends Controller
 
             $chatParticipant = Chat::chatParticipant()->create($inputs);
 
-            if (! $chatParticipant) {
+            if (!$chatParticipant) {
                 throw (new StoreOperationException)->setModel(config('fintech.chat.chat_participant_model'));
             }
 
@@ -81,7 +78,7 @@ class ChatParticipantController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -99,7 +96,7 @@ class ChatParticipantController extends Controller
 
             $chatParticipant = Chat::chatParticipant()->find($id);
 
-            if (! $chatParticipant) {
+            if (!$chatParticipant) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.chat.chat_participant_model'), $id);
             }
 
@@ -111,7 +108,7 @@ class ChatParticipantController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -130,13 +127,13 @@ class ChatParticipantController extends Controller
 
             $chatParticipant = Chat::chatParticipant()->find($id);
 
-            if (! $chatParticipant) {
+            if (!$chatParticipant) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.chat.chat_participant_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! Chat::chatParticipant()->update($id, $inputs)) {
+            if (!Chat::chatParticipant()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.chat.chat_participant_model'), $id);
             }
@@ -149,7 +146,7 @@ class ChatParticipantController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -170,11 +167,11 @@ class ChatParticipantController extends Controller
 
             $chatParticipant = Chat::chatParticipant()->find($id);
 
-            if (! $chatParticipant) {
+            if (!$chatParticipant) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.chat.chat_participant_model'), $id);
             }
 
-            if (! Chat::chatParticipant()->destroy($id)) {
+            if (!Chat::chatParticipant()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.chat.chat_participant_model'), $id);
             }
@@ -187,7 +184,7 @@ class ChatParticipantController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -206,11 +203,11 @@ class ChatParticipantController extends Controller
 
             $chatParticipant = Chat::chatParticipant()->find($id, true);
 
-            if (! $chatParticipant) {
+            if (!$chatParticipant) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.chat.chat_participant_model'), $id);
             }
 
-            if (! Chat::chatParticipant()->restore($id)) {
+            if (!Chat::chatParticipant()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.chat.chat_participant_model'), $id);
             }
@@ -223,7 +220,7 @@ class ChatParticipantController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -245,7 +242,7 @@ class ChatParticipantController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -269,7 +266,7 @@ class ChatParticipantController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 }

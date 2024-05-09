@@ -9,13 +9,48 @@ use Fintech\Core\Facades\Core;
 use Fintech\MetaData\Facades\MetaData;
 use Fintech\RestApi\Http\Requests\Core\DropDownRequest;
 use Fintech\RestApi\Http\Resources\Core\DropDownCollection;
-use Fintech\RestApi\Traits\ApiResponseTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 
 class DropDownController extends Controller
 {
-    use ApiResponseTrait;
+    /**
+     * Handle the incoming request.
+     */
+    public function bloodGroup(DropDownRequest $request): DropDownCollection|JsonResponse
+    {
+        try {
+            $filters = $request->all();
+
+            $filters['type'] = CatalogType::BloodGroup->value;
+
+            $label = 'name';
+
+            $attribute = 'code';
+
+            if (!empty($filters['label'])) {
+                $label = $filters['label'];
+                unset($filters['label']);
+            }
+
+            if (!empty($filters['attribute'])) {
+                $attribute = $filters['attribute'];
+                unset($filters['attribute']);
+            }
+
+            $entries = MetaData::catalog()->list($filters)->map(function ($entry) use ($label, $attribute) {
+                return [
+                    'attribute' => $entry->{$attribute} ?? 'id',
+                    'label' => $entry->{$label} ?? 'name',
+                ];
+            })->toArray();
+
+            return new DropDownCollection($entries);
+
+        } catch (Exception $exception) {
+            return response()->failed($exception->getMessage());
+        }
+    }
 
     /**
      * Handle the incoming request.
@@ -32,45 +67,7 @@ class DropDownController extends Controller
             return new DropDownCollection($entries);
 
         } catch (Exception $exception) {
-            return $this->failed($exception->getMessage());
-        }
-    }
-
-    /**
-     * Handle the incoming request.
-     */
-    public function bloodGroup(DropDownRequest $request): DropDownCollection|JsonResponse
-    {
-        try {
-            $filters = $request->all();
-
-            $filters['type'] = CatalogType::BloodGroup->value;
-
-            $label = 'name';
-
-            $attribute = 'code';
-
-            if (! empty($filters['label'])) {
-                $label = $filters['label'];
-                unset($filters['label']);
-            }
-
-            if (! empty($filters['attribute'])) {
-                $attribute = $filters['attribute'];
-                unset($filters['attribute']);
-            }
-
-            $entries = MetaData::catalog()->list($filters)->map(function ($entry) use ($label, $attribute) {
-                return [
-                    'attribute' => $entry->{$attribute} ?? 'id',
-                    'label' => $entry->{$label} ?? 'name',
-                ];
-            })->toArray();
-
-            return new DropDownCollection($entries);
-
-        } catch (Exception $exception) {
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -88,12 +85,12 @@ class DropDownController extends Controller
 
             $attribute = 'code';
 
-            if (! empty($filters['label'])) {
+            if (!empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (! empty($filters['attribute'])) {
+            if (!empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }
@@ -108,7 +105,7 @@ class DropDownController extends Controller
             return new DropDownCollection($entries);
 
         } catch (Exception $exception) {
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -126,12 +123,12 @@ class DropDownController extends Controller
 
             $attribute = 'code';
 
-            if (! empty($filters['label'])) {
+            if (!empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (! empty($filters['attribute'])) {
+            if (!empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }
@@ -146,7 +143,7 @@ class DropDownController extends Controller
             return new DropDownCollection($entries);
 
         } catch (Exception $exception) {
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -162,12 +159,12 @@ class DropDownController extends Controller
 
             $attribute = 'id';
 
-            if (! empty($filters['label'])) {
+            if (!empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (! empty($filters['attribute'])) {
+            if (!empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }
@@ -182,7 +179,7 @@ class DropDownController extends Controller
             return new DropDownCollection($entries);
 
         } catch (Exception $exception) {
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -198,12 +195,12 @@ class DropDownController extends Controller
 
             $attribute = 'id';
 
-            if (! empty($filters['label'])) {
+            if (!empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (! empty($filters['attribute'])) {
+            if (!empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }
@@ -218,7 +215,7 @@ class DropDownController extends Controller
             return new DropDownCollection($entries);
 
         } catch (Exception $exception) {
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -234,12 +231,12 @@ class DropDownController extends Controller
 
             $attribute = 'id';
 
-            if (! empty($filters['label'])) {
+            if (!empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (! empty($filters['attribute'])) {
+            if (!empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }
@@ -254,7 +251,7 @@ class DropDownController extends Controller
             return new DropDownCollection($entries);
 
         } catch (Exception $exception) {
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -270,12 +267,12 @@ class DropDownController extends Controller
 
             $attribute = 'id';
 
-            if (! empty($filters['label'])) {
+            if (!empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (! empty($filters['attribute'])) {
+            if (!empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }
@@ -290,7 +287,7 @@ class DropDownController extends Controller
             return new DropDownCollection($entries);
 
         } catch (Exception $exception) {
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -306,12 +303,12 @@ class DropDownController extends Controller
 
             $attribute = 'code';
 
-            if (! empty($filters['label'])) {
+            if (!empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (! empty($filters['attribute'])) {
+            if (!empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }
@@ -328,7 +325,7 @@ class DropDownController extends Controller
             return new DropDownCollection($entries);
 
         } catch (Exception $exception) {
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -354,12 +351,12 @@ class DropDownController extends Controller
             $label = 'nationality';
             $attribute = 'nationality';
 
-            if (! empty($filters['label'])) {
+            if (!empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (! empty($filters['attribute'])) {
+            if (!empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }
@@ -374,7 +371,7 @@ class DropDownController extends Controller
             return new DropDownCollection($entries);
 
         } catch (Exception $exception) {
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -394,12 +391,12 @@ class DropDownController extends Controller
 
             $attribute = 'phone_code';
 
-            if (! empty($filters['label'])) {
+            if (!empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (! empty($filters['attribute'])) {
+            if (!empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }
@@ -414,7 +411,7 @@ class DropDownController extends Controller
             return new DropDownCollection($entries);
 
         } catch (Exception $exception) {
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -430,12 +427,12 @@ class DropDownController extends Controller
 
             $attribute = 'code';
 
-            if (! empty($filters['label'])) {
+            if (!empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (! empty($filters['attribute'])) {
+            if (!empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }
@@ -454,7 +451,7 @@ class DropDownController extends Controller
             return new DropDownCollection($entries);
 
         } catch (Exception $exception) {
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 }

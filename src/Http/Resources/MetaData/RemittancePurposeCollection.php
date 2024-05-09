@@ -10,9 +10,27 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 class RemittancePurposeCollection extends ResourceCollection
 {
     /**
+     * Get additional data that should be returned with the resource array.
+     *
+     * @return array<string, mixed>
+     */
+    public function with(Request $request): array
+    {
+        return [
+            'options' => [
+                'dir' => Constant::SORT_DIRECTIONS,
+                'countries' => MetaData::country()->list(['paginate' => false])->pluck('name', 'id')->toArray(),
+                'per_page' => Constant::PAGINATE_LENGTHS,
+                'sort' => ['id', 'name', 'code', 'enabled', 'created_at', 'updated_at'],
+            ],
+            'query' => $request->all(),
+        ];
+    }
+
+    /**
      * Transform the resource collection into an array.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @return array
      */
     public function toArray($request)
@@ -44,23 +62,5 @@ class RemittancePurposeCollection extends ResourceCollection
                 'links' => $links,
             ];
         })->toArray();
-    }
-
-    /**
-     * Get additional data that should be returned with the resource array.
-     *
-     * @return array<string, mixed>
-     */
-    public function with(Request $request): array
-    {
-        return [
-            'options' => [
-                'dir' => Constant::SORT_DIRECTIONS,
-                'countries' => MetaData::country()->list(['paginate' => false])->pluck('name', 'id')->toArray(),
-                'per_page' => Constant::PAGINATE_LENGTHS,
-                'sort' => ['id', 'name', 'code', 'enabled', 'created_at', 'updated_at'],
-            ],
-            'query' => $request->all(),
-        ];
     }
 }

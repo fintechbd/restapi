@@ -14,7 +14,6 @@ use Fintech\RestApi\Http\Requests\Core\StoreSettingRequest;
 use Fintech\RestApi\Http\Requests\Core\UpdateSettingRequest;
 use Fintech\RestApi\Http\Resources\Core\SettingCollection;
 use Fintech\RestApi\Http\Resources\Core\SettingResource;
-use Fintech\RestApi\Traits\ApiResponseTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -30,8 +29,6 @@ use Illuminate\Routing\Controller;
  */
 class SettingController extends Controller
 {
-    use ApiResponseTrait;
-
     /**
      * @lrd:start
      * Return a listing of the setting resource as collection.
@@ -51,7 +48,7 @@ class SettingController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -70,7 +67,7 @@ class SettingController extends Controller
 
             $setting = Core::setting()->create($inputs);
 
-            if (! $setting) {
+            if (!$setting) {
                 throw (new StoreOperationException())->setModel(config('fintech.core.setting_model'));
             }
 
@@ -81,7 +78,7 @@ class SettingController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -99,7 +96,7 @@ class SettingController extends Controller
 
             $setting = Core::setting()->find($id);
 
-            if (! $setting) {
+            if (!$setting) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.core.setting_model'), $id);
             }
 
@@ -111,7 +108,7 @@ class SettingController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -129,13 +126,13 @@ class SettingController extends Controller
 
             $setting = Core::setting()->read($id);
 
-            if (! $setting) {
+            if (!$setting) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.core.setting_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! Core::setting()->update($id, $inputs)) {
+            if (!Core::setting()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException())->setModel(config('fintech.core.setting_model'), $id);
             }
@@ -148,7 +145,7 @@ class SettingController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -169,11 +166,11 @@ class SettingController extends Controller
 
             $setting = Core::setting()->read($id);
 
-            if (! $setting) {
+            if (!$setting) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.core.setting_model'), $id);
             }
 
-            if (! Core::setting()->destroy($id)) {
+            if (!Core::setting()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.core.setting_model'), $id);
             }
@@ -186,7 +183,7 @@ class SettingController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -205,11 +202,11 @@ class SettingController extends Controller
 
             $setting = Core::setting()->find($id, true);
 
-            if (! $setting) {
+            if (!$setting) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.core.setting_model'), $id);
             }
 
-            if (! Core::setting()->restore($id)) {
+            if (!Core::setting()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.core.setting_model'), $id);
             }
@@ -222,7 +219,7 @@ class SettingController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -244,7 +241,7 @@ class SettingController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -268,7 +265,7 @@ class SettingController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 }

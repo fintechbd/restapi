@@ -16,7 +16,6 @@ use Fintech\RestApi\Http\Requests\MetaData\UpdateStateRequest;
 use Fintech\RestApi\Http\Resources\Core\DropDownCollection;
 use Fintech\RestApi\Http\Resources\MetaData\StateCollection;
 use Fintech\RestApi\Http\Resources\MetaData\StateResource;
-use Fintech\RestApi\Traits\ApiResponseTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -32,8 +31,6 @@ use Illuminate\Routing\Controller;
  */
 class StateController extends Controller
 {
-    use ApiResponseTrait;
-
     /**
      * @lrd:start
      * Return a listing of the state resource as collection.
@@ -53,7 +50,7 @@ class StateController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -70,7 +67,7 @@ class StateController extends Controller
 
             $state = MetaData::state()->create($inputs);
 
-            if (! $state) {
+            if (!$state) {
                 throw (new StoreOperationException())->setModel(config('fintech.metadata.state_model'));
             }
 
@@ -81,7 +78,7 @@ class StateController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -101,7 +98,7 @@ class StateController extends Controller
 
             $state = MetaData::state()->find($id);
 
-            if (! $state) {
+            if (!$state) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.metadata.state_model'), $id);
             }
 
@@ -113,7 +110,7 @@ class StateController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -131,13 +128,13 @@ class StateController extends Controller
 
             $state = MetaData::state()->find($id);
 
-            if (! $state) {
+            if (!$state) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.metadata.state_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! MetaData::state()->update($id, $inputs)) {
+            if (!MetaData::state()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException())->setModel(config('fintech.metadata.state_model'), $id);
             }
@@ -150,7 +147,7 @@ class StateController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -171,11 +168,11 @@ class StateController extends Controller
 
             $state = MetaData::state()->find($id);
 
-            if (! $state) {
+            if (!$state) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.metadata.state_model'), $id);
             }
 
-            if (! MetaData::state()->destroy($id)) {
+            if (!MetaData::state()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.metadata.state_model'), $id);
             }
@@ -188,7 +185,7 @@ class StateController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -207,11 +204,11 @@ class StateController extends Controller
 
             $state = MetaData::state()->find($id, true);
 
-            if (! $state) {
+            if (!$state) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.metadata.state_model'), $id);
             }
 
-            if (! MetaData::state()->restore($id)) {
+            if (!MetaData::state()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.metadata.state_model'), $id);
             }
@@ -224,7 +221,7 @@ class StateController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -246,7 +243,7 @@ class StateController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -270,7 +267,7 @@ class StateController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -290,12 +287,12 @@ class StateController extends Controller
 
             $attribute = 'id';
 
-            if (! empty($filters['label'])) {
+            if (!empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (! empty($filters['attribute'])) {
+            if (!empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }
@@ -310,7 +307,7 @@ class StateController extends Controller
             return new DropDownCollection($entries);
 
         } catch (Exception $exception) {
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 }

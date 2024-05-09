@@ -7,7 +7,6 @@ use Fintech\Core\Exceptions\DeleteOperationException;
 use Fintech\RestApi\Http\Requests\Transaction\IndexOrderQueueRequest;
 use Fintech\RestApi\Http\Resources\Transaction\OrderQueueCollection;
 use Fintech\RestApi\Http\Resources\Transaction\OrderQueueResource;
-use Fintech\RestApi\Traits\ApiResponseTrait;
 use Fintech\Transaction\Facades\Transaction;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
@@ -24,8 +23,6 @@ use Illuminate\Routing\Controller;
  */
 class OrderQueueController extends Controller
 {
-    use ApiResponseTrait;
-
     /**
      * @lrd:start
      * Return a listing of the *OrderQueue* resource as collection.
@@ -45,7 +42,7 @@ class OrderQueueController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -63,7 +60,7 @@ class OrderQueueController extends Controller
 
             $orderQueue = Transaction::orderQueue()->find($id);
 
-            if (! $orderQueue) {
+            if (!$orderQueue) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.order_queue_model'), $id);
             }
 
@@ -75,7 +72,7 @@ class OrderQueueController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -115,7 +112,7 @@ class OrderQueueController extends Controller
     //
     //        } catch (Exception $exception) {
     //
-    //            return $this->failed($exception->getMessage());
+    //            return response()->failed($exception->getMessage());
     //        }
     //    }
 
@@ -136,11 +133,11 @@ class OrderQueueController extends Controller
 
             $orderQueue = Transaction::orderQueue()->find($id);
 
-            if (! $orderQueue) {
+            if (!$orderQueue) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.order_queue_model'), $id);
             }
 
-            if (! Transaction::orderQueue()->destroy($id)) {
+            if (!Transaction::orderQueue()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.transaction.order_queue_model'), $id);
             }
@@ -153,7 +150,7 @@ class OrderQueueController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 }

@@ -6,15 +6,12 @@ use Exception;
 use Fintech\Ekyc\Facades\Ekyc;
 use Fintech\RestApi\Http\Requests\Ekyc\KycVerificationRequest;
 use Fintech\RestApi\Http\Resources\Ekyc\KycVerificationResource;
-use Fintech\RestApi\Traits\ApiResponseTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
 class KycHandlerController extends Controller
 {
-    use ApiResponseTrait;
-
     /**
      * Handle the incoming request.
      */
@@ -34,7 +31,7 @@ class KycHandlerController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 

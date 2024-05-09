@@ -12,7 +12,6 @@ use Fintech\RestApi\Http\Requests\Banco\ImportBankRequest;
 use Fintech\RestApi\Http\Requests\Banco\IndexBankRequest;
 use Fintech\RestApi\Http\Requests\Banco\StoreBankRequest;
 use Fintech\RestApi\Http\Requests\Banco\UpdateBankRequest;
-use Fintech\RestApi\Traits\ApiResponseTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -28,8 +27,6 @@ use Illuminate\Routing\Controller;
  */
 class BankController extends Controller
 {
-    use ApiResponseTrait;
-
     /**
      * @lrd:start
      * Return a listing of the *Bank* resource as collection.
@@ -49,7 +46,7 @@ class BankController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -66,7 +63,7 @@ class BankController extends Controller
 
             $bank = Banco::bank()->create($inputs);
 
-            if (! $bank) {
+            if (!$bank) {
                 throw (new StoreOperationException)->setModel(config('fintech.banco.bank_model'));
             }
 
@@ -77,7 +74,7 @@ class BankController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -95,7 +92,7 @@ class BankController extends Controller
 
             $bank = Banco::bank()->find($id);
 
-            if (! $bank) {
+            if (!$bank) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.banco.bank_model'), $id);
             }
 
@@ -107,7 +104,7 @@ class BankController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -126,13 +123,13 @@ class BankController extends Controller
 
             $bank = Banco::bank()->find($id);
 
-            if (! $bank) {
+            if (!$bank) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.banco.bank_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! Banco::bank()->update($id, $inputs)) {
+            if (!Banco::bank()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.banco.bank_model'), $id);
             }
@@ -145,7 +142,7 @@ class BankController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -166,11 +163,11 @@ class BankController extends Controller
 
             $bank = Banco::bank()->find($id);
 
-            if (! $bank) {
+            if (!$bank) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.banco.bank_model'), $id);
             }
 
-            if (! Banco::bank()->destroy($id)) {
+            if (!Banco::bank()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.banco.bank_model'), $id);
             }
@@ -183,7 +180,7 @@ class BankController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -202,11 +199,11 @@ class BankController extends Controller
 
             $bank = Banco::bank()->find($id, true);
 
-            if (! $bank) {
+            if (!$bank) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.banco.bank_model'), $id);
             }
 
-            if (! Banco::bank()->restore($id)) {
+            if (!Banco::bank()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.banco.bank_model'), $id);
             }
@@ -219,7 +216,7 @@ class BankController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -241,7 +238,7 @@ class BankController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -265,7 +262,7 @@ class BankController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -278,7 +275,7 @@ class BankController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 }

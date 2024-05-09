@@ -1,5 +1,6 @@
 <?php
 
+use Fintech\RestApi\Http\Controllers\Banco\BankAccountController;
 use Fintech\RestApi\Http\Controllers\Banco\BankBranchController;
 use Fintech\RestApi\Http\Controllers\Banco\BankController;
 use Fintech\RestApi\Http\Controllers\Banco\BeneficiaryController;
@@ -35,8 +36,8 @@ if (Config::get('fintech.banco.enabled')) {
             Route::apiResource('beneficiary-types', BeneficiaryTypeController::class);
             Route::post('beneficiary-types/{beneficiary_type}/restore', [BeneficiaryTypeController::class, 'restore'])->name('beneficiary-types.restore');
 
-            Route::apiResource('bank-accounts', \Fintech\RestApi\Http\Controllers\Banco\BankAccountController::class);
-            Route::post('bank-accounts/{bank_account}/restore', [\Fintech\RestApi\Http\Controllers\Banco\BankAccountController::class, 'restore'])->name('bank-accounts.restore');
+            Route::apiResource('bank-accounts', BankAccountController::class);
+            Route::post('bank-accounts/{bank_account}/restore', [BankAccountController::class, 'restore'])->name('bank-accounts.restore');
 
             //DO NOT REMOVE THIS LINE//
         });

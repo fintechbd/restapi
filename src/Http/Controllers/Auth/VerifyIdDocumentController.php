@@ -3,6 +3,8 @@
 namespace Fintech\RestApi\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Exception;
+use Fintech\Auth\Facades\Auth;
 use Fintech\RestApi\Http\Requests\Auth\VerifyIdDocTypeRequest;
 use Fintech\RestApi\Http\Resources\Auth\VerifyIdDocTypeResource;
 use Illuminate\Http\JsonResponse;
@@ -20,13 +22,13 @@ class VerifyIdDocumentController extends Controller
         try {
             $inputs = $request->validated();
 
-            $idDocType = \Fintech\Auth\Facades\Auth::profile()->list($inputs)->first();
+            $idDocType = Auth::profile()->list($inputs)->first();
 
             return new VerifyIdDocTypeResource($idDocType);
 
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 }

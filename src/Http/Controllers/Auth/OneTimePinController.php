@@ -6,14 +6,12 @@ use Exception;
 use Fintech\Auth\Facades\Auth;
 use Fintech\RestApi\Http\Requests\Auth\CreateOneTimePinRequest;
 use Fintech\RestApi\Http\Requests\Auth\VerifyOneTimePinRequest;
-use Fintech\RestApi\Traits\ApiResponseTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
+use InvalidArgumentException;
 
 class OneTimePinController extends Controller
 {
-    use ApiResponseTrait;
-
     /**
      * @lrd:start
      * API let user verify using mobile, email and user account
@@ -29,7 +27,7 @@ class OneTimePinController extends Controller
         $targetField = $request->has('mobile')
             ? 'mobile' :
             (
-                $request->has('email')
+            $request->has('email')
                 ? 'email' :
                 ($request->has('user') ? 'user' : null)
             );
@@ -39,12 +37,12 @@ class OneTimePinController extends Controller
         try {
 
             if (empty($targetValue)) {
-                throw new \InvalidArgumentException('Input field must be one of (mobile, email, user) is not present or value is empty.');
+                throw new InvalidArgumentException('Input field must be one of (mobile, email, user) is not present or value is empty.');
             }
 
             $response = Auth::otp()->create($targetValue);
 
-            if (! $response['status']) {
+            if (!$response['status']) {
                 throw new Exception($response['message']);
             }
 
@@ -53,7 +51,7 @@ class OneTimePinController extends Controller
             return $this->success($response);
 
         } catch (Exception $exception) {
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -66,14 +64,14 @@ class OneTimePinController extends Controller
 
         try {
 
-            if (! Auth::otp()->exists($token)) {
+            if (!Auth::otp()->exists($token)) {
                 throw new Exception(__('auth::messages.verify.invalid'));
             }
 
             return $this->success(__('auth::messages.verify.success'));
 
         } catch (Exception $exception) {
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 }

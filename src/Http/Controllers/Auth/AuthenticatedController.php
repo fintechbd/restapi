@@ -8,7 +8,6 @@ use Fintech\Auth\Events\LoggedOut;
 use Fintech\Auth\Traits\GuessAuthFieldTrait;
 use Fintech\RestApi\Http\Requests\Auth\LoginRequest;
 use Fintech\RestApi\Http\Resources\Auth\LoginResource;
-use Fintech\RestApi\Traits\ApiResponseTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -25,7 +24,6 @@ use Illuminate\Support\Facades\Auth;
  */
 class AuthenticatedController extends Controller
 {
-    use ApiResponseTrait;
     use GuessAuthFieldTrait;
 
     /**
@@ -46,7 +44,7 @@ class AuthenticatedController extends Controller
 
             $attemptUser = \Fintech\Auth\Facades\Auth::user()->login($credentials, 'web');
 
-            if (! $attemptUser->can('auth.login')) {
+            if (!$attemptUser->can('auth.login')) {
 
                 Auth::guard('web')->logout();
 
@@ -63,7 +61,7 @@ class AuthenticatedController extends Controller
 
             $request->hitRateLimited();
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 

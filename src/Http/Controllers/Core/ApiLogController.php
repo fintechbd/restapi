@@ -8,7 +8,6 @@ use Fintech\Core\Facades\Core;
 use Fintech\RestApi\Http\Requests\Core\IndexApiLogRequest;
 use Fintech\RestApi\Http\Resources\Core\ApiLogCollection;
 use Fintech\RestApi\Http\Resources\Core\ApiLogResource;
-use Fintech\RestApi\Traits\ApiResponseTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -24,8 +23,6 @@ use Illuminate\Routing\Controller;
  */
 class ApiLogController extends Controller
 {
-    use ApiResponseTrait;
-
     /**
      * @lrd:start
      * Return a listing of the *ApiLog* resource as collection.
@@ -45,7 +42,7 @@ class ApiLogController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -63,7 +60,7 @@ class ApiLogController extends Controller
 
             $apiLog = Core::apiLog()->find($id);
 
-            if (! $apiLog) {
+            if (!$apiLog) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.core.api_log_model'), $id);
             }
 
@@ -75,7 +72,7 @@ class ApiLogController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -95,11 +92,11 @@ class ApiLogController extends Controller
 
             $apiLog = Core::apiLog()->find($id);
 
-            if (! $apiLog) {
+            if (!$apiLog) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.core.api_log_model'), $id);
             }
 
-            if (! Core::apiLog()->destroy($id)) {
+            if (!Core::apiLog()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.core.api_log_model'), $id);
             }
@@ -112,7 +109,7 @@ class ApiLogController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 }

@@ -13,7 +13,6 @@ use Fintech\RestApi\Http\Requests\Transaction\StoreOrderDetailRequest;
 use Fintech\RestApi\Http\Requests\Transaction\UpdateOrderDetailRequest;
 use Fintech\RestApi\Http\Resources\Transaction\OrderDetailCollection;
 use Fintech\RestApi\Http\Resources\Transaction\OrderDetailResource;
-use Fintech\RestApi\Traits\ApiResponseTrait;
 use Fintech\Transaction\Facades\Transaction;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
@@ -30,8 +29,6 @@ use Illuminate\Routing\Controller;
  */
 class OrderDetailController extends Controller
 {
-    use ApiResponseTrait;
-
     /**
      * @lrd:start
      * Return a listing of the *OrderDetail* resource as collection.
@@ -51,7 +48,7 @@ class OrderDetailController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -70,7 +67,7 @@ class OrderDetailController extends Controller
 
             $orderDetail = Transaction::orderDetail()->create($inputs);
 
-            if (! $orderDetail) {
+            if (!$orderDetail) {
                 throw (new StoreOperationException)->setModel(config('fintech.transaction.order_detail_model'));
             }
 
@@ -81,7 +78,7 @@ class OrderDetailController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -99,7 +96,7 @@ class OrderDetailController extends Controller
 
             $orderDetail = Transaction::orderDetail()->find($id);
 
-            if (! $orderDetail) {
+            if (!$orderDetail) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.order_detail_model'), $id);
             }
 
@@ -111,7 +108,7 @@ class OrderDetailController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -130,13 +127,13 @@ class OrderDetailController extends Controller
 
             $orderDetail = Transaction::orderDetail()->find($id);
 
-            if (! $orderDetail) {
+            if (!$orderDetail) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.order_detail_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! Transaction::orderDetail()->update($id, $inputs)) {
+            if (!Transaction::orderDetail()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.transaction.order_detail_model'), $id);
             }
@@ -149,7 +146,7 @@ class OrderDetailController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -170,11 +167,11 @@ class OrderDetailController extends Controller
 
             $orderDetail = Transaction::orderDetail()->find($id);
 
-            if (! $orderDetail) {
+            if (!$orderDetail) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.order_detail_model'), $id);
             }
 
-            if (! Transaction::orderDetail()->destroy($id)) {
+            if (!Transaction::orderDetail()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.transaction.order_detail_model'), $id);
             }
@@ -187,7 +184,7 @@ class OrderDetailController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -206,11 +203,11 @@ class OrderDetailController extends Controller
 
             $orderDetail = Transaction::orderDetail()->find($id, true);
 
-            if (! $orderDetail) {
+            if (!$orderDetail) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.order_detail_model'), $id);
             }
 
-            if (! Transaction::orderDetail()->restore($id)) {
+            if (!Transaction::orderDetail()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.transaction.order_detail_model'), $id);
             }
@@ -223,7 +220,7 @@ class OrderDetailController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -245,7 +242,7 @@ class OrderDetailController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -256,7 +253,7 @@ class OrderDetailController extends Controller
      *
      * @lrd:end
      *
-     * @return \Fintech\RestApi\Http\Resources\Transaction\OrderDetailCollection|JsonResponse
+     * @return OrderDetailCollection|JsonResponse
      */
     public function import(ImportOrderDetailRequest $request): JsonResponse
     {
@@ -269,7 +266,7 @@ class OrderDetailController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 }

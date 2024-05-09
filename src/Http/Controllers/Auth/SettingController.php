@@ -7,7 +7,6 @@ use Fintech\Core\Facades\Core;
 use Fintech\Core\Supports\Utility;
 use Fintech\RestApi\Http\Requests\Auth\StoreSettingRequest;
 use Fintech\RestApi\Http\Resources\Auth\SettingResource;
-use Fintech\RestApi\Traits\ApiResponseTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -22,8 +21,6 @@ use Illuminate\Support\Facades\Auth;
  */
 class SettingController extends Controller
 {
-    use ApiResponseTrait;
-
     /**
      * @lrd:start
      * Return a listing of the configurations in key and value format.
@@ -49,7 +46,7 @@ class SettingController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -77,7 +74,7 @@ class SettingController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -103,7 +100,7 @@ class SettingController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 }

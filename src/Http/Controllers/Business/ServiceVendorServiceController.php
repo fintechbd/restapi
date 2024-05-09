@@ -7,15 +7,12 @@ use Fintech\Business\Facades\Business;
 use Fintech\Core\Exceptions\UpdateOperationException;
 use Fintech\RestApi\Http\Requests\Business\ServiceVendorServiceRequest;
 use Fintech\RestApi\Http\Resources\Business\ServiceVendorServiceResource;
-use Fintech\RestApi\Traits\ApiResponseTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 
 class ServiceVendorServiceController extends Controller
 {
-    use ApiResponseTrait;
-
     /**
      * @lrd:start
      * return services to a specified service vendor resource using id.
@@ -28,7 +25,7 @@ class ServiceVendorServiceController extends Controller
 
             $serviceVendor = Business::serviceVendor()->find($id);
 
-            if (! $serviceVendor) {
+            if (!$serviceVendor) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.business.service_vendor_model'), $id);
             }
 
@@ -40,7 +37,7 @@ class ServiceVendorServiceController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -56,13 +53,13 @@ class ServiceVendorServiceController extends Controller
 
             $serviceVendor = Business::serviceVendor()->find($id);
 
-            if (! $serviceVendor) {
+            if (!$serviceVendor) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.business.service_vendor_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! Business::serviceVendor()->update($id, $inputs)) {
+            if (!Business::serviceVendor()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException())->setModel(config('fintech.business.service_vendor_model'), $id);
             }
@@ -75,7 +72,7 @@ class ServiceVendorServiceController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 }

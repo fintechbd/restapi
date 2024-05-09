@@ -7,15 +7,12 @@ use Fintech\Core\Exceptions\UpdateOperationException;
 use Fintech\MetaData\Facades\MetaData;
 use Fintech\RestApi\Http\Requests\Business\CountryServiceRequest;
 use Fintech\RestApi\Http\Resources\Business\CountryServiceResource;
-use Fintech\RestApi\Traits\ApiResponseTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 
 class CountryServiceController extends Controller
 {
-    use ApiResponseTrait;
-
     /**
      * @lrd:start
      * return services to a specified role resource using id.
@@ -28,7 +25,7 @@ class CountryServiceController extends Controller
 
             $country = MetaData::country()->find($id);
 
-            if (! $country) {
+            if (!$country) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.metadata.country_model'), $id);
             }
 
@@ -40,7 +37,7 @@ class CountryServiceController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -56,13 +53,13 @@ class CountryServiceController extends Controller
 
             $country = MetaData::country()->find($id);
 
-            if (! $country) {
+            if (!$country) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.metadata.country_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! MetaData::country()->update($id, $inputs)) {
+            if (!MetaData::country()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException())->setModel(config('fintech.metadata.country_model'), $id);
             }
@@ -75,7 +72,7 @@ class CountryServiceController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 }

@@ -11,7 +11,7 @@ class CityCollection extends ResourceCollection
     /**
      * Transform the resource collection into an array.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @return array
      */
     public function toArray($request)
@@ -23,7 +23,7 @@ class CityCollection extends ResourceCollection
                 'latitude' => $city->latitude,
                 'longitude' => $city->longitude,
                 'enabled' => $city->enabled,
-                'vendor_code' => $city->vendor_code ?? (object) [],
+                'vendor_code' => $city->vendor_code ?? (object)[],
                 'city_data' => $city->city_data,
                 'country_id' => $city->country_id ?? null,
                 'country_name' => ($city->country != null) ? $city->country->name : null,

@@ -13,7 +13,6 @@ use Fintech\RestApi\Http\Requests\Transaction\StoreChartClassRequest;
 use Fintech\RestApi\Http\Requests\Transaction\UpdateChartClassRequest;
 use Fintech\RestApi\Http\Resources\Transaction\ChartClassCollection;
 use Fintech\RestApi\Http\Resources\Transaction\ChartClassResource;
-use Fintech\RestApi\Traits\ApiResponseTrait;
 use Fintech\Transaction\Facades\Transaction;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
@@ -30,8 +29,6 @@ use Illuminate\Routing\Controller;
  */
 class ChartClassController extends Controller
 {
-    use ApiResponseTrait;
-
     /**
      * @lrd:start
      * Return a listing of the *ChartClass* resource as collection.
@@ -51,7 +48,7 @@ class ChartClassController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -70,7 +67,7 @@ class ChartClassController extends Controller
 
             $chartClass = Transaction::chartClass()->create($inputs);
 
-            if (! $chartClass) {
+            if (!$chartClass) {
                 throw (new StoreOperationException)->setModel(config('fintech.transaction.chart_class_model'));
             }
 
@@ -81,7 +78,7 @@ class ChartClassController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -99,7 +96,7 @@ class ChartClassController extends Controller
 
             $chartClass = Transaction::chartClass()->find($id);
 
-            if (! $chartClass) {
+            if (!$chartClass) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.chart_class_model'), $id);
             }
 
@@ -111,7 +108,7 @@ class ChartClassController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -130,13 +127,13 @@ class ChartClassController extends Controller
 
             $chartClass = Transaction::chartClass()->find($id);
 
-            if (! $chartClass) {
+            if (!$chartClass) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.chart_class_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! Transaction::chartClass()->update($id, $inputs)) {
+            if (!Transaction::chartClass()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.transaction.chart_class_model'), $id);
             }
@@ -149,7 +146,7 @@ class ChartClassController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -170,11 +167,11 @@ class ChartClassController extends Controller
 
             $chartClass = Transaction::chartClass()->find($id);
 
-            if (! $chartClass) {
+            if (!$chartClass) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.chart_class_model'), $id);
             }
 
-            if (! Transaction::chartClass()->destroy($id)) {
+            if (!Transaction::chartClass()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.transaction.chart_class_model'), $id);
             }
@@ -187,7 +184,7 @@ class ChartClassController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -206,11 +203,11 @@ class ChartClassController extends Controller
 
             $chartClass = Transaction::chartClass()->find($id, true);
 
-            if (! $chartClass) {
+            if (!$chartClass) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.chart_class_model'), $id);
             }
 
-            if (! Transaction::chartClass()->restore($id)) {
+            if (!Transaction::chartClass()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.transaction.chart_class_model'), $id);
             }
@@ -223,7 +220,7 @@ class ChartClassController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -245,7 +242,7 @@ class ChartClassController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -256,7 +253,7 @@ class ChartClassController extends Controller
      *
      * @lrd:end
      *
-     * @return \Fintech\RestApi\Http\Resources\Transaction\ChartClassCollection|JsonResponse
+     * @return ChartClassCollection|JsonResponse
      */
     public function import(ImportChartClassRequest $request): JsonResponse
     {
@@ -269,7 +266,7 @@ class ChartClassController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 }

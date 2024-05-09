@@ -8,7 +8,6 @@ use Fintech\Core\Exceptions\DeleteOperationException;
 use Fintech\RestApi\Http\Requests\Auth\IndexAuditRequest;
 use Fintech\RestApi\Http\Resources\Auth\AuditCollection;
 use Fintech\RestApi\Http\Resources\Auth\AuditResource;
-use Fintech\RestApi\Traits\ApiResponseTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -24,8 +23,6 @@ use Illuminate\Routing\Controller;
  */
 class AuditController extends Controller
 {
-    use ApiResponseTrait;
-
     /**
      * @lrd:start
      * Return a listing of the *Audit* resource as collection.
@@ -45,7 +42,7 @@ class AuditController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -63,7 +60,7 @@ class AuditController extends Controller
 
             $audit = Auth::audit()->find($id);
 
-            if (! $audit) {
+            if (!$audit) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.audit_model'), $id);
             }
 
@@ -75,7 +72,7 @@ class AuditController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -96,11 +93,11 @@ class AuditController extends Controller
 
             $audit = Auth::audit()->find($id);
 
-            if (! $audit) {
+            if (!$audit) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.audit_model'), $id);
             }
 
-            if (! Auth::audit()->destroy($id)) {
+            if (!Auth::audit()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.auth.audit_model'), $id);
             }
@@ -113,7 +110,7 @@ class AuditController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 }

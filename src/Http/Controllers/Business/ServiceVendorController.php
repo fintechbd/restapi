@@ -14,7 +14,6 @@ use Fintech\RestApi\Http\Requests\Business\StoreServiceVendorRequest;
 use Fintech\RestApi\Http\Requests\Business\UpdateServiceVendorRequest;
 use Fintech\RestApi\Http\Resources\Business\ServiceVendorCollection;
 use Fintech\RestApi\Http\Resources\Business\ServiceVendorResource;
-use Fintech\RestApi\Traits\ApiResponseTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -30,8 +29,6 @@ use Illuminate\Routing\Controller;
  */
 class ServiceVendorController extends Controller
 {
-    use ApiResponseTrait;
-
     /**
      * @lrd:start
      * Return a listing of the *ServiceVendor* resource as collection.
@@ -51,7 +48,7 @@ class ServiceVendorController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -70,7 +67,7 @@ class ServiceVendorController extends Controller
 
             $serviceVendor = Business::serviceVendor()->create($inputs);
 
-            if (! $serviceVendor) {
+            if (!$serviceVendor) {
                 throw (new StoreOperationException)->setModel(config('fintech.business.service_vendor_model'));
             }
 
@@ -81,7 +78,7 @@ class ServiceVendorController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -99,7 +96,7 @@ class ServiceVendorController extends Controller
 
             $serviceVendor = Business::serviceVendor()->find($id);
 
-            if (! $serviceVendor) {
+            if (!$serviceVendor) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_vendor_model'), $id);
             }
 
@@ -111,7 +108,7 @@ class ServiceVendorController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -130,13 +127,13 @@ class ServiceVendorController extends Controller
 
             $serviceVendor = Business::serviceVendor()->find($id);
 
-            if (! $serviceVendor) {
+            if (!$serviceVendor) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_vendor_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! Business::serviceVendor()->update($id, $inputs)) {
+            if (!Business::serviceVendor()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_vendor_model'), $id);
             }
@@ -149,7 +146,7 @@ class ServiceVendorController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -170,11 +167,11 @@ class ServiceVendorController extends Controller
 
             $serviceVendor = Business::serviceVendor()->find($id);
 
-            if (! $serviceVendor) {
+            if (!$serviceVendor) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_vendor_model'), $id);
             }
 
-            if (! Business::serviceVendor()->destroy($id)) {
+            if (!Business::serviceVendor()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.business.service_vendor_model'), $id);
             }
@@ -187,7 +184,7 @@ class ServiceVendorController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -206,11 +203,11 @@ class ServiceVendorController extends Controller
 
             $serviceVendor = Business::serviceVendor()->find($id, true);
 
-            if (! $serviceVendor) {
+            if (!$serviceVendor) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_vendor_model'), $id);
             }
 
-            if (! Business::serviceVendor()->restore($id)) {
+            if (!Business::serviceVendor()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.business.service_vendor_model'), $id);
             }
@@ -223,7 +220,7 @@ class ServiceVendorController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -245,7 +242,7 @@ class ServiceVendorController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -269,7 +266,7 @@ class ServiceVendorController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 }

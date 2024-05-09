@@ -3,7 +3,6 @@
 namespace Fintech\RestApi\Http\Controllers\Core;
 
 use Exception;
-use Fintech\RestApi\Traits\ApiResponseTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -18,8 +17,6 @@ use Illuminate\Routing\Controller;
  */
 class PulseCheckController extends Controller
 {
-    use ApiResponseTrait;
-
     /**
      * @lrd:start
      * This api endpoint will check server status and client user agent integrity
@@ -30,7 +27,7 @@ class PulseCheckController extends Controller
     {
         try {
 
-            if (! $this->validTimezone($request)) {
+            if (!$this->validTimezone($request)) {
 
             }
 

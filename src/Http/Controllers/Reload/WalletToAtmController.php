@@ -14,7 +14,6 @@ use Fintech\RestApi\Http\Requests\Reload\StoreWalletToAtmRequest;
 use Fintech\RestApi\Http\Requests\Reload\UpdateWalletToAtmRequest;
 use Fintech\RestApi\Http\Resources\Reload\WalletToAtmCollection;
 use Fintech\RestApi\Http\Resources\Reload\WalletToAtmResource;
-use Fintech\RestApi\Traits\ApiResponseTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -30,8 +29,6 @@ use Illuminate\Routing\Controller;
  */
 class WalletToAtmController extends Controller
 {
-    use ApiResponseTrait;
-
     /**
      * @lrd:start
      * Return a listing of the *WalletToAtm* resource as collection.
@@ -51,7 +48,7 @@ class WalletToAtmController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -70,7 +67,7 @@ class WalletToAtmController extends Controller
 
             $walletToAtm = Reload::walletToAtm()->create($inputs);
 
-            if (! $walletToAtm) {
+            if (!$walletToAtm) {
                 throw (new StoreOperationException)->setModel(config('fintech.reload.wallet_to_atm_model'));
             }
 
@@ -81,7 +78,7 @@ class WalletToAtmController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -99,7 +96,7 @@ class WalletToAtmController extends Controller
 
             $walletToAtm = Reload::walletToAtm()->find($id);
 
-            if (! $walletToAtm) {
+            if (!$walletToAtm) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.reload.wallet_to_atm_model'), $id);
             }
 
@@ -111,7 +108,7 @@ class WalletToAtmController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -130,13 +127,13 @@ class WalletToAtmController extends Controller
 
             $walletToAtm = Reload::walletToAtm()->find($id);
 
-            if (! $walletToAtm) {
+            if (!$walletToAtm) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.reload.wallet_to_atm_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! Reload::walletToAtm()->update($id, $inputs)) {
+            if (!Reload::walletToAtm()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.reload.wallet_to_atm_model'), $id);
             }
@@ -149,7 +146,7 @@ class WalletToAtmController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -170,11 +167,11 @@ class WalletToAtmController extends Controller
 
             $walletToAtm = Reload::walletToAtm()->find($id);
 
-            if (! $walletToAtm) {
+            if (!$walletToAtm) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.reload.wallet_to_atm_model'), $id);
             }
 
-            if (! Reload::walletToAtm()->destroy($id)) {
+            if (!Reload::walletToAtm()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.reload.wallet_to_atm_model'), $id);
             }
@@ -187,7 +184,7 @@ class WalletToAtmController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -206,11 +203,11 @@ class WalletToAtmController extends Controller
 
             $walletToAtm = Reload::walletToAtm()->find($id, true);
 
-            if (! $walletToAtm) {
+            if (!$walletToAtm) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.reload.wallet_to_atm_model'), $id);
             }
 
-            if (! Reload::walletToAtm()->restore($id)) {
+            if (!Reload::walletToAtm()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.reload.wallet_to_atm_model'), $id);
             }
@@ -223,7 +220,7 @@ class WalletToAtmController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -245,7 +242,7 @@ class WalletToAtmController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -256,7 +253,7 @@ class WalletToAtmController extends Controller
      *
      * @lrd:end
      *
-     * @return \Fintech\RestApi\Http\Resources\Reload\WalletToAtmCollection|JsonResponse
+     * @return WalletToAtmCollection|JsonResponse
      */
     public function import(ImportWalletToAtmRequest $request): JsonResponse
     {
@@ -269,7 +266,7 @@ class WalletToAtmController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 }

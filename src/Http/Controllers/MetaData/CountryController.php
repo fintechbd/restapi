@@ -16,7 +16,6 @@ use Fintech\RestApi\Http\Requests\MetaData\UpdateCountryRequest;
 use Fintech\RestApi\Http\Resources\Core\DropDownCollection;
 use Fintech\RestApi\Http\Resources\MetaData\CountryCollection;
 use Fintech\RestApi\Http\Resources\MetaData\CountryResource;
-use Fintech\RestApi\Traits\ApiResponseTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -32,8 +31,6 @@ use Illuminate\Routing\Controller;
  */
 class CountryController extends Controller
 {
-    use ApiResponseTrait;
-
     /**
      * @lrd:start
      * Return a listing of the country resource as collection.
@@ -53,7 +50,7 @@ class CountryController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -72,7 +69,7 @@ class CountryController extends Controller
 
             $country = MetaData::country()->create($inputs);
 
-            if (! $country) {
+            if (!$country) {
                 throw (new StoreOperationException())->setModel(config('fintech.metadata.country_model'));
             }
 
@@ -83,7 +80,7 @@ class CountryController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -103,7 +100,7 @@ class CountryController extends Controller
 
             $country = MetaData::country()->find($id);
 
-            if (! $country) {
+            if (!$country) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.metadata.country_model'), $id);
             }
 
@@ -115,7 +112,7 @@ class CountryController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -136,11 +133,11 @@ class CountryController extends Controller
 
             $country = MetaData::country()->find($id);
 
-            if (! $country) {
+            if (!$country) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.metadata.country_model'), $id);
             }
 
-            if (! MetaData::country()->destroy($id)) {
+            if (!MetaData::country()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.metadata.country_model'), $id);
             }
@@ -153,7 +150,7 @@ class CountryController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -172,11 +169,11 @@ class CountryController extends Controller
 
             $country = MetaData::country()->find($id, true);
 
-            if (! $country) {
+            if (!$country) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.metadata.country_model'), $id);
             }
 
-            if (! MetaData::country()->restore($id)) {
+            if (!MetaData::country()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.metadata.country_model'), $id);
             }
@@ -189,7 +186,7 @@ class CountryController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -211,7 +208,7 @@ class CountryController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -235,7 +232,7 @@ class CountryController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -248,12 +245,12 @@ class CountryController extends Controller
 
             $attribute = 'id';
 
-            if (! empty($filters['label'])) {
+            if (!empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (! empty($filters['attribute'])) {
+            if (!empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }
@@ -268,7 +265,7 @@ class CountryController extends Controller
             return new DropDownCollection($entries);
 
         } catch (Exception $exception) {
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -290,16 +287,16 @@ class CountryController extends Controller
 
             $country = MetaData::country()->find($id);
 
-            if (! $country) {
+            if (!$country) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.metadata.country_model'), $id);
             }
 
             $countryData = $country->country_data;
 
-            $countryData['is_serving'] = ! ($countryData['is_serving'] ?? false);
+            $countryData['is_serving'] = !($countryData['is_serving'] ?? false);
 
             //N.B after toggle update actions check Country Observer
-            if (! MetaData::country()->update($id, ['country_data' => $countryData])) {
+            if (!MetaData::country()->update($id, ['country_data' => $countryData])) {
                 throw (new UpdateOperationException())->setModel(config('fintech.metadata.country_model'), $id);
             }
 
@@ -311,7 +308,7 @@ class CountryController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -330,13 +327,13 @@ class CountryController extends Controller
 
             $country = MetaData::country()->find($id);
 
-            if (! $country) {
+            if (!$country) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.metadata.country_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! MetaData::country()->update($id, $inputs)) {
+            if (!MetaData::country()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException())->setModel(config('fintech.metadata.country_model'), $id);
             }
@@ -349,7 +346,7 @@ class CountryController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 }

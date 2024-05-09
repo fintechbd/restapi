@@ -16,7 +16,6 @@ use Fintech\RestApi\Http\Requests\Business\UpdateServiceTypeRequest;
 use Fintech\RestApi\Http\Resources\Business\ServiceTypeCollection;
 use Fintech\RestApi\Http\Resources\Business\ServiceTypeListCollection;
 use Fintech\RestApi\Http\Resources\Business\ServiceTypeResource;
-use Fintech\RestApi\Traits\ApiResponseTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -32,8 +31,6 @@ use Illuminate\Routing\Controller;
  */
 class ServiceTypeController extends Controller
 {
-    use ApiResponseTrait;
-
     /**
      * @lrd:start
      * Return a listing of the *ServiceType* resource as collection.
@@ -53,7 +50,7 @@ class ServiceTypeController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -70,7 +67,7 @@ class ServiceTypeController extends Controller
 
             $serviceType = Business::serviceType()->create($inputs);
 
-            if (! $serviceType) {
+            if (!$serviceType) {
                 throw (new StoreOperationException)->setModel(config('fintech.business.service_type_model'));
             }
 
@@ -81,7 +78,7 @@ class ServiceTypeController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -99,7 +96,7 @@ class ServiceTypeController extends Controller
 
             $serviceType = Business::serviceType()->find($id);
 
-            if (! $serviceType) {
+            if (!$serviceType) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_type_model'), $id);
             }
 
@@ -111,7 +108,7 @@ class ServiceTypeController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -127,13 +124,13 @@ class ServiceTypeController extends Controller
 
             $serviceType = Business::serviceType()->find($id);
 
-            if (! $serviceType) {
+            if (!$serviceType) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_type_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! Business::serviceType()->update($id, $inputs)) {
+            if (!Business::serviceType()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_type_model'), $id);
             }
@@ -146,7 +143,7 @@ class ServiceTypeController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -162,11 +159,11 @@ class ServiceTypeController extends Controller
 
             $serviceType = Business::serviceType()->find($id);
 
-            if (! $serviceType) {
+            if (!$serviceType) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_type_model'), $id);
             }
 
-            if (! Business::serviceType()->destroy($id)) {
+            if (!Business::serviceType()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.business.service_type_model'), $id);
             }
@@ -179,7 +176,7 @@ class ServiceTypeController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -196,11 +193,11 @@ class ServiceTypeController extends Controller
 
             $serviceType = Business::serviceType()->find($id, true);
 
-            if (! $serviceType) {
+            if (!$serviceType) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_type_model'), $id);
             }
 
-            if (! Business::serviceType()->restore($id)) {
+            if (!Business::serviceType()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.business.service_type_model'), $id);
             }
@@ -213,7 +210,7 @@ class ServiceTypeController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -236,7 +233,7 @@ class ServiceTypeController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -258,7 +255,7 @@ class ServiceTypeController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -353,7 +350,7 @@ class ServiceTypeController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 }

@@ -11,6 +11,7 @@ use Fintech\RestApi\Http\Controllers\Auth\RoleController;
 use Fintech\RestApi\Http\Controllers\Auth\RolePermissionController;
 use Fintech\RestApi\Http\Controllers\Auth\SettingController;
 use Fintech\RestApi\Http\Controllers\Auth\UserController;
+use Fintech\RestApi\Http\Controllers\Auth\VerifyIdDocumentController;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
 
@@ -56,7 +57,7 @@ if (Config::get('fintech.auth.enabled')) {
         Route::post('/verify-otp', [OneTimePinController::class, 'verify'])
             ->name('verify-otp');
 
-        Route::post('id-doc-verification', \Fintech\RestApi\Http\Controllers\Auth\VerifyIdDocumentController::class)->name('id-doc-types.verification');
+        Route::post('id-doc-verification', VerifyIdDocumentController::class)->name('id-doc-types.verification');
 
         Route::middleware(config('fintech.auth.middleware'))->group(function () {
             Route::apiResource('users', UserController::class);

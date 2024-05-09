@@ -5,14 +5,11 @@ namespace Fintech\RestApi\Http\Controllers\Business;
 use Exception;
 use Fintech\MetaData\Facades\MetaData;
 use Fintech\RestApi\Http\Resources\MetaData\CountryCollection;
-use Fintech\RestApi\Traits\ApiResponseTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 
 class ServingCountryController extends Controller
 {
-    use ApiResponseTrait;
-
     public function __invoke(): CountryCollection|JsonResponse
     {
         try {
@@ -26,7 +23,7 @@ class ServingCountryController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 }

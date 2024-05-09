@@ -56,7 +56,7 @@ class CountryCollection extends ResourceCollection
                 'currency_symbol' => $country->currency_symbol,
                 'nationality' => $country->nationality,
                 'timezones' => $country->timezones,
-                'vendor_code' => $country->vendor_code ?? (object) [],
+                'vendor_code' => $country->vendor_code ?? (object)[],
                 'country_data' => $country->country_data,
                 'latitude' => $country->latitude,
                 'longitude' => $country->longitude,

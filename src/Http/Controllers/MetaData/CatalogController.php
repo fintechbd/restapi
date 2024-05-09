@@ -14,7 +14,6 @@ use Fintech\RestApi\Http\Requests\MetaData\StoreCatalogRequest;
 use Fintech\RestApi\Http\Requests\MetaData\UpdateCatalogRequest;
 use Fintech\RestApi\Http\Resources\MetaData\CatalogCollection;
 use Fintech\RestApi\Http\Resources\MetaData\CatalogResource;
-use Fintech\RestApi\Traits\ApiResponseTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -30,8 +29,6 @@ use Illuminate\Routing\Controller;
  */
 class CatalogController extends Controller
 {
-    use ApiResponseTrait;
-
     /**
      * @lrd:start
      * Return a listing of the *Catalog* resource as collection.
@@ -51,7 +48,7 @@ class CatalogController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -70,7 +67,7 @@ class CatalogController extends Controller
 
             $catalog = MetaData::catalog()->create($inputs);
 
-            if (! $catalog) {
+            if (!$catalog) {
                 throw (new StoreOperationException())->setModel(config('fintech.metadata.catalog_model'));
             }
 
@@ -81,7 +78,7 @@ class CatalogController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -99,7 +96,7 @@ class CatalogController extends Controller
 
             $catalog = MetaData::catalog()->find($id);
 
-            if (! $catalog) {
+            if (!$catalog) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.metadata.catalog_model'), $id);
             }
 
@@ -111,7 +108,7 @@ class CatalogController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -130,13 +127,13 @@ class CatalogController extends Controller
 
             $catalog = MetaData::catalog()->find($id);
 
-            if (! $catalog) {
+            if (!$catalog) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.metadata.catalog_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! MetaData::catalog()->update($id, $inputs)) {
+            if (!MetaData::catalog()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException())->setModel(config('fintech.metadata.catalog_model'), $id);
             }
@@ -149,7 +146,7 @@ class CatalogController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -170,11 +167,11 @@ class CatalogController extends Controller
 
             $catalog = MetaData::catalog()->find($id);
 
-            if (! $catalog) {
+            if (!$catalog) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.metadata.catalog_model'), $id);
             }
 
-            if (! MetaData::catalog()->destroy($id)) {
+            if (!MetaData::catalog()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.metadata.catalog_model'), $id);
             }
@@ -187,7 +184,7 @@ class CatalogController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -206,11 +203,11 @@ class CatalogController extends Controller
 
             $catalog = MetaData::catalog()->find($id, true);
 
-            if (! $catalog) {
+            if (!$catalog) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.metadata.catalog_model'), $id);
             }
 
-            if (! MetaData::catalog()->restore($id)) {
+            if (!MetaData::catalog()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.metadata.catalog_model'), $id);
             }
@@ -223,7 +220,7 @@ class CatalogController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -245,7 +242,7 @@ class CatalogController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -256,7 +253,7 @@ class CatalogController extends Controller
      *
      * @lrd:end
      *
-     * @return \Fintech\RestApi\Http\Resources\MetaData\CatalogCollection|JsonResponse
+     * @return CatalogCollection|JsonResponse
      */
     public function import(ImportCatalogRequest $request): JsonResponse
     {
@@ -269,7 +266,7 @@ class CatalogController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 }

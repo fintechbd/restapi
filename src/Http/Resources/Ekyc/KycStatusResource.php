@@ -3,6 +3,7 @@
 namespace Fintech\RestApi\Http\Resources\Ekyc;
 
 use Fintech\Core\Enums\Ekyc\KycStatus;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class KycStatusResource extends JsonResource
@@ -10,7 +11,7 @@ class KycStatusResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request
+     * @param Request
      * @return array
      */
     public function toArray($request)

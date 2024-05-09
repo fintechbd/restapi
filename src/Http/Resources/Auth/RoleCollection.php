@@ -11,7 +11,7 @@ class RoleCollection extends ResourceCollection
     /**
      * Transform the resource collection into an array.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @return array
      */
     public function toArray($request)
@@ -31,7 +31,7 @@ class RoleCollection extends ResourceCollection
                 'links' => $role->links,
             ];
 
-            if (! $role->permissions->isEmpty()) {
+            if (!$role->permissions->isEmpty()) {
                 foreach ($role->permissions as $permission) {
                     $return['permissions'][] = [
                         'id' => $permission->getKey(),

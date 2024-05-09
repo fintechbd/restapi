@@ -11,7 +11,6 @@ use Fintech\RestApi\Http\Requests\MetaData\UpdateCurrencyRequest;
 use Fintech\RestApi\Http\Resources\Core\DropDownCollection;
 use Fintech\RestApi\Http\Resources\MetaData\CurrencyCollection;
 use Fintech\RestApi\Http\Resources\MetaData\CurrencyResource;
-use Fintech\RestApi\Traits\ApiResponseTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -27,8 +26,6 @@ use Illuminate\Routing\Controller;
  */
 class CurrencyController extends Controller
 {
-    use ApiResponseTrait;
-
     /**
      * @lrd:start
      * Return a listing of the *Currency* resource as collection.
@@ -48,7 +45,7 @@ class CurrencyController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -66,7 +63,7 @@ class CurrencyController extends Controller
 
             $currency = MetaData::currency()->find($id);
 
-            if (! $currency) {
+            if (!$currency) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.metadata.currency_model'), $id);
             }
 
@@ -78,7 +75,7 @@ class CurrencyController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -96,7 +93,7 @@ class CurrencyController extends Controller
 
             $currency = MetaData::currency()->find($id);
 
-            if (! $currency) {
+            if (!$currency) {
                 throw (new ModelNotFoundException())->setModel('Currency', $id);
             }
 
@@ -104,9 +101,9 @@ class CurrencyController extends Controller
                 throw new Exception(__('metadata::messages.country.currency.field_missing'));
             }
 
-            $inputs['enabled'] = ! ($currency->country_data['multi_currency_enabled'] ?? false);
+            $inputs['enabled'] = !($currency->country_data['multi_currency_enabled'] ?? false);
 
-            if (! MetaData::currency()->update($id, $inputs)) {
+            if (!MetaData::currency()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException())->setModel('Currency', $id);
             }
@@ -119,7 +116,7 @@ class CurrencyController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -137,13 +134,13 @@ class CurrencyController extends Controller
 
             $currency = MetaData::currency()->find($id);
 
-            if (! $currency) {
+            if (!$currency) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.metadata.currency_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! MetaData::currency()->update($id, $inputs)) {
+            if (!MetaData::currency()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException())->setModel(config('fintech.metadata.currency_model'), $id);
             }
@@ -156,7 +153,7 @@ class CurrencyController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -171,12 +168,12 @@ class CurrencyController extends Controller
 
             $attribute = 'currency';
 
-            if (! empty($filters['label'])) {
+            if (!empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (! empty($filters['attribute'])) {
+            if (!empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }
@@ -194,7 +191,7 @@ class CurrencyController extends Controller
             return new DropDownCollection($entries);
 
         } catch (Exception $exception) {
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 }

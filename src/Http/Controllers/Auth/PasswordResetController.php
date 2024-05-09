@@ -11,14 +11,12 @@ use Fintech\Auth\Traits\GuessAuthFieldTrait;
 use Fintech\Core\Exceptions\UpdateOperationException;
 use Fintech\RestApi\Http\Requests\Auth\ForgotPasswordRequest;
 use Fintech\RestApi\Http\Requests\Auth\PasswordResetRequest;
-use Fintech\RestApi\Traits\ApiResponseTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
 class PasswordResetController extends Controller
 {
-    use ApiResponseTrait;
     use GuessAuthFieldTrait;
 
     /**
@@ -43,7 +41,7 @@ class PasswordResetController extends Controller
 
             $response = Auth::passwordReset()->notifyUser($attemptUser->first());
 
-            if (! $response['status']) {
+            if (!$response['status']) {
                 throw new Exception($response['message']);
             }
 
@@ -53,7 +51,7 @@ class PasswordResetController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -89,7 +87,7 @@ class PasswordResetController extends Controller
 
             $targetedUser = $targetedUser->first();
 
-            if (! Auth::user()->update($targetedUser->getKey(), [$passwordField => $password])) {
+            if (!Auth::user()->update($targetedUser->getKey(), [$passwordField => $password])) {
                 throw (new UpdateOperationException())->setModel(config('fintech.auth.user_model'), $targetedUser->getKey());
             }
 
@@ -98,7 +96,7 @@ class PasswordResetController extends Controller
             return $this->updated(__('auth::messages.reset.success'));
 
         } catch (Exception $exception) {
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 }

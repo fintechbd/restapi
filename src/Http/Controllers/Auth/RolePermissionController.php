@@ -7,15 +7,12 @@ use Fintech\Auth\Facades\Auth;
 use Fintech\Core\Exceptions\UpdateOperationException;
 use Fintech\RestApi\Http\Requests\Auth\RolePermissionRequest;
 use Fintech\RestApi\Http\Resources\Auth\RolePermissionResource;
-use Fintech\RestApi\Traits\ApiResponseTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 
 class RolePermissionController extends Controller
 {
-    use ApiResponseTrait;
-
     /**
      * @lrd:start
      * return permissions to a specified role resource using id.
@@ -28,7 +25,7 @@ class RolePermissionController extends Controller
 
             $role = Auth::role()->find($id);
 
-            if (! $role) {
+            if (!$role) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.role_model'), $id);
             }
 
@@ -40,7 +37,7 @@ class RolePermissionController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -56,13 +53,13 @@ class RolePermissionController extends Controller
 
             $role = Auth::role()->find($id);
 
-            if (! $role) {
+            if (!$role) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.role_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! Auth::role()->update($id, $inputs)) {
+            if (!Auth::role()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException())->setModel(config('fintech.auth.role_model'), $id);
             }
@@ -75,7 +72,7 @@ class RolePermissionController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 }

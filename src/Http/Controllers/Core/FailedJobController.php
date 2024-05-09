@@ -8,7 +8,6 @@ use Fintech\Core\Facades\Core;
 use Fintech\RestApi\Http\Requests\Core\IndexFailedJobRequest;
 use Fintech\RestApi\Http\Resources\Core\FailedJobCollection;
 use Fintech\RestApi\Http\Resources\Core\FailedJobResource;
-use Fintech\RestApi\Traits\ApiResponseTrait;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
@@ -27,8 +26,6 @@ use Illuminate\Support\Facades\Artisan;
  */
 class FailedJobController extends Controller
 {
-    use ApiResponseTrait;
-
     /**
      * @lrd:start
      * Return a listing of the *FailedJob* resource as collection.
@@ -48,7 +45,7 @@ class FailedJobController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -66,7 +63,7 @@ class FailedJobController extends Controller
 
             $failedJob = Core::failedJob()->find($id);
 
-            if (! $failedJob) {
+            if (!$failedJob) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.core.failed_job_model'), $id);
             }
 
@@ -78,7 +75,7 @@ class FailedJobController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -98,11 +95,11 @@ class FailedJobController extends Controller
 
             $failedJob = Core::failedJob()->find($id);
 
-            if (! $failedJob) {
+            if (!$failedJob) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.core.failed_job_model'), $id);
             }
 
-            if (! Core::failedJob()->destroy($id)) {
+            if (!Core::failedJob()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.core.failed_job_model'), $id);
             }
@@ -115,7 +112,7 @@ class FailedJobController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -134,7 +131,7 @@ class FailedJobController extends Controller
 
             $failedJob = Core::failedJob()->find($id);
 
-            if (! $failedJob) {
+            if (!$failedJob) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.core.failed_job_model'), $id);
             }
 
@@ -148,7 +145,7 @@ class FailedJobController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -171,7 +168,7 @@ class FailedJobController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 }

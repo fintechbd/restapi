@@ -8,7 +8,6 @@ use Fintech\Core\Exceptions\DeleteOperationException;
 use Fintech\RestApi\Http\Requests\Core\IndexJobRequest;
 use Fintech\RestApi\Http\Resources\Core\JobCollection;
 use Fintech\RestApi\Http\Resources\Core\JobResource;
-use Fintech\RestApi\Traits\ApiResponseTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -24,8 +23,6 @@ use Illuminate\Routing\Controller;
  */
 class JobController extends Controller
 {
-    use ApiResponseTrait;
-
     /**
      * @lrd:start
      * Return a listing of the *Job* resource as collection.
@@ -45,7 +42,7 @@ class JobController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -63,7 +60,7 @@ class JobController extends Controller
 
             $job = Core::job()->find($id);
 
-            if (! $job) {
+            if (!$job) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.core.job_model'), $id);
             }
 
@@ -75,7 +72,7 @@ class JobController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -96,11 +93,11 @@ class JobController extends Controller
 
             $job = Core::job()->read($id);
 
-            if (! $job) {
+            if (!$job) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.core.job_model'), $id);
             }
 
-            if (! Core::job()->destroy($id)) {
+            if (!Core::job()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.core.job_model'), $id);
             }
@@ -113,7 +110,7 @@ class JobController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 }

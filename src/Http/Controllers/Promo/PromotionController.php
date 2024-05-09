@@ -15,7 +15,6 @@ use Fintech\RestApi\Http\Requests\Promo\UpdatePromotionRequest;
 use Fintech\RestApi\Http\Resources\Promo\PromotionCollection;
 use Fintech\RestApi\Http\Resources\Promo\PromotionResource;
 use Fintech\RestApi\Http\Resources\Promo\PromotionTypeResource;
-use Fintech\RestApi\Traits\ApiResponseTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -31,8 +30,6 @@ use Illuminate\Routing\Controller;
  */
 class PromotionController extends Controller
 {
-    use ApiResponseTrait;
-
     /**
      * @lrd:start
      * Return a listing of the *Promotion* resource as collection.
@@ -52,7 +49,7 @@ class PromotionController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -69,7 +66,7 @@ class PromotionController extends Controller
 
             $promotion = Promo::promotion()->create($inputs);
 
-            if (! $promotion) {
+            if (!$promotion) {
                 throw (new StoreOperationException)->setModel(config('fintech.promo.promotion_model'));
             }
 
@@ -80,7 +77,7 @@ class PromotionController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -96,7 +93,7 @@ class PromotionController extends Controller
 
             $promotion = Promo::promotion()->find($id);
 
-            if (! $promotion) {
+            if (!$promotion) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.promo.promotion_model'), $id);
             }
 
@@ -108,7 +105,7 @@ class PromotionController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -124,13 +121,13 @@ class PromotionController extends Controller
 
             $promotion = Promo::promotion()->find($id);
 
-            if (! $promotion) {
+            if (!$promotion) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.promo.promotion_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! Promo::promotion()->update($id, $inputs)) {
+            if (!Promo::promotion()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.promo.promotion_model'), $id);
             }
@@ -143,7 +140,7 @@ class PromotionController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -159,11 +156,11 @@ class PromotionController extends Controller
 
             $promotion = Promo::promotion()->find($id);
 
-            if (! $promotion) {
+            if (!$promotion) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.promo.promotion_model'), $id);
             }
 
-            if (! Promo::promotion()->destroy($id)) {
+            if (!Promo::promotion()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.promo.promotion_model'), $id);
             }
@@ -176,7 +173,7 @@ class PromotionController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -193,11 +190,11 @@ class PromotionController extends Controller
 
             $promotion = Promo::promotion()->find($id, true);
 
-            if (! $promotion) {
+            if (!$promotion) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.promo.promotion_model'), $id);
             }
 
-            if (! Promo::promotion()->restore($id)) {
+            if (!Promo::promotion()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.promo.promotion_model'), $id);
             }
@@ -210,7 +207,7 @@ class PromotionController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -232,7 +229,7 @@ class PromotionController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -254,7 +251,7 @@ class PromotionController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -267,7 +264,7 @@ class PromotionController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 }

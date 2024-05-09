@@ -15,7 +15,6 @@ use Fintech\RestApi\Http\Requests\Transaction\UpdateTransactionFormRequest;
 use Fintech\RestApi\Http\Resources\Core\DropDownCollection;
 use Fintech\RestApi\Http\Resources\Transaction\TransactionFormCollection;
 use Fintech\RestApi\Http\Resources\Transaction\TransactionFormResource;
-use Fintech\RestApi\Traits\ApiResponseTrait;
 use Fintech\Transaction\Facades\Transaction;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
@@ -32,8 +31,6 @@ use Illuminate\Routing\Controller;
  */
 class TransactionFormController extends Controller
 {
-    use ApiResponseTrait;
-
     /**
      * @lrd:start
      * Return a listing of the *TransactionForm* resource as collection.
@@ -53,7 +50,7 @@ class TransactionFormController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -72,7 +69,7 @@ class TransactionFormController extends Controller
 
             $transactionForm = Transaction::transactionForm()->create($inputs);
 
-            if (! $transactionForm) {
+            if (!$transactionForm) {
                 throw (new StoreOperationException)->setModel(config('fintech.transaction.transaction_form_model'));
             }
 
@@ -83,7 +80,7 @@ class TransactionFormController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -101,7 +98,7 @@ class TransactionFormController extends Controller
 
             $transactionForm = Transaction::transactionForm()->find($id);
 
-            if (! $transactionForm) {
+            if (!$transactionForm) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.transaction_form_model'), $id);
             }
 
@@ -113,7 +110,7 @@ class TransactionFormController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -132,13 +129,13 @@ class TransactionFormController extends Controller
 
             $transactionForm = Transaction::transactionForm()->find($id);
 
-            if (! $transactionForm) {
+            if (!$transactionForm) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.transaction_form_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! Transaction::transactionForm()->update($id, $inputs)) {
+            if (!Transaction::transactionForm()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.transaction.transaction_form_model'), $id);
             }
@@ -151,7 +148,7 @@ class TransactionFormController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -172,11 +169,11 @@ class TransactionFormController extends Controller
 
             $transactionForm = Transaction::transactionForm()->find($id);
 
-            if (! $transactionForm) {
+            if (!$transactionForm) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.transaction_form_model'), $id);
             }
 
-            if (! Transaction::transactionForm()->destroy($id)) {
+            if (!Transaction::transactionForm()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.transaction.transaction_form_model'), $id);
             }
@@ -189,7 +186,7 @@ class TransactionFormController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -208,11 +205,11 @@ class TransactionFormController extends Controller
 
             $transactionForm = Transaction::transactionForm()->find($id, true);
 
-            if (! $transactionForm) {
+            if (!$transactionForm) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.transaction_form_model'), $id);
             }
 
-            if (! Transaction::transactionForm()->restore($id)) {
+            if (!Transaction::transactionForm()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.transaction.transaction_form_model'), $id);
             }
@@ -225,7 +222,7 @@ class TransactionFormController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -247,7 +244,7 @@ class TransactionFormController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -258,7 +255,7 @@ class TransactionFormController extends Controller
      *
      * @lrd:end
      *
-     * @return \Fintech\RestApi\Http\Resources\Transaction\TransactionFormCollection|JsonResponse
+     * @return TransactionFormCollection|JsonResponse
      */
     public function import(ImportTransactionFormRequest $request): JsonResponse
     {
@@ -271,7 +268,7 @@ class TransactionFormController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -284,12 +281,12 @@ class TransactionFormController extends Controller
 
             $attribute = 'id';
 
-            if (! empty($filters['label'])) {
+            if (!empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (! empty($filters['attribute'])) {
+            if (!empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }
@@ -304,7 +301,7 @@ class TransactionFormController extends Controller
             return new DropDownCollection($entries);
 
         } catch (Exception $exception) {
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 }

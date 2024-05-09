@@ -16,7 +16,6 @@ use Fintech\RestApi\Http\Requests\Core\DropDownRequest;
 use Fintech\RestApi\Http\Resources\Auth\TeamCollection;
 use Fintech\RestApi\Http\Resources\Auth\TeamResource;
 use Fintech\RestApi\Http\Resources\Core\DropDownCollection;
-use Fintech\RestApi\Traits\ApiResponseTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -32,8 +31,6 @@ use Illuminate\Routing\Controller;
  */
 class TeamController extends Controller
 {
-    use ApiResponseTrait;
-
     /**
      * @lrd:start
      * Return a listing of the team resource as collection.
@@ -53,7 +50,7 @@ class TeamController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -72,7 +69,7 @@ class TeamController extends Controller
 
             $team = Auth::team()->create($inputs);
 
-            if (! $team) {
+            if (!$team) {
                 throw (new StoreOperationException())->setModel(config('fintech.auth.team_model'));
             }
 
@@ -83,7 +80,7 @@ class TeamController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -99,7 +96,7 @@ class TeamController extends Controller
 
             $team = Auth::team()->find($id);
 
-            if (! $team) {
+            if (!$team) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.team_model'), $id);
             }
 
@@ -111,7 +108,7 @@ class TeamController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -127,13 +124,13 @@ class TeamController extends Controller
 
             $team = Auth::team()->find($id);
 
-            if (! $team) {
+            if (!$team) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.team_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! Auth::team()->update($id, $inputs)) {
+            if (!Auth::team()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException())->setModel(config('fintech.auth.team_model'), $id);
             }
@@ -146,7 +143,7 @@ class TeamController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -164,11 +161,11 @@ class TeamController extends Controller
 
             $team = Auth::team()->find($id);
 
-            if (! $team) {
+            if (!$team) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.team_model'), $id);
             }
 
-            if (! Auth::team()->destroy($id)) {
+            if (!Auth::team()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.auth.team_model'), $id);
             }
@@ -181,7 +178,7 @@ class TeamController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -200,11 +197,11 @@ class TeamController extends Controller
 
             $team = Auth::team()->find($id, true);
 
-            if (! $team) {
+            if (!$team) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.team_model'), $id);
             }
 
-            if (! Auth::team()->restore($id)) {
+            if (!Auth::team()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.auth.team_model'), $id);
             }
@@ -217,7 +214,7 @@ class TeamController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -239,7 +236,7 @@ class TeamController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -261,7 +258,7 @@ class TeamController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -274,12 +271,12 @@ class TeamController extends Controller
 
             $attribute = 'id';
 
-            if (! empty($filters['label'])) {
+            if (!empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (! empty($filters['attribute'])) {
+            if (!empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }
@@ -294,7 +291,7 @@ class TeamController extends Controller
             return new DropDownCollection($entries);
 
         } catch (Exception $exception) {
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 }

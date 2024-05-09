@@ -3,17 +3,15 @@
 namespace Fintech\RestApi\Http\Controllers\Transaction\Charts;
 
 use Exception;
+use Fintech\RestApi\Http\Requests\Transaction\Charts\UserAccountUsageRequest;
 use Fintech\RestApi\Http\Resources\Transaction\Charts\UserAccountUsageResource;
-use Fintech\RestApi\Traits\ApiResponseTrait;
 use Fintech\Transaction\Facades\Transaction;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 
 class UserAccountUsagePieChartController extends Controller
 {
-    use ApiResponseTrait;
-
-    public function __invoke(\Fintech\RestApi\Http\Requests\Transaction\Charts\UserAccountUsageRequest $request): UserAccountUsageResource|JsonResponse
+    public function __invoke(UserAccountUsageRequest $request): UserAccountUsageResource|JsonResponse
     {
         try {
             $filters = [
@@ -33,7 +31,7 @@ class UserAccountUsagePieChartController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 }

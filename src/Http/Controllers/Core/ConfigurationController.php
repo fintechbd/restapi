@@ -5,7 +5,6 @@ namespace Fintech\RestApi\Http\Controllers\Core;
 use Exception;
 use Fintech\Core\Facades\Core;
 use Fintech\RestApi\Http\Resources\Core\ConfigurationResource;
-use Fintech\RestApi\Traits\ApiResponseTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -21,8 +20,6 @@ use Illuminate\Support\Facades\Config;
  */
 class ConfigurationController extends Controller
 {
-    use ApiResponseTrait;
-
     private array $hiddenFields = ['repositories', 'root_prefix', 'middleware', '^(.*)_model', '^(.*)_rules', 'packages'];
 
     /**
@@ -49,7 +46,7 @@ class ConfigurationController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -73,7 +70,7 @@ class ConfigurationController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -99,7 +96,7 @@ class ConfigurationController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 }

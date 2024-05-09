@@ -16,7 +16,6 @@ use Fintech\RestApi\Http\Requests\Core\DropDownRequest;
 use Fintech\RestApi\Http\Resources\Auth\RoleCollection;
 use Fintech\RestApi\Http\Resources\Auth\RoleResource;
 use Fintech\RestApi\Http\Resources\Core\DropDownCollection;
-use Fintech\RestApi\Traits\ApiResponseTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -32,8 +31,6 @@ use Illuminate\Routing\Controller;
  */
 class RoleController extends Controller
 {
-    use ApiResponseTrait;
-
     /**
      * @lrd:start
      * Return a listing of the role resource as collection.
@@ -53,7 +50,7 @@ class RoleController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -70,7 +67,7 @@ class RoleController extends Controller
 
             $role = Auth::role()->create($inputs);
 
-            if (! $role) {
+            if (!$role) {
                 throw (new StoreOperationException())->setModel(config('fintech.auth.role_model'));
             }
 
@@ -81,7 +78,7 @@ class RoleController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -99,7 +96,7 @@ class RoleController extends Controller
 
             $role = Auth::role()->find($id);
 
-            if (! $role) {
+            if (!$role) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.role_model'), $id);
             }
 
@@ -111,7 +108,7 @@ class RoleController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -127,13 +124,13 @@ class RoleController extends Controller
 
             $role = Auth::role()->find($id);
 
-            if (! $role) {
+            if (!$role) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.role_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! Auth::role()->update($id, $inputs)) {
+            if (!Auth::role()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException())->setModel(config('fintech.auth.role_model'), $id);
             }
@@ -146,7 +143,7 @@ class RoleController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -167,11 +164,11 @@ class RoleController extends Controller
 
             $role = Auth::role()->find($id);
 
-            if (! $role) {
+            if (!$role) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.role_model'), $id);
             }
 
-            if (! Auth::role()->destroy($id)) {
+            if (!Auth::role()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.auth.role_model'), $id);
             }
@@ -184,7 +181,7 @@ class RoleController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -203,11 +200,11 @@ class RoleController extends Controller
 
             $role = Auth::role()->find($id, true);
 
-            if (! $role) {
+            if (!$role) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.role_model'), $id);
             }
 
-            if (! Auth::role()->restore($id)) {
+            if (!Auth::role()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.auth.role_model'), $id);
             }
@@ -220,7 +217,7 @@ class RoleController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -242,7 +239,7 @@ class RoleController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -264,7 +261,7 @@ class RoleController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -277,12 +274,12 @@ class RoleController extends Controller
 
             $attribute = 'id';
 
-            if (! empty($filters['label'])) {
+            if (!empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (! empty($filters['attribute'])) {
+            if (!empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }
@@ -297,7 +294,7 @@ class RoleController extends Controller
             return new DropDownCollection($entries);
 
         } catch (Exception $exception) {
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 }

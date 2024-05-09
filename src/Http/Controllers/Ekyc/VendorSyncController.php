@@ -2,15 +2,14 @@
 
 namespace Fintech\RestApi\Http\Controllers\Ekyc;
 
+use ErrorException;
 use Exception;
-use Fintech\RestApi\Traits\ApiResponseTrait;
+use Fintech\Ekyc\Interfaces\KycVendor;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 
 class VendorSyncController extends Controller
 {
-    use ApiResponseTrait;
-
     /**
      * Handle the incoming request.
      */
@@ -20,11 +19,11 @@ class VendorSyncController extends Controller
 
             $driver = config("fintech.ekyc.providers.{$vendor}.driver");
 
-            if (! $driver) {
-                throw new \ErrorException("Missing driver for `{$vendor}` kyc provider.");
+            if (!$driver) {
+                throw new ErrorException("Missing driver for `{$vendor}` kyc provider.");
             }
             /**
-             * @var \Fintech\Ekyc\Interfaces\KycVendor $instance
+             * @var KycVendor $instance
              */
             $instance = app()->make($driver);
 
@@ -32,7 +31,7 @@ class VendorSyncController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 

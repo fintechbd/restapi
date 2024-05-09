@@ -11,7 +11,6 @@ use Fintech\RestApi\Http\Requests\MetaData\UpdateLanguageRequest;
 use Fintech\RestApi\Http\Resources\Core\DropDownCollection;
 use Fintech\RestApi\Http\Resources\MetaData\LanguageCollection;
 use Fintech\RestApi\Http\Resources\MetaData\LanguageResource;
-use Fintech\RestApi\Traits\ApiResponseTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -27,8 +26,6 @@ use Illuminate\Routing\Controller;
  */
 class LanguageController extends Controller
 {
-    use ApiResponseTrait;
-
     /**
      * @lrd:start
      * Return a listing of the *Language* resource as collection.
@@ -48,7 +45,7 @@ class LanguageController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -66,7 +63,7 @@ class LanguageController extends Controller
 
             $language = MetaData::language()->find($id);
 
-            if (! $language) {
+            if (!$language) {
                 throw (new ModelNotFoundException())->setModel('Language', $id);
             }
 
@@ -78,7 +75,7 @@ class LanguageController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -96,7 +93,7 @@ class LanguageController extends Controller
 
             $language = MetaData::language()->find($id);
 
-            if (! $language) {
+            if (!$language) {
                 throw (new ModelNotFoundException())->setModel('Language', $id);
             }
 
@@ -106,9 +103,9 @@ class LanguageController extends Controller
                 throw new Exception(__('metadata::messages.country.language_field_missing'));
             }
 
-            $inputs['enabled'] = ! ($countryData['language_enabled'] ?? false);
+            $inputs['enabled'] = !($countryData['language_enabled'] ?? false);
 
-            if (! MetaData::language()->update($id, $inputs)) {
+            if (!MetaData::language()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException())->setModel('Language', $id);
             }
@@ -121,7 +118,7 @@ class LanguageController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -139,13 +136,13 @@ class LanguageController extends Controller
 
             $language = MetaData::language()->find($id);
 
-            if (! $language) {
+            if (!$language) {
                 throw (new ModelNotFoundException())->setModel('Language', $id);
             }
 
             $inputs = $request->validated();
 
-            if (! MetaData::language()->update($id, $inputs)) {
+            if (!MetaData::language()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException())->setModel('Language', $id);
             }
@@ -158,7 +155,7 @@ class LanguageController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -173,12 +170,12 @@ class LanguageController extends Controller
 
             $attribute = 'code';
 
-            if (! empty($filters['label'])) {
+            if (!empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (! empty($filters['attribute'])) {
+            if (!empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }
@@ -199,7 +196,7 @@ class LanguageController extends Controller
             return new DropDownCollection($entries);
 
         } catch (Exception $exception) {
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 }

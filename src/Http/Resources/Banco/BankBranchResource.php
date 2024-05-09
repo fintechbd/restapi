@@ -31,7 +31,7 @@ class BankBranchResource extends JsonResource
             'bank' => $this->bank->name ?? null,
             'name' => $this->name ?? null,
             'bank_branch_data' => $this->bank_branch_data ?? null,
-            'vendor_code' => $this->vendor_code ?? (object) [],
+            'vendor_code' => $this->vendor_code ?? (object)[],
             'enabled' => $this->enabled ?? null,
             'links' => $this->links,
             'created_at' => $this->created_at,

@@ -11,7 +11,7 @@ class StateCollection extends ResourceCollection
     /**
      * Transform the resource collection into an array.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @return array
      */
     public function toArray($request)
@@ -20,7 +20,7 @@ class StateCollection extends ResourceCollection
             return [
                 'id' => $state->getKey(),
                 'name' => $state->name,
-                'vendor_code' => $state->vendor_code ?? (object) [],
+                'vendor_code' => $state->vendor_code ?? (object)[],
                 'state_data' => $state->state_data,
                 'latitude' => $state->latitude,
                 'longitude' => $state->longitude,

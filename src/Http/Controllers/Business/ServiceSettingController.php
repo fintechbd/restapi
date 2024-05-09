@@ -15,7 +15,6 @@ use Fintech\RestApi\Http\Requests\Business\UpdateServiceSettingRequest;
 use Fintech\RestApi\Http\Resources\Business\ServiceSettingCollection;
 use Fintech\RestApi\Http\Resources\Business\ServiceSettingResource;
 use Fintech\RestApi\Http\Resources\Business\ServiceSettingTypeResource;
-use Fintech\RestApi\Traits\ApiResponseTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -31,8 +30,6 @@ use Illuminate\Routing\Controller;
  */
 class ServiceSettingController extends Controller
 {
-    use ApiResponseTrait;
-
     /**
      * @lrd:start
      * Return a listing of the *ServiceSetting* resource as collection.
@@ -52,7 +49,7 @@ class ServiceSettingController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -69,7 +66,7 @@ class ServiceSettingController extends Controller
 
             $serviceSetting = Business::serviceSetting()->create($inputs);
 
-            if (! $serviceSetting) {
+            if (!$serviceSetting) {
                 throw (new StoreOperationException)->setModel(config('fintech.business.service_setting_model'));
             }
 
@@ -80,7 +77,7 @@ class ServiceSettingController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -98,7 +95,7 @@ class ServiceSettingController extends Controller
 
             $serviceSetting = Business::serviceSetting()->find($id);
 
-            if (! $serviceSetting) {
+            if (!$serviceSetting) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_setting_model'), $id);
             }
 
@@ -110,7 +107,7 @@ class ServiceSettingController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -126,13 +123,13 @@ class ServiceSettingController extends Controller
 
             $serviceSetting = Business::serviceSetting()->find($id);
 
-            if (! $serviceSetting) {
+            if (!$serviceSetting) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_setting_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! Business::serviceSetting()->update($id, $inputs)) {
+            if (!Business::serviceSetting()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_setting_model'), $id);
             }
@@ -145,7 +142,7 @@ class ServiceSettingController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -161,11 +158,11 @@ class ServiceSettingController extends Controller
 
             $serviceSetting = Business::serviceSetting()->find($id);
 
-            if (! $serviceSetting) {
+            if (!$serviceSetting) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_setting_model'), $id);
             }
 
-            if (! Business::serviceSetting()->destroy($id)) {
+            if (!Business::serviceSetting()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.business.service_setting_model'), $id);
             }
@@ -178,7 +175,7 @@ class ServiceSettingController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -195,11 +192,11 @@ class ServiceSettingController extends Controller
 
             $serviceSetting = Business::serviceSetting()->find($id, true);
 
-            if (! $serviceSetting) {
+            if (!$serviceSetting) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_setting_model'), $id);
             }
 
-            if (! Business::serviceSetting()->restore($id)) {
+            if (!Business::serviceSetting()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.business.service_setting_model'), $id);
             }
@@ -212,7 +209,7 @@ class ServiceSettingController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -235,7 +232,7 @@ class ServiceSettingController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -257,7 +254,7 @@ class ServiceSettingController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -270,7 +267,7 @@ class ServiceSettingController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
@@ -283,7 +280,7 @@ class ServiceSettingController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 }
