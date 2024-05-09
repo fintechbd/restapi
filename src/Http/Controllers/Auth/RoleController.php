@@ -71,7 +71,7 @@ class RoleController extends Controller
                 throw (new StoreOperationException())->setModel(config('fintech.auth.role_model'));
             }
 
-            return $this->created([
+            return response()->created([
                 'message' => __('restapi::messages.resource.created', ['model' => 'Role']),
                 'id' => $role->getKey(),
             ]);
@@ -104,7 +104,7 @@ class RoleController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -135,11 +135,11 @@ class RoleController extends Controller
                 throw (new UpdateOperationException())->setModel(config('fintech.auth.role_model'), $id);
             }
 
-            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Role']));
+            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Role']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -173,11 +173,11 @@ class RoleController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.auth.role_model'), $id);
             }
 
-            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Role']));
+            return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Role']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -209,11 +209,11 @@ class RoleController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.auth.role_model'), $id);
             }
 
-            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Role']));
+            return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Role']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -235,7 +235,7 @@ class RoleController extends Controller
 
             $rolePaginate = Auth::role()->export($inputs);
 
-            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Role']));
+            return response()->exported(__('restapi::messages.resource.exported', ['model' => 'Role']));
 
         } catch (Exception $exception) {
 

@@ -69,7 +69,7 @@ class PermissionController extends Controller
                 throw (new StoreOperationException())->setModel(config('fintech.auth.permission_model'));
             }
 
-            return $this->created([
+            return response()->created([
                 'message' => __('restapi::messages.resource.created', ['model' => 'Permission']),
                 'id' => $permission->getKey(),
             ]);
@@ -102,7 +102,7 @@ class PermissionController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -133,11 +133,11 @@ class PermissionController extends Controller
                 throw (new UpdateOperationException())->setModel(config('fintech.auth.permission_model'), $id);
             }
 
-            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Permission']));
+            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Permission']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -171,11 +171,11 @@ class PermissionController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.auth.permission_model'), $id);
             }
 
-            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Permission']));
+            return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Permission']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -207,11 +207,11 @@ class PermissionController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.auth.permission_model'), $id);
             }
 
-            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Permission']));
+            return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Permission']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -233,7 +233,7 @@ class PermissionController extends Controller
 
             $permissionPaginate = Auth::permission()->export($inputs);
 
-            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Permission']));
+            return response()->exported(__('restapi::messages.resource.exported', ['model' => 'Permission']));
 
         } catch (Exception $exception) {
 

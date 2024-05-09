@@ -69,7 +69,7 @@ class BankBranchController extends Controller
                 throw (new StoreOperationException)->setModel(config('fintech.banco.bank_branch_model'));
             }
 
-            return $this->created([
+            return response()->created([
                 'message' => __('restapi::messages.resource.created', ['model' => 'Bank Branch']),
                 'id' => $bankBranch->getKey(),
             ]);
@@ -102,7 +102,7 @@ class BankBranchController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -136,11 +136,11 @@ class BankBranchController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.banco.bank_branch_model'), $id);
             }
 
-            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Bank Branch']));
+            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Bank Branch']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -174,11 +174,11 @@ class BankBranchController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.banco.bank_branch_model'), $id);
             }
 
-            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Bank Branch']));
+            return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Bank Branch']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -210,11 +210,11 @@ class BankBranchController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.banco.bank_branch_model'), $id);
             }
 
-            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Bank Branch']));
+            return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Bank Branch']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -236,7 +236,7 @@ class BankBranchController extends Controller
 
             $bankBranchPaginate = Banco::bankBranch()->export($inputs);
 
-            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Bank Branch']));
+            return response()->exported(__('restapi::messages.resource.exported', ['model' => 'Bank Branch']));
 
         } catch (Exception $exception) {
 

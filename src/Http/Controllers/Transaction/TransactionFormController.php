@@ -73,7 +73,7 @@ class TransactionFormController extends Controller
                 throw (new StoreOperationException)->setModel(config('fintech.transaction.transaction_form_model'));
             }
 
-            return $this->created([
+            return response()->created([
                 'message' => __('restapi::messages.resource.created', ['model' => 'Transaction Form']),
                 'id' => $transactionForm->id,
             ]);
@@ -106,7 +106,7 @@ class TransactionFormController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -140,11 +140,11 @@ class TransactionFormController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.transaction.transaction_form_model'), $id);
             }
 
-            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Transaction Form']));
+            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Transaction Form']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -178,11 +178,11 @@ class TransactionFormController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.transaction.transaction_form_model'), $id);
             }
 
-            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Transaction Form']));
+            return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Transaction Form']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -214,11 +214,11 @@ class TransactionFormController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.transaction.transaction_form_model'), $id);
             }
 
-            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Transaction Form']));
+            return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Transaction Form']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -240,7 +240,7 @@ class TransactionFormController extends Controller
 
             $transactionFormPaginate = Transaction::transactionForm()->export($inputs);
 
-            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Transaction Form']));
+            return response()->exported(__('restapi::messages.resource.exported', ['model' => 'Transaction Form']));
 
         } catch (Exception $exception) {
 

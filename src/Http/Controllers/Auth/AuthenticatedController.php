@@ -48,7 +48,7 @@ class AuthenticatedController extends Controller
 
                 Auth::guard('web')->logout();
 
-                return $this->forbidden(__('auth::messages.forbidden', ['permission' => permission_format('auth.login', 'auth')]));
+                return response()->forbidden(__('auth::messages.forbidden', ['permission' => permission_format('auth.login', 'auth')]));
             }
 
             $request->clearRateLimited();
@@ -74,6 +74,6 @@ class AuthenticatedController extends Controller
 
         Auth::guard('web')->logout();
 
-        return $this->deleted(__('auth::messages.logout'));
+        return response()->deleted(__('auth::messages.logout'));
     }
 }

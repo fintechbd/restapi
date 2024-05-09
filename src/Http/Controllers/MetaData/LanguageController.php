@@ -71,7 +71,7 @@ class LanguageController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -110,11 +110,11 @@ class LanguageController extends Controller
                 throw (new UpdateOperationException())->setModel('Language', $id);
             }
 
-            return $this->updated(__('metadata::messages.country.status_changed', ['field' => 'Language']));
+            return response()->updated(__('metadata::messages.country.status_changed', ['field' => 'Language']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -147,11 +147,11 @@ class LanguageController extends Controller
                 throw (new UpdateOperationException())->setModel('Language', $id);
             }
 
-            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Language']));
+            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Language']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 

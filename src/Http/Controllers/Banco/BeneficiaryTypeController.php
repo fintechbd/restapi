@@ -67,7 +67,7 @@ class BeneficiaryTypeController extends Controller
                 throw (new StoreOperationException)->setModel(config('fintech.banco.beneficiary_type_model'));
             }
 
-            return $this->created([
+            return response()->created([
                 'message' => __('restapi::messages.resource.created', ['model' => 'Beneficiary Type']),
                 'id' => $beneficiaryType->getKey(),
             ]);
@@ -100,7 +100,7 @@ class BeneficiaryTypeController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -131,11 +131,11 @@ class BeneficiaryTypeController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.banco.beneficiary_type_model'), $id);
             }
 
-            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Beneficiary Type']));
+            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Beneficiary Type']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -164,11 +164,11 @@ class BeneficiaryTypeController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.banco.beneficiary_type_model'), $id);
             }
 
-            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Beneficiary Type']));
+            return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Beneficiary Type']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -198,11 +198,11 @@ class BeneficiaryTypeController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.banco.beneficiary_type_model'), $id);
             }
 
-            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Beneficiary Type']));
+            return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Beneficiary Type']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -225,7 +225,7 @@ class BeneficiaryTypeController extends Controller
             //$beneficiaryTypePaginate = Banco::beneficiaryType()->export($inputs);
             Banco::beneficiaryType()->export($inputs);
 
-            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Beneficiary Type']));
+            return response()->exported(__('restapi::messages.resource.exported', ['model' => 'Beneficiary Type']));
 
         } catch (Exception $exception) {
 

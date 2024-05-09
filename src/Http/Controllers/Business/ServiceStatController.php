@@ -71,7 +71,7 @@ class ServiceStatController extends Controller
                 throw (new StoreOperationException)->setModel(config('fintech.business.service_stat_model'));
             }
 
-            return $this->created([
+            return response()->created([
                 'message' => __('restapi::messages.resource.created', ['model' => 'Service Stat']),
                 'id' => $serviceStat,
             ]);
@@ -102,7 +102,7 @@ class ServiceStatController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -133,11 +133,11 @@ class ServiceStatController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_stat_model'), $id);
             }
 
-            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Service Stat']));
+            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Service Stat']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -166,11 +166,11 @@ class ServiceStatController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.business.service_stat_model'), $id);
             }
 
-            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Service Stat']));
+            return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Service Stat']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -200,11 +200,11 @@ class ServiceStatController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.business.service_stat_model'), $id);
             }
 
-            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Service Stat']));
+            return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Service Stat']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -226,7 +226,7 @@ class ServiceStatController extends Controller
 
             Business::serviceStat()->export($inputs);
 
-            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Service Stat']));
+            return response()->exported(__('restapi::messages.resource.exported', ['model' => 'Service Stat']));
 
         } catch (Exception $exception) {
 

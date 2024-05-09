@@ -71,7 +71,7 @@ class CurrencyController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -108,11 +108,11 @@ class CurrencyController extends Controller
                 throw (new UpdateOperationException())->setModel('Currency', $id);
             }
 
-            return $this->updated(__('metadata::messages.country.status_changed', ['field' => 'Currency']));
+            return response()->updated(__('metadata::messages.country.status_changed', ['field' => 'Currency']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -145,11 +145,11 @@ class CurrencyController extends Controller
                 throw (new UpdateOperationException())->setModel(config('fintech.metadata.currency_model'), $id);
             }
 
-            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Currency']));
+            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Currency']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 

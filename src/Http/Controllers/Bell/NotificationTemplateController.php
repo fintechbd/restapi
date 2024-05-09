@@ -71,7 +71,7 @@ class NotificationTemplateController extends Controller
                 throw (new StoreOperationException)->setModel(config('fintech.bell.notification_template_model'));
             }
 
-            return $this->created([
+            return response()->created([
                 'message' => __('restapi::messages.resource.created', ['model' => 'Notification Template']),
                 'id' => $notificationTemplate->id,
             ]);
@@ -104,7 +104,7 @@ class NotificationTemplateController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -138,11 +138,11 @@ class NotificationTemplateController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.bell.notification_template_model'), $id);
             }
 
-            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Notification Template']));
+            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Notification Template']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -176,11 +176,11 @@ class NotificationTemplateController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.bell.notification_template_model'), $id);
             }
 
-            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Notification Template']));
+            return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Notification Template']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -212,11 +212,11 @@ class NotificationTemplateController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.bell.notification_template_model'), $id);
             }
 
-            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Notification Template']));
+            return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Notification Template']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -238,7 +238,7 @@ class NotificationTemplateController extends Controller
 
             $notificationTemplatePaginate = Bell::notificationTemplate()->export($inputs);
 
-            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Notification Template']));
+            return response()->exported(__('restapi::messages.resource.exported', ['model' => 'Notification Template']));
 
         } catch (Exception $exception) {
 

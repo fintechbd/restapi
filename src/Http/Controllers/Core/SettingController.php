@@ -71,7 +71,7 @@ class SettingController extends Controller
                 throw (new StoreOperationException())->setModel(config('fintech.core.setting_model'));
             }
 
-            return $this->created([
+            return response()->created([
                 'message' => __('restapi::messages.resource.created', ['model' => 'Setting']),
                 'id' => $setting->getKey(),
             ]);
@@ -104,7 +104,7 @@ class SettingController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -137,11 +137,11 @@ class SettingController extends Controller
                 throw (new UpdateOperationException())->setModel(config('fintech.core.setting_model'), $id);
             }
 
-            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Setting']));
+            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Setting']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -175,11 +175,11 @@ class SettingController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.core.setting_model'), $id);
             }
 
-            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Setting']));
+            return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Setting']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -211,11 +211,11 @@ class SettingController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.core.setting_model'), $id);
             }
 
-            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Setting']));
+            return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Setting']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -237,7 +237,7 @@ class SettingController extends Controller
 
             $settingPaginate = Core::setting()->export($inputs);
 
-            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Setting']));
+            return response()->exported(__('restapi::messages.resource.exported', ['model' => 'Setting']));
 
         } catch (Exception $exception) {
 

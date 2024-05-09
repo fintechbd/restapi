@@ -140,7 +140,7 @@ class DepositController extends Controller
 
                 event(new DepositReceived($deposit));
 
-                return $this->created([
+                return response()->created([
                     'message' => __('restapi::messages.resource.created', ['model' => 'Deposit']),
                     'id' => $deposit->id,
                 ]);
@@ -178,7 +178,7 @@ class DepositController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -224,7 +224,7 @@ class DepositController extends Controller
 
                 event(new DepositRejected($deposit));
 
-                return $this->success(__('reload::messages.deposit.status_change_success', [
+                return response()->success(__('reload::messages.deposit.status_change_success', [
                     'status' => DepositStatus::Rejected->name,
                 ]));
             } else {
@@ -234,7 +234,7 @@ class DepositController extends Controller
         } catch (ModelNotFoundException $exception) {
             Transaction::orderQueue()->removeFromQueueOrderWise($id);
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
             Transaction::orderQueue()->removeFromQueueOrderWise($id);
@@ -327,7 +327,7 @@ class DepositController extends Controller
 
                 event(new DepositAccepted($deposit));
 
-                return $this->success(__('reload::messages.deposit.status_change_success', [
+                return response()->success(__('reload::messages.deposit.status_change_success', [
                     'status' => DepositStatus::Accepted->name,
                 ]));
             } else {
@@ -337,7 +337,7 @@ class DepositController extends Controller
         } catch (ModelNotFoundException $exception) {
             Transaction::orderQueue()->removeFromQueueOrderWise($id);
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
             Transaction::orderQueue()->removeFromQueueOrderWise($id);
@@ -405,7 +405,7 @@ class DepositController extends Controller
 
                 event(new DepositCancelled($deposit));
 
-                return $this->success(__('reload::messages.deposit.status_change_success', [
+                return response()->success(__('reload::messages.deposit.status_change_success', [
                     'status' => DepositStatus::Cancelled->name,
                 ]));
             } else {
@@ -414,7 +414,7 @@ class DepositController extends Controller
         } catch (ModelNotFoundException $exception) {
             Transaction::orderQueue()->removeFromQueueOrderWise($id);
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
             Transaction::orderQueue()->removeFromQueueOrderWise($id);
@@ -437,7 +437,7 @@ class DepositController extends Controller
 
             $depositPaginate = Reload::deposit()->export($inputs);
 
-            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Deposit']));
+            return response()->exported(__('restapi::messages.resource.exported', ['model' => 'Deposit']));
 
         } catch (Exception $exception) {
 

@@ -47,7 +47,7 @@ class PasswordResetController extends Controller
 
             event(new PasswordResetRequested($attemptUser));
 
-            return $this->success($response['message']);
+            return response()->success($response['message']);
 
         } catch (Exception $exception) {
 
@@ -93,7 +93,7 @@ class PasswordResetController extends Controller
 
             event(new PasswordResetSuccessful($targetedUser));
 
-            return $this->updated(__('auth::messages.reset.success'));
+            return response()->updated(__('auth::messages.reset.success'));
 
         } catch (Exception $exception) {
             return response()->failed($exception->getMessage());

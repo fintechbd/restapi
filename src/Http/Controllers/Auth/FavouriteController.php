@@ -71,7 +71,7 @@ class FavouriteController extends Controller
                 throw (new StoreOperationException())->setModel(config('fintech.auth.favourite_model'));
             }
 
-            return $this->created([
+            return response()->created([
                 'message' => __('restapi::messages.resource.created', ['model' => 'Favourite']),
                 'id' => $favourite->id,
             ]);
@@ -104,7 +104,7 @@ class FavouriteController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -138,11 +138,11 @@ class FavouriteController extends Controller
                 throw (new UpdateOperationException())->setModel(config('fintech.auth.favourite_model'), $id);
             }
 
-            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Favourite']));
+            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Favourite']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -176,11 +176,11 @@ class FavouriteController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.auth.favourite_model'), $id);
             }
 
-            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Favourite']));
+            return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Favourite']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -212,11 +212,11 @@ class FavouriteController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.auth.favourite_model'), $id);
             }
 
-            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Favourite']));
+            return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Favourite']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -238,7 +238,7 @@ class FavouriteController extends Controller
 
             $favouritePaginate = Auth::favourite()->export($inputs);
 
-            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Favourite']));
+            return response()->exported(__('restapi::messages.resource.exported', ['model' => 'Favourite']));
 
         } catch (Exception $exception) {
 

@@ -33,7 +33,7 @@ class CountryServiceController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -64,11 +64,11 @@ class CountryServiceController extends Controller
                 throw (new UpdateOperationException())->setModel(config('fintech.metadata.country_model'), $id);
             }
 
-            return $this->updated(__('business::messages.country.service_assigned', ['country' => strtolower($country->name ?? 'N/A')]));
+            return response()->updated(__('business::messages.country.service_assigned', ['country' => strtolower($country->name ?? 'N/A')]));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 

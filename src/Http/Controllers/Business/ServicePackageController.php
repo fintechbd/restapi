@@ -71,7 +71,7 @@ class ServicePackageController extends Controller
                 throw (new StoreOperationException)->setModel(config('fintech.business.service_package_model'));
             }
 
-            return $this->created([
+            return response()->created([
                 'message' => __('restapi::messages.resource.created', ['model' => 'Service Package']),
                 'id' => $servicePackage->id,
             ]);
@@ -104,7 +104,7 @@ class ServicePackageController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -138,11 +138,11 @@ class ServicePackageController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_package_model'), $id);
             }
 
-            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Service Package']));
+            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Service Package']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -176,11 +176,11 @@ class ServicePackageController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.business.service_package_model'), $id);
             }
 
-            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Service Package']));
+            return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Service Package']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -212,11 +212,11 @@ class ServicePackageController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.business.service_package_model'), $id);
             }
 
-            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Service Package']));
+            return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Service Package']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -238,7 +238,7 @@ class ServicePackageController extends Controller
 
             $servicePackagePaginate = Business::servicePackage()->export($inputs);
 
-            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Service Package']));
+            return response()->exported(__('restapi::messages.resource.exported', ['model' => 'Service Package']));
 
         } catch (Exception $exception) {
 

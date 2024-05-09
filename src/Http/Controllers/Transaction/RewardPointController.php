@@ -71,7 +71,7 @@ class RewardPointController extends Controller
                 throw (new StoreOperationException)->setModel(config('fintech.transaction.reward_point_model'));
             }
 
-            return $this->created([
+            return response()->created([
                 'message' => __('restapi::messages.resource.created', ['model' => 'Reward Point']),
                 'id' => $rewardPoint->id,
             ]);
@@ -104,7 +104,7 @@ class RewardPointController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -138,11 +138,11 @@ class RewardPointController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.transaction.reward_point_model'), $id);
             }
 
-            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Reward Point']));
+            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Reward Point']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -176,11 +176,11 @@ class RewardPointController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.transaction.reward_point_model'), $id);
             }
 
-            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Reward Point']));
+            return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Reward Point']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -212,11 +212,11 @@ class RewardPointController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.transaction.reward_point_model'), $id);
             }
 
-            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Reward Point']));
+            return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Reward Point']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -238,7 +238,7 @@ class RewardPointController extends Controller
 
             $rewardPointPaginate = Transaction::rewardPoint()->export($inputs);
 
-            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Reward Point']));
+            return response()->exported(__('restapi::messages.resource.exported', ['model' => 'Reward Point']));
 
         } catch (Exception $exception) {
 

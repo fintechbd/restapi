@@ -158,7 +158,7 @@ class PayBillController extends Controller
                 Transaction::orderQueue()->removeFromQueueUserWise($user_id ?? $depositor->getKey());
                 DB::commit();
 
-                return $this->created([
+                return response()->created([
                     'message' => __('restapi::messages.resource.created', ['model' => 'Pay Bill']),
                     'id' => $payBill->getKey(),
                     'spent' => $userUpdatedBalance['spent_amount'],
@@ -197,11 +197,11 @@ class PayBillController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.tab.pay_bill_model'), $id);
             }
 
-            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Pay Bill']));
+            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Pay Bill']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -231,7 +231,7 @@ class PayBillController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -260,11 +260,11 @@ class PayBillController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.tab.pay_bill_model'), $id);
             }
 
-            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Pay Bill']));
+            return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Pay Bill']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -294,11 +294,11 @@ class PayBillController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.tab.pay_bill_model'), $id);
             }
 
-            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Pay Bill']));
+            return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Pay Bill']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -321,7 +321,7 @@ class PayBillController extends Controller
             //$payBillPaginate = Tab::payBill()->export($inputs);
             Tab::payBill()->export($inputs);
 
-            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Pay Bill']));
+            return response()->exported(__('restapi::messages.resource.exported', ['model' => 'Pay Bill']));
 
         } catch (Exception $exception) {
 

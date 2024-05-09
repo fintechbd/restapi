@@ -11,7 +11,7 @@ class EncryptedKeyController extends Controller
 {
     public function __invoke(Request $request): JsonResponse
     {
-        return $this->success([
+        return response()->success([
             'data' => [
                 'status' => config('fintech.core.encrypt_response'),
                 'token' => base64_encode(

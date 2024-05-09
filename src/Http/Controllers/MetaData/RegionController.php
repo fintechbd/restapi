@@ -73,7 +73,7 @@ class RegionController extends Controller
                 throw (new StoreOperationException())->setModel(config('fintech.metadata.region_model'));
             }
 
-            return $this->created([
+            return response()->created([
                 'message' => __('restapi::messages.resource.created', ['model' => 'Region']),
                 'id' => $region->getKey(),
             ]);
@@ -108,7 +108,7 @@ class RegionController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -142,11 +142,11 @@ class RegionController extends Controller
                 throw (new UpdateOperationException())->setModel(config('fintech.metadata.region_model'), $id);
             }
 
-            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Region']));
+            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Region']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -180,11 +180,11 @@ class RegionController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.metadata.region_model'), $id);
             }
 
-            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Region']));
+            return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Region']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -216,11 +216,11 @@ class RegionController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.metadata.region_model'), $id);
             }
 
-            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Region']));
+            return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Region']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -242,7 +242,7 @@ class RegionController extends Controller
 
             $regionPaginate = MetaData::region()->export($inputs);
 
-            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Region']));
+            return response()->exported(__('restapi::messages.resource.exported', ['model' => 'Region']));
 
         } catch (Exception $exception) {
 

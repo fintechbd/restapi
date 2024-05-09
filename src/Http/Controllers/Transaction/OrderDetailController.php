@@ -71,7 +71,7 @@ class OrderDetailController extends Controller
                 throw (new StoreOperationException)->setModel(config('fintech.transaction.order_detail_model'));
             }
 
-            return $this->created([
+            return response()->created([
                 'message' => __('restapi::messages.resource.created', ['model' => 'Order Detail']),
                 'id' => $orderDetail->id,
             ]);
@@ -104,7 +104,7 @@ class OrderDetailController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -138,11 +138,11 @@ class OrderDetailController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.transaction.order_detail_model'), $id);
             }
 
-            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Order Detail']));
+            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Order Detail']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -176,11 +176,11 @@ class OrderDetailController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.transaction.order_detail_model'), $id);
             }
 
-            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Order Detail']));
+            return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Order Detail']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -212,11 +212,11 @@ class OrderDetailController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.transaction.order_detail_model'), $id);
             }
 
-            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Order Detail']));
+            return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Order Detail']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -238,7 +238,7 @@ class OrderDetailController extends Controller
 
             $orderDetailPaginate = Transaction::orderDetail()->export($inputs);
 
-            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Order Detail']));
+            return response()->exported(__('restapi::messages.resource.exported', ['model' => 'Order Detail']));
 
         } catch (Exception $exception) {
 

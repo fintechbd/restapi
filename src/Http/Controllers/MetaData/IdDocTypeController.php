@@ -71,7 +71,7 @@ class IdDocTypeController extends Controller
                 throw (new StoreOperationException())->setModel(config('fintech.auth.id_doc_type_model'));
             }
 
-            return $this->created([
+            return response()->created([
                 'message' => __('restapi::messages.resource.created', ['model' => 'Id Doc Type']),
                 'id' => $idDocType->getKey(),
             ]);
@@ -104,7 +104,7 @@ class IdDocTypeController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -138,11 +138,11 @@ class IdDocTypeController extends Controller
                 throw (new UpdateOperationException())->setModel(config('fintech.auth.id_doc_type_model'), $id);
             }
 
-            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Id Doc Type']));
+            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Id Doc Type']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -174,11 +174,11 @@ class IdDocTypeController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.auth.id_doc_type_model'), $id);
             }
 
-            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Id Doc Type']));
+            return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Id Doc Type']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -208,11 +208,11 @@ class IdDocTypeController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.auth.id_doc_type_model'), $id);
             }
 
-            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Id Doc Type']));
+            return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Id Doc Type']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -234,7 +234,7 @@ class IdDocTypeController extends Controller
 
             $idDocTypePaginate = MetaData::idDocType()->export($inputs);
 
-            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Id Doc Type']));
+            return response()->exported(__('restapi::messages.resource.exported', ['model' => 'Id Doc Type']));
 
         } catch (Exception $exception) {
 

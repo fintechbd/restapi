@@ -54,7 +54,7 @@ class KycHandlerController extends Controller
 
         $credentials = $config[$mode] ?? [];
 
-        return $this->success([
+        return response()->success([
             'data' => [
                 'credentials' => $credentials,
                 'options' => $config['options'] ?? [],
@@ -88,7 +88,7 @@ class KycHandlerController extends Controller
             ];
         }
 
-        return $this->success(['data' => $data]);
+        return response()->success(['data' => $data]);
 
     }
 
@@ -101,7 +101,7 @@ class KycHandlerController extends Controller
      */
     public function token(): JsonResponse
     {
-        return $this->success(['data' => ['reference_no' => Ekyc::getReferenceToken()]]);
+        return response()->success(['data' => ['reference_no' => Ekyc::getReferenceToken()]]);
     }
 
     public function statusCallback(Request $request): void

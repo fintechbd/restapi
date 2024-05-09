@@ -70,7 +70,7 @@ class PromotionController extends Controller
                 throw (new StoreOperationException)->setModel(config('fintech.promo.promotion_model'));
             }
 
-            return $this->created([
+            return response()->created([
                 'message' => __('restapi::messages.resource.created', ['model' => 'Promotion']),
                 'id' => $promotion->getKey(),
             ]);
@@ -101,7 +101,7 @@ class PromotionController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -132,11 +132,11 @@ class PromotionController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.promo.promotion_model'), $id);
             }
 
-            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Promotion']));
+            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Promotion']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -165,11 +165,11 @@ class PromotionController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.promo.promotion_model'), $id);
             }
 
-            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Promotion']));
+            return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Promotion']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -199,11 +199,11 @@ class PromotionController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.promo.promotion_model'), $id);
             }
 
-            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Promotion']));
+            return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Promotion']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -225,7 +225,7 @@ class PromotionController extends Controller
 
             $promotionPaginate = Promo::promotion()->export($inputs);
 
-            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Promotion']));
+            return response()->exported(__('restapi::messages.resource.exported', ['model' => 'Promotion']));
 
         } catch (Exception $exception) {
 

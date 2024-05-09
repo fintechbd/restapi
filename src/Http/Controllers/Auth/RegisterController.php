@@ -29,7 +29,7 @@ class RegisterController extends Controller
 
             event(new Registered($user));
 
-            return $this->created('Registration Successful.');
+            return response()->created('Registration Successful.');
 
         } catch (Exception $exception) {
 

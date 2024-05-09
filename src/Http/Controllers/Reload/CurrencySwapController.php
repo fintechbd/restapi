@@ -179,7 +179,7 @@ class CurrencySwapController extends Controller
                 Transaction::orderQueue()->removeFromQueueUserWise($user_id ?? $depositor->getKey());
                 DB::commit();
 
-                return $this->created([
+                return response()->created([
                     'message' => __('restapi::messages.resource.created', ['model' => 'Currency Swap']),
                     'id' => $currencySwap->id,
                     'spent' => $userUpdatedBalance['spent_amount'],
@@ -220,11 +220,11 @@ class CurrencySwapController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.reload.currency_swap_model'), $id);
             }
 
-            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Currency Swap']));
+            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Currency Swap']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -319,7 +319,7 @@ class CurrencySwapController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -348,11 +348,11 @@ class CurrencySwapController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.reload.currency_swap_model'), $id);
             }
 
-            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Currency Swap']));
+            return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Currency Swap']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -382,11 +382,11 @@ class CurrencySwapController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.reload.currency_swap_model'), $id);
             }
 
-            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Currency Swap']));
+            return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Currency Swap']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -408,7 +408,7 @@ class CurrencySwapController extends Controller
 
             $currencySwapPaginate = Reload::currencySwap()->export($inputs);
 
-            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Currency Swap']));
+            return response()->exported(__('restapi::messages.resource.exported', ['model' => 'Currency Swap']));
 
         } catch (Exception $exception) {
 

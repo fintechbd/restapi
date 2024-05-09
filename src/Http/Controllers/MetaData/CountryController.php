@@ -73,7 +73,7 @@ class CountryController extends Controller
                 throw (new StoreOperationException())->setModel(config('fintech.metadata.country_model'));
             }
 
-            return $this->created([
+            return response()->created([
                 'message' => __('restapi::messages.resource.created', ['model' => 'Country']),
                 'id' => $country->getKey(),
             ]);
@@ -108,7 +108,7 @@ class CountryController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -142,11 +142,11 @@ class CountryController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.metadata.country_model'), $id);
             }
 
-            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Country']));
+            return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Country']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -178,11 +178,11 @@ class CountryController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.metadata.country_model'), $id);
             }
 
-            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Country']));
+            return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Country']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -204,7 +204,7 @@ class CountryController extends Controller
 
             $countryPaginate = MetaData::country()->export($inputs);
 
-            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Country']));
+            return response()->exported(__('restapi::messages.resource.exported', ['model' => 'Country']));
 
         } catch (Exception $exception) {
 
@@ -300,11 +300,11 @@ class CountryController extends Controller
                 throw (new UpdateOperationException())->setModel(config('fintech.metadata.country_model'), $id);
             }
 
-            return $this->updated(__('metadata::messages.country.status_changed', ['field' => 'Serving Country']));
+            return response()->updated(__('metadata::messages.country.status_changed', ['field' => 'Serving Country']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -338,11 +338,11 @@ class CountryController extends Controller
                 throw (new UpdateOperationException())->setModel(config('fintech.metadata.country_model'), $id);
             }
 
-            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Country']));
+            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Country']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 

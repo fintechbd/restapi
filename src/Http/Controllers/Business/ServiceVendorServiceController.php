@@ -33,7 +33,7 @@ class ServiceVendorServiceController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -64,11 +64,11 @@ class ServiceVendorServiceController extends Controller
                 throw (new UpdateOperationException())->setModel(config('fintech.business.service_vendor_model'), $id);
             }
 
-            return $this->updated(__('business::messages.vendor.service_assigned', ['vendor' => strtolower($serviceVendor->name ?? 'N/A')]));
+            return response()->updated(__('business::messages.vendor.service_assigned', ['vendor' => strtolower($serviceVendor->name ?? 'N/A')]));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 

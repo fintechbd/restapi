@@ -33,7 +33,7 @@ class RoleServiceController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -64,11 +64,11 @@ class RoleServiceController extends Controller
                 throw (new UpdateOperationException())->setModel(config('fintech.auth.role_model'), $id);
             }
 
-            return $this->updated(__('business::messages.role.service_assigned', ['role' => strtolower($role->name ?? 'N/A')]));
+            return response()->updated(__('business::messages.role.service_assigned', ['role' => strtolower($role->name ?? 'N/A')]));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 

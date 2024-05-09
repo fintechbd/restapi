@@ -71,7 +71,7 @@ class WalletToPrepaidCardController extends Controller
                 throw (new StoreOperationException)->setModel(config('fintech.reload.wallet_to_prepaid_card_model'));
             }
 
-            return $this->created([
+            return response()->created([
                 'message' => __('restapi::messages.resource.created', ['model' => 'Wallet To Prepaid Card']),
                 'id' => $walletToPrepaidCard->id,
             ]);
@@ -104,7 +104,7 @@ class WalletToPrepaidCardController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -138,11 +138,11 @@ class WalletToPrepaidCardController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.reload.wallet_to_prepaid_card_model'), $id);
             }
 
-            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Wallet To Prepaid Card']));
+            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Wallet To Prepaid Card']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -176,11 +176,11 @@ class WalletToPrepaidCardController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.reload.wallet_to_prepaid_card_model'), $id);
             }
 
-            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Wallet To Prepaid Card']));
+            return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Wallet To Prepaid Card']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -212,11 +212,11 @@ class WalletToPrepaidCardController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.reload.wallet_to_prepaid_card_model'), $id);
             }
 
-            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Wallet To Prepaid Card']));
+            return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Wallet To Prepaid Card']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -238,7 +238,7 @@ class WalletToPrepaidCardController extends Controller
 
             $walletToPrepaidCardPaginate = Reload::walletToPrepaidCard()->export($inputs);
 
-            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Wallet To Prepaid Card']));
+            return response()->exported(__('restapi::messages.resource.exported', ['model' => 'Wallet To Prepaid Card']));
 
         } catch (Exception $exception) {
 

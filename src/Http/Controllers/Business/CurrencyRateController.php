@@ -71,7 +71,7 @@ class CurrencyRateController extends Controller
                 throw (new StoreOperationException)->setModel(config('fintech.business.currency_rate_model'));
             }
 
-            return $this->created([
+            return response()->created([
                 'message' => __('restapi::messages.resource.created', ['model' => 'Currency Rate']),
                 'id' => $currencyRate->id,
             ]);
@@ -104,7 +104,7 @@ class CurrencyRateController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -138,11 +138,11 @@ class CurrencyRateController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.business.currency_rate_model'), $id);
             }
 
-            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Currency Rate']));
+            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Currency Rate']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -176,11 +176,11 @@ class CurrencyRateController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.business.currency_rate_model'), $id);
             }
 
-            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Currency Rate']));
+            return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Currency Rate']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -212,11 +212,11 @@ class CurrencyRateController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.business.currency_rate_model'), $id);
             }
 
-            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Currency Rate']));
+            return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Currency Rate']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -238,7 +238,7 @@ class CurrencyRateController extends Controller
 
             $currencyRatePaginate = Business::currencyRate()->export($inputs);
 
-            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Currency Rate']));
+            return response()->exported(__('restapi::messages.resource.exported', ['model' => 'Currency Rate']));
 
         } catch (Exception $exception) {
 

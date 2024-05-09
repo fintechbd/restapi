@@ -164,7 +164,7 @@ class BangladeshTopUpController extends Controller
                 DB::commit();
                 event(new BangladeshTopUpRequested($bangladeshTopUp));
 
-                return $this->created([
+                return response()->created([
                     'message' => __('restapi::messages.resource.created', ['model' => 'Bangladesh Top Up']),
                     'id' => $bangladeshTopUp->id,
                     'spent' => $userUpdatedBalance['spent_amount'],
@@ -206,11 +206,11 @@ class BangladeshTopUpController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.airtime.bangladesh_top_up_model'), $id);
             }
 
-            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Bangladesh Top Up']));
+            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Bangladesh Top Up']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -240,7 +240,7 @@ class BangladeshTopUpController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -274,11 +274,11 @@ class BangladeshTopUpController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.airtime.bangladesh_top_up_model'), $id);
             }
 
-            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Bangladesh Top Up']));
+            return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Bangladesh Top Up']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -310,11 +310,11 @@ class BangladeshTopUpController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.airtime.bangladesh_top_up_model'), $id);
             }
 
-            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Bangladesh Top Up']));
+            return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Bangladesh Top Up']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -336,7 +336,7 @@ class BangladeshTopUpController extends Controller
 
             $bangladeshTopUpPaginate = Airtime::bangladeshTopUp()->export($inputs);
 
-            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Bangladesh Top Up']));
+            return response()->exported(__('restapi::messages.resource.exported', ['model' => 'Bangladesh Top Up']));
 
         } catch (Exception $exception) {
 

@@ -68,7 +68,7 @@ class OrderQueueController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -104,11 +104,11 @@ class OrderQueueController extends Controller
     //                throw (new UpdateOperationException)->setModel(config('fintech.transaction.order_queue_model'), $id);
     //            }
     //
-    //            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Order Queue']));
+    //            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Order Queue']));
     //
     //        } catch (ModelNotFoundException $exception) {
     //
-    //            return $this->notfound($exception->getMessage());
+    //            return response()->notfound($exception->getMessage());
     //
     //        } catch (Exception $exception) {
     //
@@ -142,11 +142,11 @@ class OrderQueueController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.transaction.order_queue_model'), $id);
             }
 
-            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Order Queue']));
+            return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Order Queue']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 

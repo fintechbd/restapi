@@ -69,7 +69,7 @@ class BankAccountController extends Controller
                 throw (new StoreOperationException)->setModel(config('fintech.banco.bank_account_model'));
             }
 
-            return $this->created([
+            return response()->created([
                 'message' => __('restapi::messages.resource.created', ['model' => 'Bank Account']),
                 'id' => $bankAccount->id,
             ]);
@@ -102,7 +102,7 @@ class BankAccountController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -136,11 +136,11 @@ class BankAccountController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.banco.bank_account_model'), $id);
             }
 
-            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Bank Account']));
+            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Bank Account']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -174,11 +174,11 @@ class BankAccountController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.banco.bank_account_model'), $id);
             }
 
-            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Bank Account']));
+            return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Bank Account']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -210,11 +210,11 @@ class BankAccountController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.banco.bank_account_model'), $id);
             }
 
-            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Bank Account']));
+            return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Bank Account']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -236,7 +236,7 @@ class BankAccountController extends Controller
 
             $bankAccountPaginate = Banco::bankAccount()->export($inputs);
 
-            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Bank Account']));
+            return response()->exported(__('restapi::messages.resource.exported', ['model' => 'Bank Account']));
 
         } catch (Exception $exception) {
 

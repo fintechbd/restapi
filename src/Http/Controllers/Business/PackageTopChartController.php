@@ -71,7 +71,7 @@ class PackageTopChartController extends Controller
                 throw (new StoreOperationException)->setModel(config('fintech.business.package_top_chart_model'));
             }
 
-            return $this->created([
+            return response()->created([
                 'message' => __('restapi::messages.resource.created', ['model' => 'Package Top Chart']),
                 'id' => $packageTopChart->id,
             ]);
@@ -104,7 +104,7 @@ class PackageTopChartController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -138,11 +138,11 @@ class PackageTopChartController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.business.package_top_chart_model'), $id);
             }
 
-            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Package Top Chart']));
+            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Package Top Chart']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -176,11 +176,11 @@ class PackageTopChartController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.business.package_top_chart_model'), $id);
             }
 
-            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Package Top Chart']));
+            return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Package Top Chart']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -212,11 +212,11 @@ class PackageTopChartController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.business.package_top_chart_model'), $id);
             }
 
-            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Package Top Chart']));
+            return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Package Top Chart']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -238,7 +238,7 @@ class PackageTopChartController extends Controller
 
             $packageTopChartPaginate = Business::packageTopChart()->export($inputs);
 
-            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Package Top Chart']));
+            return response()->exported(__('restapi::messages.resource.exported', ['model' => 'Package Top Chart']));
 
         } catch (Exception $exception) {
 

@@ -68,7 +68,7 @@ class JobController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -102,11 +102,11 @@ class JobController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.core.job_model'), $id);
             }
 
-            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Job']));
+            return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Job']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 

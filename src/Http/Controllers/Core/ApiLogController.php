@@ -68,7 +68,7 @@ class ApiLogController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -101,11 +101,11 @@ class ApiLogController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.core.api_log_model'), $id);
             }
 
-            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Api Log']));
+            return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Api Log']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 

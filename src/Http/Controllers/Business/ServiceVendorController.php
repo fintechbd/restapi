@@ -71,7 +71,7 @@ class ServiceVendorController extends Controller
                 throw (new StoreOperationException)->setModel(config('fintech.business.service_vendor_model'));
             }
 
-            return $this->created([
+            return response()->created([
                 'message' => __('restapi::messages.resource.created', ['model' => 'Service Vendor']),
                 'id' => $serviceVendor->id,
             ]);
@@ -104,7 +104,7 @@ class ServiceVendorController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -138,11 +138,11 @@ class ServiceVendorController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_vendor_model'), $id);
             }
 
-            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Service Vendor']));
+            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Service Vendor']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -176,11 +176,11 @@ class ServiceVendorController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.business.service_vendor_model'), $id);
             }
 
-            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Service Vendor']));
+            return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Service Vendor']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -212,11 +212,11 @@ class ServiceVendorController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.business.service_vendor_model'), $id);
             }
 
-            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Service Vendor']));
+            return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Service Vendor']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -238,7 +238,7 @@ class ServiceVendorController extends Controller
 
             $serviceVendorPaginate = Business::serviceVendor()->export($inputs);
 
-            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Service Vendor']));
+            return response()->exported(__('restapi::messages.resource.exported', ['model' => 'Service Vendor']));
 
         } catch (Exception $exception) {
 

@@ -71,7 +71,7 @@ class OccupationController extends Controller
                 throw (new StoreOperationException())->setModel(config('fintech.metadata.occupation_model'));
             }
 
-            return $this->created([
+            return response()->created([
                 'message' => __('restapi::messages.resource.created', ['model' => 'Occupation']),
                 'id' => $occupation->getKey(),
             ]);
@@ -106,7 +106,7 @@ class OccupationController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -140,11 +140,11 @@ class OccupationController extends Controller
                 throw (new UpdateOperationException())->setModel(config('fintech.metadata.occupation_model'), $id);
             }
 
-            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Occupation']));
+            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Occupation']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -178,11 +178,11 @@ class OccupationController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.metadata.occupation_model'), $id);
             }
 
-            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Occupation']));
+            return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Occupation']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -214,11 +214,11 @@ class OccupationController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.metadata.occupation_model'), $id);
             }
 
-            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Occupation']));
+            return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Occupation']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -240,7 +240,7 @@ class OccupationController extends Controller
 
             $occupationPaginate = MetaData::occupation()->export($inputs);
 
-            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Occupation']));
+            return response()->exported(__('restapi::messages.resource.exported', ['model' => 'Occupation']));
 
         } catch (Exception $exception) {
 

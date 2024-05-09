@@ -71,7 +71,7 @@ class TriggerController extends Controller
                 throw (new StoreOperationException)->setModel(config('fintech.bell.trigger_model'));
             }
 
-            return $this->created([
+            return response()->created([
                 'message' => __('restapi::messages.resource.created', ['model' => 'Trigger']),
                 'id' => $trigger->id,
             ]);
@@ -104,7 +104,7 @@ class TriggerController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -138,11 +138,11 @@ class TriggerController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.bell.trigger_model'), $id);
             }
 
-            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Trigger']));
+            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Trigger']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -176,11 +176,11 @@ class TriggerController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.bell.trigger_model'), $id);
             }
 
-            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Trigger']));
+            return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Trigger']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -212,11 +212,11 @@ class TriggerController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.bell.trigger_model'), $id);
             }
 
-            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Trigger']));
+            return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Trigger']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -238,7 +238,7 @@ class TriggerController extends Controller
 
             $triggerPaginate = Bell::trigger()->export($inputs);
 
-            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Trigger']));
+            return response()->exported(__('restapi::messages.resource.exported', ['model' => 'Trigger']));
 
         } catch (Exception $exception) {
 
@@ -281,7 +281,7 @@ class TriggerController extends Controller
     {
         Bell::trigger()->sync();
         try {
-            return $this->success(__('bell::messages.trigger.synced'));
+            return response()->success(__('bell::messages.trigger.synced'));
         } catch (Exception $exception) {
 
             return response()->failed($exception->getMessage());

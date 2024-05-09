@@ -68,7 +68,7 @@ class AuditController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -102,11 +102,11 @@ class AuditController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.auth.audit_model'), $id);
             }
 
-            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Audit']));
+            return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Audit']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 

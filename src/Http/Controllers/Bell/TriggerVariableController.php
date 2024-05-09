@@ -71,7 +71,7 @@ class TriggerVariableController extends Controller
                 throw (new StoreOperationException)->setModel(config('fintech.bell.trigger_variable_model'));
             }
 
-            return $this->created([
+            return response()->created([
                 'message' => __('restapi::messages.resource.created', ['model' => 'Trigger Variable']),
                 'id' => $triggerVariable->id,
             ]);
@@ -104,7 +104,7 @@ class TriggerVariableController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -138,11 +138,11 @@ class TriggerVariableController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.bell.trigger_variable_model'), $id);
             }
 
-            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Trigger Variable']));
+            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Trigger Variable']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -176,11 +176,11 @@ class TriggerVariableController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.bell.trigger_variable_model'), $id);
             }
 
-            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Trigger Variable']));
+            return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Trigger Variable']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -212,11 +212,11 @@ class TriggerVariableController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.bell.trigger_variable_model'), $id);
             }
 
-            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Trigger Variable']));
+            return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Trigger Variable']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -238,7 +238,7 @@ class TriggerVariableController extends Controller
 
             $triggerVariablePaginate = Bell::triggerVariable()->export($inputs);
 
-            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Trigger Variable']));
+            return response()->exported(__('restapi::messages.resource.exported', ['model' => 'Trigger Variable']));
 
         } catch (Exception $exception) {
 

@@ -73,7 +73,7 @@ class BeneficiaryController extends Controller
             }
             event(new BeneficiaryAdded($request->user(), $beneficiary));
 
-            return $this->created([
+            return response()->created([
                 'message' => __('restapi::messages.resource.created', ['model' => 'Beneficiary']),
                 'id' => $beneficiary->getKey(),
             ]);
@@ -106,7 +106,7 @@ class BeneficiaryController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -140,11 +140,11 @@ class BeneficiaryController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.banco.beneficiary_model'), $id);
             }
 
-            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Beneficiary']));
+            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Beneficiary']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -178,11 +178,11 @@ class BeneficiaryController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.banco.beneficiary_model'), $id);
             }
 
-            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Beneficiary']));
+            return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Beneficiary']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -214,11 +214,11 @@ class BeneficiaryController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.banco.beneficiary_model'), $id);
             }
 
-            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Beneficiary']));
+            return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Beneficiary']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -240,7 +240,7 @@ class BeneficiaryController extends Controller
 
             $beneficiaryPaginate = Banco::beneficiary()->export($inputs);
 
-            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Beneficiary']));
+            return response()->exported(__('restapi::messages.resource.exported', ['model' => 'Beneficiary']));
 
         } catch (Exception $exception) {
 

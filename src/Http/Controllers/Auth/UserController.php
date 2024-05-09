@@ -81,7 +81,7 @@ class UserController extends Controller
 
             $profile = Auth::profile()->create($user->getKey(), $request->except($this->userFields));
 
-            return $this->created([
+            return response()->created([
                 'message' => __('restapi::messages.resource.created', ['model' => 'User']),
                 'id' => $user->getKey(),
             ]);
@@ -116,7 +116,7 @@ class UserController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -149,11 +149,11 @@ class UserController extends Controller
                 throw (new UpdateOperationException())->setModel(config('fintech.auth.user_model'), $id);
             }
 
-            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'User']));
+            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'User']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -186,11 +186,11 @@ class UserController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.auth.user_model'), $id);
             }
 
-            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'User']));
+            return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'User']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -222,11 +222,11 @@ class UserController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.auth.user_model'), $id);
             }
 
-            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'User']));
+            return response()->restored(__('restapi::messages.resource.restored', ['model' => 'User']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -248,7 +248,7 @@ class UserController extends Controller
 
             $userPaginate = Auth::user()->export($inputs);
 
-            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'User']));
+            return response()->exported(__('restapi::messages.resource.exported', ['model' => 'User']));
 
         } catch (Exception $exception) {
 
@@ -305,11 +305,11 @@ class UserController extends Controller
                 throw new Exception($response['response']);
             }
 
-            return $this->success($response['message']);
+            return response()->success($response['message']);
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -339,11 +339,11 @@ class UserController extends Controller
                 throw (new UpdateOperationException())->setModel(config('fintech.auth.user_model'), $inputs['user_id']);
             }
 
-            return $this->updated(__('auth::messages.user.status-change', ['status' => $inputs['status']]));
+            return response()->updated(__('auth::messages.user.status-change', ['status' => $inputs['status']]));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 

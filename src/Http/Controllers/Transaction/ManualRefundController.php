@@ -70,7 +70,7 @@ class ManualRefundController extends Controller
                 throw (new StoreOperationException)->setModel(config('fintech.transaction.manual_refund_model'));
             }
 
-            return $this->created([
+            return response()->created([
                 'message' => __('restapi::messages.resource.created', ['model' => 'Manual Refund']),
                 'id' => $manualRefund->id,
             ]);
@@ -103,7 +103,7 @@ class ManualRefundController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -137,11 +137,11 @@ class ManualRefundController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.transaction.manual_refund_model'), $id);
             }
 
-            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Manual Refund']));
+            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Manual Refund']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -175,11 +175,11 @@ class ManualRefundController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.transaction.manual_refund_model'), $id);
             }
 
-            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Manual Refund']));
+            return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Manual Refund']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -201,7 +201,7 @@ class ManualRefundController extends Controller
 
             $manualRefundPaginate = Transaction::manualRefund()->export($inputs);
 
-            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Manual Refund']));
+            return response()->exported(__('restapi::messages.resource.exported', ['model' => 'Manual Refund']));
 
         } catch (Exception $exception) {
 

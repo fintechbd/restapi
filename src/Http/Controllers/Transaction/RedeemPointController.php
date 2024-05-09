@@ -71,7 +71,7 @@ class RedeemPointController extends Controller
                 throw (new StoreOperationException)->setModel(config('fintech.transaction.redeem_point_model'));
             }
 
-            return $this->created([
+            return response()->created([
                 'message' => __('restapi::messages.resource.created', ['model' => 'Redeem Point']),
                 'id' => $redeemPoint->id,
             ]);
@@ -104,7 +104,7 @@ class RedeemPointController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -138,11 +138,11 @@ class RedeemPointController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.transaction.redeem_point_model'), $id);
             }
 
-            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Redeem Point']));
+            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Redeem Point']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -176,11 +176,11 @@ class RedeemPointController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.transaction.redeem_point_model'), $id);
             }
 
-            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Redeem Point']));
+            return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Redeem Point']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -212,11 +212,11 @@ class RedeemPointController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.transaction.redeem_point_model'), $id);
             }
 
-            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Redeem Point']));
+            return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Redeem Point']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -238,7 +238,7 @@ class RedeemPointController extends Controller
 
             $redeemPointPaginate = Transaction::redeemPoint()->export($inputs);
 
-            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Redeem Point']));
+            return response()->exported(__('restapi::messages.resource.exported', ['model' => 'Redeem Point']));
 
         } catch (Exception $exception) {
 

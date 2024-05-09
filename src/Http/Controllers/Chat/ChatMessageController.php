@@ -71,7 +71,7 @@ class ChatMessageController extends Controller
                 throw (new StoreOperationException)->setModel(config('fintech.chat.chat_message_model'));
             }
 
-            return $this->created([
+            return response()->created([
                 'message' => __('restapi::messages.resource.created', ['model' => 'Chat Message']),
                 'id' => $chatMessage->id,
             ]);
@@ -104,7 +104,7 @@ class ChatMessageController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -138,11 +138,11 @@ class ChatMessageController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.chat.chat_message_model'), $id);
             }
 
-            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Chat Message']));
+            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Chat Message']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -176,11 +176,11 @@ class ChatMessageController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.chat.chat_message_model'), $id);
             }
 
-            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Chat Message']));
+            return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Chat Message']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -212,11 +212,11 @@ class ChatMessageController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.chat.chat_message_model'), $id);
             }
 
-            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Chat Message']));
+            return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Chat Message']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -238,7 +238,7 @@ class ChatMessageController extends Controller
 
             $chatMessagePaginate = Chat::chatMessage()->export($inputs);
 
-            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Chat Message']));
+            return response()->exported(__('restapi::messages.resource.exported', ['model' => 'Chat Message']));
 
         } catch (Exception $exception) {
 

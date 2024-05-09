@@ -73,7 +73,7 @@ class CityController extends Controller
                 throw (new StoreOperationException())->setModel(config('fintech.metadata.city_model'));
             }
 
-            return $this->created([
+            return response()->created([
                 'message' => __('restapi::messages.resource.created', ['model' => 'City']),
                 'id' => $city->getKey(),
             ]);
@@ -108,7 +108,7 @@ class CityController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -142,11 +142,11 @@ class CityController extends Controller
                 throw (new UpdateOperationException())->setModel(config('fintech.metadata.city_model'), $id);
             }
 
-            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'City']));
+            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'City']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -180,11 +180,11 @@ class CityController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.metadata.city_model'), $id);
             }
 
-            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'City']));
+            return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'City']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -216,11 +216,11 @@ class CityController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.metadata.city_model'), $id);
             }
 
-            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'City']));
+            return response()->restored(__('restapi::messages.resource.restored', ['model' => 'City']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -242,7 +242,7 @@ class CityController extends Controller
 
             $cityPaginate = MetaData::city()->export($inputs);
 
-            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'City']));
+            return response()->exported(__('restapi::messages.resource.exported', ['model' => 'City']));
 
         } catch (Exception $exception) {
 

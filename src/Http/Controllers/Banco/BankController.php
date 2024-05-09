@@ -67,7 +67,7 @@ class BankController extends Controller
                 throw (new StoreOperationException)->setModel(config('fintech.banco.bank_model'));
             }
 
-            return $this->created([
+            return response()->created([
                 'message' => __('restapi::messages.resource.created', ['model' => 'Bank']),
                 'id' => $bank->getKey(),
             ]);
@@ -100,7 +100,7 @@ class BankController extends Controller
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -134,11 +134,11 @@ class BankController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.banco.bank_model'), $id);
             }
 
-            return $this->updated(__('restapi::messages.resource.updated', ['model' => 'Bank']));
+            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Bank']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -172,11 +172,11 @@ class BankController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.banco.bank_model'), $id);
             }
 
-            return $this->deleted(__('restapi::messages.resource.deleted', ['model' => 'Bank']));
+            return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Bank']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -208,11 +208,11 @@ class BankController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.banco.bank_model'), $id);
             }
 
-            return $this->restored(__('restapi::messages.resource.restored', ['model' => 'Bank']));
+            return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Bank']));
 
         } catch (ModelNotFoundException $exception) {
 
-            return $this->notfound($exception->getMessage());
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
@@ -234,7 +234,7 @@ class BankController extends Controller
 
             $bankPaginate = Banco::bank()->export($inputs);
 
-            return $this->exported(__('restapi::messages.resource.exported', ['model' => 'Bank']));
+            return response()->exported(__('restapi::messages.resource.exported', ['model' => 'Bank']));
 
         } catch (Exception $exception) {
 

@@ -31,11 +31,11 @@ class PulseCheckController extends Controller
 
             }
 
-            return $this->success([]);
+            return response()->success([]);
 
         } catch (Exception $exception) {
 
-            return $this->locked($exception->getMessage());
+            return response()->locked($exception->getMessage());
         }
     }
 
