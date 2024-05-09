@@ -12,6 +12,8 @@ use Fintech\RestApi\Http\Requests\Banco\ImportBeneficiaryTypeRequest;
 use Fintech\RestApi\Http\Requests\Banco\IndexBeneficiaryTypeRequest;
 use Fintech\RestApi\Http\Requests\Banco\StoreBeneficiaryTypeRequest;
 use Fintech\RestApi\Http\Requests\Banco\UpdateBeneficiaryTypeRequest;
+use Fintech\RestApi\Http\Resources\Banco\BeneficiaryTypeCollection;
+use Fintech\RestApi\Http\Resources\Banco\BeneficiaryTypeResource;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;

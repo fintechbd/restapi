@@ -12,6 +12,8 @@ use Fintech\RestApi\Http\Requests\Banco\ImportBankBranchRequest;
 use Fintech\RestApi\Http\Requests\Banco\IndexBankBranchRequest;
 use Fintech\RestApi\Http\Requests\Banco\StoreBankBranchRequest;
 use Fintech\RestApi\Http\Requests\Banco\UpdateBankBranchRequest;
+use Fintech\RestApi\Http\Resources\Banco\BankBranchCollection;
+use Fintech\RestApi\Http\Resources\Banco\BankBranchResource;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
