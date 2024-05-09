@@ -4,9 +4,9 @@ namespace Fintech\RestApi\Http\Controllers\Auth;
 
 use Exception;
 use Fintech\Auth\Facades\Auth;
-use Fintech\Core\Traits\ApiResponseTrait;
 use Fintech\RestApi\Http\Requests\Auth\CreateOneTimePinRequest;
 use Fintech\RestApi\Http\Requests\Auth\VerifyOneTimePinRequest;
+use Fintech\RestApi\Traits\ApiResponseTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 

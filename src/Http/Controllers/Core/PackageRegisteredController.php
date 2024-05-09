@@ -2,8 +2,8 @@
 
 namespace Fintech\RestApi\Http\Controllers\Core;
 
-use Fintech\Core\Traits\ApiResponseTrait;
 use Fintech\RestApi\Http\Resources\Core\PackageCollection;
+use Fintech\RestApi\Traits\ApiResponseTrait;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 

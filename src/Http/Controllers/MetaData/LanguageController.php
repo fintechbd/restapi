@@ -4,7 +4,6 @@ namespace Fintech\RestApi\Http\Controllers\MetaData;
 
 use Exception;
 use Fintech\Core\Exceptions\UpdateOperationException;
-use Fintech\Core\Traits\ApiResponseTrait;
 use Fintech\MetaData\Facades\MetaData;
 use Fintech\RestApi\Http\Requests\Core\DropDownRequest;
 use Fintech\RestApi\Http\Requests\MetaData\IndexLanguageRequest;
@@ -12,6 +11,7 @@ use Fintech\RestApi\Http\Requests\MetaData\UpdateLanguageRequest;
 use Fintech\RestApi\Http\Resources\Core\DropDownCollection;
 use Fintech\RestApi\Http\Resources\MetaData\LanguageCollection;
 use Fintech\RestApi\Http\Resources\MetaData\LanguageResource;
+use Fintech\RestApi\Traits\ApiResponseTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;

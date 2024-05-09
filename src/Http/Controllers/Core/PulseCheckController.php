@@ -3,7 +3,7 @@
 namespace Fintech\RestApi\Http\Controllers\Core;
 
 use Exception;
-use Fintech\Core\Traits\ApiResponseTrait;
+use Fintech\RestApi\Traits\ApiResponseTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;

@@ -2,7 +2,7 @@
 
 namespace Fintech\RestApi\Http\Requests\Banco;
 
-use Fintech\Core\Traits\HasPaginateQuery;
+use Fintech\RestApi\Traits\HasPaginateQuery;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 

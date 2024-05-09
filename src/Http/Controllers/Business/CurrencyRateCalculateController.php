@@ -4,9 +4,9 @@ namespace Fintech\RestApi\Http\Controllers\Business;
 
 use Exception;
 use Fintech\Business\Facades\Business;
-use Fintech\Core\Traits\ApiResponseTrait;
 use Fintech\RestApi\Http\Requests\Business\ServiceCurrencyRateRequest;
 use Fintech\RestApi\Http\Resources\Business\ServiceCostResource;
+use Fintech\RestApi\Traits\ApiResponseTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 

@@ -3,9 +3,9 @@
 namespace Fintech\RestApi\Http\Controllers\Business;
 
 use Exception;
-use Fintech\Core\Traits\ApiResponseTrait;
 use Fintech\MetaData\Facades\MetaData;
 use Fintech\RestApi\Http\Resources\MetaData\CountryCollection;
+use Fintech\RestApi\Traits\ApiResponseTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 

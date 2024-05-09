@@ -4,10 +4,10 @@ namespace Fintech\RestApi\Http\Controllers\MetaData;
 
 use Exception;
 use Fintech\Core\Exceptions\UpdateOperationException;
-use Fintech\Core\Traits\ApiResponseTrait;
 use Fintech\MetaData\Facades\MetaData;
 use Fintech\RestApi\Http\Requests\MetaData\CountryCurrencyRequest;
 use Fintech\RestApi\Http\Resources\MetaData\CountryCurrencyCollection;
+use Fintech\RestApi\Traits\ApiResponseTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;

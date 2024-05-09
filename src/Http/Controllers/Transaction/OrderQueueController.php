@@ -4,10 +4,10 @@ namespace Fintech\RestApi\Http\Controllers\Transaction;
 
 use Exception;
 use Fintech\Core\Exceptions\DeleteOperationException;
-use Fintech\Core\Traits\ApiResponseTrait;
 use Fintech\RestApi\Http\Requests\Transaction\IndexOrderQueueRequest;
 use Fintech\RestApi\Http\Resources\Transaction\OrderQueueCollection;
 use Fintech\RestApi\Http\Resources\Transaction\OrderQueueResource;
+use Fintech\RestApi\Traits\ApiResponseTrait;
 use Fintech\Transaction\Facades\Transaction;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;

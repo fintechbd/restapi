@@ -3,8 +3,8 @@
 namespace Fintech\RestApi\Http\Controllers\Transaction\Charts;
 
 use Exception;
-use Fintech\Core\Traits\ApiResponseTrait;
 use Fintech\RestApi\Http\Resources\Transaction\Charts\UserAccountUsageResource;
+use Fintech\RestApi\Traits\ApiResponseTrait;
 use Fintech\Transaction\Facades\Transaction;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
