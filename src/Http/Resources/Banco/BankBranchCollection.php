@@ -52,7 +52,7 @@ class BankBranchCollection extends ResourceCollection
             ];
 
             if (Core::packageExists('MetaData')) {
-                $data['country_id'] = ($bankBranch->bank->country) ? $bankBranch->bank->country->name : null;
+                $data['country_id'] = ($bankBranch->bank) ? $bankBranch->bank->country_id : null;
                 $data['country_name'] = ($bankBranch->bank->country) ? $bankBranch->bank->country->name : null;
                 $data['city_name'] = ($bankBranch->city) ? $bankBranch->city->name : null;
                 $data['state_name'] = ($bankBranch->state) ? $bankBranch->state->name : null;
