@@ -32,10 +32,10 @@ class KycVerificationRequest extends FormRequest
             'documents.*.type' => ['string', 'required'],
             'documents.*.back' => ['nullable', 'string', 'required_without:documents.*.front'],
             'documents.*.front' => ['nullable', 'string', 'required_without:documents.*.back'],
-//            'proof_of_address' => ['array', 'required', 'min:1'],
-//            'proof_of_address.*.type' => ['string', 'required'],
-//            'proof_of_address.*.front' => ['string', 'required_without:proof_of_address.*.back'],
-//            'proof_of_address.*.back' => ['string', 'required_without:proof_of_address.*.front'],
+            //            'proof_of_address' => ['array', 'required', 'min:1'],
+            //            'proof_of_address.*.type' => ['string', 'required'],
+            //            'proof_of_address.*.front' => ['string', 'required_without:proof_of_address.*.back'],
+            //            'proof_of_address.*.back' => ['string', 'required_without:proof_of_address.*.front'],
         ];
     }
 }
