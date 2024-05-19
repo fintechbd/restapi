@@ -6,7 +6,6 @@ use Fintech\RestApi\Http\Controllers\Core\EncryptedKeyController;
 use Fintech\RestApi\Http\Controllers\Core\FailedJobController;
 use Fintech\RestApi\Http\Controllers\Core\JobController;
 use Fintech\RestApi\Http\Controllers\Core\PackageRegisteredController;
-use Fintech\RestApi\Http\Controllers\Core\PulseCheckController;
 use Fintech\RestApi\Http\Controllers\Core\SettingController;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
@@ -26,7 +25,6 @@ if (Config::get('fintech.core.enabled')) {
     Route::prefix('core')->name('core.')->group(function () {
         Route::get('session-token', EncryptedKeyController::class)->name('session-token');
         Route::get('packages', PackageRegisteredController::class)->name('packages');
-        Route::post('pulse-check', PulseCheckController::class)->name('pulse-check');
     });
 
     Route::prefix('core')->name('core.')

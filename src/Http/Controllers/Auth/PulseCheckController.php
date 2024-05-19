@@ -1,6 +1,6 @@
 <?php
 
-namespace Fintech\RestApi\Http\Controllers\Core;
+namespace Fintech\RestApi\Http\Controllers\Auth;
 
 use Exception;
 use Illuminate\Http\JsonResponse;

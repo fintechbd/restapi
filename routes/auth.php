@@ -6,6 +6,7 @@ use Fintech\RestApi\Http\Controllers\Auth\FavouriteController;
 use Fintech\RestApi\Http\Controllers\Auth\OneTimePinController;
 use Fintech\RestApi\Http\Controllers\Auth\PasswordResetController;
 use Fintech\RestApi\Http\Controllers\Auth\PermissionController;
+use Fintech\RestApi\Http\Controllers\Auth\PulseCheckController;
 use Fintech\RestApi\Http\Controllers\Auth\RegisterController;
 use Fintech\RestApi\Http\Controllers\Auth\RoleController;
 use Fintech\RestApi\Http\Controllers\Auth\RolePermissionController;
@@ -27,6 +28,9 @@ use Illuminate\Support\Facades\Route;
 */
 if (Config::get('fintech.auth.enabled')) {
     Route::prefix('auth')->name('auth.')->group(function () {
+        Route::post('pulse-check', PulseCheckController::class)
+            ->name('pulse-check');
+
         Route::post('/register', RegisterController::class)
             ->middleware('guest')
             ->name('register');
