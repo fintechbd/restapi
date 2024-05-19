@@ -18,51 +18,24 @@ class KycVerificationRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array|string>
      */
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'min:2', 'max:255'],
-            'mobile' => ['nullable', 'string', 'min:10'],
-            'email' => ['nullable', 'string', 'email:rfc,dns', 'min:2', 'max:255'],
-            'father_name' => ['string', 'nullable'],
-            'mother_name' => ['string', 'nullable'],
-            'gender' => ['string', 'nullable'],
-            'marital_status' => ['string', 'nullable'],
-            'occupation' => ['string', 'nullable'],
-            'source_of_income' => ['string', 'nullable'],
+            'email' => ['required', 'string', 'email:rfc,dns', 'min:2', 'max:255'],
             'id_type' => ['string', 'nullable'],
             'id_doc_type_id' => ['integer', 'required'],
-            'id_no' => ['string', 'nullable'],
             'id_issue_country' => ['string', 'nullable'],
-            'id_expired_at' => ['string', 'nullable'],
-            'id_issue_at' => ['string', 'nullable'],
-            'photo' => ['string', 'nullable'],
+            'photo' => ['string', 'required'],
             'documents' => ['array', 'required', 'min:1'],
             'documents.*.type' => ['string', 'required'],
             'documents.*.back' => ['nullable', 'string', 'required_without:documents.*.front'],
             'documents.*.front' => ['nullable', 'string', 'required_without:documents.*.back'],
-            //                        'employer' => ['array', 'nullable'],
-            //                        'employer.company_name' => ['string', 'nullable'],
-            //                        'employer.company_address' => ['string', 'nullable'],
-            //                        'employer.company_registration_number' => ['string', 'nullable'],
-            'proof_of_address' => ['array', 'required', 'min:1'],
-            'proof_of_address.*.type' => ['string', 'required'],
-            'proof_of_address.*.front' => ['string', 'required_without:proof_of_address.*.back'],
-            'proof_of_address.*.back' => ['string', 'required_without:proof_of_address.*.front'],
-            'date_of_birth' => ['date', 'nullable'],
-            'permanent_address' => ['string', 'nullable'],
-            'permanent_city_id' => ['integer', 'nullable'],
-            'permanent_state_id' => ['integer', 'nullable'],
-            'permanent_country_id' => ['integer', 'nullable'],
-            'permanent_post_code' => ['string', 'nullable'],
-            'present_address' => ['string', 'nullable'],
-            'present_city_id' => ['integer', 'nullable'],
-            'present_state_id' => ['integer', 'nullable'],
-            'present_country_id' => ['integer', 'nullable'],
-            'present_post_code' => ['string', 'nullable'],
-            'nationality' => ['string', 'nullable'],
+//            'proof_of_address' => ['array', 'required', 'min:1'],
+//            'proof_of_address.*.type' => ['string', 'required'],
+//            'proof_of_address.*.front' => ['string', 'required_without:proof_of_address.*.back'],
+//            'proof_of_address.*.back' => ['string', 'required_without:proof_of_address.*.front'],
         ];
     }
 }
