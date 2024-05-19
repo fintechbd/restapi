@@ -24,9 +24,9 @@ use Illuminate\Support\Facades\Route;
 
 if (Config::get('fintech.core.enabled')) {
     Route::prefix('core')->name('core.')->group(function () {
-        Route::get('session-token', EncryptedKeyController::class);
-        Route::get('packages', PackageRegisteredController::class);
-        Route::post('pulse-check', PulseCheckController::class);
+        Route::get('session-token', EncryptedKeyController::class)->name('session-token');
+        Route::get('packages', PackageRegisteredController::class)->name('packages');
+        Route::post('pulse-check', PulseCheckController::class)->name('pulse-check');
     });
 
     Route::prefix('core')->name('core.')
