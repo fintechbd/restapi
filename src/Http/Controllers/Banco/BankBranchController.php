@@ -304,5 +304,4 @@ class BankBranchController extends Controller
             return response()->failed($exception->getMessage());
         }
     }
-
 }
