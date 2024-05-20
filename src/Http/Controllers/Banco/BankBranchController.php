@@ -12,8 +12,10 @@ use Fintech\RestApi\Http\Requests\Banco\ImportBankBranchRequest;
 use Fintech\RestApi\Http\Requests\Banco\IndexBankBranchRequest;
 use Fintech\RestApi\Http\Requests\Banco\StoreBankBranchRequest;
 use Fintech\RestApi\Http\Requests\Banco\UpdateBankBranchRequest;
+use Fintech\RestApi\Http\Requests\Core\DropDownRequest;
 use Fintech\RestApi\Http\Resources\Banco\BankBranchCollection;
 use Fintech\RestApi\Http\Resources\Banco\BankBranchResource;
+use Fintech\RestApi\Http\Resources\Core\DropDownCollection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -269,4 +271,38 @@ class BankBranchController extends Controller
             return response()->failed($exception->getMessage());
         }
     }
+
+    public function dropdown(DropDownRequest $request): DropDownCollection|JsonResponse
+    {
+        try {
+            $filters = $request->all();
+
+            $label = 'name';
+
+            $attribute = 'id';
+
+            if (! empty($filters['label'])) {
+                $label = $filters['label'];
+                unset($filters['label']);
+            }
+
+            if (! empty($filters['attribute'])) {
+                $attribute = $filters['attribute'];
+                unset($filters['attribute']);
+            }
+
+            $entries = Banco::bankBranch()->list($filters)->map(function ($entry) use ($label, $attribute) {
+                return [
+                    'attribute' => $entry->{$attribute} ?? 'id',
+                    'label' => $entry->{$label} ?? 'name',
+                ];
+            })->toArray();
+
+            return new DropDownCollection($entries);
+
+        } catch (Exception $exception) {
+            return response()->failed($exception->getMessage());
+        }
+    }
+
 }

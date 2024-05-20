@@ -3,6 +3,7 @@
 use Fintech\RestApi\Http\Controllers\Banco\BankAccountController;
 use Fintech\RestApi\Http\Controllers\Banco\BankBranchController;
 use Fintech\RestApi\Http\Controllers\Banco\BankController;
+use Fintech\RestApi\Http\Controllers\Banco\BeneficiaryAccountTypeController;
 use Fintech\RestApi\Http\Controllers\Banco\BeneficiaryController;
 use Fintech\RestApi\Http\Controllers\Banco\BeneficiaryTypeController;
 use Illuminate\Support\Facades\Config;
@@ -39,9 +40,17 @@ if (Config::get('fintech.banco.enabled')) {
             Route::apiResource('bank-accounts', BankAccountController::class);
             Route::post('bank-accounts/{bank_account}/restore', [BankAccountController::class, 'restore'])->name('bank-accounts.restore');
 
-            Route::apiResource('beneficiary-account-types', \Fintech\RestApi\Http\Controllers\Banco\BeneficiaryAccountTypeController::class);
-            Route::post('beneficiary-account-types/{beneficiary_account_type}/restore', [\Fintech\RestApi\Http\Controllers\Banco\BeneficiaryAccountTypeController::class, 'restore'])->name('beneficiary-account-types.restore');
+            Route::apiResource('beneficiary-account-types', BeneficiaryAccountTypeController::class);
+            Route::post('beneficiary-account-types/{beneficiary_account_type}/restore', [BeneficiaryAccountTypeController::class, 'restore'])->name('beneficiary-account-types.restore');
 
             //DO NOT REMOVE THIS LINE//
         });
+
+    Route::prefix('dropdown')->name('banco.')->group(function () {
+
+        Route::get('banks', [BankController::class, 'dropdown'])->name('banks.dropdown');
+        Route::get('bank-branches', [BankBranchController::class, 'dropdown'])->name('bank-branches.dropdown');
+        Route::get('beneficiary-types', [BeneficiaryTypeController::class, 'dropdown'])->name('beneficiary-types.dropdown');
+        Route::get('beneficiary-account-types', [BeneficiaryAccountTypeController::class, 'dropdown'])->name('beneficiary-account-types.dropdown');
+    });
 }

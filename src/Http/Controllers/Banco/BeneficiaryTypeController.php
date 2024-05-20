@@ -12,8 +12,10 @@ use Fintech\RestApi\Http\Requests\Banco\ImportBeneficiaryTypeRequest;
 use Fintech\RestApi\Http\Requests\Banco\IndexBeneficiaryTypeRequest;
 use Fintech\RestApi\Http\Requests\Banco\StoreBeneficiaryTypeRequest;
 use Fintech\RestApi\Http\Requests\Banco\UpdateBeneficiaryTypeRequest;
+use Fintech\RestApi\Http\Requests\Core\DropDownRequest;
 use Fintech\RestApi\Http\Resources\Banco\BeneficiaryTypeCollection;
 use Fintech\RestApi\Http\Resources\Banco\BeneficiaryTypeResource;
+use Fintech\RestApi\Http\Resources\Core\DropDownCollection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -253,6 +255,39 @@ class BeneficiaryTypeController extends Controller
 
         } catch (Exception $exception) {
 
+            return response()->failed($exception->getMessage());
+        }
+    }
+
+    public function dropdown(DropDownRequest $request): DropDownCollection|JsonResponse
+    {
+        try {
+            $filters = $request->all();
+
+            $label = 'name';
+
+            $attribute = 'id';
+
+            if (! empty($filters['label'])) {
+                $label = $filters['label'];
+                unset($filters['label']);
+            }
+
+            if (! empty($filters['attribute'])) {
+                $attribute = $filters['attribute'];
+                unset($filters['attribute']);
+            }
+
+            $entries = Banco::beneficiaryType()->list($filters)->map(function ($entry) use ($label, $attribute) {
+                return [
+                    'attribute' => $entry->{$attribute} ?? 'id',
+                    'label' => $entry->{$label} ?? 'name',
+                ];
+            })->toArray();
+
+            return new DropDownCollection($entries);
+
+        } catch (Exception $exception) {
             return response()->failed($exception->getMessage());
         }
     }

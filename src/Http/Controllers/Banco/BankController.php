@@ -12,9 +12,11 @@ use Fintech\RestApi\Http\Requests\Banco\ImportBankRequest;
 use Fintech\RestApi\Http\Requests\Banco\IndexBankRequest;
 use Fintech\RestApi\Http\Requests\Banco\StoreBankRequest;
 use Fintech\RestApi\Http\Requests\Banco\UpdateBankRequest;
+use Fintech\RestApi\Http\Requests\Core\DropDownRequest;
 use Fintech\RestApi\Http\Resources\Banco\BankCategoryResource;
 use Fintech\RestApi\Http\Resources\Banco\BankCollection;
 use Fintech\RestApi\Http\Resources\Banco\BankResource;
+use Fintech\RestApi\Http\Resources\Core\DropDownCollection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -66,7 +68,7 @@ class BankController extends Controller
 
             $bank = Banco::bank()->create($inputs);
 
-            if (! $bank) {
+            if (!$bank) {
                 throw (new StoreOperationException)->setModel(config('fintech.banco.bank_model'));
             }
 
@@ -95,7 +97,7 @@ class BankController extends Controller
 
             $bank = Banco::bank()->find($id);
 
-            if (! $bank) {
+            if (!$bank) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.banco.bank_model'), $id);
             }
 
@@ -126,13 +128,13 @@ class BankController extends Controller
 
             $bank = Banco::bank()->find($id);
 
-            if (! $bank) {
+            if (!$bank) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.banco.bank_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! Banco::bank()->update($id, $inputs)) {
+            if (!Banco::bank()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.banco.bank_model'), $id);
             }
@@ -166,11 +168,11 @@ class BankController extends Controller
 
             $bank = Banco::bank()->find($id);
 
-            if (! $bank) {
+            if (!$bank) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.banco.bank_model'), $id);
             }
 
-            if (! Banco::bank()->destroy($id)) {
+            if (!Banco::bank()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.banco.bank_model'), $id);
             }
@@ -202,11 +204,11 @@ class BankController extends Controller
 
             $bank = Banco::bank()->find($id, true);
 
-            if (! $bank) {
+            if (!$bank) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.banco.bank_model'), $id);
             }
 
-            if (! Banco::bank()->restore($id)) {
+            if (!Banco::bank()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.banco.bank_model'), $id);
             }
@@ -269,15 +271,54 @@ class BankController extends Controller
         }
     }
 
-    public function bankCategory(): BankCategoryResource|JsonResponse
+    public function bankCategory(DropDownRequest $request): DropDownCollection|JsonResponse
     {
         try {
-            $bankCategories = config('fintech.banco.bank_categories');
+            $entries = collect();
 
-            return new BankCategoryResource($bankCategories);
+            foreach (config('fintech.banco.bank_categories') as $label => $attribute) {
+                $entries->push([
+                    'attribute' => $attribute,
+                    'label' => $label
+                ]);
+            }
+
+            return new DropDownCollection($entries);
 
         } catch (Exception $exception) {
+            return response()->failed($exception->getMessage());
+        }
+    }
 
+    public function dropdown(DropDownRequest $request): DropDownCollection|JsonResponse
+    {
+        try {
+            $filters = $request->all();
+
+            $label = 'name';
+
+            $attribute = 'id';
+
+            if (!empty($filters['label'])) {
+                $label = $filters['label'];
+                unset($filters['label']);
+            }
+
+            if (!empty($filters['attribute'])) {
+                $attribute = $filters['attribute'];
+                unset($filters['attribute']);
+            }
+
+            $entries = Banco::bank()->list($filters)->map(function ($entry) use ($label, $attribute) {
+                return [
+                    'attribute' => $entry->{$attribute} ?? 'id',
+                    'label' => $entry->{$label} ?? 'name',
+                ];
+            })->toArray();
+
+            return new DropDownCollection($entries);
+
+        } catch (Exception $exception) {
             return response()->failed($exception->getMessage());
         }
     }
