@@ -3,6 +3,7 @@
 use Fintech\RestApi\Http\Controllers\Auth\AuditController;
 use Fintech\RestApi\Http\Controllers\Auth\AuthenticatedController;
 use Fintech\RestApi\Http\Controllers\Auth\FavouriteController;
+use Fintech\RestApi\Http\Controllers\Auth\LoginAttemptController;
 use Fintech\RestApi\Http\Controllers\Auth\OneTimePinController;
 use Fintech\RestApi\Http\Controllers\Auth\PasswordResetController;
 use Fintech\RestApi\Http\Controllers\Auth\PermissionController;
@@ -87,6 +88,9 @@ if (Config::get('fintech.auth.enabled')) {
 
             Route::apiResource('favourites', FavouriteController::class);
             Route::post('favourites/{favourite}/restore', [FavouriteController::class, 'restore'])->name('favourites.restore');
+
+            Route::apiResource('login-attempts', LoginAttemptController::class)->only('index', 'show', 'destroy');
+            Route::post('login-attempts/{login_attempt}/restore', [LoginAttemptController::class, 'restore'])->name('login-attempts.restore');
 
             //DO NOT REMOVE THIS LINE//
         });
