@@ -55,7 +55,7 @@ class DropDownController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function catalog(DropDownRequest $request): DropDownCollection|JsonResponse
+    public function catalogType(DropDownRequest $request): DropDownCollection|JsonResponse
     {
         try {
             $entries = collect();

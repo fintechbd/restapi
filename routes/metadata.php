@@ -75,7 +75,7 @@ if (Config::get('fintech.metadata.enabled')) {
             Route::get('occupations', 'occupation')->name('occupations.dropdown');
             Route::get('remittance-purposes', 'remittancePurpose')->name('remittance-purposes.dropdown');
             Route::get('relations', 'relation')->name('relations.dropdown');
-            Route::get('catalog-types', 'catalog')->name('catalog-types.dropdown');
+            Route::get('catalog-types', 'catalogType')->name('catalog-types.dropdown');
             Route::get('genders', 'gender')->name('genders.dropdown');
             Route::get('blood-groups', 'bloodGroup')->name('blood-groups.dropdown');
             Route::get('marital-statuses', 'maritalStatus')->name('marital-statuses.dropdown');
