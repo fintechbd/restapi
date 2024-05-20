@@ -5,6 +5,8 @@ namespace Fintech\RestApi\Http\Controllers\Auth;
 use Exception;
 use Fintech\Auth\Events\LoggedIn;
 use Fintech\Auth\Events\LoggedOut;
+use Fintech\Auth\Exceptions\AccessForbiddenException;
+use Fintech\Auth\Exceptions\AccountFreezeException;
 use Fintech\Auth\Traits\GuessAuthFieldTrait;
 use Fintech\RestApi\Http\Requests\Auth\LoginRequest;
 use Fintech\RestApi\Http\Resources\Auth\LoginResource;
@@ -40,22 +42,20 @@ class AuthenticatedController extends Controller
             $credentials = $this->getAuthFieldFromInput($request);
 
             $passwordField = config('fintech.auth.password_field', 'password');
+
             $credentials[$passwordField] = $request->input($passwordField);
 
             $attemptUser = \Fintech\Auth\Facades\Auth::user()->login($credentials, 'web');
 
-            if (! $attemptUser->can('auth.login')) {
-
-                Auth::guard('web')->logout();
-
-                return response()->forbidden(__('auth::messages.forbidden', ['permission' => permission_format('auth.login', 'auth')]));
-            }
-
             $request->clearRateLimited();
 
-            event(new LoggedIn($attemptUser));
-
             return new LoginResource($attemptUser);
+
+        } catch (AccessForbiddenException|AccountFreezeException $exception) {
+
+            $request->hitRateLimited();
+
+            return response()->forbidden($exception->getMessage());
 
         } catch (Exception $exception) {
 
