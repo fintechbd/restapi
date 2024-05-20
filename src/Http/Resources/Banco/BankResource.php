@@ -40,6 +40,7 @@ class BankResource extends JsonResource
             'country_name' => null,
             'beneficiary_types' => ($this->beneficiaryTypes) ? $this->beneficiaryTypes->toArray() : [],
             'name' => $this->name ?? null,
+            'slug' => $this->slug ?? null,
             'category' => $this->category ?? null,
             'transaction_type' => $this->transaction_type ?? null,
             'currency' => $this->currency ?? null,

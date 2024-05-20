@@ -39,6 +39,7 @@ class BankCollection extends ResourceCollection
                 'country_name' => null,
                 'beneficiary_types' => ($bank->beneficiaryTypes) ? $bank->beneficiaryTypes->toArray() : [],
                 'name' => $bank->name ?? null,
+                'slug' => $bank->slug ?? null,
                 'category' => $bank->category ?? null,
                 'transaction_type' => $bank->transaction_type ?? null,
                 'currency' => $bank->currency ?? null,
