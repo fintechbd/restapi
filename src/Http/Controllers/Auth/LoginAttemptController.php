@@ -1,29 +1,28 @@
 <?php
 
 namespace Fintech\RestApi\Http\Controllers\Auth;
+
 use Exception;
+use Fintech\Auth\Facades\Auth;
 use Fintech\Core\Exceptions\DeleteOperationException;
 use Fintech\Core\Exceptions\RestoreOperationException;
-use Fintech\Auth\Facades\Auth;
-use Fintech\RestApi\Http\Resources\Auth\LoginAttemptResource;
-use Fintech\RestApi\Http\Resources\Auth\LoginAttemptCollection;
 use Fintech\RestApi\Http\Requests\Auth\ImportLoginAttemptRequest;
 use Fintech\RestApi\Http\Requests\Auth\IndexLoginAttemptRequest;
+use Fintech\RestApi\Http\Resources\Auth\LoginAttemptCollection;
+use Fintech\RestApi\Http\Resources\Auth\LoginAttemptResource;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 
 /**
  * Class LoginAttemptController
- * @package Fintech\RestApi\Http\Controllers\Auth
  *
  * @lrd:start
  * This class handle create, display, update, delete & restore
  * operation related to LoginAttempt
- * @lrd:end
  *
+ * @lrd:end
  */
-
 class LoginAttemptController extends Controller
 {
     /**
@@ -31,10 +30,8 @@ class LoginAttemptController extends Controller
      * Return a listing of the *LoginAttempt* resource as collection.
      *
      * *```paginate=false``` returns all resource as list not pagination*
-     * @lrd:end
      *
-     * @param IndexLoginAttemptRequest $request
-     * @return LoginAttemptCollection|JsonResponse
+     * @lrd:end
      */
     public function index(IndexLoginAttemptRequest $request): LoginAttemptCollection|JsonResponse
     {
@@ -54,10 +51,9 @@ class LoginAttemptController extends Controller
     /**
      * @lrd:start
      * Return a specified *LoginAttempt* resource found by id.
+     *
      * @lrd:end
      *
-     * @param string|int $id
-     * @return LoginAttemptResource|JsonResponse
      * @throws ModelNotFoundException
      */
     public function show(string|int $id): LoginAttemptResource|JsonResponse
@@ -66,7 +62,7 @@ class LoginAttemptController extends Controller
 
             $loginAttempt = Auth::loginAttempt()->find($id);
 
-            if (!$loginAttempt) {
+            if (! $loginAttempt) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.auth.login_attempt_model'), $id);
             }
 
@@ -85,10 +81,11 @@ class LoginAttemptController extends Controller
     /**
      * @lrd:start
      * Soft delete a specified *LoginAttempt* resource using id.
+     *
      * @lrd:end
      *
-     * @param string|int $id
      * @return JsonResponse
+     *
      * @throws ModelNotFoundException
      * @throws DeleteOperationException
      */
@@ -98,11 +95,11 @@ class LoginAttemptController extends Controller
 
             $loginAttempt = Auth::loginAttempt()->find($id);
 
-            if (!$loginAttempt) {
+            if (! $loginAttempt) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.auth.login_attempt_model'), $id);
             }
 
-            if (!Auth::loginAttempt()->destroy($id)) {
+            if (! Auth::loginAttempt()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.auth.login_attempt_model'), $id);
             }
@@ -123,9 +120,9 @@ class LoginAttemptController extends Controller
      * @lrd:start
      * Restore the specified *LoginAttempt* resource from trash.
      * ** ```Soft Delete``` needs to enabled to use this feature**
+     *
      * @lrd:end
      *
-     * @param string|int $id
      * @return JsonResponse
      */
     public function restore(string|int $id)
@@ -134,11 +131,11 @@ class LoginAttemptController extends Controller
 
             $loginAttempt = Auth::loginAttempt()->find($id, true);
 
-            if (!$loginAttempt) {
+            if (! $loginAttempt) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.auth.login_attempt_model'), $id);
             }
 
-            if (!Auth::loginAttempt()->restore($id)) {
+            if (! Auth::loginAttempt()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.auth.login_attempt_model'), $id);
             }
@@ -161,9 +158,6 @@ class LoginAttemptController extends Controller
      * After export job is done system will fire  export completed event
      *
      * @lrd:end
-     *
-     * @param IndexLoginAttemptRequest $request
-     * @return JsonResponse
      */
     public function export(IndexLoginAttemptRequest $request): JsonResponse
     {
@@ -187,7 +181,6 @@ class LoginAttemptController extends Controller
      *
      * @lrd:end
      *
-     * @param ImportLoginAttemptRequest $request
      * @return LoginAttemptCollection|JsonResponse
      */
     public function import(ImportLoginAttemptRequest $request): JsonResponse
