@@ -36,6 +36,7 @@ class LoginAttemptCollection extends ResourceCollection
                 'latitude' => $attempt->latitude ?? null,
                 'longitude' => $attempt->longitude ?? null,
                 'status' => $attempt->status ?? null,
+                'note' => $attempt->note ?? null,
                 'login_attempt_data' => $attempt->login_attempt_data ?? null,
                 'links' => $attempt->links,
                 'created_at' => $attempt->created_at,
