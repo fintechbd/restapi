@@ -3,7 +3,6 @@
 namespace Fintech\RestApi\Http\Controllers\Auth;
 
 use Exception;
-use Fintech\Auth\Events\LoggedIn;
 use Fintech\Auth\Events\LoggedOut;
 use Fintech\Auth\Exceptions\AccessForbiddenException;
 use Fintech\Auth\Exceptions\AccountFreezeException;
