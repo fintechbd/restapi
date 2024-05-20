@@ -24,7 +24,6 @@ if (Config::get('fintech.banco.enabled')) {
     Route::prefix('banco')->name('banco.')
         ->middleware(config('fintech.auth.middleware'))
         ->group(function () {
-            Route::get('banks/bank-categories', [BankController::class, 'bankCategory'])->name('banks.bank-categories');
             Route::apiResource('banks', BankController::class);
             Route::post('banks/{bank}/restore', [BankController::class, 'restore'])->name('banks.restore');
 
@@ -48,6 +47,7 @@ if (Config::get('fintech.banco.enabled')) {
 
     Route::prefix('dropdown')->name('banco.')->group(function () {
 
+        Route::get('bank-categories', [BankController::class, 'bankCategory'])->name('bank-categories.dropdown');
         Route::get('banks', [BankController::class, 'dropdown'])->name('banks.dropdown');
         Route::get('bank-branches', [BankBranchController::class, 'dropdown'])->name('bank-branches.dropdown');
         Route::get('beneficiary-types', [BeneficiaryTypeController::class, 'dropdown'])->name('beneficiary-types.dropdown');
