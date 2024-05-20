@@ -1,10 +1,10 @@
 <?php
 
-namespace Fintech\RestApi\Http\Requests\Auth;
+namespace Fintech\RestApi\Http\Requests\Banco;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class IndexLoginAttemptRequest extends FormRequest
+class IndexBeneficiaryAccountTypeRequest extends FormRequest
 {
     use \Fintech\RestApi\Traits\HasPaginateQuery;
 
@@ -25,7 +25,7 @@ class IndexLoginAttemptRequest extends FormRequest
     {
         return [
             'search' => ['string', 'nullable', 'max:255'],
-            'user_id' => ['integer', 'nullable', 'max:255'],
+            'bank_id' => ['integer', 'nullable', 'min:1'],
             'per_page' => ['integer', 'nullable', 'min:10', 'max:500'],
             'page' => ['integer', 'nullable', 'min:1'],
             'paginate' => ['boolean'],
