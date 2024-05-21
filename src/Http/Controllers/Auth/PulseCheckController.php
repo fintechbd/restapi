@@ -19,6 +19,8 @@ use Illuminate\Routing\Controller;
 class PulseCheckController extends Controller
 {
     /**
+     * @LRDparam ip string|nullable
+     * @LRDparam datetime string|nullable
      * @lrd:start
      * This api endpoint will check server status and client user agent integrity
      *
@@ -28,16 +30,13 @@ class PulseCheckController extends Controller
     {
         try {
 
-//            if (! $this->validTimezone($request)) {
-//
-//            }
-            $ipinfo = Auth::geoip()->find($request->ip());
+            $ipinfo = Auth::geoip()->find($request->filled('ip') ? $request->input('ip') : $request->ip());
 
-            return response()->success($ipinfo);
+            return response()->success(['data'=> $ipinfo]);
 
         } catch (Exception $exception) {
 
-            return response()->locked($exception->getMessage());
+            return response()->failed($exception->getMessage());
         }
     }
 
