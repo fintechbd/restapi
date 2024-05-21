@@ -3,6 +3,7 @@
 namespace Fintech\RestApi\Http\Controllers\Auth;
 
 use Exception;
+use Fintech\Auth\Facades\Auth;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -27,11 +28,12 @@ class PulseCheckController extends Controller
     {
         try {
 
-            if (! $this->validTimezone($request)) {
+//            if (! $this->validTimezone($request)) {
+//
+//            }
+            $ipinfo = Auth::geoip()->find($request->ip());
 
-            }
-
-            return response()->success([]);
+            return response()->success($ipinfo);
 
         } catch (Exception $exception) {
 
