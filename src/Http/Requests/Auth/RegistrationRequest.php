@@ -55,7 +55,7 @@ class RegistrationRequest extends FormRequest
             'employer.company_name' => ['string', 'nullable'],
             'employer.company_address' => ['string', 'nullable'],
             'employer.company_registration_number' => ['string', 'nullable'],
-            'proof_of_address' => ['array', 'required', 'min:1'],
+            'proof_of_address' => ['array'],
             'proof_of_address.*.type' => ['string', 'required'],
             'proof_of_address.*.front' => ['string', 'required_without:proof_of_address.*.back'],
             'proof_of_address.*.back' => ['string', 'required_without:proof_of_address.*.front'],
