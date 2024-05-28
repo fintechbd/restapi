@@ -5,7 +5,7 @@ namespace Fintech\RestApi\Http\Controllers\Auth;
 use Exception;
 use Fintech\Auth\Events\LoggedOut;
 use Fintech\Auth\Exceptions\AccessForbiddenException;
-use Fintech\Auth\Exceptions\AccountFreezeException;
+use Fintech\Auth\Exceptions\AccountFrozenException;
 use Fintech\Auth\Traits\GuessAuthFieldTrait;
 use Fintech\RestApi\Http\Requests\Auth\LoginRequest;
 use Fintech\RestApi\Http\Resources\Auth\LoginResource;
@@ -50,7 +50,7 @@ class AuthenticatedController extends Controller
 
             return new LoginResource($attemptUser);
 
-        } catch (AccessForbiddenException|AccountFreezeException $exception) {
+        } catch (AccessForbiddenException|AccountFrozenException $exception) {
 
             $request->hitRateLimited();
 

@@ -24,7 +24,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->routes(function () use (&$root_prefix) {
             Route::prefix("{$root_prefix}")
-                ->middleware('api')
+                ->middleware(['api', 'http_log'])
                 ->group(__DIR__.'/../../routes/api.php');
         });
     }
