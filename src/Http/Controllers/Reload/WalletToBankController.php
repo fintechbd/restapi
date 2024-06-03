@@ -52,6 +52,7 @@ class WalletToBankController extends Controller
         try {
             $inputs = $request->validated();
 
+            $inputs['transaction_form_id'] = Transaction::transactionForm()->list(['code' => 'local_bank_transfer'])->first()->getKey();
             $walletToBankPaginate = Reload::walletToBank()->list($inputs);
 
             return new WalletToBankCollection($walletToBankPaginate);
