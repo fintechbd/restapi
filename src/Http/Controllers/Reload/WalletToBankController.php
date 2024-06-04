@@ -121,8 +121,8 @@ class WalletToBankController extends Controller
                 $inputs['order_data']['master_user_name'] = $masterUser['name'];
                 //$inputs['order_data']['operator_short_code'] = $request->input('operator_short_code', null);
                 $inputs['order_data']['assign_order'] = 'no';
-                $inputs['order_data']['system_notification_variable_success'] = 'bank_transfer_success';
-                $inputs['order_data']['system_notification_variable_failed'] = 'bank_transfer_failed';
+                $inputs['order_data']['system_notification_variable_success'] = 'local_bank_transfer_success';
+                $inputs['order_data']['system_notification_variable_failed'] = 'local_bank_transfer_failed';
                 unset($inputs['pin'], $inputs['password']);
 
                 $walletToBank = Reload::walletToBank()->create($inputs);
@@ -172,7 +172,7 @@ class WalletToBankController extends Controller
                 Remit::bankTransfer()->update($walletToBank->getKey(), ['order_data' => $order_data, 'order_number' => $order_data['purchase_number']]);
                 Transaction::orderQueue()->removeFromQueueUserWise($user_id ?? $depositor->getKey());
 
-                event(new RemitTransferRequested('bank_deposit', $walletToBank));
+                //event(new RemitTransferRequested('bank_deposit', $walletToBank));
 
                 DB::commit();
 
