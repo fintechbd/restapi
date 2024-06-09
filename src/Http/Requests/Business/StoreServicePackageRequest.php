@@ -23,7 +23,12 @@ class StoreServicePackageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'service_id' => ["integer", "required", "min:1"],
+            'name' => ["required", "string", "max:255"],
+            'code' => ["required", "string", "max:255"],
+            'rate' => ["numeric", "required", "min:1"],
+            'service_package_data' => ["array", "nullable"],
+            'enabled' => ["boolean", "nullable"],
         ];
     }
 
