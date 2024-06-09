@@ -16,7 +16,21 @@ class ServicePackageCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return $this->collection->map(function ($servicePackage) {
+            return [
+                'id' => $servicePackage->getKey() ?? null,
+                'service_id' => $servicePackage->service_id ?? null,
+                'service_name' => $servicePackage->service?->service_name ?? null,
+                'name' => $servicePackage->name ?? null,
+                'code' => $servicePackage->code ?? null,
+                'rate' => $servicePackage->rate ?? null,
+                'service_package_data' => $servicePackage->service_package_data ?? null,
+                'enabled' => $servicePackage->enabled ?? null,
+                'links' => $servicePackage->links,
+                'created_at' => $servicePackage->created_at,
+                'updated_at' => $servicePackage->updated_at,
+            ];
+        })->toArray();
     }
 
     /**
