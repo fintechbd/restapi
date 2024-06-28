@@ -7,11 +7,7 @@ use Illuminate\Routing\Controller;
 
 class SSLVRController extends Controller
 {
-
-    public function __construct(readonly private SSLVirtualRechargeApi $SSLVirtualRechargeApi)
-    {
-
-    }
+    public function __construct(readonly private SSLVirtualRechargeApi $SSLVirtualRechargeApi) {}
 
     public function test()
     {

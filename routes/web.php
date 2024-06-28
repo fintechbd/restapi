@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,4 +13,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('test/sslvr-test', [\Fintech\RestApi\Http\Controllers\Airtime\SSLVRController::class,'test']);
+Route::get('test/sslvr-test', [\Fintech\RestApi\Http\Controllers\Airtime\SSLVRController::class, 'test']);

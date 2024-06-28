@@ -35,13 +35,7 @@ class VendorSyncController extends Controller
         }
     }
 
-    private function shuftiPro()
-    {
+    private function shuftiPro() {}
 
-    }
-
-    private function signzy()
-    {
-
-    }
+    private function signzy() {}
 }
