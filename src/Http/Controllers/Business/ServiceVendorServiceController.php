@@ -64,7 +64,7 @@ class ServiceVendorServiceController extends Controller
                 throw (new UpdateOperationException())->setModel(config('fintech.business.service_vendor_model'), $id);
             }
 
-            return response()->updated(__('business::messages.vendor.service_assigned', ['vendor' => strtolower($serviceVendor->name ?? 'N/A')]));
+            return response()->updated(__('business::messages.vendor.service_assigned', ['vendor' => strtolower($serviceVendor->service_vendor_name ?? 'N/A')]));
 
         } catch (ModelNotFoundException $exception) {
 
