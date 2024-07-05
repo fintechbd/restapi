@@ -15,6 +15,7 @@ use Fintech\RestApi\Http\Requests\Auth\StoreUserRequest;
 use Fintech\RestApi\Http\Requests\Auth\UpdateUserRequest;
 use Fintech\RestApi\Http\Requests\Auth\UserAuthResetRequest;
 use Fintech\RestApi\Http\Requests\Auth\UserStatusChangeRequest;
+use Fintech\RestApi\Http\Requests\Auth\UserVerificationRequest;
 use Fintech\RestApi\Http\Requests\Core\DropDownRequest;
 use Fintech\RestApi\Http\Resources\Auth\UserCollection;
 use Fintech\RestApi\Http\Resources\Auth\UserResource;
@@ -22,6 +23,7 @@ use Fintech\RestApi\Http\Resources\Core\DropDownCollection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
+use InvalidArgumentException;
 
 /**
  * Class UserController
@@ -313,6 +315,51 @@ class UserController extends Controller
 
         } catch (Exception $exception) {
 
+            return response()->failed($exception->getMessage());
+        }
+    }
+
+    /**
+     * @lrd:start
+     * Verification of user mobile, email, login_id
+     *  if already exist then return false
+     * @lrd:end
+     */
+    public function verification(UserVerificationRequest $request): JsonResponse
+    {
+
+        $targetField = $request->has('mobile')
+            ? 'mobile' :
+            (
+            $request->has('email')
+                ? 'email' :
+                ($request->has('login_id') ? 'login_id' : null)
+            );
+
+        $targetValue = $request->input($targetField);
+
+        try {
+
+            if (empty($targetValue)) {
+                throw new InvalidArgumentException('Input field must be one of (mobile, email, login_id) is not present or value is empty.');
+            }
+
+            $userExists = Auth::user()->list([$targetField => $targetValue])->first();
+
+            $response = [
+                'data' => [
+                    'valid' => $userExists == null
+                ],
+                'message' => ($userExists == null)
+                    ? "This is a valid user {$targetField}."
+                    : "A user already exists with these {$targetField}.",
+                'query' => $request->all(),
+            ];
+
+
+            return response()->success($response);
+
+        } catch (Exception $exception) {
             return response()->failed($exception->getMessage());
         }
     }

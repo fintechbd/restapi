@@ -63,6 +63,7 @@ if (Config::get('fintech.auth.enabled')) {
             ->name('verify-otp');
 
         Route::post('id-doc-verification', VerifyIdDocumentController::class)->name('id-doc-types.verification');
+        Route::post('user-verification', [UserController::class, 'verification'])->name('users.verification');
 
         Route::middleware(config('fintech.auth.middleware'))->group(function () {
             Route::apiResource('users', UserController::class);
