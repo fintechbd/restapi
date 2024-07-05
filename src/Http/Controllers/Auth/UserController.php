@@ -323,6 +323,7 @@ class UserController extends Controller
      * @lrd:start
      * Verification of user mobile, email, login_id
      *  if already exist then return false
+     *
      * @lrd:end
      */
     public function verification(UserVerificationRequest $request): JsonResponse
@@ -331,9 +332,9 @@ class UserController extends Controller
         $targetField = $request->has('mobile')
             ? 'mobile' :
             (
-            $request->has('email')
-                ? 'email' :
-                ($request->has('login_id') ? 'login_id' : null)
+                $request->has('email')
+                    ? 'email' :
+                    ($request->has('login_id') ? 'login_id' : null)
             );
 
         $targetValue = $request->input($targetField);
@@ -348,14 +349,13 @@ class UserController extends Controller
 
             $response = [
                 'data' => [
-                    'valid' => $userExists == null
+                    'valid' => $userExists == null,
                 ],
                 'message' => ($userExists == null)
                     ? "This is a valid user {$targetField}."
                     : "A user already exists with these {$targetField}.",
                 'query' => $request->all(),
             ];
-
 
             return response()->success($response);
 
