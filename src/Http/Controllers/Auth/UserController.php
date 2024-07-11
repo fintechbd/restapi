@@ -352,7 +352,7 @@ class UserController extends Controller
                 ],
                 'message' => ($userExists == null)
                     ? "This is a valid user {$targetField}."
-                    : "A user already exists with these {$targetField}.",
+                    : "User already exist with this {$targetField}.",
                 'query' => $request->all(),
             ];
 
