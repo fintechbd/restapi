@@ -70,7 +70,7 @@ class SettingController extends Controller
                 Core::setting()->setValue($configuration, $key, $value, null, auth()->id());
             }
 
-            return response()->updated(__('restapi::messages.setting.saved', ['package' => config("fintech.core.packages.{$configuration}", 'System')]));
+            return response()->updated(__('restapi::messages.setting.saved', ['package' => ucwords($configuration)]));
 
         } catch (Exception $exception) {
 
