@@ -68,7 +68,7 @@ class SettingController extends Controller
 
             return response()->success([
                 'input' => $inputs,
-                'auth' => auth()->id()
+                'auth' => auth()->id(),
             ]);
 
             foreach ($inputs as $key => $value) {
