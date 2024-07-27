@@ -66,7 +66,7 @@ class PermissionController extends Controller
             $permission = Auth::permission()->create($inputs);
 
             if (! $permission) {
-                throw (new StoreOperationException())->setModel(config('fintech.auth.permission_model'));
+                throw (new StoreOperationException)->setModel(config('fintech.auth.permission_model'));
             }
 
             return response()->created([
@@ -95,7 +95,7 @@ class PermissionController extends Controller
             $permission = Auth::permission()->find($id);
 
             if (! $permission) {
-                throw (new ModelNotFoundException())->setModel(config('fintech.auth.permission_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.auth.permission_model'), $id);
             }
 
             return new PermissionResource($permission);
@@ -123,14 +123,14 @@ class PermissionController extends Controller
             $permission = Auth::permission()->find($id);
 
             if (! $permission) {
-                throw (new ModelNotFoundException())->setModel(config('fintech.auth.permission_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.auth.permission_model'), $id);
             }
 
             $inputs = $request->validated();
 
             if (! Auth::permission()->update($id, $inputs)) {
 
-                throw (new UpdateOperationException())->setModel(config('fintech.auth.permission_model'), $id);
+                throw (new UpdateOperationException)->setModel(config('fintech.auth.permission_model'), $id);
             }
 
             return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Permission']));
@@ -163,12 +163,12 @@ class PermissionController extends Controller
             $permission = Auth::permission()->find($id);
 
             if (! $permission) {
-                throw (new ModelNotFoundException())->setModel(config('fintech.auth.permission_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.auth.permission_model'), $id);
             }
 
             if (! Auth::permission()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.auth.permission_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.auth.permission_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Permission']));
@@ -199,12 +199,12 @@ class PermissionController extends Controller
             $permission = Auth::permission()->find($id, true);
 
             if (! $permission) {
-                throw (new ModelNotFoundException())->setModel(config('fintech.auth.permission_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.auth.permission_model'), $id);
             }
 
             if (! Auth::permission()->restore($id)) {
 
-                throw (new RestoreOperationException())->setModel(config('fintech.auth.permission_model'), $id);
+                throw (new RestoreOperationException)->setModel(config('fintech.auth.permission_model'), $id);
             }
 
             return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Permission']));

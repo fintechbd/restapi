@@ -64,7 +64,7 @@ class FailedJobController extends Controller
             $failedJob = Core::failedJob()->find($id);
 
             if (! $failedJob) {
-                throw (new ModelNotFoundException())->setModel(config('fintech.core.failed_job_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.core.failed_job_model'), $id);
             }
 
             return new FailedJobResource($failedJob);
@@ -96,12 +96,12 @@ class FailedJobController extends Controller
             $failedJob = Core::failedJob()->find($id);
 
             if (! $failedJob) {
-                throw (new ModelNotFoundException())->setModel(config('fintech.core.failed_job_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.core.failed_job_model'), $id);
             }
 
             if (! Core::failedJob()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.core.failed_job_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.core.failed_job_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Failed Job']));
@@ -132,7 +132,7 @@ class FailedJobController extends Controller
             $failedJob = Core::failedJob()->find($id);
 
             if (! $failedJob) {
-                throw (new ModelNotFoundException())->setModel(config('fintech.core.failed_job_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.core.failed_job_model'), $id);
             }
 
             if (Artisan::call('queue:retry', ['id' => [$id]])) {

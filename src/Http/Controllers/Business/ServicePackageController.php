@@ -173,7 +173,7 @@ class ServicePackageController extends Controller
 
             if (! Business::servicePackage()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.business.service_package_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.business.service_package_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Service Package']));
@@ -209,7 +209,7 @@ class ServicePackageController extends Controller
 
             if (! Business::servicePackage()->restore($id)) {
 
-                throw (new RestoreOperationException())->setModel(config('fintech.business.service_package_model'), $id);
+                throw (new RestoreOperationException)->setModel(config('fintech.business.service_package_model'), $id);
             }
 
             return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Service Package']));

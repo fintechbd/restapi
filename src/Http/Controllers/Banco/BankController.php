@@ -173,7 +173,7 @@ class BankController extends Controller
 
             if (! Banco::bank()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.banco.bank_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.banco.bank_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Bank']));
@@ -209,7 +209,7 @@ class BankController extends Controller
 
             if (! Banco::bank()->restore($id)) {
 
-                throw (new RestoreOperationException())->setModel(config('fintech.banco.bank_model'), $id);
+                throw (new RestoreOperationException)->setModel(config('fintech.banco.bank_model'), $id);
             }
 
             return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Bank']));

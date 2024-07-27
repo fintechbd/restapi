@@ -88,7 +88,7 @@ class PasswordResetController extends Controller
             $targetedUser = $targetedUser->first();
 
             if (! Auth::user()->update($targetedUser->getKey(), [$passwordField => $password])) {
-                throw (new UpdateOperationException())->setModel(config('fintech.auth.user_model'), $targetedUser->getKey());
+                throw (new UpdateOperationException)->setModel(config('fintech.auth.user_model'), $targetedUser->getKey());
             }
 
             event(new PasswordResetSuccessful($targetedUser));

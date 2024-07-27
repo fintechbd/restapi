@@ -61,7 +61,7 @@ class ApiLogController extends Controller
             $apiLog = Core::apiLog()->find($id);
 
             if (! $apiLog) {
-                throw (new ModelNotFoundException())->setModel(config('fintech.core.api_log_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.core.api_log_model'), $id);
             }
 
             return new ApiLogResource($apiLog);
@@ -93,12 +93,12 @@ class ApiLogController extends Controller
             $apiLog = Core::apiLog()->find($id);
 
             if (! $apiLog) {
-                throw (new ModelNotFoundException())->setModel(config('fintech.core.api_log_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.core.api_log_model'), $id);
             }
 
             if (! Core::apiLog()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.core.api_log_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.core.api_log_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Api Log']));

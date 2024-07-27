@@ -68,7 +68,7 @@ class OccupationController extends Controller
             $occupation = MetaData::occupation()->create($inputs);
 
             if (! $occupation) {
-                throw (new StoreOperationException())->setModel(config('fintech.metadata.occupation_model'));
+                throw (new StoreOperationException)->setModel(config('fintech.metadata.occupation_model'));
             }
 
             return response()->created([
@@ -99,7 +99,7 @@ class OccupationController extends Controller
             $occupation = MetaData::occupation()->find($id);
 
             if (! $occupation) {
-                throw (new ModelNotFoundException())->setModel(config('fintech.metadata.occupation_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.metadata.occupation_model'), $id);
             }
 
             return new OccupationResource($occupation);
@@ -130,14 +130,14 @@ class OccupationController extends Controller
             $occupation = MetaData::occupation()->find($id);
 
             if (! $occupation) {
-                throw (new ModelNotFoundException())->setModel(config('fintech.metadata.occupation_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.metadata.occupation_model'), $id);
             }
 
             $inputs = $request->validated();
 
             if (! MetaData::occupation()->update($id, $inputs)) {
 
-                throw (new UpdateOperationException())->setModel(config('fintech.metadata.occupation_model'), $id);
+                throw (new UpdateOperationException)->setModel(config('fintech.metadata.occupation_model'), $id);
             }
 
             return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Occupation']));
@@ -170,12 +170,12 @@ class OccupationController extends Controller
             $occupation = MetaData::occupation()->find($id);
 
             if (! $occupation) {
-                throw (new ModelNotFoundException())->setModel(config('fintech.metadata.occupation_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.metadata.occupation_model'), $id);
             }
 
             if (! MetaData::occupation()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.metadata.occupation_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.metadata.occupation_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Occupation']));
@@ -206,12 +206,12 @@ class OccupationController extends Controller
             $occupation = MetaData::occupation()->find($id, true);
 
             if (! $occupation) {
-                throw (new ModelNotFoundException())->setModel(config('fintech.metadata.occupation_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.metadata.occupation_model'), $id);
             }
 
             if (! MetaData::occupation()->restore($id)) {
 
-                throw (new RestoreOperationException())->setModel(config('fintech.metadata.occupation_model'), $id);
+                throw (new RestoreOperationException)->setModel(config('fintech.metadata.occupation_model'), $id);
             }
 
             return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Occupation']));

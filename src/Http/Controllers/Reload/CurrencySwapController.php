@@ -345,7 +345,7 @@ class CurrencySwapController extends Controller
 
             if (! Reload::currencySwap()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.reload.currency_swap_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.reload.currency_swap_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Currency Swap']));
@@ -379,7 +379,7 @@ class CurrencySwapController extends Controller
 
             if (! Reload::currencySwap()->restore($id)) {
 
-                throw (new RestoreOperationException())->setModel(config('fintech.reload.currency_swap_model'), $id);
+                throw (new RestoreOperationException)->setModel(config('fintech.reload.currency_swap_model'), $id);
             }
 
             return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Currency Swap']));

@@ -64,7 +64,7 @@ class LanguageController extends Controller
             $language = MetaData::language()->find($id);
 
             if (! $language) {
-                throw (new ModelNotFoundException())->setModel('Language', $id);
+                throw (new ModelNotFoundException)->setModel('Language', $id);
             }
 
             return new LanguageResource($language);
@@ -94,7 +94,7 @@ class LanguageController extends Controller
             $language = MetaData::language()->find($id);
 
             if (! $language) {
-                throw (new ModelNotFoundException())->setModel('Language', $id);
+                throw (new ModelNotFoundException)->setModel('Language', $id);
             }
 
             $countryData = $language->country_data;
@@ -107,7 +107,7 @@ class LanguageController extends Controller
 
             if (! MetaData::language()->update($id, $inputs)) {
 
-                throw (new UpdateOperationException())->setModel('Language', $id);
+                throw (new UpdateOperationException)->setModel('Language', $id);
             }
 
             return response()->updated(__('metadata::messages.country.status_changed', ['field' => 'Language']));
@@ -137,14 +137,14 @@ class LanguageController extends Controller
             $language = MetaData::language()->find($id);
 
             if (! $language) {
-                throw (new ModelNotFoundException())->setModel('Language', $id);
+                throw (new ModelNotFoundException)->setModel('Language', $id);
             }
 
             $inputs = $request->validated();
 
             if (! MetaData::language()->update($id, $inputs)) {
 
-                throw (new UpdateOperationException())->setModel('Language', $id);
+                throw (new UpdateOperationException)->setModel('Language', $id);
             }
 
             return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Language']));

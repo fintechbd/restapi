@@ -173,7 +173,7 @@ class TriggerActionController extends Controller
 
             if (! Bell::triggerAction()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.bell.trigger_action_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.bell.trigger_action_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Trigger Action']));
@@ -209,7 +209,7 @@ class TriggerActionController extends Controller
 
             if (! Bell::triggerAction()->restore($id)) {
 
-                throw (new RestoreOperationException())->setModel(config('fintech.bell.trigger_action_model'), $id);
+                throw (new RestoreOperationException)->setModel(config('fintech.bell.trigger_action_model'), $id);
             }
 
             return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Trigger Action']));

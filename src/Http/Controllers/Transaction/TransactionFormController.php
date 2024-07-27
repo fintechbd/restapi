@@ -175,7 +175,7 @@ class TransactionFormController extends Controller
 
             if (! Transaction::transactionForm()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.transaction.transaction_form_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.transaction.transaction_form_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Transaction Form']));
@@ -211,7 +211,7 @@ class TransactionFormController extends Controller
 
             if (! Transaction::transactionForm()->restore($id)) {
 
-                throw (new RestoreOperationException())->setModel(config('fintech.transaction.transaction_form_model'), $id);
+                throw (new RestoreOperationException)->setModel(config('fintech.transaction.transaction_form_model'), $id);
             }
 
             return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Transaction Form']));

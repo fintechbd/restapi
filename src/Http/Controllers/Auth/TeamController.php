@@ -70,7 +70,7 @@ class TeamController extends Controller
             $team = Auth::team()->create($inputs);
 
             if (! $team) {
-                throw (new StoreOperationException())->setModel(config('fintech.auth.team_model'));
+                throw (new StoreOperationException)->setModel(config('fintech.auth.team_model'));
             }
 
             return response()->created([
@@ -97,7 +97,7 @@ class TeamController extends Controller
             $team = Auth::team()->find($id);
 
             if (! $team) {
-                throw (new ModelNotFoundException())->setModel(config('fintech.auth.team_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.auth.team_model'), $id);
             }
 
             return new TeamResource($team);
@@ -125,14 +125,14 @@ class TeamController extends Controller
             $team = Auth::team()->find($id);
 
             if (! $team) {
-                throw (new ModelNotFoundException())->setModel(config('fintech.auth.team_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.auth.team_model'), $id);
             }
 
             $inputs = $request->validated();
 
             if (! Auth::team()->update($id, $inputs)) {
 
-                throw (new UpdateOperationException())->setModel(config('fintech.auth.team_model'), $id);
+                throw (new UpdateOperationException)->setModel(config('fintech.auth.team_model'), $id);
             }
 
             return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Team']));
@@ -162,12 +162,12 @@ class TeamController extends Controller
             $team = Auth::team()->find($id);
 
             if (! $team) {
-                throw (new ModelNotFoundException())->setModel(config('fintech.auth.team_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.auth.team_model'), $id);
             }
 
             if (! Auth::team()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.auth.team_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.auth.team_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Team']));
@@ -198,12 +198,12 @@ class TeamController extends Controller
             $team = Auth::team()->find($id, true);
 
             if (! $team) {
-                throw (new ModelNotFoundException())->setModel(config('fintech.auth.team_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.auth.team_model'), $id);
             }
 
             if (! Auth::team()->restore($id)) {
 
-                throw (new RestoreOperationException())->setModel(config('fintech.auth.team_model'), $id);
+                throw (new RestoreOperationException)->setModel(config('fintech.auth.team_model'), $id);
             }
 
             return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Team']));

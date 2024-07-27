@@ -172,7 +172,7 @@ class ManualRefundController extends Controller
 
             if (! Transaction::manualRefund()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.transaction.manual_refund_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.transaction.manual_refund_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Manual Refund']));

@@ -300,7 +300,7 @@ class RequestMoneyController extends Controller
 
             if (! Reload::requestMoney()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.reload.request_money_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.reload.request_money_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Request Money']));
@@ -334,7 +334,7 @@ class RequestMoneyController extends Controller
 
             if (! Reload::requestMoney()->restore($id)) {
 
-                throw (new RestoreOperationException())->setModel(config('fintech.reload.request_money_model'), $id);
+                throw (new RestoreOperationException)->setModel(config('fintech.reload.request_money_model'), $id);
             }
 
             return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Request Money']));

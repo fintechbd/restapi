@@ -26,7 +26,7 @@ class RolePermissionController extends Controller
             $role = Auth::role()->find($id);
 
             if (! $role) {
-                throw (new ModelNotFoundException())->setModel(config('fintech.auth.role_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.auth.role_model'), $id);
             }
 
             return new RolePermissionResource($role);
@@ -54,14 +54,14 @@ class RolePermissionController extends Controller
             $role = Auth::role()->find($id);
 
             if (! $role) {
-                throw (new ModelNotFoundException())->setModel(config('fintech.auth.role_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.auth.role_model'), $id);
             }
 
             $inputs = $request->validated();
 
             if (! Auth::role()->update($id, $inputs)) {
 
-                throw (new UpdateOperationException())->setModel(config('fintech.auth.role_model'), $id);
+                throw (new UpdateOperationException)->setModel(config('fintech.auth.role_model'), $id);
             }
 
             return response()->updated(__('auth::messages.role.permission_assigned', ['role' => strtolower($role->name ?? 'N/A')]));

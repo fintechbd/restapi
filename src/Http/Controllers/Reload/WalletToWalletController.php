@@ -356,7 +356,7 @@ class WalletToWalletController extends Controller
 
             if (! Reload::walletToWallet()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.reload.wallet_to_wallet_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.reload.wallet_to_wallet_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Wallet To Wallet']));
@@ -390,7 +390,7 @@ class WalletToWalletController extends Controller
 
             if (! Reload::walletToWallet()->restore($id)) {
 
-                throw (new RestoreOperationException())->setModel(config('fintech.reload.wallet_to_wallet_model'), $id);
+                throw (new RestoreOperationException)->setModel(config('fintech.reload.wallet_to_wallet_model'), $id);
             }
 
             return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Wallet To Wallet']));

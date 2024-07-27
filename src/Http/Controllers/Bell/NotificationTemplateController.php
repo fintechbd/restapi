@@ -173,7 +173,7 @@ class NotificationTemplateController extends Controller
 
             if (! Bell::notificationTemplate()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.bell.notification_template_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.bell.notification_template_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Notification Template']));
@@ -209,7 +209,7 @@ class NotificationTemplateController extends Controller
 
             if (! Bell::notificationTemplate()->restore($id)) {
 
-                throw (new RestoreOperationException())->setModel(config('fintech.bell.notification_template_model'), $id);
+                throw (new RestoreOperationException)->setModel(config('fintech.bell.notification_template_model'), $id);
             }
 
             return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Notification Template']));

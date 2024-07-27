@@ -173,7 +173,7 @@ class ServiceVendorController extends Controller
 
             if (! Business::serviceVendor()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.business.service_vendor_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.business.service_vendor_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Service Vendor']));
@@ -209,7 +209,7 @@ class ServiceVendorController extends Controller
 
             if (! Business::serviceVendor()->restore($id)) {
 
-                throw (new RestoreOperationException())->setModel(config('fintech.business.service_vendor_model'), $id);
+                throw (new RestoreOperationException)->setModel(config('fintech.business.service_vendor_model'), $id);
             }
 
             return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Service Vendor']));

@@ -173,7 +173,7 @@ class ChartTypeController extends Controller
 
             if (! Transaction::chartType()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.transaction.chart_type_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.transaction.chart_type_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Chart Type']));
@@ -209,7 +209,7 @@ class ChartTypeController extends Controller
 
             if (! Transaction::chartType()->restore($id)) {
 
-                throw (new RestoreOperationException())->setModel(config('fintech.transaction.chart_type_model'), $id);
+                throw (new RestoreOperationException)->setModel(config('fintech.transaction.chart_type_model'), $id);
             }
 
             return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Chart Type']));

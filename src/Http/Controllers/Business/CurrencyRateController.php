@@ -173,7 +173,7 @@ class CurrencyRateController extends Controller
 
             if (! Business::currencyRate()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.business.currency_rate_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.business.currency_rate_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Currency Rate']));
@@ -209,7 +209,7 @@ class CurrencyRateController extends Controller
 
             if (! Business::currencyRate()->restore($id)) {
 
-                throw (new RestoreOperationException())->setModel(config('fintech.business.currency_rate_model'), $id);
+                throw (new RestoreOperationException)->setModel(config('fintech.business.currency_rate_model'), $id);
             }
 
             return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Currency Rate']));

@@ -61,7 +61,7 @@ class JobController extends Controller
             $job = Core::job()->find($id);
 
             if (! $job) {
-                throw (new ModelNotFoundException())->setModel(config('fintech.core.job_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.core.job_model'), $id);
             }
 
             return new JobResource($job);
@@ -94,12 +94,12 @@ class JobController extends Controller
             $job = Core::job()->read($id);
 
             if (! $job) {
-                throw (new ModelNotFoundException())->setModel(config('fintech.core.job_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.core.job_model'), $id);
             }
 
             if (! Core::job()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.core.job_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.core.job_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Job']));

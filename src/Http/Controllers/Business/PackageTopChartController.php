@@ -173,7 +173,7 @@ class PackageTopChartController extends Controller
 
             if (! Business::packageTopChart()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.business.package_top_chart_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.business.package_top_chart_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Package Top Chart']));
@@ -209,7 +209,7 @@ class PackageTopChartController extends Controller
 
             if (! Business::packageTopChart()->restore($id)) {
 
-                throw (new RestoreOperationException())->setModel(config('fintech.business.package_top_chart_model'), $id);
+                throw (new RestoreOperationException)->setModel(config('fintech.business.package_top_chart_model'), $id);
             }
 
             return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Package Top Chart']));

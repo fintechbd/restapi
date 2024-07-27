@@ -173,7 +173,7 @@ class OrderController extends Controller
 
             if (! Transaction::order()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.transaction.order_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.transaction.order_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Order']));
@@ -209,7 +209,7 @@ class OrderController extends Controller
 
             if (! Transaction::order()->restore($id)) {
 
-                throw (new RestoreOperationException())->setModel(config('fintech.transaction.order_model'), $id);
+                throw (new RestoreOperationException)->setModel(config('fintech.transaction.order_model'), $id);
             }
 
             return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Order']));

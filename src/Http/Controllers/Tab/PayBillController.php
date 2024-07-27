@@ -257,7 +257,7 @@ class PayBillController extends Controller
 
             if (! Tab::payBill()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.tab.pay_bill_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.tab.pay_bill_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Pay Bill']));
@@ -291,7 +291,7 @@ class PayBillController extends Controller
 
             if (! Tab::payBill()->restore($id)) {
 
-                throw (new RestoreOperationException())->setModel(config('fintech.tab.pay_bill_model'), $id);
+                throw (new RestoreOperationException)->setModel(config('fintech.tab.pay_bill_model'), $id);
             }
 
             return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Pay Bill']));

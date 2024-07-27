@@ -173,7 +173,7 @@ class RedeemPointController extends Controller
 
             if (! Transaction::redeemPoint()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.transaction.redeem_point_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.transaction.redeem_point_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Redeem Point']));
@@ -209,7 +209,7 @@ class RedeemPointController extends Controller
 
             if (! Transaction::redeemPoint()->restore($id)) {
 
-                throw (new RestoreOperationException())->setModel(config('fintech.transaction.redeem_point_model'), $id);
+                throw (new RestoreOperationException)->setModel(config('fintech.transaction.redeem_point_model'), $id);
             }
 
             return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Redeem Point']));

@@ -173,7 +173,7 @@ class TriggerVariableController extends Controller
 
             if (! Bell::triggerVariable()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.bell.trigger_variable_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.bell.trigger_variable_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Trigger Variable']));
@@ -209,7 +209,7 @@ class TriggerVariableController extends Controller
 
             if (! Bell::triggerVariable()->restore($id)) {
 
-                throw (new RestoreOperationException())->setModel(config('fintech.bell.trigger_variable_model'), $id);
+                throw (new RestoreOperationException)->setModel(config('fintech.bell.trigger_variable_model'), $id);
             }
 
             return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Trigger Variable']));

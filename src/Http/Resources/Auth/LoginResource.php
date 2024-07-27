@@ -91,7 +91,7 @@ class LoginResource extends JsonResource
             'role_name' => null,
             'profile' => (($this->profile != null)
                 ? (new ProfileResource($this->profile))
-                : (new stdClass())),
+                : (new stdClass)),
             'balances' => ($this->userAccounts)
                 ? $this->userAccounts->pluck('user_account_data')->toArray()
                 : [],

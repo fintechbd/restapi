@@ -26,7 +26,7 @@ class CountryCurrencyController extends Controller
             $country = MetaData::country()->find($id);
 
             if (! $country) {
-                throw (new ModelNotFoundException())->setModel(config('fintech.metadata.country_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.metadata.country_model'), $id);
             }
 
             $availableCurrencies = MetaData::currency()->list(['enabled' => true, 'paginate' => false]);
@@ -60,14 +60,14 @@ class CountryCurrencyController extends Controller
             $country = MetaData::country()->find($id);
 
             if (! $country) {
-                throw (new ModelNotFoundException())->setModel(config('fintech.auth.country_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.auth.country_model'), $id);
             }
 
             $inputs = $request->validated();
 
             if (! MetaData::country()->update($id, $inputs)) {
 
-                throw (new UpdateOperationException())->setModel(config('fintech.auth.country_model'), $id);
+                throw (new UpdateOperationException)->setModel(config('fintech.auth.country_model'), $id);
             }
 
             return response()->updated(__('metadata::messages.country.currency_assigned', ['country' => strtolower($country->name ?? 'N/A')]));

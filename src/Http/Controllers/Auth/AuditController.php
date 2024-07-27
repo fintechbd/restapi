@@ -61,7 +61,7 @@ class AuditController extends Controller
             $audit = Auth::audit()->find($id);
 
             if (! $audit) {
-                throw (new ModelNotFoundException())->setModel(config('fintech.auth.audit_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.auth.audit_model'), $id);
             }
 
             return new AuditResource($audit);
@@ -94,12 +94,12 @@ class AuditController extends Controller
             $audit = Auth::audit()->find($id);
 
             if (! $audit) {
-                throw (new ModelNotFoundException())->setModel(config('fintech.auth.audit_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.auth.audit_model'), $id);
             }
 
             if (! Auth::audit()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.auth.audit_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.auth.audit_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Audit']));

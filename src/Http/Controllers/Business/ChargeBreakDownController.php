@@ -173,7 +173,7 @@ class ChargeBreakDownController extends Controller
 
             if (! Business::chargeBreakDown()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.business.charge_break_down_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.business.charge_break_down_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Charge Break Down']));
@@ -209,7 +209,7 @@ class ChargeBreakDownController extends Controller
 
             if (! Business::chargeBreakDown()->restore($id)) {
 
-                throw (new RestoreOperationException())->setModel(config('fintech.business.charge_break_down_model'), $id);
+                throw (new RestoreOperationException)->setModel(config('fintech.business.charge_break_down_model'), $id);
             }
 
             return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Charge Break Down']));

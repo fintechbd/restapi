@@ -173,7 +173,7 @@ class KycStatusController extends Controller
 
             if (! Ekyc::kycStatus()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.ekyc.kyc_status_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.ekyc.kyc_status_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Kyc Status']));
@@ -209,7 +209,7 @@ class KycStatusController extends Controller
 
             if (! Ekyc::kycStatus()->restore($id)) {
 
-                throw (new RestoreOperationException())->setModel(config('fintech.ekyc.kyc_status_model'), $id);
+                throw (new RestoreOperationException)->setModel(config('fintech.ekyc.kyc_status_model'), $id);
             }
 
             return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Kyc Status']));

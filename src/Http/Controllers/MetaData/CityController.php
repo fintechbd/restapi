@@ -70,7 +70,7 @@ class CityController extends Controller
             $city = MetaData::city()->create($inputs);
 
             if (! $city) {
-                throw (new StoreOperationException())->setModel(config('fintech.metadata.city_model'));
+                throw (new StoreOperationException)->setModel(config('fintech.metadata.city_model'));
             }
 
             return response()->created([
@@ -101,7 +101,7 @@ class CityController extends Controller
             $city = MetaData::city()->find($id);
 
             if (! $city) {
-                throw (new ModelNotFoundException())->setModel(config('fintech.metadata.city_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.metadata.city_model'), $id);
             }
 
             return new CityResource($city);
@@ -132,14 +132,14 @@ class CityController extends Controller
             $city = MetaData::city()->find($id);
 
             if (! $city) {
-                throw (new ModelNotFoundException())->setModel(config('fintech.metadata.city_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.metadata.city_model'), $id);
             }
 
             $inputs = $request->validated();
 
             if (! MetaData::city()->update($id, $inputs)) {
 
-                throw (new UpdateOperationException())->setModel(config('fintech.metadata.city_model'), $id);
+                throw (new UpdateOperationException)->setModel(config('fintech.metadata.city_model'), $id);
             }
 
             return response()->updated(__('restapi::messages.resource.updated', ['model' => 'City']));
@@ -172,12 +172,12 @@ class CityController extends Controller
             $city = MetaData::city()->find($id);
 
             if (! $city) {
-                throw (new ModelNotFoundException())->setModel(config('fintech.metadata.city_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.metadata.city_model'), $id);
             }
 
             if (! MetaData::city()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.metadata.city_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.metadata.city_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'City']));
@@ -208,12 +208,12 @@ class CityController extends Controller
             $city = MetaData::city()->find($id, true);
 
             if (! $city) {
-                throw (new ModelNotFoundException())->setModel(config('fintech.metadata.city_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.metadata.city_model'), $id);
             }
 
             if (! MetaData::city()->restore($id)) {
 
-                throw (new RestoreOperationException())->setModel(config('fintech.metadata.city_model'), $id);
+                throw (new RestoreOperationException)->setModel(config('fintech.metadata.city_model'), $id);
             }
 
             return response()->restored(__('restapi::messages.resource.restored', ['model' => 'City']));

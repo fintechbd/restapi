@@ -271,7 +271,7 @@ class BangladeshTopUpController extends Controller
 
             if (! Airtime::bangladeshTopUp()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.airtime.bangladesh_top_up_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.airtime.bangladesh_top_up_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Bangladesh Top Up']));
@@ -307,7 +307,7 @@ class BangladeshTopUpController extends Controller
 
             if (! Airtime::bangladeshTopUp()->restore($id)) {
 
-                throw (new RestoreOperationException())->setModel(config('fintech.airtime.bangladesh_top_up_model'), $id);
+                throw (new RestoreOperationException)->setModel(config('fintech.airtime.bangladesh_top_up_model'), $id);
             }
 
             return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Bangladesh Top Up']));

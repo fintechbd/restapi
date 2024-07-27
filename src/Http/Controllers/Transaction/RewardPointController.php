@@ -173,7 +173,7 @@ class RewardPointController extends Controller
 
             if (! Transaction::rewardPoint()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.transaction.reward_point_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.transaction.reward_point_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Reward Point']));
@@ -209,7 +209,7 @@ class RewardPointController extends Controller
 
             if (! Transaction::rewardPoint()->restore($id)) {
 
-                throw (new RestoreOperationException())->setModel(config('fintech.transaction.reward_point_model'), $id);
+                throw (new RestoreOperationException)->setModel(config('fintech.transaction.reward_point_model'), $id);
             }
 
             return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Reward Point']));

@@ -284,7 +284,7 @@ class WalletToAtmController extends Controller
 
             if (! Reload::walletToAtm()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.reload.wallet_to_atm_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.reload.wallet_to_atm_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Wallet To Atm']));
@@ -320,7 +320,7 @@ class WalletToAtmController extends Controller
 
             if (! Reload::walletToAtm()->restore($id)) {
 
-                throw (new RestoreOperationException())->setModel(config('fintech.reload.wallet_to_atm_model'), $id);
+                throw (new RestoreOperationException)->setModel(config('fintech.reload.wallet_to_atm_model'), $id);
             }
 
             return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Wallet To Atm']));

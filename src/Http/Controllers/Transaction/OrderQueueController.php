@@ -139,7 +139,7 @@ class OrderQueueController extends Controller
 
             if (! Transaction::orderQueue()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.transaction.order_queue_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.transaction.order_queue_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Order Queue']));

@@ -165,7 +165,7 @@ class BeneficiaryTypeController extends Controller
 
             if (! Banco::beneficiaryType()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.banco.beneficiary_type_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.banco.beneficiary_type_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Beneficiary Type']));
@@ -199,7 +199,7 @@ class BeneficiaryTypeController extends Controller
 
             if (! Banco::beneficiaryType()->restore($id)) {
 
-                throw (new RestoreOperationException())->setModel(config('fintech.banco.beneficiary_type_model'), $id);
+                throw (new RestoreOperationException)->setModel(config('fintech.banco.beneficiary_type_model'), $id);
             }
 
             return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Beneficiary Type']));

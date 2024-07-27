@@ -133,7 +133,7 @@ class UserAccountController extends Controller
 
             if (! Transaction::userAccount()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.transaction.user_account_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.transaction.user_account_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'User Account']));
@@ -169,7 +169,7 @@ class UserAccountController extends Controller
 
             if (! Transaction::userAccount()->restore($id)) {
 
-                throw (new RestoreOperationException())->setModel(config('fintech.transaction.user_account_model'), $id);
+                throw (new RestoreOperationException)->setModel(config('fintech.transaction.user_account_model'), $id);
             }
 
             return response()->restored(__('restapi::messages.resource.restored', ['model' => 'User Account']));
@@ -249,11 +249,11 @@ class UserAccountController extends Controller
             $userAccount = Transaction::userAccount()->find($id);
 
             if (! $userAccount) {
-                throw (new ModelNotFoundException())->setModel(config('fintech.transaction.user_account_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.transaction.user_account_model'), $id);
             }
 
             if (! Transaction::userAccount()->update($id, ['enabled' => ! $userAccount->enabled])) {
-                throw (new UpdateOperationException())->setModel(config('fintech.transaction.user_account_model'), $id);
+                throw (new UpdateOperationException)->setModel(config('fintech.transaction.user_account_model'), $id);
             }
 
             return response()->updated(__('metadata::messages.user_account.status_changed', ['status' => ($userAccount->enabled) ? 'Inactive' : 'Active']));

@@ -264,7 +264,7 @@ class InternationalTopUpController extends Controller
 
             if (! Airtime::internationalTopUp()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.airtime.international_top_up_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.airtime.international_top_up_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'International Top Up']));
@@ -298,7 +298,7 @@ class InternationalTopUpController extends Controller
 
             if (! Airtime::internationalTopUp()->restore($id)) {
 
-                throw (new RestoreOperationException())->setModel(config('fintech.airtime.international_top_up_model'), $id);
+                throw (new RestoreOperationException)->setModel(config('fintech.airtime.international_top_up_model'), $id);
             }
 
             return response()->restored(__('restapi::messages.resource.restored', ['model' => 'International Top Up']));

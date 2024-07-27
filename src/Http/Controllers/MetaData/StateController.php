@@ -68,7 +68,7 @@ class StateController extends Controller
             $state = MetaData::state()->create($inputs);
 
             if (! $state) {
-                throw (new StoreOperationException())->setModel(config('fintech.metadata.state_model'));
+                throw (new StoreOperationException)->setModel(config('fintech.metadata.state_model'));
             }
 
             return response()->created([
@@ -99,7 +99,7 @@ class StateController extends Controller
             $state = MetaData::state()->find($id);
 
             if (! $state) {
-                throw (new ModelNotFoundException())->setModel(config('fintech.metadata.state_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.metadata.state_model'), $id);
             }
 
             return new StateResource($state);
@@ -129,14 +129,14 @@ class StateController extends Controller
             $state = MetaData::state()->find($id);
 
             if (! $state) {
-                throw (new ModelNotFoundException())->setModel(config('fintech.metadata.state_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.metadata.state_model'), $id);
             }
 
             $inputs = $request->validated();
 
             if (! MetaData::state()->update($id, $inputs)) {
 
-                throw (new UpdateOperationException())->setModel(config('fintech.metadata.state_model'), $id);
+                throw (new UpdateOperationException)->setModel(config('fintech.metadata.state_model'), $id);
             }
 
             return response()->updated(__('restapi::messages.resource.updated', ['model' => 'State']));
@@ -169,12 +169,12 @@ class StateController extends Controller
             $state = MetaData::state()->find($id);
 
             if (! $state) {
-                throw (new ModelNotFoundException())->setModel(config('fintech.metadata.state_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.metadata.state_model'), $id);
             }
 
             if (! MetaData::state()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.metadata.state_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.metadata.state_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'State']));
@@ -205,12 +205,12 @@ class StateController extends Controller
             $state = MetaData::state()->find($id, true);
 
             if (! $state) {
-                throw (new ModelNotFoundException())->setModel(config('fintech.metadata.state_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.metadata.state_model'), $id);
             }
 
             if (! MetaData::state()->restore($id)) {
 
-                throw (new RestoreOperationException())->setModel(config('fintech.metadata.state_model'), $id);
+                throw (new RestoreOperationException)->setModel(config('fintech.metadata.state_model'), $id);
             }
 
             return response()->restored(__('restapi::messages.resource.restored', ['model' => 'State']));

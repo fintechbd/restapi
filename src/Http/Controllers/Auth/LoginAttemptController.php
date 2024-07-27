@@ -101,7 +101,7 @@ class LoginAttemptController extends Controller
 
             if (! Auth::loginAttempt()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.auth.login_attempt_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.auth.login_attempt_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Login Attempt']));
@@ -137,7 +137,7 @@ class LoginAttemptController extends Controller
 
             if (! Auth::loginAttempt()->restore($id)) {
 
-                throw (new RestoreOperationException())->setModel(config('fintech.auth.login_attempt_model'), $id);
+                throw (new RestoreOperationException)->setModel(config('fintech.auth.login_attempt_model'), $id);
             }
 
             return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Login Attempt']));

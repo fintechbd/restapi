@@ -173,7 +173,7 @@ class ServiceFieldController extends Controller
 
             if (! Business::serviceField()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.business.service_field_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.business.service_field_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Service Field']));
@@ -209,7 +209,7 @@ class ServiceFieldController extends Controller
 
             if (! Business::serviceField()->restore($id)) {
 
-                throw (new RestoreOperationException())->setModel(config('fintech.business.service_field_model'), $id);
+                throw (new RestoreOperationException)->setModel(config('fintech.business.service_field_model'), $id);
             }
 
             return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Service Field']));

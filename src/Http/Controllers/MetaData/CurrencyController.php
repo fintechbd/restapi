@@ -64,7 +64,7 @@ class CurrencyController extends Controller
             $currency = MetaData::currency()->find($id);
 
             if (! $currency) {
-                throw (new ModelNotFoundException())->setModel(config('fintech.metadata.currency_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.metadata.currency_model'), $id);
             }
 
             return new CurrencyResource($currency);
@@ -94,7 +94,7 @@ class CurrencyController extends Controller
             $currency = MetaData::currency()->find($id);
 
             if (! $currency) {
-                throw (new ModelNotFoundException())->setModel('Currency', $id);
+                throw (new ModelNotFoundException)->setModel('Currency', $id);
             }
 
             if (empty($currency->currency) || empty($currency->currency_name) || empty($currency->currency_symbol)) {
@@ -105,7 +105,7 @@ class CurrencyController extends Controller
 
             if (! MetaData::currency()->update($id, $inputs)) {
 
-                throw (new UpdateOperationException())->setModel('Currency', $id);
+                throw (new UpdateOperationException)->setModel('Currency', $id);
             }
 
             return response()->updated(__('metadata::messages.country.status_changed', ['field' => 'Currency']));
@@ -135,14 +135,14 @@ class CurrencyController extends Controller
             $currency = MetaData::currency()->find($id);
 
             if (! $currency) {
-                throw (new ModelNotFoundException())->setModel(config('fintech.metadata.currency_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.metadata.currency_model'), $id);
             }
 
             $inputs = $request->validated();
 
             if (! MetaData::currency()->update($id, $inputs)) {
 
-                throw (new UpdateOperationException())->setModel(config('fintech.metadata.currency_model'), $id);
+                throw (new UpdateOperationException)->setModel(config('fintech.metadata.currency_model'), $id);
             }
 
             return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Currency']));

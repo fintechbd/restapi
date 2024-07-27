@@ -164,7 +164,7 @@ class ServiceSettingController extends Controller
 
             if (! Business::serviceSetting()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.business.service_setting_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.business.service_setting_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Service Setting']));
@@ -198,7 +198,7 @@ class ServiceSettingController extends Controller
 
             if (! Business::serviceSetting()->restore($id)) {
 
-                throw (new RestoreOperationException())->setModel(config('fintech.business.service_setting_model'), $id);
+                throw (new RestoreOperationException)->setModel(config('fintech.business.service_setting_model'), $id);
             }
 
             return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Service Setting']));

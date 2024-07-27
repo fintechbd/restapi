@@ -26,7 +26,7 @@ class ServiceVendorServiceController extends Controller
             $serviceVendor = Business::serviceVendor()->find($id);
 
             if (! $serviceVendor) {
-                throw (new ModelNotFoundException())->setModel(config('fintech.business.service_vendor_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.business.service_vendor_model'), $id);
             }
 
             return new ServiceVendorServiceResource($serviceVendor);
@@ -54,14 +54,14 @@ class ServiceVendorServiceController extends Controller
             $serviceVendor = Business::serviceVendor()->find($id);
 
             if (! $serviceVendor) {
-                throw (new ModelNotFoundException())->setModel(config('fintech.business.service_vendor_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.business.service_vendor_model'), $id);
             }
 
             $inputs = $request->validated();
 
             if (! Business::serviceVendor()->update($id, $inputs)) {
 
-                throw (new UpdateOperationException())->setModel(config('fintech.business.service_vendor_model'), $id);
+                throw (new UpdateOperationException)->setModel(config('fintech.business.service_vendor_model'), $id);
             }
 
             return response()->updated(__('business::messages.vendor.service_assigned', ['vendor' => strtolower($serviceVendor->service_vendor_name ?? 'N/A')]));

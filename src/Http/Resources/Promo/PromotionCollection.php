@@ -33,7 +33,7 @@ class PromotionCollection extends ResourceCollection
      */
     public function with(Request $request): array
     {
-        $countries = new stdClass();
+        $countries = new stdClass;
 
         if (Core::packageExists('MetaData')) {
             $countries = MetaData::country()->list(['enabled' => true])->pluck('name', 'id')->toArray();

@@ -26,7 +26,7 @@ class CountryServiceController extends Controller
             $country = MetaData::country()->find($id);
 
             if (! $country) {
-                throw (new ModelNotFoundException())->setModel(config('fintech.metadata.country_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.metadata.country_model'), $id);
             }
 
             return new CountryServiceResource($country);
@@ -54,14 +54,14 @@ class CountryServiceController extends Controller
             $country = MetaData::country()->find($id);
 
             if (! $country) {
-                throw (new ModelNotFoundException())->setModel(config('fintech.metadata.country_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.metadata.country_model'), $id);
             }
 
             $inputs = $request->validated();
 
             if (! MetaData::country()->update($id, $inputs)) {
 
-                throw (new UpdateOperationException())->setModel(config('fintech.metadata.country_model'), $id);
+                throw (new UpdateOperationException)->setModel(config('fintech.metadata.country_model'), $id);
             }
 
             return response()->updated(__('business::messages.country.service_assigned', ['country' => strtolower($country->name ?? 'N/A')]));

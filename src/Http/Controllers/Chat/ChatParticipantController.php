@@ -173,7 +173,7 @@ class ChatParticipantController extends Controller
 
             if (! Chat::chatParticipant()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.chat.chat_participant_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.chat.chat_participant_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Chat Participant']));
@@ -209,7 +209,7 @@ class ChatParticipantController extends Controller
 
             if (! Chat::chatParticipant()->restore($id)) {
 
-                throw (new RestoreOperationException())->setModel(config('fintech.chat.chat_participant_model'), $id);
+                throw (new RestoreOperationException)->setModel(config('fintech.chat.chat_participant_model'), $id);
             }
 
             return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Chat Participant']));

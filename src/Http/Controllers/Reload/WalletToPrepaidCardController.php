@@ -173,7 +173,7 @@ class WalletToPrepaidCardController extends Controller
 
             if (! Reload::walletToPrepaidCard()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.reload.wallet_to_prepaid_card_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.reload.wallet_to_prepaid_card_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Wallet To Prepaid Card']));
@@ -209,7 +209,7 @@ class WalletToPrepaidCardController extends Controller
 
             if (! Reload::walletToPrepaidCard()->restore($id)) {
 
-                throw (new RestoreOperationException())->setModel(config('fintech.reload.wallet_to_prepaid_card_model'), $id);
+                throw (new RestoreOperationException)->setModel(config('fintech.reload.wallet_to_prepaid_card_model'), $id);
             }
 
             return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Wallet To Prepaid Card']));
