@@ -66,6 +66,11 @@ class SettingController extends Controller
 
             $inputs = $request->except('package');
 
+            return response()->success([
+                'input' => $inputs,
+                'auth' => auth()->id()
+            ]);
+
             foreach ($inputs as $key => $value) {
                 Core::setting()->setValue($configuration, $key, $value, null, auth()->id());
             }
