@@ -23,8 +23,8 @@ class SettingController extends Controller
 {
     /**
      * @lrd:start
-     * Return a listing of the configurations in key and value format.
-     * *`configuration`* value depends on  number of package configured to system
+     * Return a listing of the settings in key and value format.
+     * *`setting`* value depends on  number of package configured to system
      *
      * @lrd:end
      */

@@ -26,7 +26,7 @@ class SettingResource extends JsonResource
     {
         return [
             'options' => [
-                'package' => ['dashboard' => 'Dashboard', 'other' => 'Other', 'device' => 'Device'],
+                'package' => ['dashboard' => 'Dashboard', 'other' => 'Other', 'agent' => 'Agent'],
             ],
             'query' => $request->all(),
         ];
