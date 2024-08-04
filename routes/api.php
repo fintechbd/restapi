@@ -38,6 +38,10 @@ if (Config::get('fintech.restapi.enabled')) {
         include 'chat.php';
     }
 
+    if (Core::packageExists('Card')) {
+        include 'card.php';
+    }
+
     if (Core::packageExists('Core')) {
         include 'core.php';
     }
