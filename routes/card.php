@@ -1,9 +1,8 @@
 <?php
 
-use Fintech\Card\Models\InstantCard;
+use Fintech\RestApi\Http\Controllers\Card\InstantCardController;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
-use Fintech\RestApi\Http\Controllers\Card\InstantCardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +25,6 @@ if (Config::get('fintech.card.enabled')) {
         });
     Route::prefix('dropdown')->name('card.')->group(function () {
         Route::get('instant-cards', [InstantCardController::class, 'dropdown'])->name('users.dropdown');
-        Route::get('instant-card-statuses', [InstantCardController::class, 'statusDropdown'])->name('user-statuses.dropdown');    
+        Route::get('instant-card-statuses', [InstantCardController::class, 'statusDropdown'])->name('user-statuses.dropdown');
     });
 }

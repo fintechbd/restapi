@@ -4,17 +4,17 @@ namespace Fintech\RestApi\Http\Controllers\Card;
 
 use Exception;
 use Fintech\Card\Facades\Card;
+use Fintech\Core\Enums\Ekyc\InstantCardStatus;
 use Fintech\Core\Exceptions\DeleteOperationException;
 use Fintech\Core\Exceptions\RestoreOperationException;
-use Fintech\Core\Enums\Ekyc\InstantCardStatus;
-use Fintech\RestApi\Http\Resources\Card\InstantCardResource;
-use Fintech\RestApi\Http\Resources\Card\InstantCardCollection;
 use Fintech\RestApi\Http\Requests\Card\ImportInstantCardRequest;
 use Fintech\RestApi\Http\Requests\Card\IndexInstantCardRequest;
 use Fintech\RestApi\Http\Requests\Card\StoreInstantCardRequest;
 use Fintech\RestApi\Http\Requests\Card\UpdateInstantCardRequest;
 use Fintech\RestApi\Http\Requests\Card\UpdateInstantCardStatusRequest;
 use Fintech\RestApi\Http\Requests\Core\DropDownRequest;
+use Fintech\RestApi\Http\Resources\Card\InstantCardCollection;
+use Fintech\RestApi\Http\Resources\Card\InstantCardResource;
 use Fintech\RestApi\Http\Resources\Core\DropDownCollection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
@@ -275,11 +275,9 @@ class InstantCardController extends Controller
     /**
      * @lrd:start
      * Update a specified *InstantCard* resource status using id.
+     *
      * @lrd:end
      *
-     * @param UpdateInstantCardStatusRequest $request
-     * @param string|int $id
-     * @return JsonResponse
      * @throws ModelNotFoundException
      * @throws UpdateOperationException
      */
@@ -289,13 +287,13 @@ class InstantCardController extends Controller
 
             $instantCard = Card::instantCard()->find($id);
 
-            if (!$instantCard) {
+            if (! $instantCard) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.card.instant_card_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!Card::instantCard()->statusChange($id, $inputs)) {
+            if (! Card::instantCard()->statusChange($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.card.instant_card_model'), $id);
             }
