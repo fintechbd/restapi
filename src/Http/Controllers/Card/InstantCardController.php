@@ -4,7 +4,7 @@ namespace Fintech\RestApi\Http\Controllers\Card;
 
 use Exception;
 use Fintech\Card\Facades\Card;
-use Fintech\Core\Enums\Ekyc\InstantCardStatus;
+use Fintech\Core\Enums\Card\InstantCardStatus;
 use Fintech\Core\Exceptions\DeleteOperationException;
 use Fintech\Core\Exceptions\RestoreOperationException;
 use Fintech\RestApi\Http\Requests\Card\ImportInstantCardRequest;
