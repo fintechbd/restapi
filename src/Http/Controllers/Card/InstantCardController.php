@@ -7,12 +7,16 @@ use Fintech\Core\Exceptions\UpdateOperationException;
 use Fintech\Core\Exceptions\DeleteOperationException;
 use Fintech\Core\Exceptions\RestoreOperationException;
 use Fintech\Card\Facades\Card;
+use Fintech\Core\Enums\Ekyc\InstantCardStatus;
 use Fintech\RestApi\Http\Resources\Card\InstantCardResource;
 use Fintech\RestApi\Http\Resources\Card\InstantCardCollection;
 use Fintech\RestApi\Http\Requests\Card\ImportInstantCardRequest;
 use Fintech\RestApi\Http\Requests\Card\StoreInstantCardRequest;
 use Fintech\RestApi\Http\Requests\Card\UpdateInstantCardRequest;
+use Fintech\RestApi\Http\Requests\Card\UpdateInstantCardStatusRequest;
 use Fintech\RestApi\Http\Requests\Card\IndexInstantCardRequest;
+use Fintech\RestApi\Http\Requests\Core\DropDownRequest;
+use Fintech\RestApi\Http\Resources\Core\DropDownCollection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -276,6 +280,95 @@ class InstantCardController extends Controller
 
         } catch (Exception $exception) {
 
+            return response()->failed($exception->getMessage());
+        }
+    }
+
+    /**
+     * @lrd:start
+     * Update a specified *InstantCard* resource status using id.
+     * @lrd:end
+     *
+     * @param UpdateInstantCardStatusRequest $request
+     * @param string|int $id
+     * @return JsonResponse
+     * @throws ModelNotFoundException
+     * @throws UpdateOperationException
+     */
+    public function status(UpdateInstantCardStatusRequest $request, string|int $id): JsonResponse
+    {
+        try {
+
+            $instantCard = Card::instantCard()->find($id);
+
+            if (!$instantCard) {
+                throw (new ModelNotFoundException)->setModel(config('fintech.card.instant_card_model'), $id);
+            }
+
+            $inputs = $request->validated();
+
+            if (!Card::instantCard()->statusChange($id, $inputs)) {
+
+                throw (new UpdateOperationException)->setModel(config('fintech.card.instant_card_model'), $id);
+            }
+
+            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Instant Card']));
+
+        } catch (ModelNotFoundException $exception) {
+
+            return response()->notfound($exception->getMessage());
+
+        } catch (Exception $exception) {
+
+            return response()->failed($exception->getMessage());
+        }
+    }
+
+    public function dropdown(DropDownRequest $request): DropDownCollection|JsonResponse
+    {
+        try {
+            $filters = $request->all();
+
+            $label = 'name';
+
+            $attribute = 'id';
+
+            if (! empty($filters['label'])) {
+                $label = $filters['label'];
+                unset($filters['label']);
+            }
+
+            if (! empty($filters['attribute'])) {
+                $attribute = $filters['attribute'];
+                unset($filters['attribute']);
+            }
+
+            $entries = Card::instantCard()->list($filters)->map(function ($entry) use ($label, $attribute) {
+                return [
+                    'label' => $entry->{$label} ?? 'name',
+                    'attribute' => $entry->{$attribute} ?? 'id',
+                ];
+            });
+
+            return new DropDownCollection($entries);
+
+        } catch (Exception $exception) {
+            return response()->failed($exception->getMessage());
+        }
+    }
+
+    public function statusDropdown(DropDownRequest $request): DropDownCollection|JsonResponse
+    {
+        try {
+            $entries = collect();
+
+            foreach (InstantCardStatus::toArray() as $key => $status) {
+                $entries->push(['label' => $status, 'attribute' => $key]);
+            }
+
+            return new DropDownCollection($entries);
+
+        } catch (Exception $exception) {
             return response()->failed($exception->getMessage());
         }
     }
