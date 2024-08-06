@@ -293,7 +293,7 @@ class InstantCardController extends Controller
 
             $inputs = $request->validated();
 
-            if (! Card::instantCard()->statusChange($id, $inputs)) {
+            if (! Card::instantCard()->statusChange($instantCard, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.card.instant_card_model'), $id);
             }
