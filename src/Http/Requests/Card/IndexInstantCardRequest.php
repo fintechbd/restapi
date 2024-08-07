@@ -32,7 +32,8 @@ class IndexInstantCardRequest extends FormRequest
             'dir' => ['string', 'min:3', 'max:4'],
             'trashed' => ['boolean', 'nullable'],
             'user_id' => ['nullable', 'integer'],
-            'user_account_id' => ['nullable', 'integer']
+            'user_account_id' => ['nullable', 'integer'],
+            'status' => ['nullable'],
         ];
     }
 
