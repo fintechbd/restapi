@@ -133,10 +133,10 @@ class WalletToPrepaidCardController extends Controller
 
                 event(new DepositReceived($walletToPrepaidCard));
 
-            return response()->created([
-                'message' => __('restapi::messages.resource.created', ['model' => 'Wallet To Prepaid Card']),
-                'id' => $walletToPrepaidCard->id,
-            ]);
+                return response()->created([
+                    'message' => __('restapi::messages.resource.created', ['model' => 'Wallet To Prepaid Card']),
+                    'id' => $walletToPrepaidCard->id,
+                ]);
 
             } else {
                 throw new Exception('Your another order is in process...!');
