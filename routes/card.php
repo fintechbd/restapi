@@ -1,6 +1,6 @@
 <?php
 
-use Fintech\RestApi\Http\Controllers\Card\InstantCardController;
+use Fintech\RestApi\Http\Controllers\Card\PrepaidCardController;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
 
@@ -18,13 +18,13 @@ if (Config::get('fintech.card.enabled')) {
     Route::prefix('card')->name('card.')
         ->middleware(config('fintech.auth.middleware'))
         ->group(function () {
-            Route::post('instant-cards/{instant_card}/restore', [InstantCardController::class, 'restore'])->name('instant-cards.restore');
-            Route::post('instant-cards/{instant_card}/status', [InstantCardController::class, 'status'])->name('instant-cards.status');
-            Route::apiResource('instant-cards', InstantCardController::class);
+            Route::post('prepaid-cards/{instant_card}/restore', [PrepaidCardController::class, 'restore'])->name('prepaid-cards.restore');
+            Route::post('prepaid-cards/{instant_card}/status', [PrepaidCardController::class, 'status'])->name('prepaid-cards.status');
+            Route::apiResource('prepaid-cards', PrepaidCardController::class);
             //DO NOT REMOVE THIS LINE//
         });
     Route::prefix('dropdown')->name('card.')->group(function () {
-        Route::get('instant-cards', [InstantCardController::class, 'dropdown'])->name('users.dropdown');
-        Route::get('instant-card-statuses', [InstantCardController::class, 'statusDropdown'])->name('user-statuses.dropdown');
+        Route::get('prepaid-cards', [PrepaidCardController::class, 'dropdown'])->name('prepaid-cards.dropdown');
+        Route::get('prepaid-card-statuses', [PrepaidCardController::class, 'statusDropdown'])->name('prepaid-card-statues.dropdown');
     });
 }

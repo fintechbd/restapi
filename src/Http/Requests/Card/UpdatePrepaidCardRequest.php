@@ -4,10 +4,8 @@ namespace Fintech\RestApi\Http\Requests\Card;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class IndexInstantCardRequest extends FormRequest
+class UpdatePrepaidCardRequest extends FormRequest
 {
-    use \Fintech\RestApi\Traits\HasPaginateQuery;
-
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -24,16 +22,16 @@ class IndexInstantCardRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'search' => ['string', 'nullable', 'max:255'],
-            'per_page' => ['integer', 'nullable', 'min:10', 'max:500'],
-            'page' => ['integer', 'nullable', 'min:1'],
-            'paginate' => ['boolean'],
-            'sort' => ['string', 'nullable', 'min:2', 'max:255'],
-            'dir' => ['string', 'min:3', 'max:4'],
-            'trashed' => ['boolean', 'nullable'],
-            'user_id' => ['nullable', 'integer'],
-            'user_account_id' => ['nullable', 'integer'],
-            'status' => ['nullable'],
+            'user_id' => ['required', 'integer'],
+            'user_account_id' => ['required', 'intger'],
+            'type' => ['required', 'string'],
+            'scheme' => ['required', 'string'],
+            'name' => ['required', 'string'],
+            'note' => ['nullable', 'string'],
+            'instant_card_data' => ['array'],
+            'instant_card_data.birth_date' => ['required', 'date'],
+            'instant_card_data.phone' => ['required', 'integer'],
+            'instant_card_data.phone_country_id' => ['required', 'integer'],
         ];
     }
 

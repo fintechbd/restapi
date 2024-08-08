@@ -4,7 +4,7 @@ namespace Fintech\RestApi\Http\Requests\Card;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreInstantCardRequest extends FormRequest
+class StorePrepaidCardRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

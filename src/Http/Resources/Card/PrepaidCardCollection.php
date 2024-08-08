@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Str;
 
-class InstantCardCollection extends ResourceCollection
+class PrepaidCardCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.

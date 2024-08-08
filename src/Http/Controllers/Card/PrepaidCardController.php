@@ -4,24 +4,24 @@ namespace Fintech\RestApi\Http\Controllers\Card;
 
 use Exception;
 use Fintech\Card\Facades\Card;
-use Fintech\Core\Enums\Card\InstantCardStatus;
+use Fintech\Core\Enums\Card\PrepaidCardStatus;
 use Fintech\Core\Exceptions\DeleteOperationException;
 use Fintech\Core\Exceptions\RestoreOperationException;
-use Fintech\RestApi\Http\Requests\Card\ImportInstantCardRequest;
-use Fintech\RestApi\Http\Requests\Card\IndexInstantCardRequest;
-use Fintech\RestApi\Http\Requests\Card\StoreInstantCardRequest;
-use Fintech\RestApi\Http\Requests\Card\UpdateInstantCardRequest;
-use Fintech\RestApi\Http\Requests\Card\UpdateInstantCardStatusRequest;
+use Fintech\RestApi\Http\Requests\Card\ImportPrepaidCardRequest;
+use Fintech\RestApi\Http\Requests\Card\IndexPrepaidCardRequest;
+use Fintech\RestApi\Http\Requests\Card\StorePrepaidCardRequest;
+use Fintech\RestApi\Http\Requests\Card\UpdatePrepaidCardRequest;
+use Fintech\RestApi\Http\Requests\Card\UpdatePrepaidCardStatusRequest;
 use Fintech\RestApi\Http\Requests\Core\DropDownRequest;
-use Fintech\RestApi\Http\Resources\Card\InstantCardCollection;
-use Fintech\RestApi\Http\Resources\Card\InstantCardResource;
+use Fintech\RestApi\Http\Resources\Card\PrepaidCardCollection;
+use Fintech\RestApi\Http\Resources\Card\PrepaidCardResource;
 use Fintech\RestApi\Http\Resources\Core\DropDownCollection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 
 /**
- * Class InstantCardController
+ * Class PrepaidCardController
  *
  * @lrd:start
  * This class handle create, display, update, delete & restore
@@ -29,7 +29,7 @@ use Illuminate\Routing\Controller;
  *
  * @lrd:end
  */
-class InstantCardController extends Controller
+class PrepaidCardController extends Controller
 {
     /**
      * @lrd:start
@@ -39,14 +39,14 @@ class InstantCardController extends Controller
      *
      * @lrd:end
      */
-    public function index(IndexInstantCardRequest $request): InstantCardCollection|JsonResponse
+    public function index(IndexPrepaidCardRequest $request): PrepaidCardCollection|JsonResponse
     {
         try {
             $inputs = $request->validated();
 
             $instantCardPaginate = Card::instantCard()->list($inputs);
 
-            return new InstantCardCollection($instantCardPaginate);
+            return new PrepaidCardCollection($instantCardPaginate);
 
         } catch (Exception $exception) {
 
@@ -62,7 +62,7 @@ class InstantCardController extends Controller
      *
      * @throws StoreOperationException
      */
-    public function store(StoreInstantCardRequest $request): JsonResponse
+    public function store(StorePrepaidCardRequest $request): JsonResponse
     {
         try {
             $inputs = $request->validated();
@@ -70,7 +70,7 @@ class InstantCardController extends Controller
             $instantCard = Card::instantCard()->create($inputs);
 
             if (! $instantCard) {
-                throw (new StoreOperationException)->setModel(config('fintech.card.instant_card_model'));
+                throw (new StoreOperationException)->setModel(config('fintech.card.prepaid_card_model'));
             }
 
             return response()->created([
@@ -92,17 +92,17 @@ class InstantCardController extends Controller
      *
      * @throws ModelNotFoundException
      */
-    public function show(string|int $id): InstantCardResource|JsonResponse
+    public function show(string|int $id): PrepaidCardResource|JsonResponse
     {
         try {
 
             $instantCard = Card::instantCard()->find($id);
 
             if (! $instantCard) {
-                throw (new ModelNotFoundException)->setModel(config('fintech.card.instant_card_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.card.prepaid_card_model'), $id);
             }
 
-            return new InstantCardResource($instantCard);
+            return new PrepaidCardResource($instantCard);
 
         } catch (ModelNotFoundException $exception) {
 
@@ -123,21 +123,21 @@ class InstantCardController extends Controller
      * @throws ModelNotFoundException
      * @throws UpdateOperationException
      */
-    public function update(UpdateInstantCardRequest $request, string|int $id): JsonResponse
+    public function update(UpdatePrepaidCardRequest $request, string|int $id): JsonResponse
     {
         try {
 
             $instantCard = Card::instantCard()->find($id);
 
             if (! $instantCard) {
-                throw (new ModelNotFoundException)->setModel(config('fintech.card.instant_card_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.card.prepaid_card_model'), $id);
             }
 
             $inputs = $request->validated();
 
             if (! Card::instantCard()->update($id, $inputs)) {
 
-                throw (new UpdateOperationException)->setModel(config('fintech.card.instant_card_model'), $id);
+                throw (new UpdateOperationException)->setModel(config('fintech.card.prepaid_card_model'), $id);
             }
 
             return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Instant Card']));
@@ -170,12 +170,12 @@ class InstantCardController extends Controller
             $instantCard = Card::instantCard()->find($id);
 
             if (! $instantCard) {
-                throw (new ModelNotFoundException)->setModel(config('fintech.card.instant_card_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.card.prepaid_card_model'), $id);
             }
 
             if (! Card::instantCard()->destroy($id)) {
 
-                throw (new DeleteOperationException)->setModel(config('fintech.card.instant_card_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.card.prepaid_card_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Instant Card']));
@@ -206,12 +206,12 @@ class InstantCardController extends Controller
             $instantCard = Card::instantCard()->find($id, true);
 
             if (! $instantCard) {
-                throw (new ModelNotFoundException)->setModel(config('fintech.card.instant_card_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.card.prepaid_card_model'), $id);
             }
 
             if (! Card::instantCard()->restore($id)) {
 
-                throw (new RestoreOperationException)->setModel(config('fintech.card.instant_card_model'), $id);
+                throw (new RestoreOperationException)->setModel(config('fintech.card.prepaid_card_model'), $id);
             }
 
             return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Instant Card']));
@@ -233,7 +233,7 @@ class InstantCardController extends Controller
      *
      * @lrd:end
      */
-    public function export(IndexInstantCardRequest $request): JsonResponse
+    public function export(IndexPrepaidCardRequest $request): JsonResponse
     {
         try {
             $inputs = $request->validated();
@@ -255,16 +255,16 @@ class InstantCardController extends Controller
      *
      * @lrd:end
      *
-     * @return InstantCardCollection|JsonResponse
+     * @return PrepaidCardCollection|JsonResponse
      */
-    public function import(ImportInstantCardRequest $request): JsonResponse
+    public function import(ImportPrepaidCardRequest $request): JsonResponse
     {
         try {
             $inputs = $request->validated();
 
             $instantCardPaginate = Card::instantCard()->list($inputs);
 
-            return new InstantCardCollection($instantCardPaginate);
+            return new PrepaidCardCollection($instantCardPaginate);
 
         } catch (Exception $exception) {
 
@@ -281,21 +281,21 @@ class InstantCardController extends Controller
      * @throws ModelNotFoundException
      * @throws UpdateOperationException
      */
-    public function status(UpdateInstantCardStatusRequest $request, string|int $id): JsonResponse
+    public function status(UpdatePrepaidCardStatusRequest $request, string|int $id): JsonResponse
     {
         try {
 
             $instantCard = Card::instantCard()->find($id);
 
             if (! $instantCard) {
-                throw (new ModelNotFoundException)->setModel(config('fintech.card.instant_card_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.card.prepaid_card_model'), $id);
             }
 
             $inputs = $request->validated();
 
             if (! Card::instantCard()->statusChange($instantCard, $inputs)) {
 
-                throw (new UpdateOperationException)->setModel(config('fintech.card.instant_card_model'), $id);
+                throw (new UpdateOperationException)->setModel(config('fintech.card.prepaid_card_model'), $id);
             }
 
             return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Instant Card']));
@@ -348,7 +348,7 @@ class InstantCardController extends Controller
         try {
             $entries = collect();
 
-            foreach (InstantCardStatus::toArray() as $key => $status) {
+            foreach (PrepaidCardStatus::toArray() as $key => $status) {
                 $entries->push(['label' => $status, 'attribute' => $key]);
             }
 
