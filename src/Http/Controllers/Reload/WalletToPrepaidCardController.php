@@ -3,10 +3,16 @@
 namespace Fintech\RestApi\Http\Controllers\Reload;
 
 use Exception;
+use Fintech\Auth\Facades\Auth;
+use Fintech\Core\Enums\Auth\RiskProfile;
+use Fintech\Core\Enums\Auth\SystemRole;
+use Fintech\Core\Enums\Reload\DepositStatus;
+use Fintech\Core\Enums\Transaction\OrderStatusConfig;
 use Fintech\Core\Exceptions\DeleteOperationException;
 use Fintech\Core\Exceptions\RestoreOperationException;
 use Fintech\Core\Exceptions\StoreOperationException;
 use Fintech\Core\Exceptions\UpdateOperationException;
+use Fintech\Reload\Events\DepositReceived;
 use Fintech\Reload\Facades\Reload;
 use Fintech\RestApi\Http\Requests\Reload\ImportWalletToPrepaidCardRequest;
 use Fintech\RestApi\Http\Requests\Reload\IndexWalletToPrepaidCardRequest;
@@ -14,6 +20,7 @@ use Fintech\RestApi\Http\Requests\Reload\StoreWalletToPrepaidCardRequest;
 use Fintech\RestApi\Http\Requests\Reload\UpdateWalletToPrepaidCardRequest;
 use Fintech\RestApi\Http\Resources\Reload\WalletToPrepaidCardCollection;
 use Fintech\RestApi\Http\Resources\Reload\WalletToPrepaidCardResource;
+use Fintech\Transaction\Facades\Transaction;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -65,18 +72,79 @@ class WalletToPrepaidCardController extends Controller
         try {
             $inputs = $request->validated();
 
-            $walletToPrepaidCard = Reload::walletToPrepaidCard()->create($inputs);
-
-            if (! $walletToPrepaidCard) {
-                throw (new StoreOperationException)->setModel(config('fintech.reload.wallet_to_prepaid_card_model'));
+            if (isset($inputs['user_id']) && $request->input('user_id') > 0) {
+                $user_id = $request->input('user_id');
             }
+            $depositor = $request->user('sanctum');
+
+            if (Transaction::orderQueue()->addToQueueUserWise(($user_id ?? $depositor->getKey())) > 0) {
+
+                $depositAccount = Transaction::userAccount()->list([
+                    'user_id' => $user_id ?? $depositor->getKey(),
+                    'country_id' => $request->input('source_country_id', $depositor->profile?->country_id),
+                ])->first();
+
+                if (! $depositAccount) {
+                    throw new Exception("User don't have account deposit balance");
+                }
+
+                $masterUser = Auth::user()->list([
+                    'role_name' => SystemRole::MasterUser->value,
+                    'country_id' => $request->input('source_country_id', $depositor->profile?->country_id),
+                ])->first();
+
+                if (! $masterUser) {
+                    throw new Exception('Master User Account not found for '.$request->input('source_country_id', $depositor->profile?->country_id).' country');
+                }
+
+                //set pre defined conditions of deposit
+                $inputs['transaction_form_id'] = Transaction::transactionForm()->list(['code' => 'point_reload'])->first()->getKey();
+                $inputs['user_id'] = $user_id ?? $depositor->getKey();
+                $delayCheck = Transaction::order()->transactionDelayCheck($inputs);
+                if ($delayCheck['countValue'] > 0) {
+                    throw new Exception('Your Request For This Amount Is Already Submitted. Please Wait For Update');
+                }
+                $inputs['sender_receiver_id'] = $masterUser->getKey();
+                $inputs['is_refunded'] = false;
+                $inputs['status'] = DepositStatus::Processing->value;
+                $inputs['risk'] = RiskProfile::Low->value;
+                $inputs['order_data']['created_by'] = $depositor->name;
+                $inputs['order_data']['created_by_mobile_number'] = $depositor->mobile;
+                $inputs['order_data']['created_at'] = now();
+                $inputs['order_data']['current_amount'] = ($depositAccount->user_account_data['available_amount'] ?? 0) + $inputs['amount'];
+                $inputs['order_data']['previous_amount'] = $depositAccount->user_account_data['available_amount'] ?? 0;
+                $inputs['converted_amount'] = $inputs['amount'];
+                $inputs['converted_currency'] = $inputs['currency'];
+                $inputs['order_data']['master_user_name'] = $masterUser['name'];
+                unset($inputs['pin'], $inputs['password']);
+
+                $walletToPrepaidCard = Reload::deposit()->create($inputs);
+
+                if (! $walletToPrepaidCard) {
+                    throw (new StoreOperationException)->setModel(config('fintech.reload.wallet_to_prepaid_card_model'));
+                }
+
+                $order_data = $walletToPrepaidCard->order_data;
+                $order_data['purchase_number'] = entry_number($walletToPrepaidCard->getKey(), $walletToPrepaidCard->sourceCountry->iso3, OrderStatusConfig::Purchased->value);
+
+                Reload::deposit()->update($walletToPrepaidCard->getKey(), ['order_data' => $order_data, 'order_number' => $order_data['purchase_number']]);
+
+                Transaction::orderQueue()->removeFromQueueUserWise($user_id);
+
+                event(new DepositReceived($walletToPrepaidCard));
 
             return response()->created([
                 'message' => __('restapi::messages.resource.created', ['model' => 'Wallet To Prepaid Card']),
                 'id' => $walletToPrepaidCard->id,
             ]);
 
+            } else {
+                throw new Exception('Your another order is in process...!');
+            }
+
         } catch (Exception $exception) {
+
+            Transaction::orderQueue()->removeFromQueueUserWise($user_id);
 
             return response()->failed($exception->getMessage());
         }
