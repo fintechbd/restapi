@@ -118,7 +118,7 @@ class WalletToPrepaidCardController extends Controller
                 $inputs['order_data']['master_user_name'] = $masterUser['name'];
                 unset($inputs['pin'], $inputs['password']);
 
-                $walletToPrepaidCard = Reload::deposit()->create($inputs);
+                $walletToPrepaidCard = Reload::walletToPrepaidCard()->create($inputs);
 
                 if (! $walletToPrepaidCard) {
                     throw (new StoreOperationException)->setModel(config('fintech.reload.wallet_to_prepaid_card_model'));
@@ -127,7 +127,7 @@ class WalletToPrepaidCardController extends Controller
                 $order_data = $walletToPrepaidCard->order_data;
                 $order_data['purchase_number'] = entry_number($walletToPrepaidCard->getKey(), $walletToPrepaidCard->sourceCountry->iso3, OrderStatusConfig::Purchased->value);
 
-                Reload::deposit()->update($walletToPrepaidCard->getKey(), ['order_data' => $order_data, 'order_number' => $order_data['purchase_number']]);
+                Reload::walletToPrepaidCard()->update($walletToPrepaidCard->getKey(), ['order_data' => $order_data, 'order_number' => $order_data['purchase_number']]);
 
                 Transaction::orderQueue()->removeFromQueueUserWise($user_id);
 
