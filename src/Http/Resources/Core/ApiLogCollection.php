@@ -30,8 +30,7 @@ class ApiLogCollection extends ResourceCollection
                 'status_text' => $apiLog->status_text,
                 'user_agent' => $apiLog->user_agent,
                 'created_at' => $apiLog->created_at,
-                'links' => $apiLog->links,
-            ];
+                ];
         })->toArray();
     }
 

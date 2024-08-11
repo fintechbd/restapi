@@ -51,7 +51,6 @@ class ServiceStatCollection extends ResourceCollection
                 'destination_country' => $serviceStat->destinationCountry->name ?? null,
                 'service_stat_data' => $serviceStat->service_stat_data ?? null,
                 'enabled' => $serviceStat->enabled ?? null,
-                'links' => $serviceStat->links,
                 'created_at' => $serviceStat->created_at,
                 'updated_at' => $serviceStat->updated_at,
             ];

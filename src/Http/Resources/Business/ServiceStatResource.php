@@ -46,7 +46,6 @@ class ServiceStatResource extends JsonResource
             'destination_country' => $this->destinationCountry->name ?? null,
             'service_stat_data' => $this->service_stat_data ?? null,
             'enabled' => $this->enabled ?? null,
-            'links' => $this->links,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

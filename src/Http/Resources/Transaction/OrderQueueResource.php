@@ -22,7 +22,6 @@ class OrderQueueResource extends JsonResource
             'user_name' => null,
             'order_id' => $this->order_id,
             'order_name' => $this->order->name,
-            'links' => $this->links,
             'created_at' => $this->created_at,
         ];
 

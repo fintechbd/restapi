@@ -49,7 +49,6 @@ class BankResource extends JsonResource
             'logo_png' => $this->getFirstMediaUrl('logo_png') ?? null,
             'logo_svg' => $this->getFirstMediaUrl('logo_svg') ?? null,
             'enabled' => $this->enabled ?? null,
-            'links' => $this->links,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

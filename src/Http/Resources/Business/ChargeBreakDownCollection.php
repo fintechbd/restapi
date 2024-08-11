@@ -29,7 +29,6 @@ class ChargeBreakDownCollection extends ResourceCollection
                 'charge_break_down_discount' => $chargeBreakDown->charge_break_down_discount,
                 'charge_break_down_commission' => $chargeBreakDown->charge_break_down_commission,
                 'enabled' => $chargeBreakDown->enabled,
-                'links' => $chargeBreakDown->links,
                 'created_at' => $chargeBreakDown->created_at,
                 'updated_at' => $chargeBreakDown->updated_at,
             ];

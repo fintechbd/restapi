@@ -38,7 +38,6 @@ class LoginAttemptCollection extends ResourceCollection
                 'status' => $attempt->status ?? null,
                 'note' => $attempt->note ?? null,
                 'login_attempt_data' => $attempt->login_attempt_data ?? null,
-                'links' => $attempt->links,
                 'created_at' => $attempt->created_at,
                 'updated_at' => $attempt->updated_at,
             ];

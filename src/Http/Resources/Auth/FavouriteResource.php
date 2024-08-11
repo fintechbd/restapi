@@ -26,7 +26,6 @@ class FavouriteResource extends JsonResource
             'name' => $this->name ?? null,
             'status' => $this->status ?? null,
             'favourite_data' => $this->favourite_data,
-            'links' => $this->links,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

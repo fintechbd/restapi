@@ -57,7 +57,6 @@ class BeneficiaryResource extends JsonResource
             'beneficiary_address' => $this->beneficiary_address ?? null,
             'beneficiary_data' => $this->beneficiary_data ?? null,
             'enabled' => $this->enabled ?? null,
-            'links' => $this->links,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

@@ -26,7 +26,6 @@ class TriggerVariableCollection extends ResourceCollection
                 'description' => $variable->description ?? null,
                 'trigger_variable_data' => $variable->trigger_variable_data ?? null,
                 'enabled' => $variable->enabled ?? null,
-                'links' => $variable->links,
                 'created_at' => $variable->created_at,
                 'updated_at' => $variable->updated_at,
             ];

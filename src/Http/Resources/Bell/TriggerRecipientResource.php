@@ -23,7 +23,6 @@ class TriggerRecipientResource extends JsonResource
             'description' => $this->description ?? null,
             'trigger_recipient_data' => $this->trigger_recipient_data ?? null,
             'enabled' => $this->enabled ?? null,
-            'links' => $this->links,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

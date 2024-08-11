@@ -27,7 +27,6 @@ class CurrencyRateResource extends JsonResource
             'rate' => $this->rate,
             'is_default' => $this->is_default,
             'currency_rate_data' => $this->currency_rate_data,
-            'links' => $this->links,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

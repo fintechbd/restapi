@@ -59,8 +59,7 @@ class RelationCollection extends ResourceCollection
                 'updated_at' => $item->updated_at,
                 'deleted_at' => $item->deleted_at,
                 'restored_at' => $item->restored_at,
-                'links' => $links,
-            ];
+                ];
         })->toArray();
     }
 }

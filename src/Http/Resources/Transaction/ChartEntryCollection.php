@@ -24,7 +24,6 @@ class ChartEntryCollection extends ResourceCollection
                 'chart_type_id' => $chart_entry->chart_type_id,
                 'chart_type_name' => $chart_entry->chartType?->name ?? null,
                 'chart_type_data' => $chart_entry->chart_entry_data,
-                'links' => $chart_entry->links,
                 'created_at' => $chart_entry->created_at,
                 'updated_at' => $chart_entry->updated_at,
             ];

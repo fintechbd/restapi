@@ -26,7 +26,6 @@ class TriggerActionResource extends JsonResource
             'extra_recipients' => $this->extra_recipients ?? null,
             'trigger_action_data' => $this->trigger_action_data ?? null,
             'enabled' => $this->enabled ?? null,
-            'links' => $this->links,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

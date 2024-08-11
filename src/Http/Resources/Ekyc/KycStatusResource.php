@@ -30,7 +30,6 @@ class KycStatusResource extends JsonResource
             'request' => $this->request ?? [],
             'response' => $this->response ?? [],
             'key_status_data' => $this->key_status_data ?? [],
-            'links' => $this->links,
             'created_at' => $this->created_at ?? null,
             'updated_at' => $this->updated_at ?? null,
             'deleted_at' => $this->deleted_at ?? null,

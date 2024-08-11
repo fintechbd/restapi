@@ -28,7 +28,6 @@ class TriggerActionCollection extends ResourceCollection
                 'extra_recipients' => $action->extra_recipients ?? null,
                 'trigger_action_data' => $action->trigger_action_data ?? null,
                 'enabled' => $action->enabled ?? null,
-                'links' => $action->links,
                 'created_at' => $action->created_at,
                 'updated_at' => $action->updated_at,
             ];

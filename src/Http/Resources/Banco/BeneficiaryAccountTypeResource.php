@@ -22,7 +22,6 @@ class BeneficiaryAccountTypeResource extends JsonResource
             'country_name' => $this->bank->country->name ?? null,
             'enabled' => $this->enabled ?? null,
             'beneficiary_account_types_data' => $this->beneficiary_account_types_data ?? null,
-            'links' => $this->links,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

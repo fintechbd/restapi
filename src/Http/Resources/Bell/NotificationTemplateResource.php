@@ -24,7 +24,6 @@ class NotificationTemplateResource extends JsonResource
             'content' => $this->content ?? null,
             'notification_template_data' => $this->notification_template_data ?? null,
             'enabled' => $this->enabled ?? null,
-            'links' => $this->links,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

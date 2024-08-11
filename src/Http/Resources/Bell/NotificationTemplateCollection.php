@@ -26,7 +26,6 @@ class NotificationTemplateCollection extends ResourceCollection
                 'content' => $template->content ?? null,
                 'notification_template_data' => $template->notification_template_data ?? null,
                 'enabled' => $template->enabled ?? null,
-                'links' => $template->links,
                 'created_at' => $template->created_at,
                 'updated_at' => $template->updated_at,
             ];

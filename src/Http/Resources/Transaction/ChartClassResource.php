@@ -20,7 +20,6 @@ class ChartClassResource extends JsonResource
             'code' => $this->code,
             'name' => $this->name,
             'chart_class_data' => $this->chart_class_data,
-            'links' => $this->links,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

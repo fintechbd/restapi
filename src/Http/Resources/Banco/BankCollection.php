@@ -48,7 +48,6 @@ class BankCollection extends ResourceCollection
                 'logo_png' => $bank->getFirstMediaUrl('logo_png') ?? null,
                 'logo_svg' => $bank->getFirstMediaUrl('logo_svg') ?? null,
                 'enabled' => $bank->enabled ?? null,
-                'links' => $bank->links,
                 'created_at' => $bank->created_at,
                 'updated_at' => $bank->updated_at,
             ];

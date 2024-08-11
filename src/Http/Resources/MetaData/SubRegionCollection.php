@@ -29,8 +29,7 @@ class SubRegionCollection extends ResourceCollection
                 'updated_at' => $subregion->updated_at,
                 'deleted_at' => $subregion->deleted_at,
                 'restored_at' => $subregion->restored_at,
-                'links' => $subregion->links,
-            ];
+                ];
 
         })->toArray();
     }

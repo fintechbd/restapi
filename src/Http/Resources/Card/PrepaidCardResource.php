@@ -39,7 +39,6 @@ class PrepaidCardResource extends JsonResource
             'issued_date_label' => Carbon::parse($this->issued_at)->format('m/y'),
             'expired_date_label' => Carbon::parse($this->expired_at)->format('m/y'),
             'status' => $this->status,
-            'links' => $this->links,
             'issued_at' => $this->issued_at,
             'expired_at' => $this->expired_at,
             'created_at' => $this->created_at,

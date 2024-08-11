@@ -36,7 +36,6 @@ class ServiceSettingResource extends JsonResource
             'service_setting_feature' => $this->service_setting_feature ?? null,
             'service_setting_rule' => $this->service_setting_rule ?? null,
             'enabled' => $this->enabled ?? null,
-            'links' => $this->links,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

@@ -47,7 +47,6 @@ class FavouriteCollection extends ResourceCollection
                 'name' => $favourite->name ?? null,
                 'status' => $favourite->status ?? null,
                 'favourite_data' => $favourite->favourite_data,
-                'links' => $favourite->links,
                 'created_at' => $favourite->created_at,
                 'updated_at' => $favourite->updated_at,
             ];

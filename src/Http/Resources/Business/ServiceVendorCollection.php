@@ -37,7 +37,6 @@ class ServiceVendorCollection extends ResourceCollection
                 'service_vendor_logo_svg' => $vendor->getFirstMediaUrl('logo_svg') ?? null,
                 'service_vendor_logo_png' => $vendor->getFirstMediaUrl('logo_png') ?? null,
                 'enabled' => $vendor->enabled ?? null,
-                'links' => $vendor->links,
                 'created_at' => $vendor->created_at,
                 'updated_at' => $vendor->updated_at,
             ];

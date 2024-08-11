@@ -25,7 +25,6 @@ class TriggerRecipientCollection extends ResourceCollection
                 'description' => $recipient->description ?? null,
                 'trigger_recipient_data' => $recipient->trigger_recipient_data ?? null,
                 'enabled' => $recipient->enabled ?? null,
-                'links' => $recipient->links,
                 'created_at' => $recipient->created_at,
                 'updated_at' => $recipient->updated_at,
             ];

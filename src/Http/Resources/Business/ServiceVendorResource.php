@@ -35,7 +35,6 @@ class ServiceVendorResource extends JsonResource
             'service_vendor_logo_svg' => $this->getFirstMediaUrl('logo_svg') ?? null,
             'service_vendor_logo_png' => $this->getFirstMediaUrl('logo_png') ?? null,
             'enabled' => $this->enabled ?? null,
-            'links' => $this->links,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

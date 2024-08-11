@@ -26,7 +26,6 @@ class ServicePackageCollection extends ResourceCollection
                 'rate' => $servicePackage->rate ?? null,
                 'service_package_data' => $servicePackage->service_package_data ?? null,
                 'enabled' => $servicePackage->enabled ?? null,
-                'links' => $servicePackage->links,
                 'created_at' => $servicePackage->created_at,
                 'updated_at' => $servicePackage->updated_at,
             ];

@@ -22,7 +22,6 @@ class ChartClassCollection extends ResourceCollection
                 'code' => $chart_class->code,
                 'name' => $chart_class->name,
                 'chart_class_data' => $chart_class->chart_class_data,
-                'links' => $chart_class->links,
                 'created_at' => $chart_class->created_at,
                 'updated_at' => $chart_class->updated_at,
             ];

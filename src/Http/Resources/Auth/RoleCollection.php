@@ -28,8 +28,7 @@ class RoleCollection extends ResourceCollection
                 'updated_at' => $role->updated_at,
                 'deleted_at' => $role->deleted_at,
                 'restored_at' => $role->restored_at,
-                'links' => $role->links,
-            ];
+                ];
 
             if (! $role->permissions->isEmpty()) {
                 foreach ($role->permissions as $permission) {

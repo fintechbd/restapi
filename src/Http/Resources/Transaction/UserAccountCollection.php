@@ -35,7 +35,6 @@ class UserAccountCollection extends ResourceCollection
                 'available_amount' => $user_account->user_account_data['available_amount'] ?? 0,
                 'spent_amount' => $user_account->user_account_data['spent_amount'] ?? 0,
                 'enabled' => $user_account->enabled,
-                'links' => $user_account->links,
                 'created_at' => $user_account->created_at,
                 'updated_at' => $user_account->updated_at,
             ];

@@ -30,7 +30,6 @@ class ApiLogResource extends JsonResource
             'response' => $this->response,
             'user_agent' => $this->user_agent,
             'created_at' => $this->created_at,
-            'links' => $this->links,
-        ];
+            ];
     }
 }

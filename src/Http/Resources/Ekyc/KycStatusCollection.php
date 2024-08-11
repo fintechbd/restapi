@@ -32,7 +32,6 @@ class KycStatusCollection extends ResourceCollection
                 'request' => $kycStatus->request ?? [],
                 'response' => $kycStatus->response ?? [],
                 'key_status_data' => $kycStatus->key_status_data ?? [],
-                'links' => $kycStatus->links,
                 'created_at' => $this->created_at ?? null,
                 'updated_at' => $this->updated_at ?? null,
                 'deleted_at' => $this->deleted_at ?? null,

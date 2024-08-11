@@ -61,7 +61,6 @@ class UserResource extends JsonResource
                 ? $this->userAccounts->pluck('user_account_data')->toArray()
                 : [],
             'profile_data' => [],
-            'links' => $this->links,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

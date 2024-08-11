@@ -52,7 +52,6 @@ class ServiceCollection extends ResourceCollection
                 'service_logo_svg' => $service->getFirstMediaUrl('logo_svg') ?? null,
                 'service_logo_png' => $service->getFirstMediaUrl('logo_png') ?? null,
                 'enabled' => $service->enabled ?? null,
-                'links' => $service->links,
                 'created_at' => $service->created_at,
                 'updated_at' => $service->updated_at,
             ];

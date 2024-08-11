@@ -58,7 +58,6 @@ class BeneficiaryCollection extends ResourceCollection
                 'beneficiary_address' => $beneficiary->beneficiary_address ?? null,
                 'beneficiary_data' => $beneficiary->beneficiary_data ?? null,
                 'enabled' => $beneficiary->enabled ?? null,
-                'links' => $beneficiary->links,
                 'created_at' => $beneficiary->created_at,
                 'updated_at' => $beneficiary->updated_at,
             ];

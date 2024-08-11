@@ -24,7 +24,6 @@ class OrderQueueCollection extends ResourceCollection
                 'user_name' => null,
                 'order_id' => $order_queue->order_id,
                 'order_name' => $order_queue?->order?->name ?? null,
-                'links' => $order_queue->links,
                 'created_at' => $order_queue->created_at,
             ];
 

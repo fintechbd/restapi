@@ -63,7 +63,6 @@ class UserCollection extends ResourceCollection
                 'currency' => $user->currency ?? null,
                 'app_version' => $user->app_version ?? null,
                 'roles' => ($user->roles) ? $user->roles->toArray() : [],
-                'links' => $user->links,
                 'created_at' => $user->created_at,
                 'updated_at' => $user->updated_at,
             ];

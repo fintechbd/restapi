@@ -44,7 +44,6 @@ class ServiceTypeResource extends JsonResource
             'service_type_log_svg' => $this->getFirstMediaUrl('logo_svg') ?? null,
             'service_type_log_png' => $this->getFirstMediaUrl('logo_png') ?? null,
             'enabled' => $this->enabled ?? null,
-            'links' => $this->links,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

@@ -24,7 +24,6 @@ class ChartTypeCollection extends ResourceCollection
                 'chart_class_id' => $chart_type->chart_class_id,
                 'chart_class_name' => $chart_type->chartClass?->name ?? null,
                 'chart_type_data' => $chart_type->chart_type_data,
-                'links' => $chart_type->links,
                 'created_at' => $chart_type->created_at,
                 'updated_at' => $chart_type->updated_at,
             ];

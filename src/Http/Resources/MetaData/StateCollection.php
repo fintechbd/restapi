@@ -31,8 +31,7 @@ class StateCollection extends ResourceCollection
                 'updated_at' => $state->updated_at,
                 'deleted_at' => $state->deleted_at,
                 'restored_at' => $state->restored_at,
-                'links' => $state->links,
-            ];
+                ];
         })->toArray();
     }
 

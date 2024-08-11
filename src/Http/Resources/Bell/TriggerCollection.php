@@ -27,7 +27,6 @@ class TriggerCollection extends ResourceCollection
                 'variables' => [],
                 'recipients' => [],
                 'templates' => [],
-                'links' => $trigger->links,
                 'created_at' => $trigger->created_at,
                 'updated_at' => $trigger->updated_at,
             ];

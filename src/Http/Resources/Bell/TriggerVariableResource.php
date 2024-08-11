@@ -24,7 +24,6 @@ class TriggerVariableResource extends JsonResource
             'description' => $this->description ?? null,
             'trigger_variable_data' => $this->trigger_variable_data ?? null,
             'enabled' => $this->enabled ?? null,
-            'links' => $this->links,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

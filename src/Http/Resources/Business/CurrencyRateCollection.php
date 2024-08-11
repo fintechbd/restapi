@@ -57,7 +57,6 @@ class CurrencyRateCollection extends ResourceCollection
                 'rate' => $currencyRate->rate,
                 'is_default' => $currencyRate->is_default,
                 'currency_rate_data' => $currencyRate->currency_rate_data,
-                'links' => $currencyRate->links,
                 'created_at' => $currencyRate->created_at,
                 'updated_at' => $currencyRate->updated_at,
             ];

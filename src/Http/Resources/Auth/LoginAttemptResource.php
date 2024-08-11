@@ -35,7 +35,6 @@ class LoginAttemptResource extends JsonResource
             'status' => $this->status ?? null,
             'note' => $this->note ?? null,
             'login_attempt_data' => $this->login_attempt_data ?? null,
-            'links' => $this->links,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

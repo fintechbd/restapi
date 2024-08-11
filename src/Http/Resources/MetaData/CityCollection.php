@@ -33,8 +33,7 @@ class CityCollection extends ResourceCollection
                 'updated_at' => $city->updated_at,
                 'deleted_at' => $city->deleted_at,
                 'restored_at' => $city->restored_at,
-                'links' => $city->links,
-            ];
+                ];
         })->toArray();
     }
 

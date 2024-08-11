@@ -43,7 +43,6 @@ class PrepaidCardCollection extends ResourceCollection
                 'issued_date_label' => Carbon::parse($instantCard->issued_at)->format('m/y'),
                 'expired_date_label' => Carbon::parse($instantCard->expired_at)->format('m/y'),
                 'status' => $instantCard->status,
-                'links' => $instantCard->links,
                 'issued_at' => $instantCard->issued_at,
                 'expired_at' => $instantCard->expired_at,
                 'updated_at' => $instantCard->updated_at,

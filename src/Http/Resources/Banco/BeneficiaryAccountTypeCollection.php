@@ -25,7 +25,6 @@ class BeneficiaryAccountTypeCollection extends ResourceCollection
                 'country_name' => $accountType->bank->country->name ?? null,
                 'enabled' => $accountType->enabled ?? null,
                 'beneficiary_account_types_data' => $accountType->beneficiary_account_types_data ?? null,
-                'links' => $accountType->links,
                 'created_at' => $accountType->created_at,
                 'updated_at' => $accountType->updated_at,
             ];

@@ -24,7 +24,6 @@ class ServicePackageResource extends JsonResource
             'rate' => $this->rate ?? null,
             'service_package_data' => $this->service_package_data ?? null,
             'enabled' => $this->enabled ?? null,
-            'links' => $this->links,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
