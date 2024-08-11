@@ -23,7 +23,7 @@ class TeamCollection extends ResourceCollection
                 'roles' => [],
                 'created_at' => $team->created_at,
                 'updated_at' => $team->updated_at,
-                ];
+            ];
 
             if (! $team->roles->isEmpty()) {
                 foreach ($team->roles as $role) {

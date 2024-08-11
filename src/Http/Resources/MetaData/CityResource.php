@@ -31,6 +31,6 @@ class CityResource extends JsonResource
             'updated_at' => $this->updated_at,
             'deleted_at' => $this->deleted_at,
             'restored_at' => $this->restored_at,
-            ];
+        ];
     }
 }
