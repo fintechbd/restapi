@@ -21,7 +21,7 @@ if (Config::get('fintech.promo.enabled')) {
 
             Route::get('promotions/promotion-types', [PromotionController::class, 'types'])->name('promotions.promotion-types');
             Route::apiResource('promotions', PromotionController::class);
-            Route::post('promotions/{promotion}/restore', [PromotionController::class, 'restore'])->name('promotions.restore');
+//            Route::post('promotions/{promotion}/restore', [PromotionController::class, 'restore'])->name('promotions.restore');
 
             //DO NOT REMOVE THIS LINE//
         });

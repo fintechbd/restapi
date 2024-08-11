@@ -28,31 +28,39 @@ if (Config::get('fintech.metadata.enabled')) {
         ->middleware(config('fintech.auth.middleware'))
         ->group(function () {
             Route::apiResource('regions', RegionController::class);
-            Route::post('regions/{region}/restore', [RegionController::class, 'restore'])->name('regions.restore');
+//             Route::post('regions/{region}/restore', [RegionController::class, 'restore'])->name('regions.restore');
 
             Route::apiResource('subregions', SubRegionController::class);
-            Route::post('subregions/{subregion}/restore', [SubRegionController::class, 'restore'])->name('subregions.restore');
+//             Route::post('subregions/{subregion}/restore', [SubRegionController::class, 'restore'])->name('subregions.restore');
 
             Route::apiResource('countries', CountryController::class);
-            Route::post('countries/{country}/restore', [CountryController::class, 'restore'])->name('countries.restore');
-            Route::get('countries/{country}/toggle-serving', [CountryController::class, 'toggleServingCountry'])->name('countries.toggle-serving');
+//             Route::post('countries/{country}/restore', [CountryController::class, 'restore'])->name('countries.restore');
+            Route::get('countries/{country}/toggle-serving', [CountryController::class, 'toggleServingCountry'])
+                ->name('countries.toggle-serving');
 
             Route::apiResource('states', StateController::class);
-            Route::post('states/{state}/restore', [StateController::class, 'restore'])->name('states.restore');
+//             Route::post('states/{state}/restore', [StateController::class, 'restore'])->name('states.restore');
 
             Route::apiResource('cities', CityController::class);
-            Route::post('cities/{city}/restore', [CityController::class, 'restore'])->name('cities.restore');
+//             Route::post('cities/{city}/restore', [CityController::class, 'restore'])->name('cities.restore');
 
-            Route::apiResource('languages', LanguageController::class)->only(['index', 'update', 'show']);
-            Route::get('languages/{language}/toggle', [LanguageController::class, 'toggle'])->name('languages.toggle');
+            Route::apiResource('languages', LanguageController::class)
+                ->only(['index', 'update', 'show']);
+
+            Route::get('languages/{language}/toggle', [LanguageController::class, 'toggle'])
+                ->name('languages.toggle');
 
             Route::apiResource('catalogs', CatalogController::class);
-            Route::post('catalogs/{catalog}/restore', [CatalogController::class, 'restore'])->name('catalogs.restore');
+//             Route::post('catalogs/{catalog}/restore', [CatalogController::class, 'restore'])->name('catalogs.restore');
 
-            Route::apiResource('currencies', CurrencyController::class)->only(['index', 'update', 'show']);
-            Route::get('currencies/{currency}/toggle', [CurrencyController::class, 'toggle'])->name('currencies.toggle');
+            Route::apiResource('currencies', CurrencyController::class)
+                ->only(['index', 'update', 'show']);
 
-            Route::apiResource('country-currencies', CountryCurrencyController::class)->only(['show', 'update']);
+            Route::get('currencies/{currency}/toggle', [CurrencyController::class, 'toggle'])
+                ->name('currencies.toggle');
+
+            Route::apiResource('country-currencies', CountryCurrencyController::class)
+                ->only(['show', 'update']);
 
             //DO NOT REMOVE THIS LINE//
         });

@@ -21,7 +21,7 @@ if (Config::get('fintech.ekyc.enabled')) {
         ->middleware(config('fintech.auth.middleware'))
         ->group(function () {
             Route::apiResource('kyc-statuses', KycStatusController::class);
-            Route::post('kyc-statuses/{kyc_status}/restore', [KycStatusController::class, 'restore'])->name('kyc-statuses.restore');
+//             Route::post('kyc-statuses/{kyc_status}/restore', [KycStatusController::class, 'restore'])->name('kyc-statuses.restore');
             Route::get('sync-credentials/{vendor}', VendorSyncController::class)->name('kyc.sync-credentials');
             Route::withoutMiddleware('auth:sanctum')->group(function () {
                 Route::post('verification/{vendor?}', [KycHandlerController::class, 'verification'])->name('kyc.verification');

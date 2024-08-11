@@ -29,25 +29,25 @@ if (Config::get('fintech.transaction.enabled')) {
     Route::prefix('transaction')->name('transaction.')->group(function () {
 
         Route::apiResource('transaction-forms', TransactionFormController::class);
-        Route::post('transaction-forms/{transaction_form}/restore', [TransactionFormController::class, 'restore'])->name('transaction-forms.restore');
+//         Route::post('transaction-forms/{transaction_form}/restore', [TransactionFormController::class, 'restore'])->name('transaction-forms.restore');
 
-        Route::apiResource('orders', OrderController::class);
-        Route::post('orders/{order}/restore', [OrderController::class, 'restore'])->name('orders.restore');
+        Route::apiResource('orders', OrderController::class)->only(['index', 'store', 'show']);
+//         Route::post('orders/{order}/restore', [OrderController::class, 'restore'])->name('orders.restore');
 
-        Route::apiResource('order-details', OrderDetailController::class);
-        Route::post('order-details/{order_detail}/restore', [OrderDetailController::class, 'restore'])->name('order-details.restore');
+        Route::apiResource('order-details', OrderDetailController::class)->only(['index', 'show']);
+//         Route::post('order-details/{order_detail}/restore', [OrderDetailController::class, 'restore'])->name('order-details.restore');
 
         Route::apiResource('chart-classes', ChartClassController::class);
-        Route::post('chart-classes/{chart_class}/restore', [ChartClassController::class, 'restore'])->name('chart-classes.restore');
+//         Route::post('chart-classes/{chart_class}/restore', [ChartClassController::class, 'restore'])->name('chart-classes.restore');
 
         Route::apiResource('chart-types', ChartTypeController::class);
-        Route::post('chart-types/{chart_type}/restore', [ChartTypeController::class, 'restore'])->name('chart-types.restore');
+//         Route::post('chart-types/{chart_type}/restore', [ChartTypeController::class, 'restore'])->name('chart-types.restore');
 
         Route::apiResource('chart-entries', ChartEntryController::class);
-        Route::post('chart-entries/{chart_entry}/restore', [ChartEntryController::class, 'restore'])->name('chart-entries.restore');
+//         Route::post('chart-entries/{chart_entry}/restore', [ChartEntryController::class, 'restore'])->name('chart-entries.restore');
 
         Route::apiResource('user-accounts', UserAccountController::class)->except('update');
-        Route::post('user-accounts/{user_account}/restore', [UserAccountController::class, 'restore'])->name('user-accounts.restore');
+//         Route::post('user-accounts/{user_account}/restore', [UserAccountController::class, 'restore'])->name('user-accounts.restore');
         Route::get('user-accounts/{user_account}/toggle', [UserAccountController::class, 'toggle'])->name('user-accounts.toggle');
 
         Route::apiResource('order-queues', OrderQueueController::class)->only(['index', 'show', 'destroy']);
@@ -57,17 +57,21 @@ if (Config::get('fintech.transaction.enabled')) {
                 ->name('user-account-usages');
         });
 
-        Route::apiResource('manual-refunds', ManualRefundController::class);
+        Route::apiResource('manual-refunds', ManualRefundController::class)
+            ->only(['index', 'store', 'show']);
 
-        Route::apiResource('reward-points', RewardPointController::class);
-        Route::post('reward-points/{reward_point}/restore', [RewardPointController::class, 'restore'])->name('reward-points.restore');
+        Route::apiResource('reward-points', RewardPointController::class)
+            ->only(['index', 'store', 'show']);
+//         Route::post('reward-points/{reward_point}/restore', [RewardPointController::class, 'restore'])->name('reward-points.restore');
 
-        Route::apiResource('redeem-points', RedeemPointController::class);
-        Route::post('redeem-points/{redeem_point}/restore', [RedeemPointController::class, 'restore'])->name('redeem-points.restore');
+        Route::apiResource('redeem-points', RedeemPointController::class)
+            ->only(['index', 'store', 'show']);
+//         Route::post('redeem-points/{redeem_point}/restore', [RedeemPointController::class, 'restore'])->name('redeem-points.restore');
 
         //DO NOT REMOVE THIS LINE//
     });
     Route::prefix('dropdown')->name('transaction.')->group(function () {
-        Route::get('transaction-forms', [TransactionFormController::class, 'dropdown'])->name('transaction-forms.dropdown');
+        Route::get('transaction-forms', [TransactionFormController::class, 'dropdown'])
+            ->name('transaction-forms.dropdown');
     });
 }

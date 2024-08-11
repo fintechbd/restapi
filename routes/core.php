@@ -31,17 +31,25 @@ if (Config::get('fintech.core.enabled')) {
         ->middleware(config('fintech.auth.middleware'))
         ->group(function () {
             Route::apiResource('settings', SettingController::class);
-            Route::post('settings/{setting}/restore', [SettingController::class, 'restore'])->name('settings.restore');
+//             Route::post('settings/{setting}/restore', [SettingController::class, 'restore'])->name('settings.restore');
 
-            Route::apiResource('configurations', ConfigurationController::class)->only(['show', 'update', 'destroy']);
+            Route::apiResource('configurations', ConfigurationController::class)
+                ->only(['show', 'update', 'destroy']);
 
-            Route::apiResource('jobs', JobController::class)->only(['index', 'show', 'destroy']);
+            Route::apiResource('jobs', JobController::class)
+                ->only(['index', 'show', 'destroy']);
 
-            Route::apiResource('api-logs', ApiLogController::class)->only(['index', 'show', 'destroy']);
+            Route::apiResource('api-logs', ApiLogController::class)
+                ->only(['index', 'show', 'destroy']);
 
-            Route::post('failed-jobs/prune', [FailedJobController::class, 'prune'])->name('failed-jobs.prune');
-            Route::apiResource('failed-jobs', FailedJobController::class)->only(['index', 'show', 'destroy']);
-            Route::post('failed-jobs/{failed_job}/retry', [FailedJobController::class, 'retry'])->name('failed-jobs.retry');
+            Route::post('failed-jobs/prune', [FailedJobController::class, 'prune'])
+                ->name('failed-jobs.prune');
+
+            Route::apiResource('failed-jobs', FailedJobController::class)
+                ->only(['index', 'show', 'destroy']);
+
+            Route::post('failed-jobs/{failed_job}/retry', [FailedJobController::class, 'retry'])
+                ->name('failed-jobs.retry');
 
             //DO NOT REMOVE THIS LINE//
         });
