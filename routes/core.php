@@ -31,7 +31,7 @@ if (Config::get('fintech.core.enabled')) {
         ->middleware(config('fintech.auth.middleware'))
         ->group(function () {
             Route::apiResource('settings', SettingController::class);
-//             Route::post('settings/{setting}/restore', [SettingController::class, 'restore'])->name('settings.restore');
+            //             Route::post('settings/{setting}/restore', [SettingController::class, 'restore'])->name('settings.restore');
 
             Route::apiResource('configurations', ConfigurationController::class)
                 ->only(['show', 'update', 'destroy']);

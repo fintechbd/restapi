@@ -25,22 +25,22 @@ if (Config::get('fintech.banco.enabled')) {
         ->middleware(config('fintech.auth.middleware'))
         ->group(function () {
             Route::apiResource('banks', BankController::class);
-//            Route::post('banks/{bank}/restore', [BankController::class, 'restore'])->name('banks.restore');
+            //            Route::post('banks/{bank}/restore', [BankController::class, 'restore'])->name('banks.restore');
 
             Route::apiResource('bank-branches', BankBranchController::class);
-//            Route::post('bank-branches/{bank_branch}/restore', [BankBranchController::class, 'restore'])->name('bank-branches.restore');
+            //            Route::post('bank-branches/{bank_branch}/restore', [BankBranchController::class, 'restore'])->name('bank-branches.restore');
 
             Route::apiResource('beneficiaries', BeneficiaryController::class);
-//            Route::post('beneficiaries/{beneficiary}/restore', [BeneficiaryController::class, 'restore'])->name('beneficiaries.restore');
+            //            Route::post('beneficiaries/{beneficiary}/restore', [BeneficiaryController::class, 'restore'])->name('beneficiaries.restore');
 
             Route::apiResource('beneficiary-types', BeneficiaryTypeController::class);
-//            Route::post('beneficiary-types/{beneficiary_type}/restore', [BeneficiaryTypeController::class, 'restore'])->name('beneficiary-types.restore');
+            //            Route::post('beneficiary-types/{beneficiary_type}/restore', [BeneficiaryTypeController::class, 'restore'])->name('beneficiary-types.restore');
 
             Route::apiResource('bank-accounts', BankAccountController::class);
-//            Route::post('bank-accounts/{bank_account}/restore', [BankAccountController::class, 'restore'])->name('bank-accounts.restore');
+            //            Route::post('bank-accounts/{bank_account}/restore', [BankAccountController::class, 'restore'])->name('bank-accounts.restore');
 
             Route::apiResource('beneficiary-account-types', BeneficiaryAccountTypeController::class);
-//            Route::post('beneficiary-account-types/{beneficiary_account_type}/restore', [BeneficiaryAccountTypeController::class, 'restore'])->name('beneficiary-account-types.restore');
+            //            Route::post('beneficiary-account-types/{beneficiary_account_type}/restore', [BeneficiaryAccountTypeController::class, 'restore'])->name('beneficiary-account-types.restore');
 
             //DO NOT REMOVE THIS LINE//
         });
