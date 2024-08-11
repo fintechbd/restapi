@@ -19,7 +19,7 @@ if (Config::get('fintech.tab.enabled')) {
 
         Route::apiResource('pay-bills', PayBillController::class)
             ->only(['index', 'store', 'show']);
-//        Route::post('pay-bills/{pay_bill}/restore', [PayBillController::class, 'restore'])->name('pay-bills.restore');
+        //        Route::post('pay-bills/{pay_bill}/restore', [PayBillController::class, 'restore'])->name('pay-bills.restore');
 
         //DO NOT REMOVE THIS LINE//
     });
