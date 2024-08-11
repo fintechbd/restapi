@@ -72,7 +72,7 @@ class CountryCollection extends ResourceCollection
                 'updated_at' => $country->updated_at,
                 'deleted_at' => $country->deleted_at,
                 'restored_at' => $country->restored_at,
-                ];
+            ];
         })->toArray();
     }
 
