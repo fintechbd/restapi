@@ -13,40 +13,41 @@ class PrepaidCardCollection extends ResourceCollection
     /**
      * Transform the resource collection into an array.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @return array
      */
     public function toArray($request)
     {
-        return $this->collection->map(function ($instantCard) {
+        return $this->collection->map(function ($prepaidCard) {
 
             return [
-                'id' => $instantCard->getKey(),
-                'user_id' => $instantCard->user_id,
-                'user_name' => $instantCard->user->name ?? null,
-                'user_account_id' => $instantCard->user_account_id ?? null,
-                'user_account_currency' => $instantCard->userAccount->user_account_data ?? (object) [],
-                'type' => $instantCard->type ?? null,
-                'scheme' => $instantCard->scheme ?? null,
-                'name' => $instantCard->name ?? null,
-                'number' => Str::mask(($instantCard->number ?? '1234-5678-9123-4567'), '*', 0, -4),
-                'pin' => Str::mask(($instantCard->pin ?? '1234'), '*', 0),
-                'cvc' => Str::mask(($instantCard->cvc ?? '123'), '*', 0),
-                'provider' => $instantCard->provider ?? null,
-                'status' => $instantCard->status ?? null,
-                'note' => $instantCard->note ?? null,
-                'balance' => $instantCard->balance ?? null,
-                'instant_card_data' => $instantCard->instant_card_data ?? (object) [],
-                'status' => $instantCard->status ?? null,
-                'approver_id' => $instantCard->approver_id ?? null,
-                'approver_name' => $instantCard->approver?->name ?? null,
-                'issued_date_label' => Carbon::parse($instantCard->issued_at)->format('m/y'),
-                'expired_date_label' => Carbon::parse($instantCard->expired_at)->format('m/y'),
-                'status' => $instantCard->status,
-                'issued_at' => $instantCard->issued_at,
-                'expired_at' => $instantCard->expired_at,
-                'updated_at' => $instantCard->updated_at,
-                'updated_at' => $instantCard->updated_at,
+                'id' => $prepaidCard->getKey(),
+                'user_id' => $prepaidCard->user_id,
+                'user_name' => $prepaidCard->user->name ?? null,
+                'user_account_id' => $prepaidCard->user_account_id ?? null,
+                'user_account_currency' => $prepaidCard->userAccount->user_account_data ?? (object)[],
+                'type' => $prepaidCard->type ?? null,
+                'scheme' => $prepaidCard->scheme ?? null,
+                'name' => $prepaidCard->name ?? null,
+                'number' => (\request()->filled('pin'))
+                    ? Str::mask(($prepaidCard->number ?? '1234-5678-9123-4567'), '*', 0, -4)
+                    : $prepaidCard->number,
+                'cvc' => (\request()->filled('pin'))
+                    ? Str::mask(($prepaidCard->cvc ?? '123'), '*', 0)
+                    : $prepaidCard->cvc,
+                'provider' => $prepaidCard->provider ?? null,
+                'status' => $prepaidCard->status ?? null,
+                'note' => $prepaidCard->note ?? null,
+                'balance' => $prepaidCard->balance ?? null,
+                'instant_card_data' => $prepaidCard->instant_card_data ?? (object)[],
+                'approver_id' => $prepaidCard->approver_id ?? null,
+                'approver_name' => $prepaidCard->approver?->name ?? null,
+                'issued_date_label' => Carbon::parse($prepaidCard->issued_at)->format('m/y'),
+                'expired_date_label' => Carbon::parse($prepaidCard->expired_at)->format('m/y'),
+                'issued_at' => $prepaidCard->issued_at,
+                'expired_at' => $prepaidCard->expired_at,
+                'created_at' => $prepaidCard->created_at,
+                'updated_at' => $prepaidCard->updated_at,
             ];
         })->toArray();
     }
