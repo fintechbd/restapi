@@ -52,9 +52,10 @@ class WalletToPrepaidCardController extends Controller
      */
     public function index(IndexWalletToPrepaidCardRequest $request): WalletToPrepaidCardCollection|JsonResponse
     {
+
         try {
             $inputs = $request->validated();
-
+            $inputs['transaction_form_code'] = 'wallet_prepaid_card';
             $walletToPrepaidCardPaginate = Reload::walletToPrepaidCard()->list($inputs);
 
             return new WalletToPrepaidCardCollection($walletToPrepaidCardPaginate);
@@ -104,7 +105,7 @@ class WalletToPrepaidCardController extends Controller
                 }
 
                 //set pre defined conditions of deposit
-                $inputs['transaction_form_id'] = Transaction::transactionForm()->list(['code' => 'point_reload'])->first()->getKey();
+                $inputs['transaction_form_id'] = Transaction::transactionForm()->list(['code' => 'wallet_prepaid_card'])->first()->getKey();
                 $inputs['user_id'] = $user_id ?? $walletUser->getKey();
                 $delayCheck = Transaction::order()->transactionDelayCheck($inputs);
                 if ($delayCheck['countValue'] > 0) {
