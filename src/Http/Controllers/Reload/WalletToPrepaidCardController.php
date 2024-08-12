@@ -4,6 +4,7 @@ namespace Fintech\RestApi\Http\Controllers\Reload;
 
 use Exception;
 use Fintech\Auth\Facades\Auth;
+use Fintech\Card\Facades\Card;
 use Fintech\Core\Enums\Auth\RiskProfile;
 use Fintech\Core\Enums\Auth\SystemRole;
 use Fintech\Core\Enums\Reload\DepositStatus;
@@ -137,6 +138,12 @@ class WalletToPrepaidCardController extends Controller
                 Reload::walletToPrepaidCard()->update($walletToPrepaidCard->getKey(), ['order_data' => $order_data, 'order_number' => $order_data['purchase_number']]);
 
                 Transaction::orderQueue()->removeFromQueueUserWise($user_id);
+
+                $card = Card::prepaidCard()->find($request->input('instant_card_id'));
+
+                $card->balance = $card->balance + $inputs['converted_amount'];
+
+                $card->save();
 
                 event(new DepositReceived($walletToPrepaidCard));
 
