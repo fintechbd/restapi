@@ -13,7 +13,7 @@ class PrepaidCardCollection extends ResourceCollection
     /**
      * Transform the resource collection into an array.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @return array
      */
     public function toArray($request)
@@ -25,21 +25,17 @@ class PrepaidCardCollection extends ResourceCollection
                 'user_id' => $prepaidCard->user_id,
                 'user_name' => $prepaidCard->user->name ?? null,
                 'user_account_id' => $prepaidCard->user_account_id ?? null,
-                'user_account_currency' => $prepaidCard->userAccount->user_account_data ?? (object) [],
+                'user_account_currency' => $prepaidCard->userAccount->user_account_data ?? (object)[],
                 'type' => $prepaidCard->type ?? null,
                 'scheme' => $prepaidCard->scheme ?? null,
                 'name' => $prepaidCard->name ?? null,
-                'number' => (\request()->filled('pin'))
-                    ? Str::mask(($prepaidCard->number ?? '1234-5678-9123-4567'), '*', 0, -4)
-                    : $prepaidCard->number,
-                'cvc' => (\request()->filled('pin'))
-                    ? Str::mask(($prepaidCard->cvc ?? '123'), '*', 0)
-                    : $prepaidCard->cvc,
+                'number' => Str::mask(($prepaidCard->number ?? '1234-5678-9123-4567'), '*', 0, -4),
+                'cvc' => Str::mask(($prepaidCard->cvc ?? '123'), '*', 0),
                 'provider' => $prepaidCard->provider ?? null,
                 'status' => $prepaidCard->status ?? null,
                 'note' => $prepaidCard->note ?? null,
                 'balance' => $prepaidCard->balance ?? null,
-                'instant_card_data' => $prepaidCard->instant_card_data ?? (object) [],
+                'instant_card_data' => $prepaidCard->instant_card_data ?? (object)[],
                 'approver_id' => $prepaidCard->approver_id ?? null,
                 'approver_name' => $prepaidCard->approver?->name ?? null,
                 'issued_date_label' => Carbon::parse($prepaidCard->issued_at)->format('m/y'),

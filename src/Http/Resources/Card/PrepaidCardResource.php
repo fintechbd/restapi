@@ -25,20 +25,21 @@ class PrepaidCardResource extends JsonResource
             'type' => $this->type ?? null,
             'scheme' => $this->scheme ?? null,
             'name' => $this->name ?? null,
-            'number' => Str::mask(($this->number ?? '1234-5678-9123-4567'), '*', 0, -4),
-            'pin' => Str::mask(($this->pin ?? '1234'), '*', 0),
-            'cvc' => Str::mask(($this->cvc ?? '123'), '*', 0),
+            'number' => (!\request()->filled('pin'))
+                ? Str::mask(($this->number ?? '1234-5678-9123-4567'), '*', 0, -4)
+                : $this->number,
+            'cvc' => (!\request()->filled('pin'))
+                ? Str::mask(($this->cvc ?? '123'), '*', 0)
+                : $this->cvc,
             'provider' => $this->provider ?? null,
             'status' => $this->status ?? null,
             'note' => $this->note ?? null,
             'balance' => $this->balance ?? null,
             'instant_card_data' => $this->instant_card_data ?? (object) [],
-            'status' => $this->status ?? null,
             'approver_id' => $this->approver_id ?? null,
             'approver_name' => $this->approver?->name ?? null,
             'issued_date_label' => Carbon::parse($this->issued_at)->format('m/y'),
             'expired_date_label' => Carbon::parse($this->expired_at)->format('m/y'),
-            'status' => $this->status,
             'issued_at' => $this->issued_at,
             'expired_at' => $this->expired_at,
             'created_at' => $this->created_at,
