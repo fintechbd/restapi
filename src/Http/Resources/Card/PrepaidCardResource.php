@@ -25,10 +25,10 @@ class PrepaidCardResource extends JsonResource
             'type' => $this->type ?? null,
             'scheme' => $this->scheme ?? null,
             'name' => $this->name ?? null,
-            'number' => (!\request()->filled('pin'))
+            'number' => (! \request()->filled('pin'))
                 ? Str::mask(($this->number ?? '1234-5678-9123-4567'), '*', 0, -4)
                 : $this->number,
-            'cvc' => (!\request()->filled('pin'))
+            'cvc' => (! \request()->filled('pin'))
                 ? Str::mask(($this->cvc ?? '123'), '*', 0)
                 : $this->cvc,
             'provider' => $this->provider ?? null,
