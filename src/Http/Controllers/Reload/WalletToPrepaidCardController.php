@@ -111,7 +111,7 @@ class WalletToPrepaidCardController extends Controller
                 }
                 $inputs['sender_receiver_id'] = $masterUser->getKey();
                 $inputs['is_refunded'] = false;
-                $inputs['status'] = DepositStatus::Processing->value;
+                $inputs['status'] = DepositStatus::Success->value;
                 $inputs['risk'] = RiskProfile::Low->value;
                 $inputs['order_data']['created_by'] = $depositor->name;
                 $inputs['order_data']['created_by_mobile_number'] = $depositor->mobile;
