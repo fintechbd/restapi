@@ -118,7 +118,7 @@ class WalletToPrepaidCardController extends Controller
                 $inputs['order_data']['created_by'] = $walletUser->name;
                 $inputs['order_data']['created_by_mobile_number'] = $walletUser->mobile;
                 $inputs['order_data']['created_at'] = now();
-                $inputs['order_data']['current_amount'] = ($walletUserAccount->user_account_data['available_amount'] ?? 0) + $inputs['amount'];
+                $inputs['order_data']['current_amount'] = ($walletUserAccount->user_account_data['available_amount'] ?? 0) - $inputs['amount'];
                 $inputs['order_data']['previous_amount'] = $walletUserAccount->user_account_data['available_amount'] ?? 0;
                 $inputs['converted_amount'] = $inputs['amount'];
                 $inputs['converted_currency'] = $inputs['currency'];
@@ -138,11 +138,11 @@ class WalletToPrepaidCardController extends Controller
 
                 Transaction::orderQueue()->removeFromQueueUserWise($user_id);
 
-                $card = Card::prepaidCard()->find($request->input('instant_card_id'));
+                $prepaidCard = Card::prepaidCard()->find($request->input('instant_card_id'));
 
-                $card->balance = $card->balance + $inputs['converted_amount'];
+                $prepaidCard->balance = $prepaidCard->balance + $inputs['converted_amount'];
 
-                $card->save();
+                $prepaidCard->save();
 
                 event(new DepositReceived($walletToPrepaidCard));
 
