@@ -267,7 +267,7 @@ class ServiceController extends Controller
             if (isset($inputs['user_id']) && $inputs['user_id'] > 0) {
                 $inputs['user_id'] = $request->input('user_id');
             } else {
-                $inputs['user_id'] = auth()->user()->getKey();
+                $inputs['user_id'] = auth()->id();
             }
 
             if ($user = Auth::user()->find($inputs['user_id'])) {
