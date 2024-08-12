@@ -35,7 +35,6 @@ class WalletToBankCollection extends ResourceCollection
                 'transaction_form_name' => $walletToBank->transaction_form_name ?? null,
                 'ordered_at' => $walletToBank->ordered_at ?? null,
                 'amount' => $walletToBank->amount ?? null,
-                'slip' => $walletToBank->getFirstMediaUrl('slip') ?? null,
                 'currency' => $walletToBank->currency ?? null,
                 'converted_amount' => $walletToBank->converted_amount ?? null,
                 'converted_currency' => $walletToBank->converted_currency ?? null,

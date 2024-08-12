@@ -35,7 +35,6 @@ class WalletToAtmCollection extends ResourceCollection
                 'transaction_form_name' => $walletToAtm->transaction_form_name ?? null,
                 'ordered_at' => $walletToAtm->ordered_at ?? null,
                 'amount' => $walletToAtm->amount ?? null,
-                'slip' => $walletToAtm->getFirstMediaUrl('slip') ?? null,
                 'currency' => $walletToAtm->currency ?? null,
                 'converted_amount' => $walletToAtm->converted_amount ?? null,
                 'converted_currency' => $walletToAtm->converted_currency ?? null,

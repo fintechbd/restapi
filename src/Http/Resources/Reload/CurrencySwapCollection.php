@@ -35,7 +35,6 @@ class CurrencySwapCollection extends ResourceCollection
                 'transaction_form_name' => $currencySwap->transaction_form_name ?? null,
                 'ordered_at' => $currencySwap->ordered_at ?? null,
                 'amount' => $currencySwap->amount ?? null,
-                'slip' => $currencySwap->getFirstMediaUrl('slip') ?? null,
                 'currency' => $currencySwap->currency ?? null,
                 'converted_amount' => $currencySwap->converted_amount ?? null,
                 'converted_currency' => $currencySwap->converted_currency ?? null,

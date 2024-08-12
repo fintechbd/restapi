@@ -35,7 +35,6 @@ class WalletToPrepaidCardCollection extends ResourceCollection
                 'transaction_form_name' => $walletToCard->transaction_form_name ?? null,
                 'ordered_at' => $walletToCard->ordered_at ?? null,
                 'amount' => $walletToCard->amount ?? null,
-                'slip' => $walletToCard->getFirstMediaUrl('slip') ?? null,
                 'currency' => $walletToCard->currency ?? null,
                 'converted_amount' => $walletToCard->converted_amount ?? null,
                 'converted_currency' => $walletToCard->converted_currency ?? null,

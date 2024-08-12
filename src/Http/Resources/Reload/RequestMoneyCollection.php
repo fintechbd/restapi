@@ -35,7 +35,6 @@ class RequestMoneyCollection extends ResourceCollection
                 'transaction_form_name' => $requestMoney->transaction_form_name ?? null,
                 'ordered_at' => $requestMoney->ordered_at ?? null,
                 'amount' => $requestMoney->amount ?? null,
-                'slip' => $requestMoney->getFirstMediaUrl('slip') ?? null,
                 'currency' => $requestMoney->currency ?? null,
                 'converted_amount' => $requestMoney->converted_amount ?? null,
                 'converted_currency' => $requestMoney->converted_currency ?? null,
