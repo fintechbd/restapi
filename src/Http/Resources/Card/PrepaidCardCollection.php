@@ -26,6 +26,7 @@ class PrepaidCardCollection extends ResourceCollection
                 'user_name' => $prepaidCard->user->name ?? null,
                 'user_account_id' => $prepaidCard->user_account_id ?? null,
                 'user_account_currency' => $prepaidCard->userAccount->user_account_data ?? (object) [],
+                'user_account_country_id' => $prepaidCard->userAccount->country_id ?? null,
                 'type' => $prepaidCard->type ?? null,
                 'scheme' => $prepaidCard->scheme ?? null,
                 'name' => $prepaidCard->name ?? null,

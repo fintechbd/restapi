@@ -22,6 +22,7 @@ class PrepaidCardResource extends JsonResource
             'user_name' => $this->user->name ?? null,
             'user_account_id' => $this->user_account_id ?? null,
             'user_account_currency' => $this->userAccount->user_account_data ?? (object) [],
+            'user_account_country_id' => $this->userAccount->country_id ?? null,
             'type' => $this->type ?? null,
             'scheme' => $this->scheme ?? null,
             'name' => $this->name ?? null,
