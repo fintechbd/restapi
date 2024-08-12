@@ -36,10 +36,9 @@ use Illuminate\Routing\Controller;
  */
 class WalletToPrepaidCardController extends Controller
 {
-
     public function __construct()
     {
-        $this->middleware('imposter',   ['only' => ['store']]);
+        $this->middleware('imposter', ['only' => ['store']]);
     }
 
     /**
