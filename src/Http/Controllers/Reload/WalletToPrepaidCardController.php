@@ -7,6 +7,7 @@ use Fintech\Auth\Facades\Auth;
 use Fintech\Core\Enums\Auth\RiskProfile;
 use Fintech\Core\Enums\Auth\SystemRole;
 use Fintech\Core\Enums\Reload\DepositStatus;
+use Fintech\Core\Enums\Transaction\OrderStatus;
 use Fintech\Core\Enums\Transaction\OrderStatusConfig;
 use Fintech\Core\Exceptions\DeleteOperationException;
 use Fintech\Core\Exceptions\RestoreOperationException;
@@ -80,44 +81,44 @@ class WalletToPrepaidCardController extends Controller
             if (isset($inputs['user_id']) && $request->input('user_id') > 0) {
                 $user_id = $request->input('user_id');
             }
-            $depositor = $request->user('sanctum');
+            $walletUser = $request->user('sanctum');
 
-            if (Transaction::orderQueue()->addToQueueUserWise(($user_id ?? $depositor->getKey())) > 0) {
+            if (Transaction::orderQueue()->addToQueueUserWise(($user_id ?? $walletUser->getKey())) > 0) {
 
-                $depositAccount = Transaction::userAccount()->list([
-                    'user_id' => $user_id ?? $depositor->getKey(),
-                    'country_id' => $request->input('source_country_id', $depositor->profile?->country_id),
+                $walletUserAccount = Transaction::userAccount()->list([
+                    'user_id' => $user_id ?? $walletUser->getKey(),
+                    'country_id' => $request->input('source_country_id', $walletUser->profile?->country_id),
                 ])->first();
 
-                if (! $depositAccount) {
+                if (! $walletUserAccount) {
                     throw new Exception("User don't have account deposit balance");
                 }
 
                 $masterUser = Auth::user()->list([
                     'role_name' => SystemRole::MasterUser->value,
-                    'country_id' => $request->input('source_country_id', $depositor->profile?->country_id),
+                    'country_id' => $request->input('source_country_id', $walletUser->profile?->country_id),
                 ])->first();
 
                 if (! $masterUser) {
-                    throw new Exception('Master User Account not found for '.$request->input('source_country_id', $depositor->profile?->country_id).' country');
+                    throw new Exception('Master User Account not found for '.$request->input('source_country_id', $walletUser->profile?->country_id).' country');
                 }
 
                 //set pre defined conditions of deposit
                 $inputs['transaction_form_id'] = Transaction::transactionForm()->list(['code' => 'point_reload'])->first()->getKey();
-                $inputs['user_id'] = $user_id ?? $depositor->getKey();
+                $inputs['user_id'] = $user_id ?? $walletUser->getKey();
                 $delayCheck = Transaction::order()->transactionDelayCheck($inputs);
                 if ($delayCheck['countValue'] > 0) {
                     throw new Exception('Your Request For This Amount Is Already Submitted. Please Wait For Update');
                 }
                 $inputs['sender_receiver_id'] = $masterUser->getKey();
                 $inputs['is_refunded'] = false;
-                $inputs['status'] = DepositStatus::Success->value;
+                $inputs['status'] = OrderStatus::Success->value;
                 $inputs['risk'] = RiskProfile::Low->value;
-                $inputs['order_data']['created_by'] = $depositor->name;
-                $inputs['order_data']['created_by_mobile_number'] = $depositor->mobile;
+                $inputs['order_data']['created_by'] = $walletUser->name;
+                $inputs['order_data']['created_by_mobile_number'] = $walletUser->mobile;
                 $inputs['order_data']['created_at'] = now();
-                $inputs['order_data']['current_amount'] = ($depositAccount->user_account_data['available_amount'] ?? 0) + $inputs['amount'];
-                $inputs['order_data']['previous_amount'] = $depositAccount->user_account_data['available_amount'] ?? 0;
+                $inputs['order_data']['current_amount'] = ($walletUserAccount->user_account_data['available_amount'] ?? 0) + $inputs['amount'];
+                $inputs['order_data']['previous_amount'] = $walletUserAccount->user_account_data['available_amount'] ?? 0;
                 $inputs['converted_amount'] = $inputs['amount'];
                 $inputs['converted_currency'] = $inputs['currency'];
                 $inputs['order_data']['master_user_name'] = $masterUser['name'];
