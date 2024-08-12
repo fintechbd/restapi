@@ -33,7 +33,6 @@ class StoreWalletToPrepaidCardRequest extends FormRequest
             'currency' => ['required', 'string', 'size:3'],
             'order_data' => ['nullable', 'array'],
             'order_data.request_from' => ['string', 'required'],
-            'pin' => ['nullable', 'string']
         ];
     }
 
