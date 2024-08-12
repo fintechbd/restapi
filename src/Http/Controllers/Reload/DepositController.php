@@ -16,7 +16,6 @@ use Fintech\Reload\Events\DepositCancelled;
 use Fintech\Reload\Events\DepositReceived;
 use Fintech\Reload\Events\DepositRejected;
 use Fintech\Reload\Facades\Reload;
-use Fintech\Reload\Http\Controllers\Model;
 use Fintech\RestApi\Http\Requests\Reload\CheckDepositRequest;
 use Fintech\RestApi\Http\Requests\Reload\ImportDepositRequest;
 use Fintech\RestApi\Http\Requests\Reload\IndexDepositRequest;
@@ -246,7 +245,7 @@ class DepositController extends Controller
     /**
      * @throws Exception
      */
-    private function authenticateDeposit(string|int $id, BackedEnum $requiredStatus, BackedEnum $targetStatus): \Illuminate\Database\Eloquent\Model|Model
+    private function authenticateDeposit(string|int $id, BackedEnum $requiredStatus, BackedEnum $targetStatus)
     {
         $deposit = Reload::deposit()->find($id);
 
