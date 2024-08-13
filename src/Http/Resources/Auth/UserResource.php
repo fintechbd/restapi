@@ -101,6 +101,7 @@ class UserResource extends JsonResource
             'present_post_code' => $profile->present_post_code ?? null,
             'blacklisted' => $profile->blacklisted ?? null,
             'proof_of_address' => $this->formatMediaCollection($profile->getMedia('proof_of_address')),
+            'ekyc' => $profile->user_profile_data['ekyc'] ?? (object)[],
         ];
 
         if (Core::packageExists('MetaData')) {
