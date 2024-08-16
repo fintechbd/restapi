@@ -62,7 +62,7 @@ class WalletToPrepaidCardController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -159,7 +159,7 @@ class WalletToPrepaidCardController extends Controller
 
             Transaction::orderQueue()->removeFromQueueUserWise($user_id);
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -189,7 +189,7 @@ class WalletToPrepaidCardController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -227,7 +227,7 @@ class WalletToPrepaidCardController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -265,7 +265,7 @@ class WalletToPrepaidCardController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -301,7 +301,7 @@ class WalletToPrepaidCardController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -323,7 +323,7 @@ class WalletToPrepaidCardController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -347,7 +347,7 @@ class WalletToPrepaidCardController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 }

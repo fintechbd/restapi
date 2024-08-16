@@ -42,7 +42,7 @@ class AuditController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -72,7 +72,7 @@ class AuditController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -110,7 +110,7 @@ class AuditController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 }

@@ -60,7 +60,7 @@ class InternationalTopUpController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -177,7 +177,7 @@ class InternationalTopUpController extends Controller
             Transaction::orderQueue()->removeFromQueueUserWise($user_id ?? $depositor->getKey());
             DB::rollBack();
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -212,7 +212,7 @@ class InternationalTopUpController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -242,7 +242,7 @@ class InternationalTopUpController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -275,7 +275,7 @@ class InternationalTopUpController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -309,7 +309,7 @@ class InternationalTopUpController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -332,7 +332,7 @@ class InternationalTopUpController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -354,7 +354,7 @@ class InternationalTopUpController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 }

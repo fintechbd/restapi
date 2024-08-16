@@ -58,7 +58,7 @@ class PayBillController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -170,7 +170,7 @@ class PayBillController extends Controller
             Transaction::orderQueue()->removeFromQueueUserWise($user_id ?? $depositor->getKey());
             DB::rollBack();
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -205,7 +205,7 @@ class PayBillController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -235,7 +235,7 @@ class PayBillController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -268,7 +268,7 @@ class PayBillController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -302,7 +302,7 @@ class PayBillController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -325,7 +325,7 @@ class PayBillController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -347,7 +347,7 @@ class PayBillController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 }

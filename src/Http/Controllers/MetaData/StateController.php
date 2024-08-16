@@ -50,7 +50,7 @@ class StateController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -78,7 +78,7 @@ class StateController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -110,7 +110,7 @@ class StateController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -147,7 +147,7 @@ class StateController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -185,7 +185,7 @@ class StateController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -221,7 +221,7 @@ class StateController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -243,7 +243,7 @@ class StateController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -267,7 +267,7 @@ class StateController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -307,7 +307,7 @@ class StateController extends Controller
             return new DropDownCollection($entries);
 
         } catch (Exception $exception) {
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 }

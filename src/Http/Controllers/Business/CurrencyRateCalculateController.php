@@ -28,7 +28,7 @@ class CurrencyRateCalculateController extends Controller
             return new ServiceCostResource($exchangeRate);
 
         } catch (Exception $exception) {
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 }

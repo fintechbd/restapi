@@ -60,7 +60,7 @@ class AuthenticatedController extends Controller
 
             $request->hitRateLimited();
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 

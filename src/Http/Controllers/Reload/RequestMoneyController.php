@@ -64,7 +64,7 @@ class RequestMoneyController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -168,7 +168,7 @@ class RequestMoneyController extends Controller
             Transaction::orderQueue()->removeFromQueueUserWise($user_id ?? $depositor->getKey());
             DB::rollBack();
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -205,7 +205,7 @@ class RequestMoneyController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -278,7 +278,7 @@ class RequestMoneyController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -311,7 +311,7 @@ class RequestMoneyController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -345,7 +345,7 @@ class RequestMoneyController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -368,7 +368,7 @@ class RequestMoneyController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -390,7 +390,7 @@ class RequestMoneyController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -444,7 +444,7 @@ class RequestMoneyController extends Controller
         } catch (Exception $exception) {
             Transaction::orderQueue()->removeFromQueueOrderWise($id);
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -506,7 +506,7 @@ class RequestMoneyController extends Controller
         } catch (Exception $exception) {
             Transaction::orderQueue()->removeFromQueueOrderWise($id);
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -603,7 +603,7 @@ class RequestMoneyController extends Controller
         } catch (Exception $exception) {
             Transaction::orderQueue()->removeFromQueueOrderWise($id);
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -685,7 +685,7 @@ class RequestMoneyController extends Controller
         } catch (Exception $exception) {
             Transaction::orderQueue()->removeFromQueueOrderWise($id);
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 }

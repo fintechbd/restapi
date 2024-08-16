@@ -51,7 +51,7 @@ class OneTimePinController extends Controller
             return response()->success($response);
 
         } catch (Exception $exception) {
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -71,7 +71,7 @@ class OneTimePinController extends Controller
             return response()->success(__('auth::messages.verify.success'));
 
         } catch (Exception $exception) {
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 }

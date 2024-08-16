@@ -50,7 +50,7 @@ class BankController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -78,7 +78,7 @@ class BankController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -108,7 +108,7 @@ class BankController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -146,7 +146,7 @@ class BankController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -184,7 +184,7 @@ class BankController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -220,7 +220,7 @@ class BankController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -242,7 +242,7 @@ class BankController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -266,7 +266,7 @@ class BankController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -285,7 +285,7 @@ class BankController extends Controller
             return new DropDownCollection($entries);
 
         } catch (Exception $exception) {
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -318,7 +318,7 @@ class BankController extends Controller
             return new DropDownCollection($entries);
 
         } catch (Exception $exception) {
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 }

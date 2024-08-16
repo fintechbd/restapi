@@ -51,7 +51,7 @@ class PasswordResetController extends Controller
 
         } catch (Exception $exception) {
 
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 
@@ -96,7 +96,7 @@ class PasswordResetController extends Controller
             return response()->updated(__('auth::messages.reset.success'));
 
         } catch (Exception $exception) {
-            return response()->failed($exception->getMessage());
+            return response()->failed($exception);
         }
     }
 }
