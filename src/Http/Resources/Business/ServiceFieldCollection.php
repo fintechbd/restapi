@@ -11,7 +11,7 @@ class ServiceFieldCollection extends ResourceCollection
     /**
      * Transform the resource collection into an array.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return array
      */
     public function toArray($request)
@@ -33,7 +33,7 @@ class ServiceFieldCollection extends ResourceCollection
                 'validation' => $serviceField->validation ?? null,
                 'service_field_data' => $serviceField->service_field_data ?? [],
                 'created_at' => $serviceField->created_at ?? null,
-                'updated_at' => $serviceField->updated_at ?? null
+                'updated_at' => $serviceField->updated_at ?? null,
             ];
         });
     }

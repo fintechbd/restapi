@@ -31,7 +31,7 @@ class ServiceFieldResource extends JsonResource
             'validation' => $this->validation ?? null,
             'service_field_data' => $this->service_field_data ?? [],
             'created_at' => $this->created_at ?? null,
-            'updated_at' => $this->updated_at ?? null
+            'updated_at' => $this->updated_at ?? null,
         ];
     }
 }
