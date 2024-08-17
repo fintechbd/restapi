@@ -15,6 +15,23 @@ class ServiceFieldResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->getKey(),
+            'service_id' => $this->service_id ?? null,
+            'service_name' => $this->service?->service_name ?? null,
+            'name' => $this->name ?? null,
+            'label' => $this->label ?? null,
+            'type' => $this->type ?? null,
+            'options' => $this->options ?? [],
+            'value' => $this->value ?? null,
+            'hint' => $this->hint ?? null,
+            'required' => $this->required ?? false,
+            'reserved' => $this->reserved ?? false,
+            'enabled' => $this->enabled ?? false,
+            'validation' => $this->validation ?? null,
+            'service_field_data' => $this->service_field_data ?? [],
+            'created_at' => $this->created_at ?? null,
+            'updated_at' => $this->updated_at ?? null
+        ];
     }
 }
