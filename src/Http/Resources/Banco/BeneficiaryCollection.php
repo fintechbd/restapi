@@ -51,7 +51,7 @@ class BeneficiaryCollection extends ResourceCollection
                 'beneficiary_type_id' => $beneficiary->beneficiary_type_id ?? null,
                 'beneficiary_type_name' => $beneficiary->beneficiary_type_name ?? null,
                 'relation_id' => $beneficiary->relation_id ?? null,
-                'relation' => $beneficiary->relation_name ?? null,
+                'relation_name' => $beneficiary->relation_name ?? null,
                 'beneficiary_name' => $beneficiary->beneficiary_name ?? null,
                 'beneficiary_photo' => $beneficiary->getFirstMediaUrl('photo') ?? null,
                 'beneficiary_mobile' => $beneficiary->beneficiary_mobile ?? null,
