@@ -21,8 +21,8 @@ class OrderStatusDropdownController extends Controller
 
             $entries = collect();
 
-            foreach (OrderStatus::toArray() as $key => $status) {
-                $entries->push(['label' => $status, 'attribute' => $key]);
+            foreach (OrderStatus::cases() as $status) {
+                $entries->push(['label' => $status->label(), 'attribute' => $status->value]);
             }
 
             return new DropDownCollection($entries);
