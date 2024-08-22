@@ -30,7 +30,7 @@ class UserAccountResource extends JsonResource
             'country_name' => null,
             'logo_svg' => null,
             'logo_png' => null,
-            'user_account_data' => $this->user_account_data ?? (object)[],
+            'user_account_data' => $this->user_account_data ?? (object) [],
             'currency' => $user_account->user_account_data['currency'] ?? null,
             'currency_name' => $user_account->user_account_data['currency_name'] ?? null,
             'currency_symbol' => $user_account->user_account_data['currency_symbol'] ?? null,
