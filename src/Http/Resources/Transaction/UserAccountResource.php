@@ -30,11 +30,21 @@ class UserAccountResource extends JsonResource
             'country_name' => null,
             'logo_svg' => null,
             'logo_png' => null,
-            'user_account_data' => $this->user_account_data ?? [],
+            'user_account_data' => $this->user_account_data ?? (object)[],
+            'currency' => $user_account->user_account_data['currency'] ?? null,
+            'currency_name' => $user_account->user_account_data['currency_name'] ?? null,
+            'currency_symbol' => $user_account->user_account_data['currency_symbol'] ?? null,
+            'deposit_amount' => $user_account->user_account_data['deposit_amount'] ?? 0,
+            'available_amount' => $user_account->user_account_data['available_amount'] ?? 0,
+            'spent_amount' => $user_account->user_account_data['spent_amount'] ?? 0,
             'enabled' => $this->enabled,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
+
+        $data['deposit_amount_formatted'] = \currency($data['deposit_amount'], $data['currency'])->format();
+        $data['available_amount_formatted'] = \currency($data['available_amount'], $data['currency'])->format();
+        $data['spent_amount_formatted'] = \currency($data['spent_amount'], $data['currency'])->format();
 
         if (Core::packageExists('Auth')) {
             $data['user_name'] = $this->user?->name ?? null;

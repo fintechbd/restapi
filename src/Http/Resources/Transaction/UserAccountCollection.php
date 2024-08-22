@@ -12,7 +12,7 @@ class UserAccountCollection extends ResourceCollection
     /**
      * Transform the resource collection into an array.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @return array
      */
     public function toArray($request)
@@ -38,6 +38,10 @@ class UserAccountCollection extends ResourceCollection
                 'created_at' => $user_account->created_at,
                 'updated_at' => $user_account->updated_at,
             ];
+
+            $data['deposit_amount_formatted'] = \currency($data['deposit_amount'], $data['currency'])->format();
+            $data['available_amount_formatted'] = \currency($data['available_amount'], $data['currency'])->format();
+            $data['spent_amount_formatted'] = \currency($data['spent_amount'], $data['currency'])->format();
 
             if (Core::packageExists('Auth')) {
                 $data['user_name'] = $user_account->user?->name ?? null;
