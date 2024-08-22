@@ -38,7 +38,7 @@ class StoreBeneficiaryRequest extends FormRequest
             'relation_id' => ['required', 'integer'],
             'beneficiary_type_id' => ['required', 'integer'],
             'beneficiary_name' => ['required', 'string', 'max:255'],
-            'beneficiary_mobile' => ['required', 'string', 'min:8', 'max:16', 'regex:/[0-9]{9}/', $uniqueRule],
+            'beneficiary_mobile' => ['required', 'string', 'min:8', 'max:16', $uniqueRule],
             'beneficiary_address' => ['nullable', 'string'],
             'photo' => ['nullable', 'string'],
             'enabled' => ['boolean', 'nullable'],
