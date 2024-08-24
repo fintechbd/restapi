@@ -16,12 +16,12 @@ class UserRoleSummaryCollection extends ResourceCollection
      */
     public function toArray(Request $request): array
     {
-//        return $this->collection->transform(function ($item) {
-//            return [
-//                'total' => $item->count,
-//                'label' => UserStatus::name($item->status)->label(),
-//            ];
-//        })->toArray();
+        //        return $this->collection->transform(function ($item) {
+        //            return [
+        //                'total' => $item->count,
+        //                'label' => UserStatus::name($item->status)->label(),
+        //            ];
+        //        })->toArray();
         return parent::toArray($request);
     }
 
@@ -36,7 +36,7 @@ class UserRoleSummaryCollection extends ResourceCollection
             'options' => [
                 'dir' => Constant::SORT_DIRECTIONS,
                 'sort' => ['count', 'status'],
-                'filter' => []
+                'filter' => [],
             ],
             'query' => $request->all(),
         ];

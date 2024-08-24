@@ -35,7 +35,7 @@ class UserStatusSummaryCollection extends ResourceCollection
             'options' => [
                 'dir' => Constant::SORT_DIRECTIONS,
                 'sort' => ['count', 'status'],
-                'filter' => []
+                'filter' => [],
             ],
             'query' => $request->all(),
         ];
