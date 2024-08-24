@@ -14,7 +14,7 @@ class UserRoleSummaryController extends Controller
     {
         return response()->success([
             'data' => [],
-            'query' => $request->all()
+            'query' => $request->all(),
         ]);
     }
 }

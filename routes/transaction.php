@@ -2,7 +2,6 @@
 
 use Fintech\RestApi\Http\Controllers\Transaction\ChartClassController;
 use Fintech\RestApi\Http\Controllers\Transaction\ChartEntryController;
-use Fintech\RestApi\Http\Controllers\Transaction\Charts\OrderSummaryController;
 use Fintech\RestApi\Http\Controllers\Transaction\ChartTypeController;
 use Fintech\RestApi\Http\Controllers\Transaction\ManualRefundController;
 use Fintech\RestApi\Http\Controllers\Transaction\OrderController;
