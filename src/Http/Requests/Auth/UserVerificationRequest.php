@@ -2,6 +2,7 @@
 
 namespace Fintech\RestApi\Http\Requests\Auth;
 
+use Fintech\Core\Rules\MobileNumber;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserVerificationRequest extends FormRequest
@@ -20,9 +21,9 @@ class UserVerificationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'mobile' => 'required_without_all:email,user|string|min:10|max:15',
-            'email' => 'required_without_all:mobile,user|string|email:rfc,dns',
-            'login_id' => 'required_without_all:mobile,email|integer|min:1',
+            'mobile' => ['required_without_all:email,user', 'string', 'min:10', 'max:15', new MobileNumber],
+            'email' => ['required_without_all:mobile,user', 'string', 'email:rfc,dns'],
+            'login_id' => ['required_without_all:mobile,email', 'integer', 'min:1'],
         ];
     }
 }

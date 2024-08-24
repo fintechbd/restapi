@@ -3,6 +3,7 @@
 namespace Fintech\RestApi\Http\Requests\Auth;
 
 use Fintech\Core\Facades\Core;
+use Fintech\Core\Rules\MobileNumber;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
@@ -25,7 +26,7 @@ class RegistrationRequest extends FormRequest
         $rules = config('fintech.auth.register_rules', [
             //user
             'name' => ['required', 'string', 'min:2', 'max:255'],
-            'mobile' => ['required', 'string', 'min:10'],
+            'mobile' => ['required', 'string', 'min:10', 'max:15', new MobileNumber],
             'email' => ['required', 'string', 'email:rfc,dns', 'min:2', 'max:255'],
             'pin' => ['required', 'string', 'min:4', 'max:16'],
             'app_version' => ['nullable', 'string'],
