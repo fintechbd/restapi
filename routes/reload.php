@@ -65,5 +65,15 @@ if (Config::get('fintech.reload.enabled')) {
             //             Route::post('wallet-to-prepaid-cards/{wallet_to_prepaid_card}/restore', [WalletToPrepaidCardController::class, 'restore'])->name('wallet-to-prepaid-cards.restore');
 
             //DO NOT REMOVE THIS LINE//
+
+            Route::prefix('charts')->name('charts.')->group(function () {
+                Route::get('deposit-partner-summary',
+                    \Fintech\RestApi\Http\Controllers\Reload\Charts\DepositPartnerController::class)
+                    ->name('deposit-partner-summary');
+
+                Route::get('withdraw-partner-summary',
+                    \Fintech\RestApi\Http\Controllers\Reload\Charts\WithdrawPartnerController::class)
+                    ->name('withdraw-partner-summary');
+            });
         });
 }

@@ -89,6 +89,11 @@ if (Config::get('fintech.business.enabled')) {
             //             Route::post('service-fields/{service_field}/restore', [ServiceFieldController::class, 'restore'])->name('service-fields.restore');
 
             //DO NOT REMOVE THIS LINE//
+
+            Route::prefix('charts')->name('charts.')->group(function () {
+                Route::get('service-rate-charges', \Fintech\RestApi\Http\Controllers\Business\Charts\ServiceRateCostController::class)
+                    ->name('service-rate-charges');
+            });
         });
 
     Route::prefix('dropdown')->name('business.')->group(function () {

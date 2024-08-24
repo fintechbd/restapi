@@ -1,11 +1,11 @@
 <?php
 
-namespace Fintech\RestApi\Http\Controllers\Reload\Charts;
+namespace Fintech\RestApi\Http\Controllers\Auth\Charts;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class DepositPartnerController extends Controller
+class UserRoleSummaryController extends Controller
 {
     /**
      * Handle the incoming request.

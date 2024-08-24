@@ -103,6 +103,16 @@ if (Config::get('fintech.auth.enabled')) {
             //            Route::post('login-attempts/{login_attempt}/restore', [LoginAttemptController::class, 'restore'])->name('login-attempts.restore');
 
             //DO NOT REMOVE THIS LINE//
+
+            Route::prefix('charts')->name('charts.')->group(function () {
+                Route::get('user-role-summary', \Fintech\RestApi\Http\Controllers\Auth\Charts\UserRoleSummaryController::class)
+                    ->name('user-role-summary');
+
+                Route::get('user-status-summary', \Fintech\RestApi\Http\Controllers\Auth\Charts\UserStatusSummaryController::class)
+                    ->name('user-status-summary');
+                Route::get('registered-user-summary', \Fintech\RestApi\Http\Controllers\Auth\Charts\RegisteredUserSummaryController::class)
+                    ->name('registered-user-summary');
+            });
         });
 
     });
