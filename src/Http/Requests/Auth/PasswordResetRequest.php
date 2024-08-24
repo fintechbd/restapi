@@ -24,8 +24,7 @@ class PasswordResetRequest extends FormRequest
     {
         return [
             'token' => ['required', 'string'],
-            config('fintech.auth.password_field', 'password')
-            => [...config('fintech.auth.password_field_rules', ['required', 'string', 'min:8']), 'confirmed'],
+            config('fintech.auth.password_field', 'password') => [...config('fintech.auth.password_field_rules', ['required', 'string', 'min:8']), 'confirmed'],
         ];
     }
 }
