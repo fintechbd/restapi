@@ -3,6 +3,7 @@
 namespace Fintech\RestApi\Http\Controllers\Auth\Charts;
 
 use App\Http\Controllers\Controller;
+use Fintech\RestApi\Http\Resources\Auth\Charts\UserStatusSummaryCollection;
 use Illuminate\Http\Request;
 
 class UserStatusSummaryController extends Controller
@@ -12,9 +13,15 @@ class UserStatusSummaryController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return response()->success([
-            'data' => [],
-            'query' => $request->all()
+        $request->mergeIfMissing([
+            'role_id_not_in' => [1,2],
+            'count_user_status' => true,
+            'paginate' => false,
+            'sort' => 'count',
+            'dir' => 'desc'
         ]);
+        $users = \Fintech\Auth\Facades\Auth::user()->list($request->all());
+
+        return new UserStatusSummaryCollection($users);
     }
 }

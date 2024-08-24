@@ -3,6 +3,7 @@
 namespace Fintech\RestApi\Http\Controllers\Auth\Charts;
 
 use App\Http\Controllers\Controller;
+use Fintech\RestApi\Http\Resources\Auth\Charts\UserRoleSummaryCollection;
 use Illuminate\Http\Request;
 
 class UserRoleSummaryController extends Controller
@@ -12,9 +13,8 @@ class UserRoleSummaryController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return response()->success([
-            'data' => [],
-            'query' => $request->all()
-        ]);
+        $roles = \Fintech\Auth\Facades\Auth::role()->list(['count_user' => true, 'paginate' => false]);
+
+        return new UserRoleSummaryCollection($roles);
     }
 }
