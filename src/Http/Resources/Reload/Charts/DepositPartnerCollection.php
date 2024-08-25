@@ -2,7 +2,6 @@
 
 namespace Fintech\RestApi\Http\Resources\Reload\Charts;
 
-use Fintech\Core\Enums\Auth\UserStatus;
 use Fintech\Core\Supports\Constant;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
