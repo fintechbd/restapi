@@ -30,6 +30,20 @@ class DepositPartnerCollection extends ResourceCollection
                 'dir' => Constant::SORT_DIRECTIONS,
                 'sort' => ['count', 'status'],
                 'filter' => [],
+                'columns' => [
+                    'service_type',
+                    'service_name',
+                    'account_number',
+                    'limits',
+                    'charge'
+                ],
+                'labels' => [
+                    'service_type' => 'Mode',
+                    'service_name' => 'Bank Name',
+                    'account_number' => 'A/C Number',
+                    'limits' => 'Limits(CAD)',
+                    'charge' => 'Fee/Charge',
+                ]
             ],
             'query' => $request->all(),
         ];
