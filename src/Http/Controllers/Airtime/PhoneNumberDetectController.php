@@ -17,7 +17,7 @@ class PhoneNumberDetectController extends Controller
         $response = [
             'service_slug' => 'grameen_phone_bd',
             'connection_type' => 'prepaid',
-            'valid' => true
+            'valid' => true,
         ];
 
         return new PhoneNumberDetectResource($response);

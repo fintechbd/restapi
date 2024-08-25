@@ -16,6 +16,4 @@ class PhoneNumberDetectResource extends JsonResource
     {
         return parent::toArray($request);
     }
-
-
 }
