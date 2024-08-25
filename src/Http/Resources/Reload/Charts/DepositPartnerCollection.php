@@ -35,7 +35,7 @@ class DepositPartnerCollection extends ResourceCollection
                     'service_name',
                     'account_number',
                     'limits',
-                    'charge'
+                    'charge',
                 ],
                 'labels' => [
                     'service_type' => 'Mode',
@@ -43,7 +43,7 @@ class DepositPartnerCollection extends ResourceCollection
                     'account_number' => 'A/C Number',
                     'limits' => 'Limits(CAD)',
                     'charge' => 'Fee/Charge',
-                ]
+                ],
             ],
             'query' => $request->all(),
         ];
