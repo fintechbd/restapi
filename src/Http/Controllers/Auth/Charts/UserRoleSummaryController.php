@@ -13,7 +13,10 @@ class UserRoleSummaryController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $roles = \Fintech\Auth\Facades\Auth::role()->list(['count_user' => true, 'paginate' => false]);
+        $roles = \Fintech\Auth\Facades\Auth::role()->list([
+            'count_user' => true,
+            'paginate' => false
+        ]);
 
         return new UserRoleSummaryCollection($roles);
     }
