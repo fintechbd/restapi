@@ -1,13 +1,13 @@
 <?php
 
-namespace Fintech\RestApi\Http\Resources\Reload\Charts;
+namespace Fintech\RestApi\Http\Resources\Business\Charts;
 
 use Fintech\Core\Enums\Auth\UserStatus;
 use Fintech\Core\Supports\Constant;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class DepositPartnerCollection extends ResourceCollection
+class ServiceRateCostCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.

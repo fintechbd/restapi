@@ -20,6 +20,7 @@ class DepositPartnerController extends Controller
             ['Mode' => 'Paypal', 'Bank Name' => 'Paypal', 'Bank A/C No' => '1223341334', 'Limits (CAD)' => '2000', 'Fees/Charges' => '0.8%'],
             ['Mode' => 'Paypal', 'Bank Name' => 'Paypal', 'Bank A/C No' => '1223341334', 'Limits (CAD)' => '2000', 'Fees/Charges' => '0.8%'],
         ]);
+
         return new DepositPartnerCollection($collection);
     }
 }
