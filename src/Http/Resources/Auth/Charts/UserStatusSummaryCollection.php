@@ -18,7 +18,7 @@ class UserStatusSummaryCollection extends ResourceCollection
     {
         return $this->collection->transform(function ($item) {
             return [
-                'total' => $item->count,
+                'total' => number_format($item->count),
                 'label' => UserStatus::name($item->status)->label(),
             ];
         })->toArray();
@@ -36,6 +36,14 @@ class UserStatusSummaryCollection extends ResourceCollection
                 'dir' => Constant::SORT_DIRECTIONS,
                 'sort' => ['count', 'status'],
                 'filter' => [],
+                'columns' => [
+                    'label',
+                    'total',
+                ],
+                'labels' => [
+                    'total' => 'Total',
+                    'label' => 'Stage',
+                ],
             ],
             'query' => $request->all(),
         ];

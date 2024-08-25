@@ -20,6 +20,7 @@ class UserStatusSummaryController extends Controller
             'sort' => 'count',
             'dir' => 'desc',
         ]);
+
         $users = \Fintech\Auth\Facades\Auth::user()->list($request->all());
 
         return new UserStatusSummaryCollection($users);
