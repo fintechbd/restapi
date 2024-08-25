@@ -14,9 +14,10 @@ class OrderSummaryController extends Controller
     public function __invoke(Request $request)
     {
         $orders = collect([
-            ['Transaction Type' => 'Bank Transfer', 'No of Transactions' => '65', 'Total Amount (CAD)' => '35700'],
-            ['Transaction Type' => 'Cash Pickup', 'No of Transactions' => '15', 'Total Amount (CAD)' => '12050'],
-            ['Transaction Type' => 'Wallet', 'No of Transactions' => '29', 'Total Amount (CAD)' => '2100'],
+            ['service_type' => 'Bank Transfer', 'count' => '65', 'total' => '35700'],
+            ['service_type' => 'Cash Pickup', 'count' => '15', 'total' => '12050'],
+            ['service_type' => 'Wallet', 'count' => '29', 'total' => '2100'],
+            ['service_type' => 'Bill Payment', 'count' => '5', 'total' => '21000'],
         ]);
 
         return new OrderSummaryCollection($orders);

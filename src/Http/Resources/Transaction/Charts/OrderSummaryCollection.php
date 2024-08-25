@@ -16,7 +16,9 @@ class OrderSummaryCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return $this->collection->toArray();
+        return $this->collection->map(function ($item) {
+            return $item;
+        })->toArray();
     }
 
     /**
@@ -29,8 +31,18 @@ class OrderSummaryCollection extends ResourceCollection
         return [
             'options' => [
                 'dir' => Constant::SORT_DIRECTIONS,
-                'per_page' => Constant::PAGINATE_LENGTHS,
-                'sort' => ['id', 'name', 'created_at', 'updated_at'],
+                'sort' => ['count', 'status'],
+                'filter' => [],
+                'columns' => [
+                    'service_type',
+                    'count',
+                    'total'
+                ],
+                'labels' => [
+                    'total' => 'Total Amount (CAD)',
+                    'count' => 'No of Transactions',
+                    'service_type' => 'Transaction Type',
+                ]
             ],
             'query' => $request->all(),
         ];
