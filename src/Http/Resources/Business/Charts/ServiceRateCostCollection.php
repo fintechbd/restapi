@@ -15,7 +15,9 @@ class ServiceRateCostCollection extends ResourceCollection
      */
     public function toArray(Request $request): array
     {
-        return $this->collection->toArray();
+        return $this->collection->map(function ($item) {
+            return $item;
+        })->toArray();
     }
 
     /**
@@ -30,6 +32,18 @@ class ServiceRateCostCollection extends ResourceCollection
                 'dir' => Constant::SORT_DIRECTIONS,
                 'sort' => ['count', 'status'],
                 'filter' => [],
+                'columns' => [
+                    'service_type',
+                    'currency',
+                    'currency_rate',
+                    'charge'
+                ],
+                'labels' => [
+                    'currency' => 'Country/Currency',
+                    'currency_rate' => 'Ex Rate',
+                    'charge' => 'Fee/Charge',
+                    'service_type' => 'Transaction Type',
+                ]
             ],
             'query' => $request->all(),
         ];

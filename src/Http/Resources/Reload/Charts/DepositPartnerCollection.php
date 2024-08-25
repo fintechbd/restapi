@@ -15,7 +15,9 @@ class DepositPartnerCollection extends ResourceCollection
      */
     public function toArray(Request $request): array
     {
-        return $this->collection->toArray();
+        return $this->collection->map(function ($item) {
+            return $item;
+        })->toArray();
     }
 
     /**
@@ -38,11 +40,11 @@ class DepositPartnerCollection extends ResourceCollection
                     'charge'
                 ],
                 'labels' => [
-                    'service_type' => 'Mode',
-                    'service_name' => 'Bank Name',
-                    'account_number' => 'A/C Number',
-                    'limits' => 'Limits(CAD)',
                     'charge' => 'Fee/Charge',
+                    'service_name' => 'Bank Name',
+                    'limits' => 'Limits(CAD)',
+                    'account_number' => 'A/C Number',
+                    'service_type' => 'Mode',
                 ]
             ],
             'query' => $request->all(),
