@@ -14,10 +14,10 @@ class UserAccountSummaryController extends Controller
     public function __invoke(Request $request)
     {
         $users = \Fintech\Auth\Facades\Auth::user()->list([
-            'role_id_not_in' => [1,2],
+            'role_id_not_in' => [1, 2],
             'paginate' => false,
             'limit' => 20,
-            ]);
+        ]);
 
         return new UserAccountSummaryCollection($users);
     }
