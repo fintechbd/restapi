@@ -45,7 +45,7 @@ class DepositPartnerCollection extends ResourceCollection
                     'limits' => 'Limits(CAD)',
                     'account_number' => 'A/C Number',
                     'service_type' => 'Mode',
-                ]
+                ],
             ],
             'query' => $request->all(),
         ];

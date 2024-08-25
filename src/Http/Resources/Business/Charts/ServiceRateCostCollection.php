@@ -36,14 +36,14 @@ class ServiceRateCostCollection extends ResourceCollection
                     'service_type',
                     'currency',
                     'currency_rate',
-                    'charge'
+                    'charge',
                 ],
                 'labels' => [
                     'currency' => 'Country/Currency',
                     'currency_rate' => 'Ex Rate',
                     'charge' => 'Fee/Charge',
                     'service_type' => 'Transaction Type',
-                ]
+                ],
             ],
             'query' => $request->all(),
         ];

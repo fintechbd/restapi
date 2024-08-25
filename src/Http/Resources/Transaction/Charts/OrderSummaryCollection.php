@@ -36,13 +36,13 @@ class OrderSummaryCollection extends ResourceCollection
                 'columns' => [
                     'service_type',
                     'count',
-                    'total'
+                    'total',
                 ],
                 'labels' => [
                     'total' => 'Total Amount (CAD)',
                     'count' => 'No of Transactions',
                     'service_type' => 'Transaction Type',
-                ]
+                ],
             ],
             'query' => $request->all(),
         ];
