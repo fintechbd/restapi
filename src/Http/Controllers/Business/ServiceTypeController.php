@@ -344,8 +344,6 @@ class ServiceTypeController extends Controller
                 }
             }
 
-            //$data['serviceType'] = $arrayData;
-            //$data['serviceTypeTotal'] = count($arrayData);
             return new ServiceTypeListCollection($serviceTypeCollection);
 
         } catch (Exception $exception) {

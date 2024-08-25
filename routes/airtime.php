@@ -2,6 +2,7 @@
 
 use Fintech\RestApi\Http\Controllers\Airtime\BangladeshTopUpController;
 use Fintech\RestApi\Http\Controllers\Airtime\InternationalTopUpController;
+use Fintech\RestApi\Http\Controllers\Airtime\PhoneNumberDetectController;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +27,8 @@ if (Config::get('fintech.airtime.enabled')) {
 
             Route::apiResource('international-top-ups', InternationalTopUpController::class)
                 ->only('index', 'store', 'show');
+
+            Route::post('phone-number-detect', PhoneNumberDetectController::class);
 
             //DO NOT REMOVE THIS LINE//
         });
