@@ -37,7 +37,7 @@ class DepositPartnerCollection extends ResourceCollection
                     'service_name',
                     'account_number',
                     'limits',
-                    'charge'
+                    'charge',
                 ],
                 'labels' => [
                     'charge' => 'Fee/Charge',
