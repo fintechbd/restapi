@@ -19,6 +19,7 @@ class UserStatusSummaryCollection extends ResourceCollection
         $sum = 0;
         $entries = $this->collection->transform(function ($item) use (&$sum) {
             $sum += $item->count;
+
             return [
                 'total' => number_format($item->count),
                 'label' => UserStatus::name($item->status)->label(),
