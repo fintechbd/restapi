@@ -59,6 +59,7 @@ if (Config::get('fintech.business.enabled')) {
 
             Route::apiResource('service-packages', ServicePackageController::class);
             //             Route::post('service-packages/{service_package}/restore', [ServicePackageController::class, 'restore'])->name('service-packages.restore');
+            Route::post('service-packages/sync', [ServicePackageController::class, 'sync'])->name('service-packages.restore');
 
             Route::apiResource('charge-break-downs', ChargeBreakDownController::class);
             //             Route::post('charge-break-downs/{charge_break_down}/restore', [ChargeBreakDownController::class, 'restore'])->name('charge-break-downs.restore');

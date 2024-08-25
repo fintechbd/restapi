@@ -269,4 +269,25 @@ class ServicePackageController extends Controller
             return response()->failed($exception);
         }
     }
+
+    /**
+     * @lrd:start
+     * This endpoint allow admin user to update the service package list of a specific service
+     *
+     * @lrd:end
+     */
+    public function sync(IndexServicePackageRequest $request): JsonResponse
+    {
+        try {
+            $inputs = $request->validated();
+
+            $servicePackagePaginate = Business::servicePackage()->export($inputs);
+
+            return response()->exported(__('restapi::messages.resource.exported', ['model' => 'Service Package']));
+
+        } catch (Exception $exception) {
+
+            return response()->failed($exception);
+        }
+    }
 }

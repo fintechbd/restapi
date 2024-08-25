@@ -27,6 +27,7 @@ class StoreServicePackageRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'code' => ['required', 'string', 'max:255'],
             'rate' => ['numeric', 'required', 'min:1'],
+            'type' => ['string', 'nullable'],
             'service_package_data' => ['array', 'nullable'],
             'enabled' => ['boolean', 'nullable'],
         ];
