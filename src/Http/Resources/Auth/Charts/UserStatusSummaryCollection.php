@@ -16,12 +16,18 @@ class UserStatusSummaryCollection extends ResourceCollection
      */
     public function toArray(Request $request): array
     {
-        return $this->collection->transform(function ($item) {
+        $sum = 0;
+        $entries = $this->collection->transform(function ($item) use (&$sum) {
+            $sum += $item->count;
             return [
                 'total' => number_format($item->count),
                 'label' => UserStatus::name($item->status)->label(),
             ];
         })->toArray();
+
+        $entries[] = ['total' => number_format($sum), 'label' => 'Total'];
+
+        return $entries;
     }
 
     /**

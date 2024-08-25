@@ -14,6 +14,7 @@ class UserRoleSummaryController extends Controller
     public function __invoke(Request $request)
     {
         $roles = \Fintech\Auth\Facades\Auth::role()->list([
+            'id_not_in' => [1, 2],
             'count_user' => true,
             'paginate' => false,
         ]);
