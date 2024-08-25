@@ -2,7 +2,6 @@
 
 namespace Fintech\RestApi\Http\Resources\Auth\Charts;
 
-use Fintech\Core\Enums\Auth\UserStatus;
 use Fintech\Core\Supports\Constant;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
@@ -20,6 +19,7 @@ class UserRoleSummaryCollection extends ResourceCollection
 
         $total = $this->collection->map(function ($item) use (&$sum) {
             $sum += $item->count;
+
             return [
                 'total' => number_format($item->count),
                 'name' => $item->name,
