@@ -267,11 +267,10 @@ class ServiceTypeController extends Controller
             //$input['user_id'] = $request->user_id ?? auth()->user->getKey();
             //$input['role_id'] = $request->role_id ?? auth()->user->roles[0]->getKey();
 
-            if (isset($request->service_type_parent_id)) {
-                $input['service_type_parent_id'] = $request['service_type_parent_id'];
-            } else {
+            if (!$request->filled('service_type_parent_id')) {
                 $input['service_type_parent_id_is_null'] = true;
             }
+
             $input['service_type_enabled'] = true;
             $input['sort'] = 'service_types.id';
             $input['dir'] = 'asc';
