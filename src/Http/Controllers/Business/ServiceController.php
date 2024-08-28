@@ -260,13 +260,11 @@ class ServiceController extends Controller
 
     public function cost(ServiceCurrencyRateRequest $request): JsonResponse|ServiceCostResource
     {
-        $inputs = $request->all();
+        $inputs = $request->validated();
 
         try {
 
-            if (isset($inputs['user_id']) && $inputs['user_id'] > 0) {
-                $inputs['user_id'] = $request->input('user_id');
-            } else {
+            if (!$request->filled('user_id')) {
                 $inputs['user_id'] = auth()->id();
             }
 

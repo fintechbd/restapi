@@ -29,6 +29,7 @@ class ServiceCurrencyRateRequest extends FormRequest
             'destination_country_id' => ['required', 'integer', 'min:1'],
             'amount' => ['required', 'numeric', 'min:1'],
             'reverse' => ['required', 'boolean'],
+            'reload' => ['nullable', 'boolean'], //identify for deposit not withdraw
         ];
     }
 }
