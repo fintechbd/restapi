@@ -13,17 +13,17 @@ class ServiceTypeListCollection extends ResourceCollection
      */
     public function toArray(Request $request): array
     {
-/*        return $this->collection->map(function ($item) {
-            return [
-                'id' => $item->id,
-                'parent_id' => $item->service_type_parent_id ?? null,
-                'type' => strtolower($item->service_type_is_parent) == 'yes' ? 'service-type' : 'service',
-                'logo_svg' => $item->logo_svg,
-                'logo_png' => $item->logo_png,
-                'name' => $item->service_type_name ?? null,
-                'service_type_name' => $item->service_type_name ?? null,
-            ];
-        })->toArray();*/
+        /*        return $this->collection->map(function ($item) {
+                    return [
+                        'id' => $item->id,
+                        'parent_id' => $item->service_type_parent_id ?? null,
+                        'type' => strtolower($item->service_type_is_parent) == 'yes' ? 'service-type' : 'service',
+                        'logo_svg' => $item->logo_svg,
+                        'logo_png' => $item->logo_png,
+                        'name' => $item->service_type_name ?? null,
+                        'service_type_name' => $item->service_type_name ?? null,
+                    ];
+                })->toArray();*/
 
         return parent::toArray($request);
     }
