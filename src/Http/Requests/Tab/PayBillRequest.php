@@ -30,6 +30,7 @@ class PayBillRequest extends FormRequest
             'destination_country_id' => ['required', 'integer', 'min:1'],
             'reverse' => ['required', 'boolean'],
             'reload' => ['nullable', 'boolean'],
+            'pay_bill_data' => ['nullable', 'array'],
         ];
 
         Business::serviceField()->list([
@@ -37,7 +38,7 @@ class PayBillRequest extends FormRequest
             'paginate' => false,
             'enabled' => true
         ])->each(function ($field) use (&$rules) {
-            $rules[$field->name] = $field->validation;
+            $rules['pay_bill_data.'.$field->name] = $field->validation;
         });
 
         return $rules;
