@@ -24,13 +24,13 @@ class UpdateChargeBreakDownRequest extends FormRequest
     {
         return [
             'service_stat_id' => ['integer', 'required'],
-            'service_slug' => ['string', 'required'],
-            'charge_break_down_lower' => ['numeric', 'required'],
-            'charge_break_down_higher' => ['numeric', 'required'],
-            'charge_break_down_charge' => ['string', 'required'],
-            'charge_break_down_discount' => ['string', 'required'],
-            'charge_break_down_commission' => ['string', 'required'],
-            'enabled' => ['boolean', 'nullable', 'min:1'],
+            'service_id' => ['integer', 'required'],
+            'lower_limit' => ['numeric', 'required'],
+            'higher_limit' => ['numeric', 'required'],
+            'charge' => ['string', 'required'],
+            'discount' => ['string', 'required'],
+            'commission' => ['string', 'required'],
+            'enabled' => ['boolean', 'nullable'],
         ];
     }
 
