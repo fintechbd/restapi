@@ -13,19 +13,21 @@ class ServiceTypeListCollection extends ResourceCollection
      */
     public function toArray(Request $request): array
     {
-        /*        return $this->collection->map(function ($item) {
-                    return [
-                        'id' => $item->id,
-                        'parent_id' => $item->service_type_parent_id ?? null,
-                        'type' => strtolower($item->service_type_is_parent) == 'yes' ? 'service-type' : 'service',
-                        'logo_svg' => $item->logo_svg,
-                        'logo_png' => $item->logo_png,
-                        'name' => $item->service_type_name ?? null,
-                        'service_type_name' => $item->service_type_name ?? null,
-                    ];
-                })->toArray();*/
+        $services = $this->collection->map(function ($item) {
+            return [
+                'id' => $item->id,
+                'logo_svg' => $item->logo_svg,
+                'logo_png' => $item->logo_png,
+                'service_type_parent_id' => $item->service_type_parent_id ?? null,
+                'service_type_name' => $item->service_type_name ?? null,
+                'service_type_is_parent' => $item->service_type_is_parent ?? 'no',
+                'service_type_slug' => $item->service_type_slug ?? null,
+                'service_type_step' => $item->service_type_step ?? 1,
+                'menu_position' => null,
+            ];
+        });
 
-        return parent::toArray($request);
+        return $services->toArray();
     }
 
     /**
@@ -36,11 +38,7 @@ class ServiceTypeListCollection extends ResourceCollection
     public function with(Request $request): array
     {
         return [
-            'options' => [
-                'dir' => Constant::SORT_DIRECTIONS,
-                'per_page' => Constant::PAGINATE_LENGTHS,
-                'sort' => ['id', 'name', 'created_at', 'updated_at'],
-            ],
+            'options' => [],
             'query' => $request->all(),
         ];
     }
