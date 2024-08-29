@@ -264,6 +264,8 @@ class BeneficiaryTypeController extends Controller
         try {
             $filters = $request->all();
 
+            $filters['enabled'] = $filters['enabled'] ?? true;
+
             $label = 'beneficiary_type_name';
 
             $attribute = 'id';

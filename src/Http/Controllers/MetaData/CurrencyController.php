@@ -162,7 +162,7 @@ class CurrencyController extends Controller
         try {
             $filters = $request->all();
 
-            $filters['enabled'] = true;
+            $filters['enabled'] = $filters['enabled'] ?? true;
 
             $label = 'currency_name';
 

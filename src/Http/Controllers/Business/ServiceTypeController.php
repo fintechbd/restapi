@@ -362,6 +362,8 @@ class ServiceTypeController extends Controller
         try {
             $filters = $request->all();
 
+            $filters['enabled'] = $filters['enabled'] ?? true;
+
             $label = 'service_type_name';
 
             $attribute = 'id';

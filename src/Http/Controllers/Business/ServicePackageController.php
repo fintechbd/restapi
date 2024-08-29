@@ -302,6 +302,8 @@ class ServicePackageController extends Controller
         try {
             $filters = $request->all();
 
+            $filters['enabled'] = $filters['enabled'] ?? true;
+
             $label = 'name';
 
             $attribute = 'id';

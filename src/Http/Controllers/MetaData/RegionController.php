@@ -279,7 +279,7 @@ class RegionController extends Controller
         try {
             $filters = $request->all();
 
-            $filters['enabled'] = true;
+            $filters['enabled'] = $filters['enabled'] ?? true;
 
             $label = 'name';
 
