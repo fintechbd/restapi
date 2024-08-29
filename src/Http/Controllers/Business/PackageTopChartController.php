@@ -272,7 +272,6 @@ class PackageTopChartController extends Controller
         }
     }
 
-
     /**
      * @LRDparam country_id required|integer|min:1
      * @LRDparam state_id required|integer|min:1
