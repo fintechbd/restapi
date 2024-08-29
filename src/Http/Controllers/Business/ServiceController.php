@@ -11,7 +11,7 @@ use Fintech\Core\Exceptions\StoreOperationException;
 use Fintech\Core\Exceptions\UpdateOperationException;
 use Fintech\RestApi\Http\Requests\Business\ImportServiceRequest;
 use Fintech\RestApi\Http\Requests\Business\IndexServiceRequest;
-use Fintech\RestApi\Http\Requests\Business\ServiceCurrencyRateRequest;
+use Fintech\RestApi\Http\Requests\Business\ServiceRateRequest;
 use Fintech\RestApi\Http\Requests\Business\StoreServiceRequest;
 use Fintech\RestApi\Http\Requests\Business\UpdateServiceRequest;
 use Fintech\RestApi\Http\Requests\Core\DropDownRequest;
@@ -260,7 +260,7 @@ class ServiceController extends Controller
         }
     }
 
-    public function cost(ServiceCurrencyRateRequest $request): JsonResponse|ServiceCostResource
+    public function cost(ServiceRateRequest $request): JsonResponse|ServiceCostResource
     {
         $inputs = $request->validated();
 

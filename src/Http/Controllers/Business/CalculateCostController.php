@@ -4,17 +4,17 @@ namespace Fintech\RestApi\Http\Controllers\Business;
 
 use Exception;
 use Fintech\Business\Facades\Business;
-use Fintech\RestApi\Http\Requests\Business\ServiceCurrencyRateRequest;
+use Fintech\RestApi\Http\Requests\Business\ServiceRateRequest;
 use Fintech\RestApi\Http\Resources\Business\ServiceCostResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 
-class CurrencyRateCalculateController extends Controller
+class CalculateCostController extends Controller
 {
     /**
      * @lrd:start
      */
-    public function __invoke(ServiceCurrencyRateRequest $request): JsonResponse|ServiceCostResource
+    public function __invoke(ServiceRateRequest $request): JsonResponse|ServiceCostResource
     {
         $inputs = $request->all();
 

@@ -3,7 +3,7 @@
 use Fintech\Core\Facades\Core;
 use Fintech\RestApi\Http\Controllers\Business\ChargeBreakDownController;
 use Fintech\RestApi\Http\Controllers\Business\CountryServiceController;
-use Fintech\RestApi\Http\Controllers\Business\CurrencyRateCalculateController;
+use Fintech\RestApi\Http\Controllers\Business\CalculateCostController;
 use Fintech\RestApi\Http\Controllers\Business\CurrencyRateController;
 use Fintech\RestApi\Http\Controllers\Business\PackageTopChartController;
 use Fintech\RestApi\Http\Controllers\Business\RoleServiceController;
@@ -98,7 +98,7 @@ if (Config::get('fintech.business.enabled')) {
         });
 
     Route::prefix('dropdown')->name('business.')->group(function () {
-        Route::get('currency-convert-rate', CurrencyRateCalculateController::class)->name('currency-convert-rate');
+        Route::get('currency-convert-rate', CalculateCostController::class)->name('currency-convert-rate');
         Route::get('service-types', [ServiceTypeController::class, 'dropdown'])->name('service-types.dropdown');
         Route::get('services', [ServiceController::class, 'dropdown'])->name('services.dropdown');
         Route::get('service-stats', [ServiceStatController::class, 'dropdown'])->name('service-stats.dropdown');
