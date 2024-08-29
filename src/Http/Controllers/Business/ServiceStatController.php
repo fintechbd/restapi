@@ -13,8 +13,10 @@ use Fintech\RestApi\Http\Requests\Business\ImportServiceStatRequest;
 use Fintech\RestApi\Http\Requests\Business\IndexServiceStatRequest;
 use Fintech\RestApi\Http\Requests\Business\StoreServiceStatRequest;
 use Fintech\RestApi\Http\Requests\Business\UpdateServiceStatRequest;
+use Fintech\RestApi\Http\Requests\Core\DropDownRequest;
 use Fintech\RestApi\Http\Resources\Business\ServiceStatCollection;
 use Fintech\RestApi\Http\Resources\Business\ServiceStatResource;
+use Fintech\RestApi\Http\Resources\Core\DropDownCollection;
 use Fintech\RestApi\Http\Resources\MetaData\CountryCollection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
@@ -271,6 +273,43 @@ class ServiceStatController extends Controller
             return new CountryCollection($countries);
         } catch (Exception $exception) {
 
+            return response()->failed($exception);
+        }
+    }
+
+    /**
+     * @LRDparam country_id required|integer|min:1
+     * @LRDparam state_id required|integer|min:1
+     */
+    public function dropdown(DropDownRequest $request): DropDownCollection|JsonResponse
+    {
+        try {
+            $filters = $request->all();
+
+            $label = 'name';
+
+            $attribute = 'id';
+
+            if (! empty($filters['label'])) {
+                $label = $filters['label'];
+                unset($filters['label']);
+            }
+
+            if (! empty($filters['attribute'])) {
+                $attribute = $filters['attribute'];
+                unset($filters['attribute']);
+            }
+
+            $entries = Business::serviceStat()->list($filters)->map(function ($entry) use ($label, $attribute) {
+                return [
+                    'attribute' => $entry->{$attribute} ?? 'id',
+                    'label' => $entry->{$label} ?? 'name',
+                ];
+            })->toArray();
+
+            return new DropDownCollection($entries);
+
+        } catch (Exception $exception) {
             return response()->failed($exception);
         }
     }

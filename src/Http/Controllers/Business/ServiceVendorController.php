@@ -12,8 +12,10 @@ use Fintech\RestApi\Http\Requests\Business\ImportServiceVendorRequest;
 use Fintech\RestApi\Http\Requests\Business\IndexServiceVendorRequest;
 use Fintech\RestApi\Http\Requests\Business\StoreServiceVendorRequest;
 use Fintech\RestApi\Http\Requests\Business\UpdateServiceVendorRequest;
+use Fintech\RestApi\Http\Requests\Core\DropDownRequest;
 use Fintech\RestApi\Http\Resources\Business\ServiceVendorCollection;
 use Fintech\RestApi\Http\Resources\Business\ServiceVendorResource;
+use Fintech\RestApi\Http\Resources\Core\DropDownCollection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -266,6 +268,43 @@ class ServiceVendorController extends Controller
 
         } catch (Exception $exception) {
 
+            return response()->failed($exception);
+        }
+    }
+
+    /**
+     * @LRDparam country_id required|integer|min:1
+     * @LRDparam state_id required|integer|min:1
+     */
+    public function dropdown(DropDownRequest $request): DropDownCollection|JsonResponse
+    {
+        try {
+            $filters = $request->all();
+
+            $label = 'name';
+
+            $attribute = 'id';
+
+            if (! empty($filters['label'])) {
+                $label = $filters['label'];
+                unset($filters['label']);
+            }
+
+            if (! empty($filters['attribute'])) {
+                $attribute = $filters['attribute'];
+                unset($filters['attribute']);
+            }
+
+            $entries = Business::serviceVendor()->list($filters)->map(function ($entry) use ($label, $attribute) {
+                return [
+                    'attribute' => $entry->{$attribute} ?? 'id',
+                    'label' => $entry->{$label} ?? 'name',
+                ];
+            })->toArray();
+
+            return new DropDownCollection($entries);
+
+        } catch (Exception $exception) {
             return response()->failed($exception);
         }
     }

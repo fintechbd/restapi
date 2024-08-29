@@ -99,5 +99,10 @@ if (Config::get('fintech.business.enabled')) {
 
     Route::prefix('dropdown')->name('business.')->group(function () {
         Route::get('currency-convert-rate', CurrencyRateCalculateController::class)->name('currency-convert-rate');
+        Route::get('service-types', [ServiceTypeController::class, 'dropdown'])->name('service-types.dropdown');
+        Route::get('services', [ServiceController::class, 'dropdown'])->name('services.dropdown');
+        Route::get('service-stats', [ServiceStatController::class, 'dropdown'])->name('service-stats.dropdown');
+        Route::get('service-packages', [ServicePackageController::class, 'dropdown'])->name('service-packages.dropdown');
+        Route::get('service-vendors', [ServiceVendorController::class, 'dropdown'])->name('service-vendors.dropdown');
     });
 }

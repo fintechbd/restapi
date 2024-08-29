@@ -12,8 +12,10 @@ use Fintech\RestApi\Http\Requests\Business\ImportPackageTopChartRequest;
 use Fintech\RestApi\Http\Requests\Business\IndexPackageTopChartRequest;
 use Fintech\RestApi\Http\Requests\Business\StorePackageTopChartRequest;
 use Fintech\RestApi\Http\Requests\Business\UpdatePackageTopChartRequest;
+use Fintech\RestApi\Http\Requests\Core\DropDownRequest;
 use Fintech\RestApi\Http\Resources\Business\PackageTopChartCollection;
 use Fintech\RestApi\Http\Resources\Business\PackageTopChartResource;
+use Fintech\RestApi\Http\Resources\Core\DropDownCollection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -266,6 +268,44 @@ class PackageTopChartController extends Controller
 
         } catch (Exception $exception) {
 
+            return response()->failed($exception);
+        }
+    }
+
+
+    /**
+     * @LRDparam country_id required|integer|min:1
+     * @LRDparam state_id required|integer|min:1
+     */
+    public function dropdown(DropDownRequest $request): DropDownCollection|JsonResponse
+    {
+        try {
+            $filters = $request->all();
+
+            $label = 'name';
+
+            $attribute = 'id';
+
+            if (! empty($filters['label'])) {
+                $label = $filters['label'];
+                unset($filters['label']);
+            }
+
+            if (! empty($filters['attribute'])) {
+                $attribute = $filters['attribute'];
+                unset($filters['attribute']);
+            }
+
+            $entries = Business::packageTopChart()->list($filters)->map(function ($entry) use ($label, $attribute) {
+                return [
+                    'attribute' => $entry->{$attribute} ?? 'id',
+                    'label' => $entry->{$label} ?? 'name',
+                ];
+            })->toArray();
+
+            return new DropDownCollection($entries);
+
+        } catch (Exception $exception) {
             return response()->failed($exception);
         }
     }

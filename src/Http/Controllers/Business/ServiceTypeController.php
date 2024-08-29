@@ -13,9 +13,11 @@ use Fintech\RestApi\Http\Requests\Business\IndexServiceTypeRequest;
 use Fintech\RestApi\Http\Requests\Business\ServiceTypeListRequest;
 use Fintech\RestApi\Http\Requests\Business\StoreServiceTypeRequest;
 use Fintech\RestApi\Http\Requests\Business\UpdateServiceTypeRequest;
+use Fintech\RestApi\Http\Requests\Core\DropDownRequest;
 use Fintech\RestApi\Http\Resources\Business\ServiceTypeCollection;
 use Fintech\RestApi\Http\Resources\Business\ServiceTypeListCollection;
 use Fintech\RestApi\Http\Resources\Business\ServiceTypeResource;
+use Fintech\RestApi\Http\Resources\Core\DropDownCollection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -347,6 +349,43 @@ class ServiceTypeController extends Controller
 
         } catch (Exception $exception) {
 
+            return response()->failed($exception);
+        }
+    }
+
+    /**
+     * @LRDparam country_id required|integer|min:1
+     * @LRDparam state_id required|integer|min:1
+     */
+    public function dropdown(DropDownRequest $request): DropDownCollection|JsonResponse
+    {
+        try {
+            $filters = $request->all();
+
+            $label = 'name';
+
+            $attribute = 'id';
+
+            if (! empty($filters['label'])) {
+                $label = $filters['label'];
+                unset($filters['label']);
+            }
+
+            if (! empty($filters['attribute'])) {
+                $attribute = $filters['attribute'];
+                unset($filters['attribute']);
+            }
+
+            $entries = Business::serviceType()->list($filters)->map(function ($entry) use ($label, $attribute) {
+                return [
+                    'attribute' => $entry->{$attribute} ?? 'id',
+                    'label' => $entry->{$label} ?? 'name',
+                ];
+            })->toArray();
+
+            return new DropDownCollection($entries);
+
+        } catch (Exception $exception) {
             return response()->failed($exception);
         }
     }
