@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,4 +10,3 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "Web" middleware group. Enjoy building your API!
 |
 */
-

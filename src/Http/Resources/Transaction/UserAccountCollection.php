@@ -39,9 +39,9 @@ class UserAccountCollection extends ResourceCollection
                 'updated_at' => $user_account->updated_at,
             ];
 
-            $data['deposit_amount_formatted'] = (string)\currency($data['deposit_amount'], $data['currency']);
-            $data['available_amount_formatted'] = (string)\currency($data['available_amount'], $data['currency']);
-            $data['spent_amount_formatted'] = (string)\currency($data['spent_amount'], $data['currency']);
+            $data['deposit_amount_formatted'] = (string) \currency($data['deposit_amount'], $data['currency']);
+            $data['available_amount_formatted'] = (string) \currency($data['available_amount'], $data['currency']);
+            $data['spent_amount_formatted'] = (string) \currency($data['spent_amount'], $data['currency']);
 
             if (Core::packageExists('Auth')) {
                 $data['user_name'] = $user_account->user?->name ?? null;
