@@ -241,6 +241,8 @@ class CountryController extends Controller
         try {
             $filters = $request->all();
 
+            $filters['enabled'] = true;
+
             $label = 'name';
 
             $attribute = 'id';
