@@ -36,7 +36,7 @@ class PayBillRequest extends FormRequest
         Business::serviceField()->list([
             'service_id' => $this->input('service_id'),
             'paginate' => false,
-            'enabled' => true
+            'enabled' => true,
         ])->each(function ($field) use (&$rules) {
             $rules['pay_bill_data.'.$field->name] = $field->validation;
         });

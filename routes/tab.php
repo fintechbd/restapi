@@ -20,8 +20,8 @@ if (Config::get('fintech.tab.enabled')) {
         Route::apiResource('pay-bills', PayBillController::class)
             ->only(['index', 'store', 'show'])->where(['pay_bill' => '[0-9]+']);
         //        Route::post('pay-bills/{pay_bill}/restore', [PayBillController::class, 'restore'])->name('pay-bills.restore');
-                Route::post('pay-bills/calculate-cost', \Fintech\RestApi\Http\Controllers\Tab\CalculateCostController::class)
-                    ->name('pay-bills.calculate-cost');
+        Route::post('pay-bills/calculate-cost', \Fintech\RestApi\Http\Controllers\Tab\CalculateCostController::class)
+            ->name('pay-bills.calculate-cost');
 
         //DO NOT REMOVE THIS LINE//
     });

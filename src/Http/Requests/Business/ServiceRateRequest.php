@@ -34,12 +34,12 @@ class ServiceRateRequest extends FormRequest
         ];
 
         Business::serviceField()->list([
-                'service_id' => $this->input('service_id'),
-                'paginate' => false,
-                'enabled' => true
-            ])->each(function ($field) use (&$rules) {
-                $rules[$field->name] = $field->validation;
-            });
+            'service_id' => $this->input('service_id'),
+            'paginate' => false,
+            'enabled' => true,
+        ])->each(function ($field) use (&$rules) {
+            $rules[$field->name] = $field->validation;
+        });
 
         return $rules;
     }
