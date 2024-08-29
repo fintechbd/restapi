@@ -13,4 +13,3 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('test/sslvr-test', [\Fintech\RestApi\Http\Controllers\Airtime\SSLVRController::class, 'test']);

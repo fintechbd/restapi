@@ -69,7 +69,7 @@ class ServiceTypeController extends Controller
 
             $serviceType = Business::serviceType()->create($inputs);
 
-            if (! $serviceType) {
+            if (!$serviceType) {
                 throw (new StoreOperationException)->setModel(config('fintech.business.service_type_model'));
             }
 
@@ -98,7 +98,7 @@ class ServiceTypeController extends Controller
 
             $serviceType = Business::serviceType()->find($id);
 
-            if (! $serviceType) {
+            if (!$serviceType) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_type_model'), $id);
             }
 
@@ -126,13 +126,13 @@ class ServiceTypeController extends Controller
 
             $serviceType = Business::serviceType()->find($id);
 
-            if (! $serviceType) {
+            if (!$serviceType) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_type_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! Business::serviceType()->update($id, $inputs)) {
+            if (!Business::serviceType()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_type_model'), $id);
             }
@@ -161,11 +161,11 @@ class ServiceTypeController extends Controller
 
             $serviceType = Business::serviceType()->find($id);
 
-            if (! $serviceType) {
+            if (!$serviceType) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_type_model'), $id);
             }
 
-            if (! Business::serviceType()->destroy($id)) {
+            if (!Business::serviceType()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.business.service_type_model'), $id);
             }
@@ -195,11 +195,11 @@ class ServiceTypeController extends Controller
 
             $serviceType = Business::serviceType()->find($id, true);
 
-            if (! $serviceType) {
+            if (!$serviceType) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_type_model'), $id);
             }
 
-            if (! Business::serviceType()->restore($id)) {
+            if (!Business::serviceType()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.business.service_type_model'), $id);
             }
@@ -269,7 +269,7 @@ class ServiceTypeController extends Controller
             //$input['user_id'] = $request->user_id ?? auth()->user->getKey();
             //$input['role_id'] = $request->role_id ?? auth()->user->roles[0]->getKey();
 
-            if (! $request->filled('service_type_parent_id')) {
+            if (!$request->filled('service_type_parent_id')) {
                 $input['service_type_parent_id_is_null'] = true;
             }
 
@@ -362,16 +362,16 @@ class ServiceTypeController extends Controller
         try {
             $filters = $request->all();
 
-            $label = 'name';
+            $label = 'service_type_name';
 
             $attribute = 'id';
 
-            if (! empty($filters['label'])) {
+            if (!empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (! empty($filters['attribute'])) {
+            if (!empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }
@@ -379,7 +379,8 @@ class ServiceTypeController extends Controller
             $entries = Business::serviceType()->list($filters)->map(function ($entry) use ($label, $attribute) {
                 return [
                     'attribute' => $entry->{$attribute} ?? 'id',
-                    'label' => $entry->{$label} ?? 'name',
+                    'label' => $entry->{$label} ?? 'service_type_name',
+                    'parents' => $entry->all_parent_list ?? [],
                 ];
             })->toArray();
 

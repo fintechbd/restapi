@@ -30,7 +30,7 @@ class UserAccountCollection extends ResourceCollection
                 'logo_png' => null,
                 'currency' => $user_account->user_account_data['currency'] ?? null,
                 'currency_name' => $user_account->user_account_data['currency_name'] ?? null,
-                'currency_symbol' => $user_account->user_account_data['currency_symbol'] ?? null,
+                'currency_symbol' => $user_account->user_account_data['currency_symbol'] ?? '',
                 'deposit_amount' => $user_account->user_account_data['deposit_amount'] ?? 0,
                 'available_amount' => $user_account->user_account_data['available_amount'] ?? 0,
                 'spent_amount' => $user_account->user_account_data['spent_amount'] ?? 0,
@@ -39,9 +39,9 @@ class UserAccountCollection extends ResourceCollection
                 'updated_at' => $user_account->updated_at,
             ];
 
-            $data['deposit_amount_formatted'] = \currency($data['deposit_amount'], $data['currency'])->format();
-            $data['available_amount_formatted'] = \currency($data['available_amount'], $data['currency'])->format();
-            $data['spent_amount_formatted'] = \currency($data['spent_amount'], $data['currency'])->format();
+            $data['deposit_amount_formatted'] = (string)\currency($data['deposit_amount'], $data['currency']);
+            $data['available_amount_formatted'] = (string)\currency($data['available_amount'], $data['currency']);
+            $data['spent_amount_formatted'] = (string)\currency($data['spent_amount'], $data['currency']);
 
             if (Core::packageExists('Auth')) {
                 $data['user_name'] = $user_account->user?->name ?? null;
