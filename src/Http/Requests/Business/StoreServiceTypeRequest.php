@@ -2,6 +2,7 @@
 
 namespace Fintech\RestApi\Http\Requests\Business;
 
+use Fintech\Core\Rules\ServiceTypeParent;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -27,7 +28,7 @@ class StoreServiceTypeRequest extends FormRequest
         $uniqueRule = 'unique:service_types,service_type_slug,'.$service_type_id.',id,deleted_at,NULL';
 
         return [
-            'service_type_parent_id' => ['integer', 'nullable'],
+            'service_type_parent_id' => ['integer', 'nullable', new ServiceTypeParent('yes')],
             'service_type_name' => ['string', 'required', 'max:255'],
             'service_type_slug' => ['string', 'required', 'max:255', $uniqueRule],
             'service_type_is_parent' => ['string', 'required'],
