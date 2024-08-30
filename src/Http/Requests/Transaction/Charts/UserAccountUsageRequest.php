@@ -23,7 +23,7 @@ class UserAccountUsageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => ['required', 'integer', 'min:1'],
+            'user_id' => ['nullable', 'integer', 'min:1'],
             'type' => ['nullable', 'string', 'in:receive,transfer'],
             'duration' => ['nullable', 'integer'],
         ];
