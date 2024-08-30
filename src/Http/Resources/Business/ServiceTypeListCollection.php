@@ -26,8 +26,8 @@ class ServiceTypeListCollection extends ResourceCollection
                 'service_name' => $item->service_name ?? null,
                 'service_slug' => $item->service_slug ?? null,
                 'service_data' => $item->service_data ?? [],
-//                'service_vendor_id' => $item->service_vendor_id ?? null,
-//                'service_vendor_name' => $item->service_vendor_name ?? null,
+                //                'service_vendor_id' => $item->service_vendor_id ?? null,
+                //                'service_vendor_name' => $item->service_vendor_name ?? null,
                 'destination_country_id' => $item->destination_country_id ?? $request->input('destination_country_id'),
                 'source_country_id' => $item->source_country_id ?? $request->input('source_country_id'),
                 'menu_position' => $item->service_serial ?? null,
@@ -36,7 +36,7 @@ class ServiceTypeListCollection extends ResourceCollection
 
         return $services->toArray();
 
-//        return parent::toArray($request);
+        //        return parent::toArray($request);
 
     }
 
