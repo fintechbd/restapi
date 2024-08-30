@@ -12,23 +12,27 @@ class ServiceTypeListCollection extends ResourceCollection
      */
     public function toArray(Request $request): array
     {
-        $services = $this->collection->map(function ($item) {
-            return [
-                'id' => $item->id,
-                'logo_svg' => $item->logo_svg,
-                'logo_png' => $item->logo_png,
-                'service_type_parent_id' => $item->service_type_parent_id ?? null,
-                'service_type_name' => $item->service_type_name ?? null,
-                'service_type_is_parent' => $item->service_type_is_parent ?? 'no',
-                'service_type_slug' => $item->service_type_slug ?? null,
-                'service_type_step' => $item->service_type_step ?? 1,
-                'service_id' => $item->service_id ?? null,
-                'service_data' => $item->service_data ?? [],
-                'menu_position' => null,
-            ];
-        });
+//        $services = $this->collection->map(function ($item) {
+//            return [
+//                'id' => $item->id,
+//                'logo_svg' => $item->logo_svg,
+//                'logo_png' => $item->logo_png,
+//                'service_type_parent_id' => $item->service_type_parent_id ?? null,
+//                'service_type_name' => $item->service_type_name ?? null,
+//                'service_type_is_parent' => $item->service_type_is_parent ?? 'no',
+//                'service_type_slug' => $item->service_type_slug ?? null,
+//                'service_type_step' => $item->service_type_step ?? 1,
+//                'service_id' => $item->service_id ?? null,
+//                'service_name' => $item->service_id ?? null,
+//                'service_data' => $item->service_data ?? [],
+//                'menu_position' => null,
+//            ];
+//        });
+//
+//        return $services->toArray();
 
-        return $services->toArray();
+        return parent::toArray($request);
+
     }
 
     /**
