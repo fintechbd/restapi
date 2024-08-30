@@ -69,7 +69,7 @@ class ServiceTypeController extends Controller
 
             $serviceType = Business::serviceType()->create($inputs);
 
-            if (! $serviceType) {
+            if (!$serviceType) {
                 throw (new StoreOperationException)->setModel(config('fintech.business.service_type_model'));
             }
 
@@ -98,7 +98,7 @@ class ServiceTypeController extends Controller
 
             $serviceType = Business::serviceType()->find($id);
 
-            if (! $serviceType) {
+            if (!$serviceType) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_type_model'), $id);
             }
 
@@ -126,13 +126,13 @@ class ServiceTypeController extends Controller
 
             $serviceType = Business::serviceType()->find($id);
 
-            if (! $serviceType) {
+            if (!$serviceType) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_type_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! Business::serviceType()->update($id, $inputs)) {
+            if (!Business::serviceType()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_type_model'), $id);
             }
@@ -161,11 +161,11 @@ class ServiceTypeController extends Controller
 
             $serviceType = Business::serviceType()->find($id);
 
-            if (! $serviceType) {
+            if (!$serviceType) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_type_model'), $id);
             }
 
-            if (! Business::serviceType()->destroy($id)) {
+            if (!Business::serviceType()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.business.service_type_model'), $id);
             }
@@ -195,11 +195,11 @@ class ServiceTypeController extends Controller
 
             $serviceType = Business::serviceType()->find($id, true);
 
-            if (! $serviceType) {
+            if (!$serviceType) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_type_model'), $id);
             }
 
-            if (! Business::serviceType()->restore($id)) {
+            if (!Business::serviceType()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.business.service_type_model'), $id);
             }
@@ -269,7 +269,7 @@ class ServiceTypeController extends Controller
             //$input['user_id'] = $request->user_id ?? auth()->user->getKey();
             //$input['role_id'] = $request->role_id ?? auth()->user->roles[0]->getKey();
 
-            if (! $request->filled('service_type_parent_id')) {
+            if (!$request->filled('service_type_parent_id')) {
                 $input['service_type_parent_id_is_null'] = true;
             }
 
@@ -294,23 +294,13 @@ class ServiceTypeController extends Controller
                     $fullServiceTypes = Business::serviceType()->list($inputNo);
                     if ($fullServiceTypes->isNotEmpty()) {
                         foreach ($fullServiceTypes as $fullServiceType) {
-                            if (isset($fullServiceType['service_stat_data'])) {
-                                $fullServiceType['service_stat_data'] = json_decode($fullServiceType['service_stat_data'], true);
-                                //                                $fullServiceType['logo_svg'] = json_decode($fullServiceType['service_stat_data'], true);
-                            }
-                            if (isset($fullServiceType['service_data'])) {
-                                $fullServiceType['service_data'] = json_decode($fullServiceType['service_data'], true);
-                            }
-                            $fullServiceType->logo_svg = null;
-                            $fullServiceType->logo_png = null;
-
-                            $fullServiceType->logo_svg = Business::service()->find($fullServiceType->service_id)?->getFirstMediaUrl('logo_svg');
-                            $fullServiceType->logo_png = Business::service()->find($fullServiceType->service_id)?->getFirstMediaUrl('logo_png');
-
+                            $fullServiceType['service_stat_data'] = $fullServiceType['service_stat_data'] ?? [];
+                            $fullServiceType['service_data'] = $fullServiceType['service_data'] ?? [];
+                            $fullServiceType->logo_svg = Business::service()->find($fullServiceType->service_id)?->getFirstMediaUrl('logo_svg') ?? null;
+                            $fullServiceType->logo_png = Business::service()->find($fullServiceType->service_id)?->getFirstMediaUrl('logo_png') ?? null;
                             if (isset($fullServiceType->media)) {
                                 unset($fullServiceType->media);
                             }
-
                             $serviceTypeCollection->push($fullServiceType);
                         }
                     }
@@ -330,8 +320,8 @@ class ServiceTypeController extends Controller
                     $inputYes['service_type_id'] = false;
                     $findServiceType = Business::serviceType()->list($inputYes)->count();
                     if ($findServiceType > 0) {
-                        $serviceType->logo_svg = $serviceType->getFirstMediaUrl('logo_svg');
-                        $serviceType->logo_png = $serviceType->getFirstMediaUrl('logo_png');
+                        $serviceType->logo_svg = $serviceType?->getFirstMediaUrl('logo_svg') ?? null;
+                        $serviceType->logo_png = $serviceType?->getFirstMediaUrl('logo_png') ?? null;
                         if (isset($serviceType->media)) {
                             unset($serviceType->media);
                         }
@@ -368,12 +358,12 @@ class ServiceTypeController extends Controller
 
             $attribute = 'id';
 
-            if (! empty($filters['label'])) {
+            if (!empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (! empty($filters['attribute'])) {
+            if (!empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }
