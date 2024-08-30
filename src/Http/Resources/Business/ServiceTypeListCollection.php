@@ -24,6 +24,7 @@ class ServiceTypeListCollection extends ResourceCollection
                 'service_type_step' => $item->service_type_step ?? 1,
                 'service_id' => $item->service_id ?? null,
                 'service_name' => $item->service_name ?? null,
+                'service_slug' => $item->service_slug ?? null,
                 'service_data' => $item->service_data ?? [],
 //                'service_vendor_id' => $item->service_vendor_id ?? null,
 //                'service_vendor_name' => $item->service_vendor_name ?? null,
