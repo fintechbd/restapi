@@ -22,6 +22,8 @@ class ServiceTypeListCollection extends ResourceCollection
                 'service_type_is_parent' => $item->service_type_is_parent ?? 'no',
                 'service_type_slug' => $item->service_type_slug ?? null,
                 'service_type_step' => $item->service_type_step ?? 1,
+                'service_id' => $item->service_id ?? null,
+                'service_data' => $item->service_data ?? [],
                 'menu_position' => null,
             ];
         });
