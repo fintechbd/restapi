@@ -36,7 +36,7 @@ class ServiceTypeListCollection extends ResourceCollection
 
         return $services->toArray();
 
-//        return parent::toArray($request);
+        //        return parent::toArray($request);
 
     }
 
