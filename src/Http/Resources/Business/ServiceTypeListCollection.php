@@ -14,13 +14,13 @@ class ServiceTypeListCollection extends ResourceCollection
      */
     public function toArray(Request $request): array
     {
-        if (!cache()->has('fintech.serviceTypeList')) {
+        if (! cache()->has('fintech.serviceTypeList')) {
             \Fintech\Business\Facades\Business::serviceType()->list([
                 'get' => ['service_types.id', 'service_types.service_type_name', 'service_types.service_type_parent_id'],
                 'paginate' => false,
                 'sort' => 'service_types.id',
             ])
-                ->each(fn($serviceType) => $this->serviceTypeList[$serviceType->id] = $serviceType->toArray());
+                ->each(fn ($serviceType) => $this->serviceTypeList[$serviceType->id] = $serviceType->toArray());
             cache()->put('fintech.serviceTypeList', $this->serviceTypeList, HOUR);
         } else {
             $this->serviceTypeList = cache()->get('fintech.serviceTypeList', []);
@@ -45,7 +45,7 @@ class ServiceTypeListCollection extends ResourceCollection
                 'service_id' => $item->service_id ?? null,
                 'service_name' => $item->service_name ?? '',
                 'service_slug' => $item->service_slug ?? '',
-                'service_data' => $item->service_data ?? (object)[],
+                'service_data' => $item->service_data ?? (object) [],
                 'service_vendor_id' => $item->service_vendor_id ?? null,
                 'service_vendor_name' => $item->service_vendor_name ?? null,
                 'destination_country_id' => $item->destination_country_id ?? $request->input('destination_country_id'),

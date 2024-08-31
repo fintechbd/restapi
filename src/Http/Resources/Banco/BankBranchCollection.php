@@ -43,7 +43,7 @@ class BankBranchCollection extends ResourceCollection
 
                 'name' => $bankBranch->name ?? null,
                 'location_no' => $bankBranch->location_no ?? null,
-                'vendor_code' => $bankBranch->vendor_code ?? (object)[],
+                'vendor_code' => $bankBranch->vendor_code ?? (object) [],
                 'bank_branch_data' => $bankBranch->bank_branch_data ?? null,
                 'enabled' => $bankBranch->enabled ?? null,
                 'created_at' => $bankBranch->created_at,

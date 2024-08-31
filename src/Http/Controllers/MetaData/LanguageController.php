@@ -63,7 +63,7 @@ class LanguageController extends Controller
 
             $language = MetaData::language()->find($id);
 
-            if (!$language) {
+            if (! $language) {
                 throw (new ModelNotFoundException)->setModel('Language', $id);
             }
 
@@ -93,7 +93,7 @@ class LanguageController extends Controller
 
             $language = MetaData::language()->find($id);
 
-            if (!$language) {
+            if (! $language) {
                 throw (new ModelNotFoundException)->setModel('Language', $id);
             }
 
@@ -103,9 +103,9 @@ class LanguageController extends Controller
                 throw new Exception(__('metadata::messages.country.language_field_missing'));
             }
 
-            $inputs['enabled'] = !($countryData['language_enabled'] ?? false);
+            $inputs['enabled'] = ! ($countryData['language_enabled'] ?? false);
 
-            if (!MetaData::language()->update($id, $inputs)) {
+            if (! MetaData::language()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel('Language', $id);
             }
@@ -136,13 +136,13 @@ class LanguageController extends Controller
 
             $language = MetaData::language()->find($id);
 
-            if (!$language) {
+            if (! $language) {
                 throw (new ModelNotFoundException)->setModel('Language', $id);
             }
 
             $inputs = $request->validated();
 
-            if (!MetaData::language()->update($id, $inputs)) {
+            if (! MetaData::language()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel('Language', $id);
             }
@@ -170,12 +170,12 @@ class LanguageController extends Controller
 
             $attribute = 'code';
 
-            if (!empty($filters['label'])) {
+            if (! empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (!empty($filters['attribute'])) {
+            if (! empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }

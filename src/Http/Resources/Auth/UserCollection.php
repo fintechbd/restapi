@@ -73,7 +73,7 @@ class UserCollection extends ResourceCollection
             $profile = $user->profile;
 
             $profile_data = [
-                'profile_data' => $profile->user_profile_data ?? (object)[],
+                'profile_data' => $profile->user_profile_data ?? (object) [],
                 'id_type' => $profile->id_type ?? null,
                 'id_no' => $profile->id_no ?? null,
                 'id_issue_country' => $profile->id_issue_country ?? null,
@@ -85,7 +85,7 @@ class UserCollection extends ResourceCollection
                 'present_country_name' => null,
                 'blacklisted' => $profile->blacklisted ?? null,
                 'proof_of_address' => $this->formatMediaCollection($profile?->getMedia('proof_of_address') ?? null),
-                'ekyc' => $profile->user_profile_data['ekyc'] ?? (object)[],
+                'ekyc' => $profile->user_profile_data['ekyc'] ?? (object) [],
             ];
 
             if (Core::packageExists('MetaData')) {

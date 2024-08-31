@@ -20,7 +20,7 @@ class SubRegionResource extends JsonResource
             'region_id' => $this->region_id ?? null,
             'region_name' => ($this->region != null) ? $this->region->name : null,
             'name' => $this->name ?? null,
-            'vendor_code' => $this->vendor_code ?? (object)[],
+            'vendor_code' => $this->vendor_code ?? (object) [],
             'subregion_data' => $this->subregion_data ?? null,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
