@@ -18,7 +18,7 @@ class StateResource extends JsonResource
         return [
             'id' => $this->getKey(),
             'name' => $this->name,
-            'vendor_code' => $this->vendor_code ?? (object) [],
+            'vendor_code' => $this->vendor_code ?? (object)[],
             'state_data' => $this->state_data,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,

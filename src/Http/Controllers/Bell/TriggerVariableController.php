@@ -67,7 +67,7 @@ class TriggerVariableController extends Controller
 
             $triggerVariable = Bell::triggerVariable()->create($inputs);
 
-            if (! $triggerVariable) {
+            if (!$triggerVariable) {
                 throw (new StoreOperationException)->setModel(config('fintech.bell.trigger_variable_model'));
             }
 
@@ -96,7 +96,7 @@ class TriggerVariableController extends Controller
 
             $triggerVariable = Bell::triggerVariable()->find($id);
 
-            if (! $triggerVariable) {
+            if (!$triggerVariable) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.bell.trigger_variable_model'), $id);
             }
 
@@ -127,13 +127,13 @@ class TriggerVariableController extends Controller
 
             $triggerVariable = Bell::triggerVariable()->find($id);
 
-            if (! $triggerVariable) {
+            if (!$triggerVariable) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.bell.trigger_variable_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! Bell::triggerVariable()->update($id, $inputs)) {
+            if (!Bell::triggerVariable()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.bell.trigger_variable_model'), $id);
             }
@@ -167,11 +167,11 @@ class TriggerVariableController extends Controller
 
             $triggerVariable = Bell::triggerVariable()->find($id);
 
-            if (! $triggerVariable) {
+            if (!$triggerVariable) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.bell.trigger_variable_model'), $id);
             }
 
-            if (! Bell::triggerVariable()->destroy($id)) {
+            if (!Bell::triggerVariable()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.bell.trigger_variable_model'), $id);
             }
@@ -203,11 +203,11 @@ class TriggerVariableController extends Controller
 
             $triggerVariable = Bell::triggerVariable()->find($id, true);
 
-            if (! $triggerVariable) {
+            if (!$triggerVariable) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.bell.trigger_variable_model'), $id);
             }
 
-            if (! Bell::triggerVariable()->restore($id)) {
+            if (!Bell::triggerVariable()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.bell.trigger_variable_model'), $id);
             }

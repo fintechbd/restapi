@@ -45,7 +45,7 @@ class BankResource extends JsonResource
             'transaction_type' => $this->transaction_type ?? null,
             'currency' => $this->currency ?? null,
             'bank_data' => $this->bank_data ?? null,
-            'vendor_code' => $this->vendor_code ?? (object) [],
+            'vendor_code' => $this->vendor_code ?? (object)[],
             'logo_png' => $this->getFirstMediaUrl('logo_png') ?? null,
             'logo_svg' => $this->getFirstMediaUrl('logo_svg') ?? null,
             'enabled' => $this->enabled ?? null,

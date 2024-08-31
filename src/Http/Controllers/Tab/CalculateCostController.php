@@ -22,7 +22,7 @@ class CalculateCostController extends Controller
 
         try {
 
-            if (! $request->filled('user_id')) {
+            if (!$request->filled('user_id')) {
                 $inputs['user_id'] = auth()->id();
             }
 

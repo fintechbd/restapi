@@ -23,8 +23,8 @@ class ImportServiceSettingRequest extends FormRequest
     public function rules(): array
     {
         /** @phpstan-ignore-next-line */
-        $service_setting_id = (int) collect(request()->segments())->last(); //id of the resource
-        $uniqueRule = 'unique:service_settings,service_setting_field_name,'.$service_setting_id.',id,service_setting_type,'.$this->input('service_setting_type').',deleted_at,NULL';
+        $service_setting_id = (int)collect(request()->segments())->last(); //id of the resource
+        $uniqueRule = 'unique:service_settings,service_setting_field_name,' . $service_setting_id . ',id,service_setting_type,' . $this->input('service_setting_type') . ',deleted_at,NULL';
 
         return [
             'service_setting_type' => ['string', 'required', 'max:255'],

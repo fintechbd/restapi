@@ -69,7 +69,7 @@ class RegionController extends Controller
 
             $region = MetaData::region()->create($inputs);
 
-            if (! $region) {
+            if (!$region) {
                 throw (new StoreOperationException)->setModel(config('fintech.metadata.region_model'));
             }
 
@@ -100,7 +100,7 @@ class RegionController extends Controller
 
             $region = MetaData::region()->find($id);
 
-            if (! $region) {
+            if (!$region) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.metadata.region_model'), $id);
             }
 
@@ -131,13 +131,13 @@ class RegionController extends Controller
 
             $region = MetaData::region()->find($id);
 
-            if (! $region) {
+            if (!$region) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.metadata.region_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! MetaData::region()->update($id, $inputs)) {
+            if (!MetaData::region()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.metadata.region_model'), $id);
             }
@@ -171,11 +171,11 @@ class RegionController extends Controller
 
             $region = MetaData::region()->find($id);
 
-            if (! $region) {
+            if (!$region) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.metadata.region_model'), $id);
             }
 
-            if (! MetaData::region()->destroy($id)) {
+            if (!MetaData::region()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.metadata.region_model'), $id);
             }
@@ -207,11 +207,11 @@ class RegionController extends Controller
 
             $region = MetaData::region()->find($id, true);
 
-            if (! $region) {
+            if (!$region) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.metadata.region_model'), $id);
             }
 
-            if (! MetaData::region()->restore($id)) {
+            if (!MetaData::region()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.metadata.region_model'), $id);
             }
@@ -285,12 +285,12 @@ class RegionController extends Controller
 
             $attribute = 'id';
 
-            if (! empty($filters['label'])) {
+            if (!empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (! empty($filters['attribute'])) {
+            if (!empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }

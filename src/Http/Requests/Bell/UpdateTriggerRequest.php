@@ -22,7 +22,7 @@ class UpdateTriggerRequest extends FormRequest
      */
     public function rules(): array
     {
-        $uniqueRule = 'unique:triggers,code,'.$this->route('trigger');
+        $uniqueRule = 'unique:triggers,code,' . $this->route('trigger');
 
         return [
             'name' => ['required', 'string', 'min:5', 'max:255'],

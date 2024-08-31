@@ -69,7 +69,7 @@ class BankBranchController extends Controller
 
             $bankBranch = Banco::bankBranch()->create($inputs);
 
-            if (! $bankBranch) {
+            if (!$bankBranch) {
                 throw (new StoreOperationException)->setModel(config('fintech.banco.bank_branch_model'));
             }
 
@@ -98,7 +98,7 @@ class BankBranchController extends Controller
 
             $bankBranch = Banco::bankBranch()->find($id);
 
-            if (! $bankBranch) {
+            if (!$bankBranch) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.banco.bank_branch_model'), $id);
             }
 
@@ -129,13 +129,13 @@ class BankBranchController extends Controller
 
             $bankBranch = Banco::bankBranch()->find($id);
 
-            if (! $bankBranch) {
+            if (!$bankBranch) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.banco.bank_branch_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! Banco::bankBranch()->update($id, $inputs)) {
+            if (!Banco::bankBranch()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.banco.bank_branch_model'), $id);
             }
@@ -169,11 +169,11 @@ class BankBranchController extends Controller
 
             $bankBranch = Banco::bankBranch()->find($id);
 
-            if (! $bankBranch) {
+            if (!$bankBranch) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.banco.bank_branch_model'), $id);
             }
 
-            if (! Banco::bankBranch()->destroy($id)) {
+            if (!Banco::bankBranch()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.banco.bank_branch_model'), $id);
             }
@@ -205,11 +205,11 @@ class BankBranchController extends Controller
 
             $bankBranch = Banco::bankBranch()->find($id, true);
 
-            if (! $bankBranch) {
+            if (!$bankBranch) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.banco.bank_branch_model'), $id);
             }
 
-            if (! Banco::bankBranch()->restore($id)) {
+            if (!Banco::bankBranch()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.banco.bank_branch_model'), $id);
             }
@@ -283,12 +283,12 @@ class BankBranchController extends Controller
 
             $attribute = 'id';
 
-            if (! empty($filters['label'])) {
+            if (!empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (! empty($filters['attribute'])) {
+            if (!empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }
