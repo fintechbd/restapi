@@ -38,7 +38,6 @@ use Illuminate\Support\Facades\DB;
  */
 class WalletToBankController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('imposter', ['only' => ['store']]);

@@ -20,7 +20,7 @@ class ServiceTypeListCollection extends ResourceCollection
                     'service_types.id',
                     'service_types.service_type_name',
                     'service_types.service_type_parent_id',
-                    'service_types.service_type_slug'
+                    'service_types.service_type_slug',
                 ],
                 'paginate' => false,
                 'sort' => 'service_types.id',
@@ -40,10 +40,10 @@ class ServiceTypeListCollection extends ResourceCollection
             $parent = [
                 'id' => null,
                 'service_type_name' => '',
-                'service_type_slug' => ''
+                'service_type_slug' => '',
             ];
 
-            if($item->service_type_parent_id != null && isset($this->serviceTypeList[$item->service_type_parent_id])){
+            if ($item->service_type_parent_id != null && isset($this->serviceTypeList[$item->service_type_parent_id])) {
                 $parent = $this->serviceTypeList[$item->service_type_parent_id];
             }
 
