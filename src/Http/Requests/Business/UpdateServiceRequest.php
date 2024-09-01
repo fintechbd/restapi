@@ -47,7 +47,7 @@ class UpdateServiceRequest extends FormRequest
             'paginate' => false,
             'service_setting_type' => 'service',
         ])->each(function ($serviceSetting) use (&$rules) {
-            $validation = $serviceSetting->service_setting_rule ?? 'string|nullable';
+            $validation = $serviceSetting->service_setting_rule ?? 'nullable';
             $rules["service_data.{$serviceSetting->service_setting_field_name}"] = explode('|', $validation);
         });
 
