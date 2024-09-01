@@ -344,8 +344,12 @@ class ServiceTypeController extends Controller
     }
 
     /**
-     * @LRDparam country_id required|integer|min:1
-     * @LRDparam state_id required|integer|min:1
+     * @LRDparam search nullable|string
+     * @LRDparam service_type_parent_id nullable|integer
+     * @LRDparam service_type_is_parent nullable|string|in:yes,no
+     * @LRDparam service_type_name nullable|string
+     * @LRDparam service_type_slug nullable|string
+     * @LRDparam enabled nullable|boolean
      */
     public function dropdown(DropDownRequest $request): DropDownCollection|JsonResponse
     {
