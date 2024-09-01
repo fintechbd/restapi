@@ -16,7 +16,12 @@ class ServiceTypeListCollection extends ResourceCollection
     {
         if (! cache()->has('fintech.serviceTypeList')) {
             \Fintech\Business\Facades\Business::serviceType()->list([
-                'get' => ['service_types.id', 'service_types.service_type_name', 'service_types.service_type_parent_id'],
+                'get' => [
+                    'service_types.id',
+                    'service_types.service_type_name',
+                    'service_types.service_type_parent_id',
+                    'service_types.service_type_slug'
+                ],
                 'paginate' => false,
                 'sort' => 'service_types.id',
             ])
@@ -32,6 +37,16 @@ class ServiceTypeListCollection extends ResourceCollection
 
             $this->loadServiceTypeParentList($entries, $item->service_type_parent_id);
 
+            $parent = [
+                'id' => null,
+                'service_type_name' => '',
+                'service_type_slug' => ''
+            ];
+
+            if($item->service_type_parent_id != null && isset($this->serviceTypeList[$item->service_type_parent_id])){
+                $parent = $this->serviceTypeList[$item->service_type_parent_id];
+            }
+
             return [
                 'id' => $item->id,
                 'logo_svg' => $item->logo_svg,
@@ -39,6 +54,7 @@ class ServiceTypeListCollection extends ResourceCollection
                 'service_type_parent_id' => $item->service_type_parent_id ?? null,
                 'service_type_name' => $item->service_type_name ?? '',
                 'service_type_is_parent' => $item->service_type_is_parent ?? 'no',
+                'service_type_parent' => $parent,
                 'service_type_parent_list' => array_reverse($entries),
                 'service_type_slug' => $item->service_type_slug ?? '',
                 'service_type_step' => $item->service_type_step ?? 1,
