@@ -22,11 +22,6 @@ class CheckDepositRequest extends FormRequest
      */
     public function rules(): array
     {
-        //        return [
-        //            'password' => ['string', 'required_without:pin'],
-        //            'pin' => ['string', 'required_without:password']
-        //        ];
-
         return [
 
         ];
