@@ -34,7 +34,7 @@ class ServiceTypeListCollection extends ResourceCollection
 
         Business::serviceSetting()
             ->list(['enabled' => true, 'paginate' => false, 'service_setting_type' => 'service'])
-            ->each(function($item) use(&$settings)  {
+            ->each(function ($item) use (&$settings) {
                 $settings[$item->service_setting_field_name] = $item->service_setting_value ?? null;
                 if (is_null($settings[$item->service_setting_field_name])) {
                     if ($item->service_setting_type_field == 'text') {
