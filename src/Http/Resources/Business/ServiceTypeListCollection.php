@@ -2,6 +2,7 @@
 
 namespace Fintech\RestApi\Http\Resources\Business;
 
+use Fintech\Business\Facades\Business;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
@@ -31,7 +32,18 @@ class ServiceTypeListCollection extends ResourceCollection
             $this->serviceTypeList = cache()->get('fintech.serviceTypeList', []);
         }
 
-        $services = $this->collection->map(function ($item) use ($request) {
+        Business::serviceSetting()
+            ->list(['enabled' => true, 'paginate' => false, 'service_setting_type' => 'service'])
+            ->each(function($item) use(&$settings)  {
+                $settings[$item->service_setting_field_name] = $item->service_setting_value ?? null;
+                if (is_null($settings[$item->service_setting_field_name])) {
+                    if ($item->service_setting_type_field == 'text') {
+                        $settings[$item->service_setting_field_name] = '';
+                    }
+                }
+            });
+
+        $services = $this->collection->map(function ($item) use ($request, $settings) {
 
             $entries = [];
 
@@ -61,7 +73,7 @@ class ServiceTypeListCollection extends ResourceCollection
                 'service_id' => $item->service_id ?? null,
                 'service_name' => $item->service_name ?? '',
                 'service_slug' => $item->service_slug ?? '',
-                'service_data' => $item->service_data ?? (object) [],
+                'service_data' => array_merge($settings, ($item->service_data ?? [])),
                 'service_vendor_id' => $item->service_vendor_id ?? null,
                 'service_vendor_name' => $item->service_vendor_name ?? '',
                 'destination_country_id' => $item->destination_country_id ?? $request->integer('destination_country_id'),
