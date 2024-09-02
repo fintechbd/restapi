@@ -33,6 +33,7 @@ class UpdateServiceSettingRequest extends FormRequest
             'service_setting_type_field' => ['string', 'required'],
             'service_setting_feature' => ['string', 'required', 'max:255'],
             'service_setting_rule' => ['string', 'nullable'],
+            'service_setting_value' => ['string', 'nullable'],
             'enabled' => ['boolean', 'nullable', 'min:1'],
         ];
     }

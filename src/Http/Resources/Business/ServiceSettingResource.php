@@ -13,6 +13,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property string $service_setting_type_field
  * @property string $service_setting_feature
  * @property string $service_setting_rule
+ * @property string $service_setting_value
  * @property bool $enabled
  * @property mixed $links
  * @property mixed $created_at
@@ -27,7 +28,7 @@ class ServiceSettingResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $data = [
+        return [
             'id' => $this->getKey() ?? null,
             'service_setting_type' => $this->service_setting_type ?? null,
             'service_setting_name' => $this->service_setting_name ?? null,
@@ -35,11 +36,10 @@ class ServiceSettingResource extends JsonResource
             'service_setting_type_field' => $this->service_setting_type_field ?? null,
             'service_setting_feature' => $this->service_setting_feature ?? null,
             'service_setting_rule' => $this->service_setting_rule ?? null,
+            'service_setting_value' => $this->service_setting_value ?? null,
             'enabled' => $this->enabled ?? null,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
-
-        return $data;
     }
 }
