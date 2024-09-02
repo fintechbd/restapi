@@ -23,7 +23,7 @@ class ServiceRateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $rules = [
+        return [
             'user_id' => ['nullable', 'integer', 'min:1'],
             'service_id' => ['required', 'integer', 'min:1'],
             'source_country_id' => ['required', 'integer', 'min:1'],
@@ -32,15 +32,5 @@ class ServiceRateRequest extends FormRequest
             'reverse' => ['required', 'boolean'],
             'reload' => ['nullable', 'boolean'],
         ];
-
-        Business::serviceField()->list([
-            'service_id' => $this->input('service_id'),
-            'paginate' => false,
-            'enabled' => true,
-        ])->each(function ($field) use (&$rules) {
-            $rules[$field->name] = $field->validation;
-        });
-
-        return $rules;
     }
 }
