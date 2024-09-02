@@ -47,8 +47,8 @@ class OrderCollection extends ResourceCollection
                 'status' => $order->status ?? null,
             ];
 
-            $data['amount_formatted'] = \currency($data['amount'], $data['currency'])->format();
-            $data['converted_amount_formatted'] = \currency($data['converted_amount'], $data['converted_currency'])->format();
+            $data['amount_formatted'] = (string)\currency($data['amount'], $data['currency']);
+            $data['converted_amount_formatted'] = (string)\currency($data['converted_amount'], $data['converted_currency']);
 
             if (Core::packageExists('MetaData')) {
                 $data['source_country_name'] = $order->sourceCountry?->name ?? null;
