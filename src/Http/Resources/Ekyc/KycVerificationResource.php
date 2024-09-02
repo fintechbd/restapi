@@ -63,15 +63,39 @@ class KycVerificationResource extends JsonResource
 
         $document_number = $response['proof']['document_number'] ?? null;
 
-        $gender = isset($response['proof']['gender'])
-            ? ($response['proof']['gender'] == 'M' ? 'male' : 'female')
-            : null;
+        if (isset($response['proof']['gender'])) {
+            $gender = $response['proof']['gender'];
+        } elseif (isset($response['additional_proof']['gender'])) {
+            $gender = $response['additional_proof']['gender'];
+        } else {
+            $gender = 'M';
+        }
 
-        $name = ($response['proof']['first_name'] ?? '').' '.($response['proof']['last_name'] ?? '');
+        $gender = $gender == 'M' ? 'male' : 'female';
 
-        $issue_date = $response['proof']['issue_date'] ?? null;
+        if (isset($response['proof']['full_name'])) {
+            $name = $response['proof']['full_name'];
+        } elseif (isset($response['additional_proof']['first_name'])) {
+            $name = $response['additional_proof']['first_name'] . ' ' . ($response['additional_proof']['last_name'] ?? '');
+        } elseif (isset($response['proof']['first_name'])) {
+            $name = $response['proof']['first_name'] . ' ' . ($response['proof']['last_name'] ?? '');
+        }
 
-        $expiry_date = $response['proof']['expiry_date'] ?? null;
+        if (isset($response['proof']['issue_date'])) {
+            $issue_date = $response['proof']['issue_date'];
+        } elseif (isset($response['additional_proof']['issue_date'])) {
+            $issue_date = $response['additional_proof']['issue_date'];
+        } else {
+            $issue_date =  '';
+        }
+
+        if (isset($response['proof']['expiry_date'])) {
+            $expiry_date = $response['proof']['expiry_date'];
+        } elseif (isset($response['additional_proof']['expiry_date'])) {
+            $expiry_date = $response['additional_proof']['expiry_date'];
+        } else {
+            $expiry_date =  '';
+        }
 
         $sponsor = null;
 
@@ -97,7 +121,7 @@ class KycVerificationResource extends JsonResource
             ? ($response['gender'] == 'M' ? 'male' : 'female')
             : null;
 
-        $name = ($response['firstName'] ?? '').' '.($response['lastName'] ?? '');
+        $name = ($response['firstName'] ?? '') . ' ' . ($response['lastName'] ?? '');
 
         $issue_date = isset($response['additionalData']['dateOfIssue'])
             ? CarbonImmutable::createFromFormat('d/m/Y', $response['additionalData']['dateOfIssue'])->format('Y-m-d')
