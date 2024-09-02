@@ -2,7 +2,6 @@
 
 namespace Fintech\RestApi\Http\Requests\Business;
 
-use Fintech\Business\Facades\Business;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
