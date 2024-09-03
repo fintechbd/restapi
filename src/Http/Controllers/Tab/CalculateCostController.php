@@ -6,10 +6,15 @@ use App\Http\Controllers\Controller;
 use Exception;
 use Fintech\Auth\Facades\Auth;
 use Fintech\Business\Facades\Business;
+use Fintech\Core\Abstracts\BaseModel;
+use Fintech\Core\Enums\Transaction\OrderStatus;
 use Fintech\RestApi\Http\Requests\Tab\PayBillRequest;
 use Fintech\RestApi\Http\Resources\Tab\PayBillCostResource;
+use Fintech\Tab\Facades\Tab;
+use Fintech\Tab\Services\PayBillService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Str;
 
 class CalculateCostController extends Controller
 {
@@ -22,15 +27,39 @@ class CalculateCostController extends Controller
 
         try {
 
-            if (! $request->filled('user_id')) {
-                $inputs['user_id'] = auth()->id();
+            if ($request->missing('user_id')) {
+                $inputs['user_id'] = $request->user('sanctum')->id;
             }
 
             if ($user = Auth::user()->find($inputs['user_id'])) {
                 $inputs['role_id'] = $user->roles->first()?->getKey() ?? null;
             }
 
-            $inputs['amount'] = $inputs['amount'] ?? 0;
+            $service = Business::service()->find($inputs['service_id']);
+
+            $vendor = Business::serviceVendor()->find($service->service_vendor_id);
+
+            $inputs['service_vendor_id'] = $vendor?->getKey() ?? null;
+
+            $quote = new BaseModel();
+
+            $quote->source_country_id = $inputs['source_country_id'];
+            $quote->destination_country_id = $inputs['destination_country_id'];
+            $quote->service_vendor_id = $vendor->getKey();
+            $quote->service_id = $inputs['service_id'];
+            $quote->user_id = $inputs['user_id'];
+            $quote->vendor = $inputs['vendor'] ?? $vendor->service_vendor_slug;
+            $quote->status = OrderStatus::Pending->value;
+            $quote->order_data = [
+                'pay_bill_data' => $inputs['pay_bill_data'],
+                'service_stat_data' => $inputs,
+            ];
+            $quote->order_number = 'CANPB' . Str::padLeft(time(), 15, "0");
+            $quote->is_refunded = 'no';
+
+            $quoteInfo = Tab::assignVendor()->requestQuote($quote);
+
+            dd($quoteInfo);
 
             $exchangeRate = Business::serviceStat()->cost($inputs);
 
