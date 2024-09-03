@@ -17,6 +17,7 @@ class ServiceRateCostCollection extends ResourceCollection
     {
         $this->total = 0;
         $this->sum = 0;
+
         return $this->collection->map(function ($item) {
             return $item;
         })->toArray();
