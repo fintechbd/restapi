@@ -9,6 +9,8 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class UserStatusSummaryCollection extends ResourceCollection
 {
+
+    private int $total;
     /**
      * Transform the resource collection into an array.
      *
@@ -16,19 +18,14 @@ class UserStatusSummaryCollection extends ResourceCollection
      */
     public function toArray(Request $request): array
     {
-        $sum = 0;
-        $entries = $this->collection->transform(function ($item) use (&$sum) {
-            $sum += $item->count;
+        return $this->collection->transform(function ($item) {
+            $this->total += $item->count;
 
             return [
                 'total' => number_format($item->count),
                 'label' => UserStatus::name($item->status)->label(),
             ];
         })->toArray();
-
-        $entries[] = ['total' => number_format($sum), 'label' => 'Total'];
-
-        return $entries;
     }
 
     /**
@@ -51,6 +48,10 @@ class UserStatusSummaryCollection extends ResourceCollection
                     'total' => 'Total',
                     'label' => 'Stage',
                 ],
+            ],
+            'meta' => [
+                'total' => number_format($this->total),
+                'label' => 'Total'
             ],
             'query' => $request->all(),
         ];
