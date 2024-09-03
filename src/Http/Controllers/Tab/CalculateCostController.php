@@ -11,7 +11,6 @@ use Fintech\Core\Enums\Transaction\OrderStatus;
 use Fintech\RestApi\Http\Requests\Tab\PayBillRequest;
 use Fintech\RestApi\Http\Resources\Tab\PayBillCostResource;
 use Fintech\Tab\Facades\Tab;
-use Fintech\Tab\Services\PayBillService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Str;
@@ -41,7 +40,7 @@ class CalculateCostController extends Controller
 
             $inputs['service_vendor_id'] = $vendor?->getKey() ?? null;
 
-            $quote = new BaseModel();
+            $quote = new BaseModel;
 
             $quote->source_country_id = $inputs['source_country_id'];
             $quote->destination_country_id = $inputs['destination_country_id'];
@@ -54,7 +53,7 @@ class CalculateCostController extends Controller
                 'pay_bill_data' => $inputs['pay_bill_data'],
                 'service_stat_data' => $inputs,
             ];
-            $quote->order_number = 'CANPB' . Str::padLeft(time(), 15, "0");
+            $quote->order_number = 'CANPB'.Str::padLeft(time(), 15, '0');
             $quote->is_refunded = 'no';
 
             $quoteInfo = Tab::assignVendor()->requestQuote($quote);
