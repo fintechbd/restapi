@@ -278,7 +278,7 @@ class ServiceTypeController extends Controller
 
             if ($request->filled('service_type_parent_slug')) {
                 $serviceType = Business::serviceType()->list([
-                    'service_type_parent_slug' => $input['service_type_parent_slug'],
+                    'service_type_slug' => $input['service_type_parent_slug'],
                     'get' => ['service_types.id'],
                 ])->first();
                 $input['service_type_parent_id'] = $serviceType->id;
@@ -288,6 +288,8 @@ class ServiceTypeController extends Controller
             }
 
             $serviceTypes = Business::serviceType()->available($input);
+
+            dd($input);
 
             return new ServiceTypeListCollection($serviceTypes);
 
