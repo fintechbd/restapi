@@ -28,7 +28,7 @@ class ServiceTypeListRequest extends FormRequest
         return [
             'user_id' => ['integer', 'nullable'],
             'role_id' => ['integer', 'nullable'],
-            'service_type_parent_slug' => ['integer', 'nullable', 'exists:service_types,service_type_slug'],
+            'service_type_parent_slug' => ['string', 'nullable', 'exists:service_types,service_type_slug'],
             'service_type_parent_id' => ['integer', 'nullable'],
             'source_country_id' => ['integer', 'nullable'],
             'destination_country_id' => ['integer', 'nullable'],
