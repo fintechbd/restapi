@@ -288,6 +288,7 @@ class ServiceTypeController extends Controller
                 }
 
                 $input['service_type_parent_id'] = $serviceType->id;
+                unset($input['service_type_parent_slug']);
             } else {
                 $input['service_type_parent_id_is_null'] = true;
             }
