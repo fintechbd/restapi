@@ -289,8 +289,6 @@ class ServiceTypeController extends Controller
 
             $serviceTypes = Business::serviceType()->available($input);
 
-            dd($input);
-
             return new ServiceTypeListCollection($serviceTypes);
 
         } catch (Exception $exception) {
