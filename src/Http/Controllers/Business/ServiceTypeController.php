@@ -3,6 +3,7 @@
 namespace Fintech\RestApi\Http\Controllers\Business;
 
 use Exception;
+use Fintech\Business\Exceptions\BusinessException;
 use Fintech\Business\Facades\Business;
 use Fintech\Core\Exceptions\DeleteOperationException;
 use Fintech\Core\Exceptions\RestoreOperationException;
@@ -69,7 +70,7 @@ class ServiceTypeController extends Controller
 
             $serviceType = Business::serviceType()->create($inputs);
 
-            if (! $serviceType) {
+            if (!$serviceType) {
                 throw (new StoreOperationException)->setModel(config('fintech.business.service_type_model'));
             }
 
@@ -98,7 +99,7 @@ class ServiceTypeController extends Controller
 
             $serviceType = Business::serviceType()->find($id);
 
-            if (! $serviceType) {
+            if (!$serviceType) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_type_model'), $id);
             }
 
@@ -126,13 +127,13 @@ class ServiceTypeController extends Controller
 
             $serviceType = Business::serviceType()->find($id);
 
-            if (! $serviceType) {
+            if (!$serviceType) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_type_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! Business::serviceType()->update($id, $inputs)) {
+            if (!Business::serviceType()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_type_model'), $id);
             }
@@ -161,11 +162,11 @@ class ServiceTypeController extends Controller
 
             $serviceType = Business::serviceType()->find($id);
 
-            if (! $serviceType) {
+            if (!$serviceType) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_type_model'), $id);
             }
 
-            if (! Business::serviceType()->destroy($id)) {
+            if (!Business::serviceType()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.business.service_type_model'), $id);
             }
@@ -195,11 +196,11 @@ class ServiceTypeController extends Controller
 
             $serviceType = Business::serviceType()->find($id, true);
 
-            if (! $serviceType) {
+            if (!$serviceType) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_type_model'), $id);
             }
 
-            if (! Business::serviceType()->restore($id)) {
+            if (!Business::serviceType()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.business.service_type_model'), $id);
             }
@@ -264,78 +265,36 @@ class ServiceTypeController extends Controller
     public function serviceTypeList(ServiceTypeListRequest $request): ServiceTypeListCollection|JsonResponse
     {
         try {
-            $input = $request->all();
-            //TODO Check after login
-            //$input['user_id'] = $request->user_id ?? auth()->user->getKey();
-            //$input['role_id'] = $request->role_id ?? auth()->user->roles[0]->getKey();
+            $input = $request->validated();
 
-            if (! $request->filled('service_type_parent_id')) {
+            if (auth()->check()) {
+                $input['user_id'] = ($request->filled('user_id'))
+                    ? $request->input('user_id')
+                    : auth()->id();
+
+                $input['role_id'] = ($request->filled('role_id'))
+                    ? $request->input('role_id')
+                    : auth()->user->roles[0]->getKey();
+            }
+
+            if ($request->filled('service_type_parent_slug')) {
+                $serviceType = Business::serviceType()->list([
+                    'service_type_parent_slug' => $input['service_type_parent_slug'],
+                    'get' => ['service_types.id']
+                ])->first();
+
+                if ($serviceType == null) {
+                    throw new BusinessException(__('Services Unavailable.'));
+                }
+
+                $input['service_type_parent_id'] = $serviceType->id;
+            } else {
                 $input['service_type_parent_id_is_null'] = true;
             }
 
-            $input['service_type_enabled'] = true;
-            $input['sort'] = 'service_types.id';
-            $input['dir'] = 'asc';
-            $input['paginate'] = false;
-            $serviceTypes = Business::serviceType()->list($input);
+            $serviceTypes = Business::serviceType()->available($input);
 
-            $serviceTypeCollection = collect();
-
-            foreach ($serviceTypes as $serviceType) {
-
-                if ($serviceType->service_type_is_parent == 'no') {
-                    $inputNo = $input;
-                    $inputNo['service_join_active'] = true;
-                    $inputNo['service_type_id'] = $serviceType->id;
-                    $inputNo['service_enabled'] = true;
-                    $inputNo['service_vendor_enabled'] = true;
-                    $inputNo['service_stat_enabled'] = true;
-
-                    $fullServiceTypes = Business::serviceType()->list($inputNo);
-                    if ($fullServiceTypes->isNotEmpty()) {
-                        foreach ($fullServiceTypes as $fullServiceType) {
-                            $fullServiceType['service_stat_data'] = $fullServiceType['service_stat_data'] ?? [];
-                            $fullServiceType['service_data'] = $fullServiceType['service_data'] ?? [];
-                            $fullServiceType->logo_svg = Business::service()->find($fullServiceType->service_id)?->getFirstMediaUrl('logo_svg') ?? null;
-                            $fullServiceType->logo_png = Business::service()->find($fullServiceType->service_id)?->getFirstMediaUrl('logo_png') ?? null;
-                            if (isset($fullServiceType->media)) {
-                                unset($fullServiceType->media);
-                            }
-                            $serviceTypeCollection->push($fullServiceType);
-                        }
-                    }
-                } elseif ($serviceType['service_type_is_parent'] == 'yes') {
-                    $inputYes = $input;
-                    $collectID = [];
-                    $findAllChildServiceType = Business::serviceType()->find($serviceType->getKey());
-                    $arrayFindData[$serviceType->getKey()] = $findAllChildServiceType->allChildList ?? [];
-                    foreach ($arrayFindData[$serviceType->getKey()] as $allChildAccounts) {
-                        $collectID[$serviceType->getKey()][] = $allChildAccounts['id'];
-                    }
-
-                    $inputYes['service_type_id_array'] = $collectID[$serviceType->getKey()] ?? [];
-                    //TODO may be need to work future
-                    $inputYes['service_type_parent_id'] = $serviceType->getKey();
-                    $inputYes['service_type_parent_id_is_null'] = false;
-                    $inputYes['service_type_id'] = false;
-                    $findServiceType = Business::serviceType()->list($inputYes)->count();
-                    if ($findServiceType > 0) {
-                        $serviceType->logo_svg = $serviceType?->getFirstMediaUrl('logo_svg') ?? null;
-                        $serviceType->logo_png = $serviceType?->getFirstMediaUrl('logo_png') ?? null;
-                        if (isset($serviceType->media)) {
-                            unset($serviceType->media);
-                        }
-                        $serviceTypeCollection->push($serviceType);
-                    }
-                } else {
-                    if (isset($serviceType->media)) {
-                        unset($serviceType->media);
-                    }
-                    $serviceTypeCollection->push($serviceType);
-                }
-            }
-
-            return new ServiceTypeListCollection($serviceTypeCollection);
+            return new ServiceTypeListCollection($serviceTypes);
 
         } catch (Exception $exception) {
 
@@ -362,12 +321,12 @@ class ServiceTypeController extends Controller
 
             $attribute = 'id';
 
-            if (! empty($filters['label'])) {
+            if (!empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (! empty($filters['attribute'])) {
+            if (!empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }
