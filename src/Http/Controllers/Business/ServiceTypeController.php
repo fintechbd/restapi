@@ -3,7 +3,6 @@
 namespace Fintech\RestApi\Http\Controllers\Business;
 
 use Exception;
-use Fintech\Business\Exceptions\BusinessException;
 use Fintech\Business\Facades\Business;
 use Fintech\Core\Exceptions\DeleteOperationException;
 use Fintech\Core\Exceptions\RestoreOperationException;
