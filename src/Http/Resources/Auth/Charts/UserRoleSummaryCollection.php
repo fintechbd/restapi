@@ -20,6 +20,7 @@ class UserRoleSummaryCollection extends ResourceCollection
 
         return $this->collection->map(function ($item) {
             $this->total += $item->count;
+
             return [
                 'total' => number_format($item->count),
                 'name' => $item->name,
@@ -50,7 +51,7 @@ class UserRoleSummaryCollection extends ResourceCollection
             ],
             'meta' => [
                 'total' => number_format($this->total),
-                'label' => 'Total'
+                'label' => 'Total',
             ],
             'query' => $request->all(),
         ];

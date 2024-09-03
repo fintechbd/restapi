@@ -9,8 +9,8 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class UserStatusSummaryCollection extends ResourceCollection
 {
-
     private int $total;
+
     /**
      * Transform the resource collection into an array.
      *
@@ -51,7 +51,7 @@ class UserStatusSummaryCollection extends ResourceCollection
             ],
             'meta' => [
                 'total' => number_format($this->total),
-                'label' => 'Total'
+                'label' => 'Total',
             ],
             'query' => $request->all(),
         ];
