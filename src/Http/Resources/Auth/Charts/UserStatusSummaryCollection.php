@@ -9,7 +9,7 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class UserStatusSummaryCollection extends ResourceCollection
 {
-    private int $total;
+    private int $total = 0;
 
     /**
      * Transform the resource collection into an array.
@@ -18,6 +18,8 @@ class UserStatusSummaryCollection extends ResourceCollection
      */
     public function toArray(Request $request): array
     {
+        $this->total = 0;
+
         return $this->collection->transform(function ($item) {
             $this->total += $item->count;
 

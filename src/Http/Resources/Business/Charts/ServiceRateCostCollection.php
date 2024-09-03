@@ -8,10 +8,6 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class ServiceRateCostCollection extends ResourceCollection
 {
-    private int $total;
-
-    private int $sum;
-
     /**
      * Transform the resource collection into an array.
      *
@@ -19,6 +15,8 @@ class ServiceRateCostCollection extends ResourceCollection
      */
     public function toArray(Request $request): array
     {
+        $this->total = 0;
+        $this->sum = 0;
         return $this->collection->map(function ($item) {
             return $item;
         })->toArray();
@@ -49,10 +47,7 @@ class ServiceRateCostCollection extends ResourceCollection
                     'service_type' => 'Transaction Type',
                 ],
             ],
-            'meta' => [
-                'total' => number_format($this->total),
-                'name' => 'Total',
-            ],
+            'meta' => [],
             'query' => $request->all(),
         ];
     }

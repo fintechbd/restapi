@@ -34,7 +34,7 @@ class StoreChargeBreakDownRequest extends FormRequest
             'service_stat_id' => ['integer', 'required'],
             'service_id' => ['integer', 'required'],
             'lower_limit' => ['numeric', 'required', "gte:{$stat_lower_limit}", "lte:{$stat_higher_limit}", new ChargeLowerLimit],
-            'higher_limit' => ['numeric', 'required', "gte:{$stat_lower_limit}", "lte:{$stat_higher_limit}", new ChargeHigherLimit],
+            'higher_limit' => ['numeric', 'required', "gte:{$stat_lower_limit}", "lte:{$stat_higher_limit}", "gt:lower_limit", new ChargeHigherLimit],
             'charge' => ['string', 'required'],
             'discount' => ['string', 'required'],
             'commission' => ['string', 'required'],
