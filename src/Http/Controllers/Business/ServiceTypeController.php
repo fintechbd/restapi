@@ -282,11 +282,6 @@ class ServiceTypeController extends Controller
                     'service_type_parent_slug' => $input['service_type_parent_slug'],
                     'get' => ['service_types.id']
                 ])->first();
-
-                if ($serviceType == null) {
-                    throw new BusinessException(__('Services Unavailable.'));
-                }
-
                 $input['service_type_parent_id'] = $serviceType->id;
                 unset($input['service_type_parent_slug']);
             } else {
