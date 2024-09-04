@@ -79,6 +79,8 @@ class KycVerificationResource extends JsonResource
             $name = $response['additional_proof']['first_name'].' '.($response['additional_proof']['last_name'] ?? '');
         } elseif (isset($response['proof']['first_name'])) {
             $name = $response['proof']['first_name'].' '.($response['proof']['last_name'] ?? '');
+        } else {
+            $name = 'Unknown';
         }
 
         if (isset($response['proof']['issue_date'])) {
