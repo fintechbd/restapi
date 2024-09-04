@@ -15,6 +15,9 @@ class ServiceRateCostCollection extends ResourceCollection
      */
     public function toArray(Request $request): array
     {
+        $this->total = 0;
+        $this->sum = 0;
+
         return $this->collection->map(function ($item) {
             return $item;
         })->toArray();
@@ -45,6 +48,7 @@ class ServiceRateCostCollection extends ResourceCollection
                     'service_type' => 'Transaction Type',
                 ],
             ],
+            'meta' => [],
             'query' => $request->all(),
         ];
     }

@@ -8,6 +8,8 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class UserRoleSummaryCollection extends ResourceCollection
 {
+    public int $total = 0;
+
     /**
      * Transform the resource collection into an array.
      *
@@ -15,20 +17,15 @@ class UserRoleSummaryCollection extends ResourceCollection
      */
     public function toArray(Request $request): array
     {
-        $sum = 0;
 
-        $total = $this->collection->map(function ($item) use (&$sum) {
-            $sum += $item->count;
+        return $this->collection->map(function ($item) {
+            $this->total += $item->count;
 
             return [
                 'total' => number_format($item->count),
                 'name' => $item->name,
             ];
         })->toArray();
-
-        $total[] = ['total' => number_format($sum), 'name' => 'Total'];
-
-        return $total;
     }
 
     /**
@@ -51,6 +48,10 @@ class UserRoleSummaryCollection extends ResourceCollection
                     'total' => 'Total',
                     'name' => 'Role',
                 ],
+            ],
+            'meta' => [
+                'total' => number_format($this->total),
+                'label' => 'Total',
             ],
             'query' => $request->all(),
         ];

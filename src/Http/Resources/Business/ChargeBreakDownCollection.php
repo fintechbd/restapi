@@ -20,7 +20,7 @@ class ChargeBreakDownCollection extends ResourceCollection
 
             return [
                 'id' => $chargeBreakDown->getKey(),
-                'service_stat_id' => $chargeBreakDown->serviceStat_id,
+                'service_stat_id' => $chargeBreakDown->service_stat_id,
                 'service_stat_name' => $chargeBreakDown->serviceStat?->service?->service_name ?? null,
                 'service_id' => $chargeBreakDown->service_id,
                 'service_name' => $chargeBreakDown->service?->service_name ?? null,
