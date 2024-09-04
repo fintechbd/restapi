@@ -37,6 +37,12 @@ use Illuminate\Support\Facades\DB;
  */
 class InternationalTopUpController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('imposter', ['only' => ['store']]);
+    }
+
     /**
      * @lrd:start
      * Return a listing of the *InternationalTopUp* resource as collection.

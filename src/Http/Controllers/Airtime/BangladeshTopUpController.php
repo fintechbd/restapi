@@ -37,6 +37,11 @@ use Illuminate\Support\Facades\DB;
  */
 class BangladeshTopUpController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('imposter', ['only' => ['store']]);
+    }
+
     /**
      * @lrd:start
      * Return a listing of the *BangladeshTopUp* resource as collection.
