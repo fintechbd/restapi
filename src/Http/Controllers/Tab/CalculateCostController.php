@@ -58,8 +58,6 @@ class CalculateCostController extends Controller
 
             $quoteInfo = Tab::assignVendor()->requestQuote($quote);
 
-            dd($quoteInfo);
-
             $exchangeRate = Business::serviceStat()->cost($inputs);
 
             $exchangeRate = json_decode(
@@ -89,6 +87,8 @@ class CalculateCostController extends Controller
                     "total_amount_formatted": "CAD 19.60"
                 }
            JSON, true);
+
+            $exchangeRate['vendor_info'] = $quoteInfo;
 
             return new PayBillCostResource($exchangeRate);
 
