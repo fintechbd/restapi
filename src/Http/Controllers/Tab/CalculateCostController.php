@@ -58,7 +58,7 @@ class CalculateCostController extends Controller
 
             $quoteInfo = Tab::assignVendor()->requestQuote($quote);
 
-            $inputs['amount'] = 100;
+            $inputs['amount'] = 3000;
 
             $exchangeRate = Business::serviceStat()->cost($inputs);
 
