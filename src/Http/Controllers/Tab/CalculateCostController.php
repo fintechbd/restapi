@@ -58,6 +58,7 @@ class CalculateCostController extends Controller
 
             $quoteInfo = Tab::assignVendor()->requestQuote($quote);
 
+            $inputs['amount'] = 100;
             $exchangeRate = Business::serviceStat()->cost($inputs);
 
             $exchangeRate = json_decode(
