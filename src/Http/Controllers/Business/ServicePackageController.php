@@ -115,7 +115,7 @@ class ServicePackageController extends Controller
 
             $servicePackage = Business::servicePackage()->create($inputs);
 
-            if (! $servicePackage) {
+            if (!$servicePackage) {
                 throw (new StoreOperationException)->setModel(config('fintech.business.service_package_model'));
             }
 
@@ -144,7 +144,7 @@ class ServicePackageController extends Controller
 
             $servicePackage = Business::servicePackage()->find($id);
 
-            if (! $servicePackage) {
+            if (!$servicePackage) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_package_model'), $id);
             }
 
@@ -175,13 +175,13 @@ class ServicePackageController extends Controller
 
             $servicePackage = Business::servicePackage()->find($id);
 
-            if (! $servicePackage) {
+            if (!$servicePackage) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_package_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! Business::servicePackage()->update($id, $inputs)) {
+            if (!Business::servicePackage()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_package_model'), $id);
             }
@@ -215,11 +215,11 @@ class ServicePackageController extends Controller
 
             $servicePackage = Business::servicePackage()->find($id);
 
-            if (! $servicePackage) {
+            if (!$servicePackage) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_package_model'), $id);
             }
 
-            if (! Business::servicePackage()->destroy($id)) {
+            if (!Business::servicePackage()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.business.service_package_model'), $id);
             }
@@ -251,11 +251,11 @@ class ServicePackageController extends Controller
 
             $servicePackage = Business::servicePackage()->find($id, true);
 
-            if (! $servicePackage) {
+            if (!$servicePackage) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_package_model'), $id);
             }
 
-            if (! Business::servicePackage()->restore($id)) {
+            if (!Business::servicePackage()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.business.service_package_model'), $id);
             }
@@ -354,12 +354,12 @@ class ServicePackageController extends Controller
 
             $attribute = 'id';
 
-            if (! empty($filters['label'])) {
+            if (!empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (! empty($filters['attribute'])) {
+            if (!empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }

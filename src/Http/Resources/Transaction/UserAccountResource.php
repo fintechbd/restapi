@@ -6,6 +6,7 @@ use Fintech\Core\Facades\Core;
 use Fintech\Transaction\Models\UserAccount;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use function currency;
 
 /**
  * @see UserAccount
@@ -30,7 +31,7 @@ class UserAccountResource extends JsonResource
             'country_name' => null,
             'logo_svg' => null,
             'logo_png' => null,
-            'user_account_data' => $this->user_account_data ?? (object) [],
+            'user_account_data' => $this->user_account_data ?? (object)[],
             'currency' => $user_account->user_account_data['currency'] ?? null,
             'currency_name' => $user_account->user_account_data['currency_name'] ?? null,
             'currency_symbol' => $user_account->user_account_data['currency_symbol'] ?? null,
@@ -42,9 +43,9 @@ class UserAccountResource extends JsonResource
             'updated_at' => $this->updated_at,
         ];
 
-        $data['deposit_amount_formatted'] = \currency($data['deposit_amount'], $data['currency'])->format();
-        $data['available_amount_formatted'] = \currency($data['available_amount'], $data['currency'])->format();
-        $data['spent_amount_formatted'] = \currency($data['spent_amount'], $data['currency'])->format();
+        $data['deposit_amount_formatted'] = currency($data['deposit_amount'], $data['currency'])->format();
+        $data['available_amount_formatted'] = currency($data['available_amount'], $data['currency'])->format();
+        $data['spent_amount_formatted'] = currency($data['spent_amount'], $data['currency'])->format();
 
         if (Core::packageExists('Auth')) {
             $data['user_name'] = $this->user?->name ?? null;

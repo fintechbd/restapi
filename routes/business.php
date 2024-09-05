@@ -3,6 +3,7 @@
 use Fintech\Core\Facades\Core;
 use Fintech\RestApi\Http\Controllers\Business\CalculateCostController;
 use Fintech\RestApi\Http\Controllers\Business\ChargeBreakDownController;
+use Fintech\RestApi\Http\Controllers\Business\Charts\ServiceRateCostController;
 use Fintech\RestApi\Http\Controllers\Business\CountryServiceController;
 use Fintech\RestApi\Http\Controllers\Business\CurrencyRateController;
 use Fintech\RestApi\Http\Controllers\Business\PackageTopChartController;
@@ -96,7 +97,7 @@ if (Config::get('fintech.business.enabled')) {
             //DO NOT REMOVE THIS LINE//
 
             Route::prefix('charts')->name('charts.')->group(function () {
-                Route::get('service-rate-charges', \Fintech\RestApi\Http\Controllers\Business\Charts\ServiceRateCostController::class)
+                Route::get('service-rate-charges', ServiceRateCostController::class)
                     ->name('service-rate-charges');
             });
         });

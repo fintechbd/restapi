@@ -25,10 +25,10 @@ class RouteServiceProvider extends ServiceProvider
         $this->routes(function () use (&$root_prefix) {
             Route::prefix("{$root_prefix}")
                 ->middleware(['api', 'http_log'])
-                ->group(__DIR__.'/../../routes/api.php');
+                ->group(__DIR__ . '/../../routes/api.php');
 
             Route::middleware(['web', 'http_log'])
-                ->group(__DIR__.'/../../routes/web.php');
+                ->group(__DIR__ . '/../../routes/web.php');
         });
     }
 

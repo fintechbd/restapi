@@ -3,6 +3,7 @@
 namespace Fintech\RestApi\Http\Controllers\Auth\Charts;
 
 use App\Http\Controllers\Controller;
+use Fintech\Auth\Facades\Auth;
 use Fintech\RestApi\Http\Resources\Auth\Charts\UserStatusSummaryCollection;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,7 @@ class UserStatusSummaryController extends Controller
             'dir' => 'desc',
         ]);
 
-        $users = \Fintech\Auth\Facades\Auth::user()->list($request->all());
+        $users = Auth::user()->list($request->all());
 
         return new UserStatusSummaryCollection($users);
     }

@@ -60,7 +60,7 @@ class AuditController extends Controller
 
             $audit = Auth::audit()->find($id);
 
-            if (! $audit) {
+            if (!$audit) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.auth.audit_model'), $id);
             }
 
@@ -93,11 +93,11 @@ class AuditController extends Controller
 
             $audit = Auth::audit()->find($id);
 
-            if (! $audit) {
+            if (!$audit) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.auth.audit_model'), $id);
             }
 
-            if (! Auth::audit()->destroy($id)) {
+            if (!Auth::audit()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.auth.audit_model'), $id);
             }

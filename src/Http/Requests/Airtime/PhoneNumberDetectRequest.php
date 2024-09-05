@@ -3,6 +3,7 @@
 namespace Fintech\RestApi\Http\Requests\Airtime;
 
 use Fintech\Core\Rules\MobileNumber;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PhoneNumberDetectRequest extends FormRequest
@@ -18,7 +19,7 @@ class PhoneNumberDetectRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {

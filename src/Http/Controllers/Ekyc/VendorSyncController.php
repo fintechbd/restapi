@@ -19,7 +19,7 @@ class VendorSyncController extends Controller
 
             $driver = config("fintech.ekyc.providers.{$vendor}.driver");
 
-            if (! $driver) {
+            if (!$driver) {
                 throw new ErrorException("Missing driver for `{$vendor}` kyc provider.");
             }
             /**
@@ -35,7 +35,11 @@ class VendorSyncController extends Controller
         }
     }
 
-    private function shuftiPro() {}
+    private function shuftiPro()
+    {
+    }
 
-    private function signzy() {}
+    private function signzy()
+    {
+    }
 }

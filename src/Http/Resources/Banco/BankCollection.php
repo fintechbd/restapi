@@ -43,7 +43,7 @@ class BankCollection extends ResourceCollection
                 'category' => $bank->category ?? null,
                 'transaction_type' => $bank->transaction_type ?? null,
                 'currency' => $bank->currency ?? null,
-                'vendor_code' => $bank->vendor_code ?? (object) [],
+                'vendor_code' => $bank->vendor_code ?? (object)[],
                 'bank_data' => $bank->bank_data ?? null,
                 'logo_png' => $bank->getFirstMediaUrl('logo_png') ?? null,
                 'logo_svg' => $bank->getFirstMediaUrl('logo_svg') ?? null,

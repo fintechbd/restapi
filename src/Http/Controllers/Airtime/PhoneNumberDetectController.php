@@ -5,7 +5,6 @@ namespace Fintech\RestApi\Http\Controllers\Airtime;
 use App\Http\Controllers\Controller;
 use Fintech\RestApi\Http\Requests\Airtime\PhoneNumberDetectRequest;
 use Fintech\RestApi\Http\Resources\Airtime\PhoneNumberDetectResource;
-use Illuminate\Http\Request;
 
 class PhoneNumberDetectController extends Controller
 {

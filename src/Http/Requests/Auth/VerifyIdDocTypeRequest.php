@@ -29,7 +29,7 @@ class VerifyIdDocTypeRequest extends FormRequest
         if ($availableDocTypes->isNotEmpty()) {
             $availableDocTypes = $availableDocTypes->pluck('code')->toArray();
             $availableDocTypes = (count($availableDocTypes) > 0)
-                ? ['string', 'in:'.implode(',', $availableDocTypes)]
+                ? ['string', 'in:' . implode(',', $availableDocTypes)]
                 : ['string'];
         } else {
             $availableDocTypes = ['string'];

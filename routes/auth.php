@@ -2,6 +2,9 @@
 
 use Fintech\RestApi\Http\Controllers\Auth\AuditController;
 use Fintech\RestApi\Http\Controllers\Auth\AuthenticatedController;
+use Fintech\RestApi\Http\Controllers\Auth\Charts\RegisteredUserSummaryController;
+use Fintech\RestApi\Http\Controllers\Auth\Charts\UserRoleSummaryController;
+use Fintech\RestApi\Http\Controllers\Auth\Charts\UserStatusSummaryController;
 use Fintech\RestApi\Http\Controllers\Auth\FavouriteController;
 use Fintech\RestApi\Http\Controllers\Auth\LoginAttemptController;
 use Fintech\RestApi\Http\Controllers\Auth\OneTimePinController;
@@ -105,12 +108,12 @@ if (Config::get('fintech.auth.enabled')) {
             //DO NOT REMOVE THIS LINE//
 
             Route::prefix('charts')->name('charts.')->group(function () {
-                Route::get('user-role-summary', \Fintech\RestApi\Http\Controllers\Auth\Charts\UserRoleSummaryController::class)
+                Route::get('user-role-summary', UserRoleSummaryController::class)
                     ->name('user-role-summary');
 
-                Route::get('user-status-summary', \Fintech\RestApi\Http\Controllers\Auth\Charts\UserStatusSummaryController::class)
+                Route::get('user-status-summary', UserStatusSummaryController::class)
                     ->name('user-status-summary');
-                Route::get('registered-user-summary', \Fintech\RestApi\Http\Controllers\Auth\Charts\RegisteredUserSummaryController::class)
+                Route::get('registered-user-summary', RegisteredUserSummaryController::class)
                     ->name('registered-user-summary');
             });
         });

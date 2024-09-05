@@ -6,13 +6,14 @@ use Fintech\Core\Facades\Core;
 use Fintech\Core\Supports\Constant;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use stdClass;
 
 class RequestMoneyCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @return array
      */
     public function toArray($request)
@@ -42,7 +43,7 @@ class RequestMoneyCollection extends ResourceCollection
                 'risk_profile' => $requestMoney->risk_profile ?? null,
                 'notes' => $requestMoney->notes ?? null,
                 'is_refunded' => $requestMoney->is_refunded ?? null,
-                'order_data' => $requestMoney->order_data ?? new \stdClass,
+                'order_data' => $requestMoney->order_data ?? new stdClass,
                 'status' => $requestMoney->status ?? null,
                 'created_at' => $requestMoney->created_at ?? null,
                 'updated_at' => $requestMoney->updated_at ?? null,

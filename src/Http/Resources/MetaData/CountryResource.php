@@ -53,7 +53,7 @@ class CountryResource extends JsonResource
             'currency_symbol' => $this->currency_symbol,
             'nationality' => $this->nationality,
             'timezones' => $this->timezones,
-            'vendor_code' => $this->vendor_code ?? (object) [],
+            'vendor_code' => $this->vendor_code ?? (object)[],
             'country_data' => $this->country_data,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,

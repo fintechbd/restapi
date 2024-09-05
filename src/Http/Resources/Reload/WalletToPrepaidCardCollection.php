@@ -6,13 +6,14 @@ use Fintech\Core\Facades\Core;
 use Fintech\Core\Supports\Constant;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use stdClass;
 
 class WalletToPrepaidCardCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @return array
      */
     public function toArray($request)
@@ -42,7 +43,7 @@ class WalletToPrepaidCardCollection extends ResourceCollection
                 'risk_profile' => $walletToCard->risk_profile ?? null,
                 'notes' => $walletToCard->notes ?? null,
                 'is_refunded' => $walletToCard->is_refunded ?? null,
-                'order_data' => $walletToCard->order_data ?? new \stdClass,
+                'order_data' => $walletToCard->order_data ?? new stdClass,
                 'status' => $walletToCard->status ?? null,
                 'created_at' => $walletToCard->created_at ?? null,
                 'updated_at' => $walletToCard->updated_at ?? null,

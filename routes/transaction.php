@@ -2,6 +2,9 @@
 
 use Fintech\RestApi\Http\Controllers\Transaction\ChartClassController;
 use Fintech\RestApi\Http\Controllers\Transaction\ChartEntryController;
+use Fintech\RestApi\Http\Controllers\Transaction\Charts\OrderSummaryController;
+use Fintech\RestApi\Http\Controllers\Transaction\Charts\UserAccountSummaryController;
+use Fintech\RestApi\Http\Controllers\Transaction\Charts\UserAccountUsagePieChartController;
 use Fintech\RestApi\Http\Controllers\Transaction\ChartTypeController;
 use Fintech\RestApi\Http\Controllers\Transaction\ManualRefundController;
 use Fintech\RestApi\Http\Controllers\Transaction\OrderController;
@@ -54,15 +57,15 @@ if (Config::get('fintech.transaction.enabled')) {
 
         Route::prefix('charts')->name('charts.')->group(function () {
             Route::get('user-account-usages-pie-chart',
-                \Fintech\RestApi\Http\Controllers\Transaction\Charts\UserAccountUsagePieChartController::class)
+                UserAccountUsagePieChartController::class)
                 ->name('user-account-usages');
 
             Route::get('order-summary',
-                \Fintech\RestApi\Http\Controllers\Transaction\Charts\OrderSummaryController::class)
+                OrderSummaryController::class)
                 ->name('order-summary');
 
             Route::get('user-account-summary',
-                \Fintech\RestApi\Http\Controllers\Transaction\Charts\UserAccountSummaryController::class)
+                UserAccountSummaryController::class)
                 ->name('user-account-summary');
 
         });

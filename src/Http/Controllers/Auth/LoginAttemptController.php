@@ -62,7 +62,7 @@ class LoginAttemptController extends Controller
 
             $loginAttempt = Auth::loginAttempt()->find($id);
 
-            if (! $loginAttempt) {
+            if (!$loginAttempt) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.auth.login_attempt_model'), $id);
             }
 
@@ -95,11 +95,11 @@ class LoginAttemptController extends Controller
 
             $loginAttempt = Auth::loginAttempt()->find($id);
 
-            if (! $loginAttempt) {
+            if (!$loginAttempt) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.auth.login_attempt_model'), $id);
             }
 
-            if (! Auth::loginAttempt()->destroy($id)) {
+            if (!Auth::loginAttempt()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.auth.login_attempt_model'), $id);
             }
@@ -131,11 +131,11 @@ class LoginAttemptController extends Controller
 
             $loginAttempt = Auth::loginAttempt()->find($id, true);
 
-            if (! $loginAttempt) {
+            if (!$loginAttempt) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.auth.login_attempt_model'), $id);
             }
 
-            if (! Auth::loginAttempt()->restore($id)) {
+            if (!Auth::loginAttempt()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.auth.login_attempt_model'), $id);
             }

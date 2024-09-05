@@ -6,13 +6,14 @@ use Fintech\Core\Facades\Core;
 use Fintech\Core\Supports\Constant;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use stdClass;
 
 class CurrencySwapCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @return array
      */
     public function toArray($request)
@@ -42,7 +43,7 @@ class CurrencySwapCollection extends ResourceCollection
                 'risk_profile' => $currencySwap->risk_profile ?? null,
                 'notes' => $currencySwap->notes ?? null,
                 'is_refunded' => $currencySwap->is_refunded ?? null,
-                'order_data' => $currencySwap->order_data ?? new \stdClass,
+                'order_data' => $currencySwap->order_data ?? new stdClass,
                 'status' => $currencySwap->status ?? null,
                 'created_at' => $currencySwap->created_at ?? null,
                 'updated_at' => $currencySwap->updated_at ?? null,

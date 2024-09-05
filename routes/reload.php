@@ -1,5 +1,7 @@
 <?php
 
+use Fintech\RestApi\Http\Controllers\Reload\Charts\DepositPartnerController;
+use Fintech\RestApi\Http\Controllers\Reload\Charts\WithdrawPartnerController;
 use Fintech\RestApi\Http\Controllers\Reload\CurrencySwapController;
 use Fintech\RestApi\Http\Controllers\Reload\DepositController;
 use Fintech\RestApi\Http\Controllers\Reload\RequestMoneyController;
@@ -68,11 +70,11 @@ if (Config::get('fintech.reload.enabled')) {
 
             Route::prefix('charts')->name('charts.')->group(function () {
                 Route::get('deposit-partner-summary',
-                    \Fintech\RestApi\Http\Controllers\Reload\Charts\DepositPartnerController::class)
+                    DepositPartnerController::class)
                     ->name('deposit-partner-summary');
 
                 Route::get('withdraw-partner-summary',
-                    \Fintech\RestApi\Http\Controllers\Reload\Charts\WithdrawPartnerController::class)
+                    WithdrawPartnerController::class)
                     ->name('withdraw-partner-summary');
             });
         });

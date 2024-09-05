@@ -67,7 +67,7 @@ class BankAccountController extends Controller
 
             $bankAccount = Banco::bankAccount()->create($inputs);
 
-            if (! $bankAccount) {
+            if (!$bankAccount) {
                 throw (new StoreOperationException)->setModel(config('fintech.banco.bank_account_model'));
             }
 
@@ -96,7 +96,7 @@ class BankAccountController extends Controller
 
             $bankAccount = Banco::bankAccount()->find($id);
 
-            if (! $bankAccount) {
+            if (!$bankAccount) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.banco.bank_account_model'), $id);
             }
 
@@ -127,13 +127,13 @@ class BankAccountController extends Controller
 
             $bankAccount = Banco::bankAccount()->find($id);
 
-            if (! $bankAccount) {
+            if (!$bankAccount) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.banco.bank_account_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! Banco::bankAccount()->update($id, $inputs)) {
+            if (!Banco::bankAccount()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.banco.bank_account_model'), $id);
             }
@@ -167,11 +167,11 @@ class BankAccountController extends Controller
 
             $bankAccount = Banco::bankAccount()->find($id);
 
-            if (! $bankAccount) {
+            if (!$bankAccount) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.banco.bank_account_model'), $id);
             }
 
-            if (! Banco::bankAccount()->destroy($id)) {
+            if (!Banco::bankAccount()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.banco.bank_account_model'), $id);
             }
@@ -203,11 +203,11 @@ class BankAccountController extends Controller
 
             $bankAccount = Banco::bankAccount()->find($id, true);
 
-            if (! $bankAccount) {
+            if (!$bankAccount) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.banco.bank_account_model'), $id);
             }
 
-            if (! Banco::bankAccount()->restore($id)) {
+            if (!Banco::bankAccount()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.banco.bank_account_model'), $id);
             }

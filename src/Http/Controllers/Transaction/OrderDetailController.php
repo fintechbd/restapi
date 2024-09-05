@@ -67,7 +67,7 @@ class OrderDetailController extends Controller
 
             $orderDetail = Transaction::orderDetail()->create($inputs);
 
-            if (! $orderDetail) {
+            if (!$orderDetail) {
                 throw (new StoreOperationException)->setModel(config('fintech.transaction.order_detail_model'));
             }
 
@@ -96,7 +96,7 @@ class OrderDetailController extends Controller
 
             $orderDetail = Transaction::orderDetail()->find($id);
 
-            if (! $orderDetail) {
+            if (!$orderDetail) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.order_detail_model'), $id);
             }
 
@@ -127,13 +127,13 @@ class OrderDetailController extends Controller
 
             $orderDetail = Transaction::orderDetail()->find($id);
 
-            if (! $orderDetail) {
+            if (!$orderDetail) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.order_detail_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! Transaction::orderDetail()->update($id, $inputs)) {
+            if (!Transaction::orderDetail()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.transaction.order_detail_model'), $id);
             }
@@ -167,11 +167,11 @@ class OrderDetailController extends Controller
 
             $orderDetail = Transaction::orderDetail()->find($id);
 
-            if (! $orderDetail) {
+            if (!$orderDetail) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.order_detail_model'), $id);
             }
 
-            if (! Transaction::orderDetail()->destroy($id)) {
+            if (!Transaction::orderDetail()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.transaction.order_detail_model'), $id);
             }
@@ -203,11 +203,11 @@ class OrderDetailController extends Controller
 
             $orderDetail = Transaction::orderDetail()->find($id, true);
 
-            if (! $orderDetail) {
+            if (!$orderDetail) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.order_detail_model'), $id);
             }
 
-            if (! Transaction::orderDetail()->restore($id)) {
+            if (!Transaction::orderDetail()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.transaction.order_detail_model'), $id);
             }

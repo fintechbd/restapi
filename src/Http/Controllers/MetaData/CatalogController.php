@@ -67,7 +67,7 @@ class CatalogController extends Controller
 
             $catalog = MetaData::catalog()->create($inputs);
 
-            if (! $catalog) {
+            if (!$catalog) {
                 throw (new StoreOperationException)->setModel(config('fintech.metadata.catalog_model'));
             }
 
@@ -96,7 +96,7 @@ class CatalogController extends Controller
 
             $catalog = MetaData::catalog()->find($id);
 
-            if (! $catalog) {
+            if (!$catalog) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.metadata.catalog_model'), $id);
             }
 
@@ -127,13 +127,13 @@ class CatalogController extends Controller
 
             $catalog = MetaData::catalog()->find($id);
 
-            if (! $catalog) {
+            if (!$catalog) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.metadata.catalog_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! MetaData::catalog()->update($id, $inputs)) {
+            if (!MetaData::catalog()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.metadata.catalog_model'), $id);
             }
@@ -167,11 +167,11 @@ class CatalogController extends Controller
 
             $catalog = MetaData::catalog()->find($id);
 
-            if (! $catalog) {
+            if (!$catalog) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.metadata.catalog_model'), $id);
             }
 
-            if (! MetaData::catalog()->destroy($id)) {
+            if (!MetaData::catalog()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.metadata.catalog_model'), $id);
             }
@@ -203,11 +203,11 @@ class CatalogController extends Controller
 
             $catalog = MetaData::catalog()->find($id, true);
 
-            if (! $catalog) {
+            if (!$catalog) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.metadata.catalog_model'), $id);
             }
 
-            if (! MetaData::catalog()->restore($id)) {
+            if (!MetaData::catalog()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.metadata.catalog_model'), $id);
             }
