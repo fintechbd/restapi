@@ -15,17 +15,18 @@ class ServicePackageResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
-            'id' => $this->getKey() ?? null,
-            'service_id' => $this->service_id ?? null,
-            'service_name' => $this->service?->service_name ?? null,
-            'name' => $this->name ?? null,
-            'code' => $this->code ?? null,
-            'rate' => $this->rate ?? null,
-            'service_package_data' => $this->service_package_data ?? null,
-            'enabled' => $this->enabled ?? null,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-        ];
+        return parent::toArray($request);
+//        return [
+//            'id' => $this->getKey() ?? null,
+//            'service_id' => $this->service_id ?? null,
+//            'service_name' => $this->service?->service_name ?? null,
+//            'name' => $this->name ?? null,
+//            'code' => $this->code ?? null,
+//            'rate' => $this->rate ?? null,
+//            'service_package_data' => $this->service_package_data ?? null,
+//            'enabled' => $this->enabled ?? null,
+//            'created_at' => $this->created_at,
+//            'updated_at' => $this->updated_at,
+//        ];
     }
 }

@@ -46,13 +46,13 @@ class ServicePackageController extends Controller
 
             $servicePackagePaginate = Business::servicePackage()->list($inputs);
 
-            $service = Business::service()->find($inputs['service_id'] ?? 25);
+            $service = Business::service()->find(($inputs['service_id'] ?? 25));
 
             $servicePackagePaginate = collect([
                 [
-                    "id" => $service->getKey(),
-                    "service_id" => $service->getKey(),
-                    "service_name" => $service->service_name,
+                    "id" => $service?->getKey() ?? 1,
+                    "service_id" => $service?->getKey() ?? 1,
+                    "service_name" => $service?->service_name ?? 'GP',
                     "country_id" => "19",
                     "country_name" => "Bangladesh",
                     "country_currency" => "BDT",
@@ -71,9 +71,9 @@ class ServicePackageController extends Controller
                     ]
                 ],
                 [
-                    "id" => $service->getKey(),
-                    "service_id" => $service->getKey(),
-                    "service_name" => $service->service_name,
+                    "id" => $service?->getKey() ?? 1,
+                    "service_id" => $service?->getKey() ?? 1,
+                    "service_name" => $service?->service_name ?? 'GP',
                     "country_id" => "19",
                     "country_name" => "Bangladesh",
                     "country_currency" => "BDT",
