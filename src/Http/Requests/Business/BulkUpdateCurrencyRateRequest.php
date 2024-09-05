@@ -2,14 +2,11 @@
 
 namespace Fintech\RestApi\Http\Requests\Business;
 
-use Fintech\RestApi\Traits\HasPaginateQuery;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class IndexCurrencyRateRequest extends FormRequest
+class BulkUpdateCurrencyRateRequest extends FormRequest
 {
-    use HasPaginateQuery;
-
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -26,18 +23,10 @@ class IndexCurrencyRateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'search' => ['string', 'nullable', 'max:255'],
-            'per_page' => ['integer', 'nullable', 'min:10', 'max:500'],
-            'page' => ['integer', 'nullable', 'min:1'],
-            'paginate' => ['boolean'],
-            'sort' => ['string', 'nullable', 'min:2', 'max:255'],
-            'dir' => ['string', 'min:3', 'max:4'],
-            'trashed' => ['boolean', 'nullable'],
-            'is_default' => ['boolean', 'nullable'],
-            'source_country_id' => ['integer', 'min:1', 'nullable'],
-            'destination_country_id' => ['integer', 'min:1', 'nullable'],
-            'service_id' => ['integer', 'min:1', 'nullable'],
-            'service_type_id' => ['integer', 'min:1', 'nullable'],
+            'source_country_id' => ['required', 'integer', 'min:1'],
+            'destination_country_id' => ['required', 'integer', 'min:1'],
+            'service_type_id' => ['required', 'integer', 'min:1'],
+            'rate' => ['required', 'numeric'],
         ];
     }
 

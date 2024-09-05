@@ -8,6 +8,7 @@ use Fintech\Core\Exceptions\DeleteOperationException;
 use Fintech\Core\Exceptions\RestoreOperationException;
 use Fintech\Core\Exceptions\StoreOperationException;
 use Fintech\Core\Exceptions\UpdateOperationException;
+use Fintech\RestApi\Http\Requests\Business\BulkUpdateCurrencyRateRequest;
 use Fintech\RestApi\Http\Requests\Business\ImportCurrencyRateRequest;
 use Fintech\RestApi\Http\Requests\Business\IndexCurrencyRateRequest;
 use Fintech\RestApi\Http\Requests\Business\StoreCurrencyRateRequest;
@@ -31,6 +32,11 @@ use Illuminate\Routing\Controller;
  */
 class CurrencyRateController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('imposter', ['only' => ['store', 'bulkUpdate', 'update']]);
+    }
+
     /**
      * @lrd:start
      * Return a listing of the *CurrencyRate* resource as collection.
@@ -139,6 +145,47 @@ class CurrencyRateController extends Controller
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.currency_rate_model'), $id);
             }
+
+            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Currency Rate']));
+
+        } catch (ModelNotFoundException $exception) {
+
+            return response()->notfound($exception->getMessage());
+
+        } catch (Exception $exception) {
+
+            return response()->failed($exception);
+        }
+    }
+
+    /**
+     * @lrd:start
+     * Update a specified *CurrencyRate* resource using id.
+     *
+     * @lrd:end
+     *
+     * @throws ModelNotFoundException
+     * @throws UpdateOperationException
+     */
+    public function bulkUpdate(BulkUpdateCurrencyRateRequest $request): JsonResponse
+    {
+        try {
+
+            $filters = $request->validated();
+
+            unset($filters['rate']);
+
+            $currencyRate = Business::currencyRate()->list($filters);
+
+            if ($currencyRate->isEmpty()) {
+                throw (new ModelNotFoundException)->setModel(config('fintech.business.currency_rate_model'), $filters);
+            }
+
+
+
+//            if (! Business::currencyRate()->update($id, $inputs)) {
+//                throw (new UpdateOperationException)->setModel(config('fintech.business.currency_rate_model'), $id);
+//            }
 
             return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Currency Rate']));
 

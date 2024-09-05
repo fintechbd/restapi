@@ -70,7 +70,11 @@ if (Config::get('fintech.business.enabled')) {
             Route::apiResource('package-top-charts', PackageTopChartController::class);
             //             Route::post('package-top-charts/{package_top_chart}/restore', [PackageTopChartController::class, 'restore'])->name('package-top-charts.restore');
 
-            Route::apiResource('currency-rates', CurrencyRateController::class);
+            Route::post('currency-rates/bulk-update', [CurrencyRateController::class, 'bulkUpdate'])
+                ->name('currency-rates.bulk-update');
+
+            Route::apiResource('currency-rates', CurrencyRateController::class)
+                ->where(['currency_rate' => '[0-9]+']);
             //             Route::post('currency-rates/{currency_rate}/restore', [CurrencyRateController::class, 'restore'])->name('currency-rates.restore');
 
             if (Core::packageExists('Auth')) {
