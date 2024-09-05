@@ -181,11 +181,9 @@ class CurrencyRateController extends Controller
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.currency_rate_model'), $filters);
             }
 
-
-
-//            if (! Business::currencyRate()->update($id, $inputs)) {
-//                throw (new UpdateOperationException)->setModel(config('fintech.business.currency_rate_model'), $id);
-//            }
+            //            if (! Business::currencyRate()->update($id, $inputs)) {
+            //                throw (new UpdateOperationException)->setModel(config('fintech.business.currency_rate_model'), $id);
+            //            }
 
             return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Currency Rate']));
 
