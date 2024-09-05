@@ -34,7 +34,7 @@ class StoreCatalogRequest extends FormRequest
                 'min:5',
                 'max:255',
                 Rule::unique('catalogs', 'name')
-                    ->where(fn($query) => $query->where('type', $type)),
+                    ->where(fn ($query) => $query->where('type', $type)),
             ],
             'code' => [
                 'required',
@@ -42,7 +42,7 @@ class StoreCatalogRequest extends FormRequest
                 'min:5',
                 'max:255',
                 Rule::unique('catalogs', 'code')
-                    ->where(fn($query) => $query->where('type', $type)),
+                    ->where(fn ($query) => $query->where('type', $type)),
             ],
             'countries' => ['nullable', 'array'],
             'countries.*' => ['required', 'integer'],

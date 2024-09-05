@@ -67,7 +67,7 @@ class TriggerRecipientController extends Controller
 
             $triggerRecipient = Bell::triggerRecipient()->create($inputs);
 
-            if (!$triggerRecipient) {
+            if (! $triggerRecipient) {
                 throw (new StoreOperationException)->setModel(config('fintech.bell.trigger_recipient_model'));
             }
 
@@ -96,7 +96,7 @@ class TriggerRecipientController extends Controller
 
             $triggerRecipient = Bell::triggerRecipient()->find($id);
 
-            if (!$triggerRecipient) {
+            if (! $triggerRecipient) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.bell.trigger_recipient_model'), $id);
             }
 
@@ -127,13 +127,13 @@ class TriggerRecipientController extends Controller
 
             $triggerRecipient = Bell::triggerRecipient()->find($id);
 
-            if (!$triggerRecipient) {
+            if (! $triggerRecipient) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.bell.trigger_recipient_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!Bell::triggerRecipient()->update($id, $inputs)) {
+            if (! Bell::triggerRecipient()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.bell.trigger_recipient_model'), $id);
             }
@@ -167,11 +167,11 @@ class TriggerRecipientController extends Controller
 
             $triggerRecipient = Bell::triggerRecipient()->find($id);
 
-            if (!$triggerRecipient) {
+            if (! $triggerRecipient) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.bell.trigger_recipient_model'), $id);
             }
 
-            if (!Bell::triggerRecipient()->destroy($id)) {
+            if (! Bell::triggerRecipient()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.bell.trigger_recipient_model'), $id);
             }
@@ -203,11 +203,11 @@ class TriggerRecipientController extends Controller
 
             $triggerRecipient = Bell::triggerRecipient()->find($id, true);
 
-            if (!$triggerRecipient) {
+            if (! $triggerRecipient) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.bell.trigger_recipient_model'), $id);
             }
 
-            if (!Bell::triggerRecipient()->restore($id)) {
+            if (! Bell::triggerRecipient()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.bell.trigger_recipient_model'), $id);
             }

@@ -69,7 +69,7 @@ class ServiceVendorController extends Controller
 
             $serviceVendor = Business::serviceVendor()->create($inputs);
 
-            if (!$serviceVendor) {
+            if (! $serviceVendor) {
                 throw (new StoreOperationException)->setModel(config('fintech.business.service_vendor_model'));
             }
 
@@ -98,7 +98,7 @@ class ServiceVendorController extends Controller
 
             $serviceVendor = Business::serviceVendor()->find($id);
 
-            if (!$serviceVendor) {
+            if (! $serviceVendor) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_vendor_model'), $id);
             }
 
@@ -129,13 +129,13 @@ class ServiceVendorController extends Controller
 
             $serviceVendor = Business::serviceVendor()->find($id);
 
-            if (!$serviceVendor) {
+            if (! $serviceVendor) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_vendor_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!Business::serviceVendor()->update($id, $inputs)) {
+            if (! Business::serviceVendor()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_vendor_model'), $id);
             }
@@ -169,11 +169,11 @@ class ServiceVendorController extends Controller
 
             $serviceVendor = Business::serviceVendor()->find($id);
 
-            if (!$serviceVendor) {
+            if (! $serviceVendor) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_vendor_model'), $id);
             }
 
-            if (!Business::serviceVendor()->destroy($id)) {
+            if (! Business::serviceVendor()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.business.service_vendor_model'), $id);
             }
@@ -205,11 +205,11 @@ class ServiceVendorController extends Controller
 
             $serviceVendor = Business::serviceVendor()->find($id, true);
 
-            if (!$serviceVendor) {
+            if (! $serviceVendor) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_vendor_model'), $id);
             }
 
-            if (!Business::serviceVendor()->restore($id)) {
+            if (! Business::serviceVendor()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.business.service_vendor_model'), $id);
             }
@@ -287,12 +287,12 @@ class ServiceVendorController extends Controller
 
             $attribute = 'id';
 
-            if (!empty($filters['label'])) {
+            if (! empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (!empty($filters['attribute'])) {
+            if (! empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }

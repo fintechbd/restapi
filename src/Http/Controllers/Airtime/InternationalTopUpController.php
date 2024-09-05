@@ -93,7 +93,7 @@ class InternationalTopUpController extends Controller
                     'country_id' => $request->input('source_country_id', $depositor->profile?->country_id),
                 ])->first();
 
-                if (!$depositAccount) {
+                if (! $depositAccount) {
                     throw new Exception("User don't have account deposit balance");
                 }
 
@@ -102,8 +102,8 @@ class InternationalTopUpController extends Controller
                     'country_id' => $request->input('source_country_id', $depositor->profile?->country_id),
                 ])->first();
 
-                if (!$masterUser) {
-                    throw new Exception('Master User Account not found for ' . $request->input('source_country_id', $depositor->profile?->country_id) . ' country');
+                if (! $masterUser) {
+                    throw new Exception('Master User Account not found for '.$request->input('source_country_id', $depositor->profile?->country_id).' country');
                 }
 
                 //set pre defined conditions of deposit
@@ -132,7 +132,7 @@ class InternationalTopUpController extends Controller
 
                 $internationalTopUp = Airtime::internationalTopUp()->create($inputs);
 
-                if (!$internationalTopUp) {
+                if (! $internationalTopUp) {
                     throw (new StoreOperationException)->setModel(config('fintech.airtime.international_top_up_model'));
                 }
 
@@ -149,20 +149,20 @@ class InternationalTopUpController extends Controller
                 ])->first();
                 //update User Account
                 $depositedUpdatedAccount = $depositedAccount->toArray();
-                $depositedUpdatedAccount['user_account_data']['spent_amount'] = (float)$depositedUpdatedAccount['user_account_data']['spent_amount'] + (float)$userUpdatedBalance['spent_amount'];
-                $depositedUpdatedAccount['user_account_data']['available_amount'] = (float)$userUpdatedBalance['current_amount'];
-                if (((float)$depositedUpdatedAccount['user_account_data']['available_amount']) < ((float)config('fintech.transaction.minimum_balance'))) {
+                $depositedUpdatedAccount['user_account_data']['spent_amount'] = (float) $depositedUpdatedAccount['user_account_data']['spent_amount'] + (float) $userUpdatedBalance['spent_amount'];
+                $depositedUpdatedAccount['user_account_data']['available_amount'] = (float) $userUpdatedBalance['current_amount'];
+                if (((float) $depositedUpdatedAccount['user_account_data']['available_amount']) < ((float) config('fintech.transaction.minimum_balance'))) {
                     throw new Exception(__('Insufficient balance!', [
-                        'previous_amount' => ((float)$depositedUpdatedAccount['user_account_data']['available_amount']),
-                        'current_amount' => ((float)$userUpdatedBalance['spent_amount']),
+                        'previous_amount' => ((float) $depositedUpdatedAccount['user_account_data']['available_amount']),
+                        'current_amount' => ((float) $userUpdatedBalance['spent_amount']),
                     ]));
                 }
-                $order_data['order_data']['previous_amount'] = (float)$depositedAccount->user_account_data['available_amount'];
-                $order_data['order_data']['current_amount'] = (float)$userUpdatedBalance['current_amount'];
-                if (!Transaction::userAccount()->update($depositedAccount->getKey(), $depositedUpdatedAccount)) {
+                $order_data['order_data']['previous_amount'] = (float) $depositedAccount->user_account_data['available_amount'];
+                $order_data['order_data']['current_amount'] = (float) $userUpdatedBalance['current_amount'];
+                if (! Transaction::userAccount()->update($depositedAccount->getKey(), $depositedUpdatedAccount)) {
                     throw new Exception(__('User Account Balance does not update', [
-                        'previous_amount' => ((float)$depositedUpdatedAccount['user_account_data']['available_amount']),
-                        'current_amount' => ((float)$userUpdatedBalance['spent_amount']),
+                        'previous_amount' => ((float) $depositedUpdatedAccount['user_account_data']['available_amount']),
+                        'current_amount' => ((float) $userUpdatedBalance['spent_amount']),
                     ]));
                 }
                 Airtime::internationalTopUp()->update($internationalTopUp->getKey(), ['order_data' => $order_data, 'order_number' => $order_data['purchase_number']]);
@@ -198,13 +198,13 @@ class InternationalTopUpController extends Controller
 
             $internationalTopUp = Airtime::internationalTopUp()->find($id);
 
-            if (!$internationalTopUp) {
+            if (! $internationalTopUp) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.airtime.international_top_up_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!Airtime::internationalTopUp()->update($id, $inputs)) {
+            if (! Airtime::internationalTopUp()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.airtime.international_top_up_model'), $id);
             }
@@ -235,7 +235,7 @@ class InternationalTopUpController extends Controller
 
             $internationalTopUp = Airtime::internationalTopUp()->find($id);
 
-            if (!$internationalTopUp) {
+            if (! $internationalTopUp) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.airtime.international_top_up_model'), $id);
             }
 
@@ -263,11 +263,11 @@ class InternationalTopUpController extends Controller
 
             $internationalTopUp = Airtime::internationalTopUp()->find($id);
 
-            if (!$internationalTopUp) {
+            if (! $internationalTopUp) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.airtime.international_top_up_model'), $id);
             }
 
-            if (!Airtime::internationalTopUp()->destroy($id)) {
+            if (! Airtime::internationalTopUp()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.airtime.international_top_up_model'), $id);
             }
@@ -297,11 +297,11 @@ class InternationalTopUpController extends Controller
 
             $internationalTopUp = Airtime::internationalTopUp()->find($id, true);
 
-            if (!$internationalTopUp) {
+            if (! $internationalTopUp) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.airtime.international_top_up_model'), $id);
             }
 
-            if (!Airtime::internationalTopUp()->restore($id)) {
+            if (! Airtime::internationalTopUp()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.airtime.international_top_up_model'), $id);
             }

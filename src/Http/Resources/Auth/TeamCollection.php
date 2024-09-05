@@ -11,7 +11,7 @@ class TeamCollection extends ResourceCollection
     /**
      * Transform the resource collection into an array.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return array
      */
     public function toArray($request)
@@ -25,7 +25,7 @@ class TeamCollection extends ResourceCollection
                 'updated_at' => $team->updated_at,
             ];
 
-            if (!$team->roles->isEmpty()) {
+            if (! $team->roles->isEmpty()) {
                 foreach ($team->roles as $role) {
                     $return['roles'][] = [
                         'id' => $role->getKey(),

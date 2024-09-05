@@ -67,7 +67,7 @@ class RoleController extends Controller
 
             $role = Auth::role()->create($inputs);
 
-            if (!$role) {
+            if (! $role) {
                 throw (new StoreOperationException)->setModel(config('fintech.auth.role_model'));
             }
 
@@ -96,7 +96,7 @@ class RoleController extends Controller
 
             $role = Auth::role()->find($id);
 
-            if (!$role) {
+            if (! $role) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.auth.role_model'), $id);
             }
 
@@ -124,13 +124,13 @@ class RoleController extends Controller
 
             $role = Auth::role()->find($id);
 
-            if (!$role) {
+            if (! $role) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.auth.role_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!Auth::role()->update($id, $inputs)) {
+            if (! Auth::role()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.auth.role_model'), $id);
             }
@@ -164,11 +164,11 @@ class RoleController extends Controller
 
             $role = Auth::role()->find($id);
 
-            if (!$role) {
+            if (! $role) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.auth.role_model'), $id);
             }
 
-            if (!Auth::role()->destroy($id)) {
+            if (! Auth::role()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.auth.role_model'), $id);
             }
@@ -200,11 +200,11 @@ class RoleController extends Controller
 
             $role = Auth::role()->find($id, true);
 
-            if (!$role) {
+            if (! $role) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.auth.role_model'), $id);
             }
 
-            if (!Auth::role()->restore($id)) {
+            if (! Auth::role()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.auth.role_model'), $id);
             }
@@ -276,12 +276,12 @@ class RoleController extends Controller
 
             $attribute = 'id';
 
-            if (!empty($filters['label'])) {
+            if (! empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (!empty($filters['attribute'])) {
+            if (! empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }

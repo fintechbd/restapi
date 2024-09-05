@@ -22,7 +22,7 @@ class UpdateBankRequest extends FormRequest
      */
     public function rules(): array
     {
-        $uniqueRule = 'unique:banks,name,' . $this->route('bank') . ',id,country_id,' . $this->input('country_id') . ',deleted_at,null';
+        $uniqueRule = 'unique:banks,name,'.$this->route('bank').',id,country_id,'.$this->input('country_id').',deleted_at,null';
 
         return [
             'country_id' => ['required', 'integer'],

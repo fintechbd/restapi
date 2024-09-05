@@ -69,7 +69,7 @@ class PackageTopChartController extends Controller
 
             $packageTopChart = Business::packageTopChart()->create($inputs);
 
-            if (!$packageTopChart) {
+            if (! $packageTopChart) {
                 throw (new StoreOperationException)->setModel(config('fintech.business.package_top_chart_model'));
             }
 
@@ -98,7 +98,7 @@ class PackageTopChartController extends Controller
 
             $packageTopChart = Business::packageTopChart()->find($id);
 
-            if (!$packageTopChart) {
+            if (! $packageTopChart) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.package_top_chart_model'), $id);
             }
 
@@ -129,13 +129,13 @@ class PackageTopChartController extends Controller
 
             $packageTopChart = Business::packageTopChart()->find($id);
 
-            if (!$packageTopChart) {
+            if (! $packageTopChart) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.package_top_chart_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!Business::packageTopChart()->update($id, $inputs)) {
+            if (! Business::packageTopChart()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.package_top_chart_model'), $id);
             }
@@ -169,11 +169,11 @@ class PackageTopChartController extends Controller
 
             $packageTopChart = Business::packageTopChart()->find($id);
 
-            if (!$packageTopChart) {
+            if (! $packageTopChart) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.package_top_chart_model'), $id);
             }
 
-            if (!Business::packageTopChart()->destroy($id)) {
+            if (! Business::packageTopChart()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.business.package_top_chart_model'), $id);
             }
@@ -205,11 +205,11 @@ class PackageTopChartController extends Controller
 
             $packageTopChart = Business::packageTopChart()->find($id, true);
 
-            if (!$packageTopChart) {
+            if (! $packageTopChart) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.package_top_chart_model'), $id);
             }
 
-            if (!Business::packageTopChart()->restore($id)) {
+            if (! Business::packageTopChart()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.business.package_top_chart_model'), $id);
             }
@@ -287,12 +287,12 @@ class PackageTopChartController extends Controller
 
             $attribute = 'id';
 
-            if (!empty($filters['label'])) {
+            if (! empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (!empty($filters['attribute'])) {
+            if (! empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }
