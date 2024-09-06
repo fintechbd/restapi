@@ -113,6 +113,7 @@ class ServiceTypeListCollection extends ResourceCollection
     public function with(Request $request): array
     {
         return [
+            'total' => $this->collection?->count() ?? 0,
             'options' => [],
             'query' => $request->all(),
         ];
