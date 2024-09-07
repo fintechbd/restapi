@@ -2,8 +2,8 @@
 
 namespace Fintech\RestApi\Http\Controllers\Auth\Charts;
 
-use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class RegisteredUserSummaryController extends Controller
 {

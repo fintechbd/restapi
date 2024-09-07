@@ -29,7 +29,6 @@ if (Config::get('fintech.airtime.enabled')) {
             Route::apiResource('bangladesh-top-ups', BangladeshTopUpController::class)
                 ->only('index', 'store', 'show');
 
-
             Route::apiResource('international-top-ups', InternationalTopUpController::class)
                 ->only('index', 'store', 'show');
 

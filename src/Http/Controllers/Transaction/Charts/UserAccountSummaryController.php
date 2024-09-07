@@ -2,10 +2,10 @@
 
 namespace Fintech\RestApi\Http\Controllers\Transaction\Charts;
 
-use Illuminate\Routing\Controller;
 use Fintech\Auth\Facades\Auth;
 use Fintech\RestApi\Http\Resources\Transaction\Charts\UserAccountSummaryCollection;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class UserAccountSummaryController extends Controller
 {

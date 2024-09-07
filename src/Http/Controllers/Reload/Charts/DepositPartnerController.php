@@ -2,9 +2,9 @@
 
 namespace Fintech\RestApi\Http\Controllers\Reload\Charts;
 
-use Illuminate\Routing\Controller;
 use Fintech\RestApi\Http\Resources\Reload\Charts\DepositPartnerCollection;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class DepositPartnerController extends Controller
 {

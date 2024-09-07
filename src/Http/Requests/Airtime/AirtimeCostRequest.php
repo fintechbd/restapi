@@ -32,7 +32,7 @@ class AirtimeCostRequest extends FormRequest
             'reverse' => ['required', 'boolean'],
             'reload' => ['nullable', 'boolean'],
             'airtime_data' => ['nullable', 'array'],
-            'airtime_data.recipient_msisdn' => ['required', new MobileNumber()],
+            'airtime_data.recipient_msisdn' => ['required', new MobileNumber],
             'airtime_data.amount' => ['required', 'integer', 'min:1'],
             'airtime_data.connection_type' => ['required', 'integer', 'min:1'],
             'airtime_data.operator_short_code' => ['required', 'integer', 'min:1'],

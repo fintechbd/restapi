@@ -2,12 +2,12 @@
 
 namespace Fintech\RestApi\Http\Controllers\Transaction;
 
-use Illuminate\Routing\Controller;
 use App\Http\Controllers\Exception;
 use Fintech\Core\Enums\Transaction\OrderStatus;
 use Fintech\RestApi\Http\Requests\Core\DropDownRequest;
 use Fintech\RestApi\Http\Resources\Core\DropDownCollection;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Routing\Controller;
 
 class OrderStatusDropdownController extends Controller
 {

@@ -2,8 +2,8 @@
 
 namespace Fintech\RestApi\Http\Controllers\Reload\Charts;
 
-use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class WithdrawPartnerController extends Controller
 {

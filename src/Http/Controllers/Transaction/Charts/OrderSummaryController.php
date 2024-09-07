@@ -2,9 +2,9 @@
 
 namespace Fintech\RestApi\Http\Controllers\Transaction\Charts;
 
-use Illuminate\Routing\Controller;
 use Fintech\RestApi\Http\Resources\Transaction\Charts\OrderSummaryCollection;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class OrderSummaryController extends Controller
 {

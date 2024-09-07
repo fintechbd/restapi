@@ -2,9 +2,9 @@
 
 namespace Fintech\RestApi\Http\Controllers\Airtime;
 
-use Illuminate\Routing\Controller;
 use Fintech\RestApi\Http\Requests\Airtime\PhoneNumberDetectRequest;
 use Fintech\RestApi\Http\Resources\Airtime\PhoneNumberDetectResource;
+use Illuminate\Routing\Controller;
 
 class PhoneNumberDetectController extends Controller
 {
