@@ -2,6 +2,7 @@
 
 namespace Fintech\RestApi\Http\Controllers\Tab;
 
+use Fintech\RestApi\Http\Resources\Business\ServiceCostResource;
 use Illuminate\Routing\Controller;
 use Exception;
 use Fintech\Auth\Facades\Auth;
@@ -9,7 +10,6 @@ use Fintech\Business\Facades\Business;
 use Fintech\Core\Abstracts\BaseModel;
 use Fintech\Core\Enums\Transaction\OrderStatus;
 use Fintech\RestApi\Http\Requests\Tab\PayBillRequest;
-use Fintech\RestApi\Http\Resources\Tab\PayBillCostResource;
 use Fintech\Tab\Facades\Tab;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
@@ -20,7 +20,7 @@ class CalculateCostController extends Controller
     /**
      * @lrd:start
      */
-    public function __invoke(PayBillRequest $request): PayBillCostResource|JsonResponse
+    public function __invoke(PayBillRequest $request): ServiceCostResource|JsonResponse
     {
         $inputs = $request->validated();
 
@@ -64,7 +64,7 @@ class CalculateCostController extends Controller
 
             $exchangeRate['vendor_info'] = $quoteInfo;
 
-            return new PayBillCostResource($exchangeRate);
+            return new ServiceCostResource($exchangeRate);
 
         } catch (ModelNotFoundException $exception) {
 

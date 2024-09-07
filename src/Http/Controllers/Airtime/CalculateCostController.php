@@ -3,12 +3,14 @@
 namespace Fintech\RestApi\Http\Controllers\Airtime;
 
 use Exception;
+use Fintech\Airtime\Facades\Airtime;
 use Fintech\Auth\Facades\Auth;
 use Fintech\Business\Facades\Business;
 use Fintech\Core\Abstracts\BaseModel;
 use Fintech\Core\Enums\Transaction\OrderStatus;
+use Fintech\RestApi\Http\Requests\Airtime\AirtimeCostRequest;
 use Fintech\RestApi\Http\Requests\Tab\PayBillRequest;
-use Fintech\RestApi\Http\Resources\Tab\PayBillCostResource;
+use Fintech\RestApi\Http\Resources\Business\ServiceCostResource;
 use Fintech\Tab\Facades\Tab;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
@@ -20,7 +22,7 @@ class CalculateCostController extends Controller
     /**
      * @lrd:start
      */
-    public function __invoke(PayBillRequest $request): PayBillCostResource|JsonResponse
+    public function __invoke(AirtimeCostRequest $request): ServiceCostResource|JsonResponse
     {
         $inputs = $request->validated();
 
@@ -50,13 +52,13 @@ class CalculateCostController extends Controller
             $quote->vendor = $inputs['vendor'] ?? $vendor->service_vendor_slug;
             $quote->status = OrderStatus::Pending->value;
             $quote->order_data = [
-                'pay_bill_data' => $inputs['pay_bill_data'],
+                'airtime_data' => $inputs['airtime_data'],
                 'service_stat_data' => $inputs,
             ];
-            $quote->order_number = 'CANPB'.Str::padLeft(time(), 15, '0');
+            $quote->order_number = 'CANVR'.Str::padLeft(time(), 15, '0');
             $quote->is_refunded = 'no';
 
-            $quoteInfo = Tab::assignVendor()->requestQuote($quote);
+            $quoteInfo = Airtime::assignVendor()->requestQuote($quote);
 
             $inputs['amount'] = 3000;
 
@@ -64,7 +66,7 @@ class CalculateCostController extends Controller
 
             $exchangeRate['vendor_info'] = $quoteInfo;
 
-            return new PayBillCostResource($exchangeRate);
+            return new ServiceCostResource($exchangeRate);
 
         } catch (ModelNotFoundException $exception) {
 

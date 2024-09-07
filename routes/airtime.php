@@ -1,6 +1,7 @@
 <?php
 
 use Fintech\RestApi\Http\Controllers\Airtime\BangladeshTopUpController;
+use Fintech\RestApi\Http\Controllers\Airtime\CalculateCostController;
 use Fintech\RestApi\Http\Controllers\Airtime\InternationalTopUpController;
 use Fintech\RestApi\Http\Controllers\Airtime\PhoneNumberDetectController;
 use Illuminate\Support\Facades\Config;
@@ -22,11 +23,12 @@ if (Config::get('fintech.airtime.enabled')) {
         ->middleware(config('fintech.auth.middleware'))
         ->group(function () {
 
+            Route::post('airtime/calculate-cost', CalculateCostController::class)
+                ->name('airtime.calculate-cost');
+
             Route::apiResource('bangladesh-top-ups', BangladeshTopUpController::class)
                 ->only('index', 'store', 'show');
 
-            Route::post('airtime/calculate-cost', CalculateCostController::class)
-                ->name('pay-bills.calculate-cost');
 
             Route::apiResource('international-top-ups', InternationalTopUpController::class)
                 ->only('index', 'store', 'show');
