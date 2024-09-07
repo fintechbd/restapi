@@ -2,7 +2,7 @@
 
 namespace Fintech\RestApi\Http\Controllers\Business\Charts;
 
-use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controller;
 use Fintech\RestApi\Http\Resources\Business\Charts\ServiceRateCostCollection;
 use Illuminate\Http\Request;
 

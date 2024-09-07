@@ -1,8 +1,7 @@
 <?php
 
-namespace Fintech\RestApi\Http\Controllers\Tab;
+namespace Fintech\RestApi\Http\Controllers\Airtime;
 
-use Illuminate\Routing\Controller;
 use Exception;
 use Fintech\Auth\Facades\Auth;
 use Fintech\Business\Facades\Business;
@@ -13,6 +12,7 @@ use Fintech\RestApi\Http\Resources\Tab\PayBillCostResource;
 use Fintech\Tab\Facades\Tab;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Str;
 
 class CalculateCostController extends Controller

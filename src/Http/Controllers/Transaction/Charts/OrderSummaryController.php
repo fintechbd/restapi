@@ -2,7 +2,7 @@
 
 namespace Fintech\RestApi\Http\Controllers\Transaction\Charts;
 
-use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controller;
 use Fintech\RestApi\Http\Resources\Transaction\Charts\OrderSummaryCollection;
 use Illuminate\Http\Request;
 

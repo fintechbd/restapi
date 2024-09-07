@@ -25,6 +25,9 @@ if (Config::get('fintech.airtime.enabled')) {
             Route::apiResource('bangladesh-top-ups', BangladeshTopUpController::class)
                 ->only('index', 'store', 'show');
 
+            Route::post('airtime/calculate-cost', CalculateCostController::class)
+                ->name('pay-bills.calculate-cost');
+
             Route::apiResource('international-top-ups', InternationalTopUpController::class)
                 ->only('index', 'store', 'show');
 

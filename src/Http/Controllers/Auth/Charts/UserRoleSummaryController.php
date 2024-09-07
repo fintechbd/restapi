@@ -2,7 +2,7 @@
 
 namespace Fintech\RestApi\Http\Controllers\Auth\Charts;
 
-use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controller;
 use Fintech\Auth\Facades\Auth;
 use Fintech\RestApi\Http\Resources\Auth\Charts\UserRoleSummaryCollection;
 use Illuminate\Http\Request;

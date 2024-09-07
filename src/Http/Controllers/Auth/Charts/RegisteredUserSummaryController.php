@@ -2,7 +2,7 @@
 
 namespace Fintech\RestApi\Http\Controllers\Auth\Charts;
 
-use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 
 class RegisteredUserSummaryController extends Controller

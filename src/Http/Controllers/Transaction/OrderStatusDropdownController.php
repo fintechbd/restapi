@@ -2,7 +2,7 @@
 
 namespace Fintech\RestApi\Http\Controllers\Transaction;
 
-use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controller;
 use App\Http\Controllers\Exception;
 use Fintech\Core\Enums\Transaction\OrderStatus;
 use Fintech\RestApi\Http\Requests\Core\DropDownRequest;
