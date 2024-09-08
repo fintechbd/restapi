@@ -46,52 +46,6 @@ class ServicePackageController extends Controller
 
             $servicePackagePaginate = Business::servicePackage()->list($inputs);
 
-            $service = Business::service()->find(($inputs['service_id'] ?? 25));
-
-            $servicePackagePaginate = collect([
-                [
-                    'id' => $service?->getKey() ?? 1,
-                    'service_id' => $service?->getKey() ?? 1,
-                    'service_name' => $service?->service_name ?? 'GP',
-                    'country_id' => '19',
-                    'country_name' => 'Bangladesh',
-                    'country_currency' => 'BDT',
-                    'name' => '52 SMS + Priyotoma Movie Access, 2 Days',
-                    'slug' => 'sp_12315456',
-                    'description' => '52 SMS + Priyotoma Movie Access, 2 Days',
-                    'amount' => mt_rand(20, 100),
-                    'enabled' => true,
-                    'type' => 'combo',
-                    'service_package_data' => [
-                        'amount' => mt_rand(20, 100),
-                        'amount_formatted' => 'BDT 18.00',
-                        'connection_type' => 'prepaid',
-                        'validity_in_sec' => 172800,
-                        'validity' => '2 Days',
-                    ],
-                ],
-                [
-                    'id' => $service?->getKey() ?? 1,
-                    'service_id' => $service?->getKey() ?? 1,
-                    'service_name' => $service?->service_name ?? 'GP',
-                    'country_id' => '19',
-                    'country_name' => 'Bangladesh',
-                    'country_currency' => 'BDT',
-                    'name' => '52 SMS + Priyotoma Movie Access, 2 Days',
-                    'slug' => 'sp_12315456',
-                    'description' => '52 SMS + Priyotoma Movie Access, 2 Days',
-                    'amount' => 18,
-                    'amount_formatted' => 'BDT 18.00',
-                    'enabled' => true,
-                    'type' => 'combo',
-                    'service_package_data' => [
-                        'connection_type' => 'prepaid',
-                        'validity_in_sec' => 172800,
-                        'validity' => '2 Days',
-                    ],
-                ],
-            ]);
-
             return new ServicePackageCollection($servicePackagePaginate);
 
         } catch (Exception $exception) {

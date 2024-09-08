@@ -27,13 +27,17 @@ class IndexServicePackageRequest extends FormRequest
     {
         return [
             'search' => ['string', 'nullable', 'max:255'],
+            'connection_type' => ['string', 'nullable', 'in:prepaid,postpaid'],
+            'type' => ['string', 'nullable', 'max:255'],
+            'validity' => ['integer', 'nullable'],
             'per_page' => ['integer', 'nullable', 'min:10', 'max:500'],
             'service_id' => ['integer', 'nullable', 'min:1'],
             'country_id' => ['integer', 'nullable', 'min:1'],
             'page' => ['integer', 'nullable', 'min:1'],
-            'paginate' => ['boolean'],
+            'paginate' => ['boolean', 'nullable'],
             'sort' => ['string', 'nullable', 'min:2', 'max:255'],
             'dir' => ['string', 'min:3', 'max:4'],
+            'enabled' => ['nullable', 'boolean'],
             'trashed' => ['boolean', 'nullable'],
         ];
     }
