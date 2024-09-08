@@ -24,7 +24,7 @@ class AirtimeCostRequest extends FormRequest
      */
     public function rules(): array
     {
-        $rules = [
+        return [
             'user_id' => ['nullable', 'integer', 'min:1'],
             'service_id' => ['required', 'integer', 'min:1'],
             'source_country_id' => ['required', 'integer', 'min:1'],
@@ -37,15 +37,5 @@ class AirtimeCostRequest extends FormRequest
             'airtime_data.connection_type' => ['required', 'integer', 'min:1'],
             'airtime_data.operator_short_code' => ['required', 'integer', 'min:1'],
         ];
-
-        Business::serviceField()->list([
-            'service_id' => $this->input('service_id'),
-            'paginate' => false,
-            'enabled' => true,
-        ])->each(function ($field) use (&$rules) {
-            $rules['pay_bill_data.'.$field->name] = $field->validation;
-        });
-
-        return $rules;
     }
 }
