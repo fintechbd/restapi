@@ -27,8 +27,8 @@ class StoreChargeBreakDownRequest extends FormRequest
     {
         $serviceStat = Business::serviceStat()->find($this->input(['service_stat_id']));
 
-        $stat_lower_limit = floatval($serviceStat->service_stat_data[0]['lower_limit']);
-        $stat_higher_limit = floatval($serviceStat->service_stat_data[0]['higher_limit']);
+        $stat_lower_limit = floatval($serviceStat->service_stat_data['lower_limit']);
+        $stat_higher_limit = floatval($serviceStat->service_stat_data['higher_limit']);
 
         return [
             'service_stat_id' => ['integer', 'required'],
