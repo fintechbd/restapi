@@ -9,6 +9,7 @@ use Fintech\Core\Abstracts\BaseModel;
 use Fintech\Core\Enums\Transaction\OrderStatus;
 use Fintech\RestApi\Http\Requests\Tab\PayBillRequest;
 use Fintech\RestApi\Http\Resources\Business\ServiceCostResource;
+use Fintech\Tab\Exceptions\TabException;
 use Fintech\Tab\Facades\Tab;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
@@ -58,7 +59,11 @@ class CalculateCostController extends Controller
 
             $quoteInfo = Tab::assignVendor()->requestQuote($quote);
 
-            $inputs['amount'] = 3000;
+            if ($quoteInfo['status'] === false) {
+                throw new TabException(__('tab::messages.assign_vendor.quote_failed'));
+            }
+
+            $inputs['amount'] = $quoteInfo['amount'];
 
             $exchangeRate = Business::serviceStat()->cost($inputs);
 

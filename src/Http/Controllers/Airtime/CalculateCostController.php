@@ -3,6 +3,7 @@
 namespace Fintech\RestApi\Http\Controllers\Airtime;
 
 use Exception;
+use Fintech\Airtime\Exceptions\AirtimeException;
 use Fintech\Airtime\Facades\Airtime;
 use Fintech\Auth\Facades\Auth;
 use Fintech\Business\Facades\Business;
@@ -58,7 +59,11 @@ class CalculateCostController extends Controller
 
             $quoteInfo = Airtime::assignVendor()->requestQuote($quote);
 
-            $inputs['amount'] = 3000;
+            if ($quoteInfo['status'] === false) {
+                throw new AirtimeException(__('airtime::messages.assign_vendor.quote_failed'));
+            }
+
+            $inputs['amount'] = $quoteInfo['amount'];
 
             $exchangeRate = Business::serviceStat()->cost($inputs);
 
