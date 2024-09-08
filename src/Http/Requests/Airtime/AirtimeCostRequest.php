@@ -2,7 +2,6 @@
 
 namespace Fintech\RestApi\Http\Requests\Airtime;
 
-use Fintech\Business\Facades\Business;
 use Fintech\Core\Rules\MobileNumber;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
