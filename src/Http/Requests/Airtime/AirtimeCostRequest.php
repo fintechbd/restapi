@@ -35,7 +35,7 @@ class AirtimeCostRequest extends FormRequest
             'airtime_data.recipient_msisdn' => ['required', new MobileNumber],
             'airtime_data.amount' => ['required', 'integer', 'min:1'],
             'airtime_data.connection_type' => ['required', 'integer', 'min:1'],
-            'airtime_data.operator_short_code' => ['required', 'integer', 'min:1'],
+            'airtime_data.operator_id' => ['required', 'integer', 'min:1'],
         ];
     }
 }
