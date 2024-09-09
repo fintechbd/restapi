@@ -71,8 +71,8 @@ class CalculateCostController extends Controller
             $exchangeRate['vendor_info'] = $quoteInfo;
 
             $servicePackage = Business::servicePackage()->list([
-                'service_id' => $service->getkey(),
-                'country_id' => $inputs['country_id'],
+                'service_id' => $inputs['service_id'],
+                'country_id' => $inputs['destination_country_id'],
                 'enabled' => true,
                 'paginate' => true,
                 'sort' => 'created_at',
