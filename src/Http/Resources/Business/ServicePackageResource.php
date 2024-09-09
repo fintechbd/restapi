@@ -28,10 +28,10 @@ class ServicePackageResource extends JsonResource
             'slug' => $this->slug ?? null,
             'description' => $this->description ?? null,
             'amount' => $this->amount ?? null,
-            'amount_formatted' => (string)\currency($this->amount ?? null, $this->country?->currency ?? null),
+            'amount_formatted' => (string) \currency($this->amount ?? null, $this->country?->currency ?? null),
             'enabled' => $this->enabled ?? null,
             'type' => $this->type ?? null,
-            'service_package_data' => $this->service_package_data ?? (object)[],
+            'service_package_data' => $this->service_package_data ?? (object) [],
             'created_at' => $this->created_at ?? null,
             'updated_at' => $this->updated_at ?? null,
         ];
