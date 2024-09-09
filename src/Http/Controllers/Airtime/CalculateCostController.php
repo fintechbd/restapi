@@ -55,7 +55,7 @@ class CalculateCostController extends Controller
                 'airtime_data' => $inputs['airtime_data'],
                 'service_stat_data' => $inputs,
             ];
-            $quote->order_number = 'CANVR' . Str::padLeft(time(), 15, '0');
+            $quote->order_number = 'CANVR'.Str::padLeft(time(), 15, '0');
             $quote->is_refunded = 'no';
 
             $quoteInfo = Airtime::assignVendor()->requestQuote($quote);

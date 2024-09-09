@@ -29,11 +29,11 @@ class ServicePackageResource extends JsonResource
             'description' => $this->description ?? null,
             'amount' => $this->amount ?? null,
             'amount_formatted' => (property_exists($this, 'amount'))
-                ? (string)\currency($this->amount ?? null, $this->country?->currency ?? null)
+                ? (string) \currency($this->amount ?? null, $this->country?->currency ?? null)
                 : 'N/A',
             'enabled' => $this->enabled ?? null,
             'type' => $this->type ?? null,
-            'service_package_data' => $this->service_package_data ?? (object)[],
+            'service_package_data' => $this->service_package_data ?? (object) [],
             'created_at' => $this->created_at ?? null,
             'updated_at' => $this->updated_at ?? null,
         ];
