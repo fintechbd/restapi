@@ -55,7 +55,7 @@ class CalculateCostController extends Controller
                 'airtime_data' => $inputs['airtime_data'],
                 'service_stat_data' => $inputs,
             ];
-            $quote->order_number = 'CANVR'.Str::padLeft(time(), 15, '0');
+            $quote->order_number = 'CANVR' . Str::padLeft(time(), 15, '0');
             $quote->is_refunded = 'no';
 
             $quoteInfo = Airtime::assignVendor()->requestQuote($quote);
@@ -80,7 +80,9 @@ class CalculateCostController extends Controller
                 'amount' => $inputs['amount'],
             ])->first();
 
-            $exchangeRate['service_package_info'] = new ServicePackageResource($servicePackage);
+            $exchangeRate['service_package_info'] = $servicePackage != null
+                ? new ServicePackageResource($servicePackage)
+                : new ServicePackageResource(app(config('fintech.business.service_package_model', \Fintech\Business\Models\ServicePackage::class)));
 
             return new ServiceCostResource($exchangeRate);
 
