@@ -15,18 +15,25 @@ class ServicePackageResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
-        //        return [
-        //            'id' => $this->getKey() ?? null,
-        //            'service_id' => $this->service_id ?? null,
-        //            'service_name' => $this->service?->service_name ?? null,
-        //            'name' => $this->name ?? null,
-        //            'code' => $this->code ?? null,
-        //            'rate' => $this->rate ?? null,
-        //            'service_package_data' => $this->service_package_data ?? null,
-        //            'enabled' => $this->enabled ?? null,
-        //            'created_at' => $this->created_at,
-        //            'updated_at' => $this->updated_at,
-        //        ];
+        return [
+            'id' => $this?->getKey() ?? null,
+            'service_id' => $this->service_id ?? null,
+            'service_name' => $this->service?->service_name ?? null,
+            'service_logo_svg' => $this?->service?->getFirstMediaUrl('logo_svg') ?? null,
+            'service_logo_png' => $this?->service?->getFirstMediaUrl('logo_png') ?? null,
+            'country_id' => $this->country_id ?? null,
+            'country_name' => $this->country?->name ?? null,
+            'country_currency' => $this->country?->currency ?? null,
+            'name' => $this->name ?? null,
+            'slug' => $this->slug ?? null,
+            'description' => $this->description ?? null,
+            'amount' => $this->amount ?? null,
+            'amount_formatted' => (string)\currency($this->amount ?? null, $this->country?->currency ?? null),
+            'enabled' => $this->enabled ?? null,
+            'type' => $this->type ?? null,
+            'service_package_data' => $this->service_package_data ?? (object)[],
+            'created_at' => $this->created_at ?? null,
+            'updated_at' => $this->updated_at ?? null,
+        ];
     }
 }

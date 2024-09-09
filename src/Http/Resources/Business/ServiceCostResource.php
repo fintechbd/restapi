@@ -14,10 +14,10 @@ class ServiceCostResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $this->resource = (object) $this->resource;
+        $this->resource = (object)$this->resource;
 
         return [
-            'rate' => (string) ($this->rate ?? 1),
+            'rate' => (string)($this->rate ?? 1),
 
             'input' => $this->input,
             'input_unit' => $this->input_unit,
@@ -27,23 +27,23 @@ class ServiceCostResource extends JsonResource
             //            "input_symbol" => $this->input_symbol,
             //            "output_symbol" => $this->output_symbol,
 
-            'amount' => (string) $this->amount,
-            'amount_formatted' => (string) \currency($this->amount, $this->input),
+            'amount' => (string)$this->amount,
+            'amount_formatted' => (string)\currency($this->amount, $this->input),
 
-            'converted' => (string) $this->converted,
-            'converted_formatted' => (string) \currency($this->converted, $this->output),
+            'converted' => (string)$this->converted,
+            'converted_formatted' => (string)\currency($this->converted, $this->output),
 
-            'charge_amount' => (string) $this->charge_amount,
-            'charge_amount_formatted' => (string) \currency($this->charge_amount, $this->base_currency),
+            'charge_amount' => (string)$this->charge_amount,
+            'charge_amount_formatted' => (string)\currency($this->charge_amount, $this->base_currency),
 
-            'discount_amount' => (string) $this->discount_amount,
-            'discount_amount_formatted' => (string) \currency($this->discount_amount, $this->base_currency),
+            'discount_amount' => (string)$this->discount_amount,
+            'discount_amount_formatted' => (string)\currency($this->discount_amount, $this->base_currency),
 
-            'commission_amount' => (string) $this->commission_amount,
-            'commission_amount_formatted' => (string) \currency($this->commission_amount, $this->base_currency),
+            'commission_amount' => (string)$this->commission_amount,
+            'commission_amount_formatted' => (string)\currency($this->commission_amount, $this->base_currency),
 
-            'total_amount' => (string) $this->total_amount,
-            'total_amount_formatted' => (string) \currency($this->total_amount, $this->base_currency),
+            'total_amount' => (string)$this->total_amount,
+            'total_amount_formatted' => (string)\currency($this->total_amount, $this->base_currency),
         ];
     }
 
@@ -62,10 +62,11 @@ class ServiceCostResource extends JsonResource
                 'commission' => $this->commission,
                 'charge_break_down_data' => [
                     'id' => $this->charge_break_down_data['id'] ?? null,
-                    'lower_limit' => (string) \currency($this->charge_break_down_data['lower_limit'], $this->base_currency),
-                    'higher_limit' => (string) \currency($this->charge_break_down_data['higher_limit'], $this->base_currency),
+                    'lower_limit' => (string)\currency($this->charge_break_down_data['lower_limit'], $this->base_currency),
+                    'higher_limit' => (string)\currency($this->charge_break_down_data['higher_limit'], $this->base_currency),
                 ],
-                'vendor_info' => $this->resource?->vendor_info ?? [],
+                'vendor_info' => $this->resource?->vendor_info ?? (object)[],
+                'service_package_info' => $this->resource?->service_package_info ?? (object)[],
             ],
             'query' => $request->all(),
         ];

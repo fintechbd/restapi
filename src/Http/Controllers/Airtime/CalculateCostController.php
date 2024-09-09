@@ -11,6 +11,7 @@ use Fintech\Core\Abstracts\BaseModel;
 use Fintech\Core\Enums\Transaction\OrderStatus;
 use Fintech\RestApi\Http\Requests\Airtime\AirtimeCostRequest;
 use Fintech\RestApi\Http\Resources\Business\ServiceCostResource;
+use Fintech\RestApi\Http\Resources\Business\ServicePackageResource;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -68,6 +69,18 @@ class CalculateCostController extends Controller
             $exchangeRate = Business::serviceStat()->cost($inputs);
 
             $exchangeRate['vendor_info'] = $quoteInfo;
+
+            $servicePackage = Business::servicePackage()->list([
+                'service_id' => $service->getkey(),
+                'country_id' => $inputs['country_id'],
+                'enabled' => true,
+                'paginate' => true,
+                'sort' => 'created_at',
+                'direction' => 'desc',
+                'amount' => $inputs['amount'],
+            ])->first();
+
+            $exchangeRate['service_package_info'] = new ServicePackageResource($servicePackage);
 
             return new ServiceCostResource($exchangeRate);
 
