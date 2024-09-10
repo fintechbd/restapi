@@ -25,7 +25,11 @@ class StoreUserAccountRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'min:3', 'max:255'],
             'user_id' => ['required', 'integer', 'min:1'],
-            'country_id' => ['required', 'integer', 'min:1'],
+            'country_id' => [
+                'required', 'integer', 'min:1',
+                Rule::unique('user_accounts')
+                    ->where(fn($query) => $query->where('user_id', $this->input('user_id')))
+            ],
             'user_account_data' => ['nullable', 'array'],
             'enabled' => ['nullable', 'boolean'],
         ];
