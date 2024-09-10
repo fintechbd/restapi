@@ -79,6 +79,7 @@ class CalculateCostController extends Controller
                 'paginate' => false,
                 'sort' => 'amount',
                 'direction' => 'asc',
+                'connection_type' => $inputs['airtime_data']['connection_type'] ?? 'prepaid',
                 'near_amount' => $inputs['amount'],
                 'limit' => 3
             ]);
