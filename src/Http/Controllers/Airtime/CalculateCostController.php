@@ -9,11 +9,9 @@ use Fintech\Auth\Facades\Auth;
 use Fintech\Business\Facades\Business;
 use Fintech\Core\Abstracts\BaseModel;
 use Fintech\Core\Enums\Transaction\OrderStatus;
-use Fintech\RestApi\Http\Controllers\Business\ServicePackageController;
 use Fintech\RestApi\Http\Requests\Airtime\AirtimeCostRequest;
 use Fintech\RestApi\Http\Resources\Business\ServiceCostResource;
 use Fintech\RestApi\Http\Resources\Business\ServicePackageCollection;
-use Fintech\RestApi\Http\Resources\Business\ServicePackageResource;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -81,7 +79,7 @@ class CalculateCostController extends Controller
                 'direction' => 'asc',
                 'connection_type' => $inputs['airtime_data']['connection_type'] ?? 'prepaid',
                 'near_amount' => $inputs['amount'],
-                'limit' => 3
+                'limit' => 3,
             ]);
 
             $exchangeRate['offers'] = new ServicePackageCollection($servicePackages);
