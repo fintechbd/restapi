@@ -76,7 +76,7 @@ class CalculateCostController extends Controller
                 'service_id' => $inputs['service_id'],
                 'country_id' => $inputs['destination_country_id'],
                 'enabled' => true,
-                'paginate' => true,
+                'paginate' => false,
                 'sort' => 'amount',
                 'direction' => 'asc',
                 'near_amount' => $inputs['amount'],
