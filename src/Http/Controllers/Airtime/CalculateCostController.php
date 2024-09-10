@@ -9,8 +9,10 @@ use Fintech\Auth\Facades\Auth;
 use Fintech\Business\Facades\Business;
 use Fintech\Core\Abstracts\BaseModel;
 use Fintech\Core\Enums\Transaction\OrderStatus;
+use Fintech\RestApi\Http\Controllers\Business\ServicePackageController;
 use Fintech\RestApi\Http\Requests\Airtime\AirtimeCostRequest;
 use Fintech\RestApi\Http\Resources\Business\ServiceCostResource;
+use Fintech\RestApi\Http\Resources\Business\ServicePackageCollection;
 use Fintech\RestApi\Http\Resources\Business\ServicePackageResource;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
@@ -70,19 +72,18 @@ class CalculateCostController extends Controller
 
             $exchangeRate['vendor_info'] = $quoteInfo;
 
-            $servicePackage = Business::servicePackage()->list([
+            $servicePackages = Business::servicePackage()->list([
                 'service_id' => $inputs['service_id'],
                 'country_id' => $inputs['destination_country_id'],
                 'enabled' => true,
                 'paginate' => true,
-                'sort' => 'created_at',
-                'direction' => 'desc',
-                'amount' => $inputs['amount'],
-            ])->first();
+                'sort' => 'amount',
+                'direction' => 'asc',
+                'near_amount' => $inputs['amount'],
+                'limit' => 3
+            ]);
 
-            $exchangeRate['service_package_info'] = $servicePackage != null
-                ? new ServicePackageResource($servicePackage)
-                : new ServicePackageResource(app(config('fintech.business.service_package_model', \Fintech\Business\Models\ServicePackage::class)));
+            $exchangeRate['offers'] = new ServicePackageCollection($servicePackages);
 
             return new ServiceCostResource($exchangeRate);
 

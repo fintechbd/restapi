@@ -66,7 +66,7 @@ class ServiceCostResource extends JsonResource
                     'higher_limit' => (string) \currency($this->charge_break_down_data['higher_limit'], $this->base_currency),
                 ],
                 'vendor_info' => $this->resource?->vendor_info ?? (object) [],
-                'service_package_info' => $this->resource?->service_package_info ?? (object) [],
+                'offers' => $this->resource?->offers ?? (object) [],
             ],
             'query' => $request->all(),
         ];
