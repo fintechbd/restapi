@@ -376,16 +376,13 @@ class BangladeshTopUpController extends Controller
     }
 
     /**
-     *
      * @LRDparam pin required|string|min:6
+     *
      * @lrd:start
      * Synchronize bangladesh service package allowed and blocked amount
      * packages. initially only for `sslwireless`
      *
      * @lrd:end
-     *
-     * @param Request $request
-     * @return JsonResponse
      */
     public function sync(Request $request): JsonResponse
     {
@@ -400,5 +397,4 @@ class BangladeshTopUpController extends Controller
             return response()->failed($exception);
         }
     }
-
 }
