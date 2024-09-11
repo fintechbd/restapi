@@ -23,7 +23,9 @@ use Fintech\RestApi\Http\Resources\Airtime\BangladeshTopUpResource;
 use Fintech\Transaction\Facades\Transaction;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -372,4 +374,31 @@ class BangladeshTopUpController extends Controller
             return response()->failed($exception);
         }
     }
+
+    /**
+     *
+     * @LRDparam pin required|string|min:6
+     * @lrd:start
+     * Synchronize bangladesh service package allowed and blocked amount
+     * packages. initially only for `sslwireless`
+     *
+     * @lrd:end
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function sync(Request $request): JsonResponse
+    {
+        try {
+
+            Artisan::call('airtime:sync-ssl-wireless-top-up-package');
+
+            return response()->success(__('airtime::messages.synchronize-queued'));
+
+        } catch (Exception $exception) {
+
+            return response()->failed($exception);
+        }
+    }
+
 }
