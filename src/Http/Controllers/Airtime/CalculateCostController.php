@@ -44,33 +44,33 @@ class CalculateCostController extends Controller
 
             // TODO Disabled on demand amount validation
 
-//            $quote = new BaseModel;
-//
-//            $quote->source_country_id = $inputs['source_country_id'];
-//            $quote->destination_country_id = $inputs['destination_country_id'];
-//            $quote->service_vendor_id = $vendor->getKey();
-//            $quote->service_id = $inputs['service_id'];
-//            $quote->user_id = $inputs['user_id'];
-//            $quote->vendor = $inputs['vendor'] ?? $vendor->service_vendor_slug;
-//            $quote->status = OrderStatus::Pending->value;
-//            $quote->order_data = [
-//                'airtime_data' => $inputs['airtime_data'],
-//                'service_stat_data' => $inputs,
-//            ];
-//            $quote->order_number = 'CANVR'.Str::padLeft(time(), 15, '0');
-//            $quote->is_refunded = 'no';
-//
-//            $quoteInfo = Airtime::assignVendor()->requestQuote($quote);
-//
-//            if ($quoteInfo['status'] === false) {
-//                throw new AirtimeException(__('airtime::messages.assign_vendor.quote_failed'));
-//            }
-//
+            //            $quote = new BaseModel;
+            //
+            //            $quote->source_country_id = $inputs['source_country_id'];
+            //            $quote->destination_country_id = $inputs['destination_country_id'];
+            //            $quote->service_vendor_id = $vendor->getKey();
+            //            $quote->service_id = $inputs['service_id'];
+            //            $quote->user_id = $inputs['user_id'];
+            //            $quote->vendor = $inputs['vendor'] ?? $vendor->service_vendor_slug;
+            //            $quote->status = OrderStatus::Pending->value;
+            //            $quote->order_data = [
+            //                'airtime_data' => $inputs['airtime_data'],
+            //                'service_stat_data' => $inputs,
+            //            ];
+            //            $quote->order_number = 'CANVR'.Str::padLeft(time(), 15, '0');
+            //            $quote->is_refunded = 'no';
+            //
+            //            $quoteInfo = Airtime::assignVendor()->requestQuote($quote);
+            //
+            //            if ($quoteInfo['status'] === false) {
+            //                throw new AirtimeException(__('airtime::messages.assign_vendor.quote_failed'));
+            //            }
+            //
             $inputs['amount'] = $inputs['airtime_data']['amount'] ?? 0;
 
             $exchangeRate = Business::serviceStat()->cost($inputs);
 
-//            $exchangeRate['vendor_info'] = $quoteInfo;
+            //            $exchangeRate['vendor_info'] = $quoteInfo;
 
             $servicePackages = Business::servicePackage()->list([
                 'service_id' => $inputs['service_id'],
