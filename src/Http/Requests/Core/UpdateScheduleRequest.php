@@ -7,7 +7,6 @@ use Illuminate\Validation\Rule;
 
 class UpdateScheduleRequest extends FormRequest
 {
-
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -25,9 +24,9 @@ class UpdateScheduleRequest extends FormRequest
     {
         return [
             'id' => ['required', 'integer'],
-            'name' => ['required', 'string', Rule::unique('schedules','name')->ignore($this->input('id'))],
+            'name' => ['required', 'string', Rule::unique('schedules', 'name')->ignore($this->input('id'))],
             'description' => ['nullable', 'string'],
-            'command' => ['required', 'string', Rule::unique('schedules','command')->ignore($this->input('id'))],
+            'command' => ['required', 'string', Rule::unique('schedules', 'command')->ignore($this->input('id'))],
             'parameters' => ['nullable', 'array'],
             'timezone' => ['nullable', 'string'],
             'interval' => ['required', 'string'],
