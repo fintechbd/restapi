@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreScheduleRequest extends FormRequest
 {
-    
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -23,7 +23,14 @@ class StoreScheduleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'string', 'unique:schedules,name'],
+            'description' => ['nullable', 'string'],
+            'command' => ['required', 'string', 'unique:schedules,command'],
+            'parameters' => ['nullable', 'array'],
+            'timezone' => ['nullable', 'string'],
+            'interval' => ['required', 'string'],
+            'priority' => ['nullable', 'integer'],
+            'enabled' => ['nullable', 'boolean'],
         ];
     }
 
