@@ -1,33 +1,32 @@
 <?php
 
 namespace Fintech\RestApi\Http\Controllers\Core;
+
 use Exception;
-use Fintech\Core\Exceptions\StoreOperationException;
-use Fintech\Core\Exceptions\UpdateOperationException;
 use Fintech\Core\Exceptions\DeleteOperationException;
 use Fintech\Core\Exceptions\RestoreOperationException;
+use Fintech\Core\Exceptions\StoreOperationException;
+use Fintech\Core\Exceptions\UpdateOperationException;
 use Fintech\Core\Facades\Core;
-use Fintech\RestApi\Http\Resources\Core\ScheduleResource;
-use Fintech\RestApi\Http\Resources\Core\ScheduleCollection;
 use Fintech\RestApi\Http\Requests\Core\ImportScheduleRequest;
+use Fintech\RestApi\Http\Requests\Core\IndexScheduleRequest;
 use Fintech\RestApi\Http\Requests\Core\StoreScheduleRequest;
 use Fintech\RestApi\Http\Requests\Core\UpdateScheduleRequest;
-use Fintech\RestApi\Http\Requests\Core\IndexScheduleRequest;
+use Fintech\RestApi\Http\Resources\Core\ScheduleCollection;
+use Fintech\RestApi\Http\Resources\Core\ScheduleResource;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 
 /**
  * Class ScheduleController
- * @package Fintech\RestApi\Http\Controllers\Core
  *
  * @lrd:start
  * This class handle create, display, update, delete & restore
  * operation related to Schedule
- * @lrd:end
  *
+ * @lrd:end
  */
-
 class ScheduleController extends Controller
 {
     /**
@@ -35,10 +34,8 @@ class ScheduleController extends Controller
      * Return a listing of the *Schedule* resource as collection.
      *
      * *```paginate=false``` returns all resource as list not pagination*
-     * @lrd:end
      *
-     * @param IndexScheduleRequest $request
-     * @return ScheduleCollection|JsonResponse
+     * @lrd:end
      */
     public function index(IndexScheduleRequest $request): ScheduleCollection|JsonResponse
     {
@@ -58,10 +55,9 @@ class ScheduleController extends Controller
     /**
      * @lrd:start
      * Create a new *Schedule* resource in storage.
+     *
      * @lrd:end
      *
-     * @param StoreScheduleRequest $request
-     * @return JsonResponse
      * @throws StoreOperationException
      */
     public function store(StoreScheduleRequest $request): JsonResponse
@@ -71,14 +67,14 @@ class ScheduleController extends Controller
 
             $schedule = Core::schedule()->create($inputs);
 
-            if (!$schedule) {
+            if (! $schedule) {
                 throw (new StoreOperationException)->setModel(config('fintech.core.schedule_model'));
             }
 
             return response()->created([
                 'message' => __('restapi::messages.resource.created', ['model' => 'Schedule']),
-                'id' => $schedule->id
-             ]);
+                'id' => $schedule->id,
+            ]);
 
         } catch (Exception $exception) {
 
@@ -89,10 +85,9 @@ class ScheduleController extends Controller
     /**
      * @lrd:start
      * Return a specified *Schedule* resource found by id.
+     *
      * @lrd:end
      *
-     * @param string|int $id
-     * @return ScheduleResource|JsonResponse
      * @throws ModelNotFoundException
      */
     public function show(string|int $id): ScheduleResource|JsonResponse
@@ -101,7 +96,7 @@ class ScheduleController extends Controller
 
             $schedule = Core::schedule()->find($id);
 
-            if (!$schedule) {
+            if (! $schedule) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.core.schedule_model'), $id);
             }
 
@@ -120,11 +115,9 @@ class ScheduleController extends Controller
     /**
      * @lrd:start
      * Update a specified *Schedule* resource using id.
+     *
      * @lrd:end
      *
-     * @param UpdateScheduleRequest $request
-     * @param string|int $id
-     * @return JsonResponse
      * @throws ModelNotFoundException
      * @throws UpdateOperationException
      */
@@ -134,13 +127,13 @@ class ScheduleController extends Controller
 
             $schedule = Core::schedule()->find($id);
 
-            if (!$schedule) {
+            if (! $schedule) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.core.schedule_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!Core::schedule()->update($id, $inputs)) {
+            if (! Core::schedule()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.core.schedule_model'), $id);
             }
@@ -160,10 +153,11 @@ class ScheduleController extends Controller
     /**
      * @lrd:start
      * Soft delete a specified *Schedule* resource using id.
+     *
      * @lrd:end
      *
-     * @param string|int $id
      * @return JsonResponse
+     *
      * @throws ModelNotFoundException
      * @throws DeleteOperationException
      */
@@ -173,13 +167,13 @@ class ScheduleController extends Controller
 
             $schedule = Core::schedule()->find($id);
 
-            if (!$schedule) {
+            if (! $schedule) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.core.schedule_model'), $id);
             }
 
-            if (!Core::schedule()->destroy($id)) {
+            if (! Core::schedule()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.core.schedule_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.core.schedule_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Schedule']));
@@ -198,9 +192,9 @@ class ScheduleController extends Controller
      * @lrd:start
      * Restore the specified *Schedule* resource from trash.
      * ** ```Soft Delete``` needs to enabled to use this feature**
+     *
      * @lrd:end
      *
-     * @param string|int $id
      * @return JsonResponse
      */
     public function restore(string|int $id)
@@ -209,13 +203,13 @@ class ScheduleController extends Controller
 
             $schedule = Core::schedule()->find($id, true);
 
-            if (!$schedule) {
+            if (! $schedule) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.core.schedule_model'), $id);
             }
 
-            if (!Core::schedule()->restore($id)) {
+            if (! Core::schedule()->restore($id)) {
 
-                throw (new RestoreOperationException())->setModel(config('fintech.core.schedule_model'), $id);
+                throw (new RestoreOperationException)->setModel(config('fintech.core.schedule_model'), $id);
             }
 
             return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Schedule']));
@@ -236,9 +230,6 @@ class ScheduleController extends Controller
      * After export job is done system will fire  export completed event
      *
      * @lrd:end
-     *
-     * @param IndexScheduleRequest $request
-     * @return JsonResponse
      */
     public function export(IndexScheduleRequest $request): JsonResponse
     {
@@ -262,7 +253,6 @@ class ScheduleController extends Controller
      *
      * @lrd:end
      *
-     * @param ImportScheduleRequest $request
      * @return ScheduleCollection|JsonResponse
      */
     public function import(ImportScheduleRequest $request): JsonResponse
