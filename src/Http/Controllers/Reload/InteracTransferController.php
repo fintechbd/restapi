@@ -19,7 +19,6 @@ use Fintech\Reload\Facades\Reload;
 use Fintech\RestApi\Http\Requests\Reload\CheckDepositRequest;
 use Fintech\RestApi\Http\Requests\Reload\ImportDepositRequest;
 use Fintech\RestApi\Http\Requests\Reload\IndexDepositRequest;
-use Fintech\RestApi\Http\Requests\Reload\StoreDepositRequest;
 use Fintech\RestApi\Http\Requests\Reload\StoreInteracTransferRequest;
 use Fintech\RestApi\Http\Resources\Reload\DepositCollection;
 use Fintech\RestApi\Http\Resources\Reload\DepositResource;
