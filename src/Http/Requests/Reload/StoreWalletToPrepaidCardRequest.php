@@ -28,7 +28,7 @@ class StoreWalletToPrepaidCardRequest extends FormRequest
             'destination_country_id' => ['required', 'integer', 'min:1'],
             'instant_card_id' => ['required', 'integer', 'min:1'],
             'service_id' => ['required', 'integer', 'min:1'],
-            'ordered_at' => ['required', 'date', 'date_format:Y-m-d H:i:s', 'before_or_equal:'.date('Y-m-d H:i:s')],
+            'ordered_at' => ['required', 'date', 'date_format:Y-m-d H:i:s', 'before_or_equal:'.date('Y-m-d H:i:s', strtotime('+3 seconds'))],
             'amount' => ['required', 'numeric'],
             'currency' => ['required', 'string', 'size:3'],
             'order_data' => ['nullable', 'array'],
