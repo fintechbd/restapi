@@ -76,9 +76,9 @@ class KycVerificationResource extends JsonResource
         if (isset($response['proof']['full_name'])) {
             $name = $response['proof']['full_name'];
         } elseif (isset($response['additional_proof']['first_name'])) {
-            $name = $response['additional_proof']['first_name'] . ' ' . ($response['additional_proof']['last_name'] ?? '');
+            $name = $response['additional_proof']['first_name'].' '.($response['additional_proof']['last_name'] ?? '');
         } elseif (isset($response['proof']['first_name'])) {
-            $name = $response['proof']['first_name'] . ' ' . ($response['proof']['last_name'] ?? '');
+            $name = $response['proof']['first_name'].' '.($response['proof']['last_name'] ?? '');
         } else {
             $name = 'Unknown';
         }
@@ -123,7 +123,7 @@ class KycVerificationResource extends JsonResource
             ? ($response['gender'] == 'M' ? 'male' : 'female')
             : null;
 
-        $name = ($response['firstName'] ?? '') . ' ' . ($response['lastName'] ?? '');
+        $name = ($response['firstName'] ?? '').' '.($response['lastName'] ?? '');
 
         $issue_date = isset($response['additionalData']['dateOfIssue'])
             ? CarbonImmutable::createFromFormat('d/m/Y', $response['additionalData']['dateOfIssue'])->format('Y-m-d')

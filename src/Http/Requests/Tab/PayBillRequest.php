@@ -38,7 +38,7 @@ class PayBillRequest extends FormRequest
             'paginate' => false,
             'enabled' => true,
         ])->each(function ($field) use (&$rules) {
-            $rules['pay_bill_data.' . $field->name] = $field->validation;
+            $rules['pay_bill_data.'.$field->name] = $field->validation;
         });
 
         return $rules;

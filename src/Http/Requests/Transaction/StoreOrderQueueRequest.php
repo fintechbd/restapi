@@ -23,7 +23,7 @@ class StoreOrderQueueRequest extends FormRequest
      */
     public function rules(): array
     {
-        $uniqueRule = 'unique:' . config('fintech.transaction.order_queue_model', OrderQueue::class) . ',user_id';
+        $uniqueRule = 'unique:'.config('fintech.transaction.order_queue_model', OrderQueue::class).',user_id';
 
         return [
             'user_id' => ['integer', 'required', 'min:1', $uniqueRule],

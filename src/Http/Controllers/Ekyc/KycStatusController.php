@@ -67,7 +67,7 @@ class KycStatusController extends Controller
 
             $kycStatus = Ekyc::kycStatus()->create($inputs);
 
-            if (!$kycStatus) {
+            if (! $kycStatus) {
                 throw (new StoreOperationException)->setModel(config('fintech.ekyc.kyc_status_model'));
             }
 
@@ -96,7 +96,7 @@ class KycStatusController extends Controller
 
             $kycStatus = Ekyc::kycStatus()->find($id);
 
-            if (!$kycStatus) {
+            if (! $kycStatus) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.ekyc.kyc_status_model'), $id);
             }
 
@@ -127,13 +127,13 @@ class KycStatusController extends Controller
 
             $kycStatus = Ekyc::kycStatus()->find($id);
 
-            if (!$kycStatus) {
+            if (! $kycStatus) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.ekyc.kyc_status_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!Ekyc::kycStatus()->update($id, $inputs)) {
+            if (! Ekyc::kycStatus()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.ekyc.kyc_status_model'), $id);
             }
@@ -167,11 +167,11 @@ class KycStatusController extends Controller
 
             $kycStatus = Ekyc::kycStatus()->find($id);
 
-            if (!$kycStatus) {
+            if (! $kycStatus) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.ekyc.kyc_status_model'), $id);
             }
 
-            if (!Ekyc::kycStatus()->destroy($id)) {
+            if (! Ekyc::kycStatus()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.ekyc.kyc_status_model'), $id);
             }
@@ -203,11 +203,11 @@ class KycStatusController extends Controller
 
             $kycStatus = Ekyc::kycStatus()->find($id, true);
 
-            if (!$kycStatus) {
+            if (! $kycStatus) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.ekyc.kyc_status_model'), $id);
             }
 
-            if (!Ekyc::kycStatus()->restore($id)) {
+            if (! Ekyc::kycStatus()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.ekyc.kyc_status_model'), $id);
             }

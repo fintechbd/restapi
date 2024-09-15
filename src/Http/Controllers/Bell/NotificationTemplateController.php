@@ -67,7 +67,7 @@ class NotificationTemplateController extends Controller
 
             $notificationTemplate = Bell::notificationTemplate()->create($inputs);
 
-            if (!$notificationTemplate) {
+            if (! $notificationTemplate) {
                 throw (new StoreOperationException)->setModel(config('fintech.bell.notification_template_model'));
             }
 
@@ -96,7 +96,7 @@ class NotificationTemplateController extends Controller
 
             $notificationTemplate = Bell::notificationTemplate()->find($id);
 
-            if (!$notificationTemplate) {
+            if (! $notificationTemplate) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.bell.notification_template_model'), $id);
             }
 
@@ -127,13 +127,13 @@ class NotificationTemplateController extends Controller
 
             $notificationTemplate = Bell::notificationTemplate()->find($id);
 
-            if (!$notificationTemplate) {
+            if (! $notificationTemplate) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.bell.notification_template_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!Bell::notificationTemplate()->update($id, $inputs)) {
+            if (! Bell::notificationTemplate()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.bell.notification_template_model'), $id);
             }
@@ -167,11 +167,11 @@ class NotificationTemplateController extends Controller
 
             $notificationTemplate = Bell::notificationTemplate()->find($id);
 
-            if (!$notificationTemplate) {
+            if (! $notificationTemplate) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.bell.notification_template_model'), $id);
             }
 
-            if (!Bell::notificationTemplate()->destroy($id)) {
+            if (! Bell::notificationTemplate()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.bell.notification_template_model'), $id);
             }
@@ -203,11 +203,11 @@ class NotificationTemplateController extends Controller
 
             $notificationTemplate = Bell::notificationTemplate()->find($id, true);
 
-            if (!$notificationTemplate) {
+            if (! $notificationTemplate) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.bell.notification_template_model'), $id);
             }
 
-            if (!Bell::notificationTemplate()->restore($id)) {
+            if (! Bell::notificationTemplate()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.bell.notification_template_model'), $id);
             }

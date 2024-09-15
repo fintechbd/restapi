@@ -14,7 +14,7 @@ class OrderCollection extends ResourceCollection
     /**
      * Transform the resource collection into an array.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return array
      */
     public function toArray($request)
@@ -49,8 +49,8 @@ class OrderCollection extends ResourceCollection
                 'status' => $order->status ?? null,
             ];
 
-            $data['amount_formatted'] = (string)currency($data['amount'], $data['currency']);
-            $data['converted_amount_formatted'] = (string)currency($data['converted_amount'], $data['converted_currency']);
+            $data['amount_formatted'] = (string) currency($data['amount'], $data['currency']);
+            $data['converted_amount_formatted'] = (string) currency($data['converted_amount'], $data['converted_currency']);
 
             if (Core::packageExists('MetaData')) {
                 $data['source_country_name'] = $order->sourceCountry?->name ?? null;

@@ -53,8 +53,8 @@ class StoreServiceStatRequest extends FormRequest
             'enabled' => true,
             'paginate' => false])
             ->each(function ($item) use (&$rules) {
-                if (!isset($rules['service_stat_data.' . $item->service_setting_field_name])) {
-                    $rules['service_stat_data.' . $item->service_setting_field_name] = $item->service_setting_rule ?? 'nullable';
+                if (! isset($rules['service_stat_data.'.$item->service_setting_field_name])) {
+                    $rules['service_stat_data.'.$item->service_setting_field_name] = $item->service_setting_rule ?? 'nullable';
                 }
             });
 

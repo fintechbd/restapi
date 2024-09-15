@@ -69,7 +69,7 @@ class ScheduleController extends Controller
 
             $schedule = Core::schedule()->create($inputs);
 
-            if (!$schedule) {
+            if (! $schedule) {
                 throw (new StoreOperationException)->setModel(config('fintech.core.schedule_model'));
             }
 
@@ -98,7 +98,7 @@ class ScheduleController extends Controller
 
             $schedule = Core::schedule()->find($id);
 
-            if (!$schedule) {
+            if (! $schedule) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.core.schedule_model'), $id);
             }
 
@@ -131,11 +131,11 @@ class ScheduleController extends Controller
 
             $schedule = Core::schedule()->find($id);
 
-            if (!$schedule) {
+            if (! $schedule) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.core.schedule_model'), $id);
             }
 
-            if (!Core::schedule()->destroy($id)) {
+            if (! Core::schedule()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.core.schedule_model'), $id);
             }
@@ -167,11 +167,11 @@ class ScheduleController extends Controller
 
             $schedule = Core::schedule()->find($id, true);
 
-            if (!$schedule) {
+            if (! $schedule) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.core.schedule_model'), $id);
             }
 
-            if (!Core::schedule()->restore($id)) {
+            if (! Core::schedule()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.core.schedule_model'), $id);
             }
@@ -248,7 +248,7 @@ class ScheduleController extends Controller
 
             $schedule = Core::schedule()->find($id);
 
-            if (!$schedule) {
+            if (! $schedule) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.core.schedule_model'), $id);
             }
 
@@ -263,7 +263,7 @@ class ScheduleController extends Controller
                 default => $schedule_data['last_triggered_at'] = now($schedule->timezone) && $schedule_data['next_scheduled_at'] = $nextScheduleTimestamp,
             };
 
-            if (!Core::schedule()->update($id, ['schedule_data' => $schedule_data])) {
+            if (! Core::schedule()->update($id, ['schedule_data' => $schedule_data])) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.core.schedule_model'), $id);
             }
@@ -295,13 +295,13 @@ class ScheduleController extends Controller
 
             $schedule = Core::schedule()->find($id);
 
-            if (!$schedule) {
+            if (! $schedule) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.core.schedule_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!Core::schedule()->update($id, $inputs)) {
+            if (! Core::schedule()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.core.schedule_model'), $id);
             }

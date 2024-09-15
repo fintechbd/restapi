@@ -5,6 +5,7 @@ namespace Fintech\RestApi\Http\Resources\Business;
 use Fintech\Core\Supports\Constant;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+
 use function currency;
 
 class ServicePackageCollection extends ResourceCollection
@@ -12,7 +13,7 @@ class ServicePackageCollection extends ResourceCollection
     /**
      * Transform the resource collection into an array.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return array
      */
     public function toArray($request)
@@ -31,7 +32,7 @@ class ServicePackageCollection extends ResourceCollection
                 'slug' => $servicePackage->slug,
                 'description' => $servicePackage->description,
                 'amount' => $servicePackage->amount,
-                'amount_formatted' => (string)currency($servicePackage->amount, $servicePackage->country?->currency),
+                'amount_formatted' => (string) currency($servicePackage->amount, $servicePackage->country?->currency),
                 'enabled' => $servicePackage->enabled,
                 'type' => $servicePackage->type,
                 'service_package_data' => $servicePackage->service_package_data,

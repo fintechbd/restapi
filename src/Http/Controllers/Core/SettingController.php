@@ -67,7 +67,7 @@ class SettingController extends Controller
 
             $setting = Core::setting()->create($inputs);
 
-            if (!$setting) {
+            if (! $setting) {
                 throw (new StoreOperationException)->setModel(config('fintech.core.setting_model'));
             }
 
@@ -96,7 +96,7 @@ class SettingController extends Controller
 
             $setting = Core::setting()->find($id);
 
-            if (!$setting) {
+            if (! $setting) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.core.setting_model'), $id);
             }
 
@@ -126,13 +126,13 @@ class SettingController extends Controller
 
             $setting = Core::setting()->read($id);
 
-            if (!$setting) {
+            if (! $setting) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.core.setting_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!Core::setting()->update($id, $inputs)) {
+            if (! Core::setting()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.core.setting_model'), $id);
             }
@@ -166,11 +166,11 @@ class SettingController extends Controller
 
             $setting = Core::setting()->read($id);
 
-            if (!$setting) {
+            if (! $setting) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.core.setting_model'), $id);
             }
 
-            if (!Core::setting()->destroy($id)) {
+            if (! Core::setting()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.core.setting_model'), $id);
             }
@@ -202,11 +202,11 @@ class SettingController extends Controller
 
             $setting = Core::setting()->find($id, true);
 
-            if (!$setting) {
+            if (! $setting) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.core.setting_model'), $id);
             }
 
-            if (!Core::setting()->restore($id)) {
+            if (! Core::setting()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.core.setting_model'), $id);
             }
