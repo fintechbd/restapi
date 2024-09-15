@@ -2,6 +2,7 @@
 
 namespace Fintech\RestApi\Http\Controllers\Core;
 
+use Cron\CronExpression;
 use Exception;
 use Fintech\Core\Exceptions\DeleteOperationException;
 use Fintech\Core\Exceptions\RestoreOperationException;
@@ -17,6 +18,7 @@ use Fintech\RestApi\Http\Resources\Core\ScheduleResource;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Date;
 
 /**
  * Class ScheduleController
@@ -263,6 +265,52 @@ class ScheduleController extends Controller
             $schedulePaginate = Core::schedule()->list($inputs);
 
             return new ScheduleCollection($schedulePaginate);
+
+        } catch (Exception $exception) {
+
+            return response()->failed($exception);
+        }
+    }
+
+    /**
+     * @lrd:start
+     * Return a specified *Schedule* resource found by id.
+     *
+     * @lrd:end
+     *
+     * @throws ModelNotFoundException
+     */
+    public function health(string|int $id, string $status): JsonResponse
+    {
+        try {
+
+            $schedule = Core::schedule()->find($id);
+
+            if (! $schedule) {
+                throw (new ModelNotFoundException)->setModel(config('fintech.core.schedule_model'), $id);
+            }
+
+            $schedule_data = $schedule->schedule_data ?? [];
+
+            $nextScheduleTimestamp = Date::instance((new CronExpression($schedule->interval))
+                ->getNextRunDate('now', 0, false, $schedule->timezone));
+
+            match ($status) {
+                'succeed' => $schedule_data['last_succeed_at'] = now($schedule->timezone),
+                'failed' => $schedule_data['last_failed_at'] = now($schedule->timezone),
+                default => $schedule_data['last_triggered_at'] = now($schedule->timezone) && $schedule_data['next_scheduled_at'] = $nextScheduleTimestamp,
+            };
+
+            if (! Core::schedule()->update($id, ['schedule_data' => $schedule_data])) {
+
+                throw (new UpdateOperationException)->setModel(config('fintech.core.schedule_model'), $id);
+            }
+
+            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Schedule']));
+
+        } catch (ModelNotFoundException $exception) {
+
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
