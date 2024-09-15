@@ -295,12 +295,11 @@ class ScheduleController extends Controller
             $nextScheduleTimestamp = Date::instance((new CronExpression($schedule->interval))
                 ->getNextRunDate('now', 0, false, $schedule->timezone));
 
-            match($status) {
+            match ($status) {
                 'succeed' => $schedule_data['last_succeed_at'] = now($schedule->timezone),
                 'failed' => $schedule_data['last_failed_at'] = now($schedule->timezone),
                 default => $schedule_data['last_triggered_at'] = now($schedule->timezone) && $schedule_data['next_scheduled_at'] = $nextScheduleTimestamp,
             };
-
 
             if (! Core::schedule()->update($id, ['schedule_data' => $schedule_data])) {
 
