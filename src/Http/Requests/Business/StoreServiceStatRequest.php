@@ -53,19 +53,12 @@ class StoreServiceStatRequest extends FormRequest
             'enabled' => true,
             'paginate' => false])
             ->each(function ($item) use (&$rules) {
-                if (! isset($rules['service_stat_data.'.$item->service_setting_field_name])) {
-                    $rules['service_stat_data.'.$item->service_setting_field_name] = $item->service_setting_rule ?? 'nullable';
+                if (!isset($rules['service_stat_data.' . $item->service_setting_field_name])) {
+                    $rules['service_stat_data.' . $item->service_setting_field_name] = $item->service_setting_rule ?? 'nullable';
                 }
             });
 
         return $rules;
-    }
-
-    protected function prepareForValidation()
-    {
-        $service = Business::service()->find($this->input('service_id'));
-
-        $this->merge(['service_slug' => $service->service_slug]);
     }
 
     /**
@@ -86,5 +79,12 @@ class StoreServiceStatRequest extends FormRequest
         return [
             //
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        $service = Business::service()->find($this->input('service_id'));
+
+        $this->merge(['service_slug' => $service->service_slug]);
     }
 }

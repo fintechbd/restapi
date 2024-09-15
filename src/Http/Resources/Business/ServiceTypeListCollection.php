@@ -15,7 +15,7 @@ class ServiceTypeListCollection extends ResourceCollection
      */
     public function toArray(Request $request): array
     {
-        if (! cache()->has('fintech.serviceTypeList')) {
+        if (!cache()->has('fintech.serviceTypeList')) {
             Business::serviceType()->list([
                 'get' => [
                     'service_types.id',
@@ -26,7 +26,7 @@ class ServiceTypeListCollection extends ResourceCollection
                 'paginate' => false,
                 'sort' => 'service_types.id',
             ])
-                ->each(fn ($serviceType) => $this->serviceTypeList[$serviceType->id] = $serviceType->toArray());
+                ->each(fn($serviceType) => $this->serviceTypeList[$serviceType->id] = $serviceType->toArray());
             cache()->put('fintech.serviceTypeList', $this->serviceTypeList, HOUR);
         } else {
             $this->serviceTypeList = cache()->get('fintech.serviceTypeList', []);

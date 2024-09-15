@@ -91,7 +91,7 @@ class WalletToPrepaidCardController extends Controller
                     'country_id' => $request->input('source_country_id', $walletUser->profile?->country_id),
                 ])->first();
 
-                if (! $walletUserAccount) {
+                if (!$walletUserAccount) {
                     throw new Exception("User don't have account deposit balance");
                 }
 
@@ -100,8 +100,8 @@ class WalletToPrepaidCardController extends Controller
                     'country_id' => $request->input('source_country_id', $walletUser->profile?->country_id),
                 ])->first();
 
-                if (! $masterUser) {
-                    throw new Exception('Master User Account not found for '.$request->input('source_country_id', $walletUser->profile?->country_id).' country');
+                if (!$masterUser) {
+                    throw new Exception('Master User Account not found for ' . $request->input('source_country_id', $walletUser->profile?->country_id) . ' country');
                 }
 
                 //set pre defined conditions of deposit
@@ -127,7 +127,7 @@ class WalletToPrepaidCardController extends Controller
 
                 $walletToPrepaidCard = Reload::walletToPrepaidCard()->create($inputs);
 
-                if (! $walletToPrepaidCard) {
+                if (!$walletToPrepaidCard) {
                     throw (new StoreOperationException)->setModel(config('fintech.reload.wallet_to_prepaid_card_model'));
                 }
 
@@ -165,36 +165,6 @@ class WalletToPrepaidCardController extends Controller
 
     /**
      * @lrd:start
-     * Return a specified *WalletToPrepaidCard* resource found by id.
-     *
-     * @lrd:end
-     *
-     * @throws ModelNotFoundException
-     */
-    public function show(string|int $id): WalletToPrepaidCardResource|JsonResponse
-    {
-        try {
-
-            $walletToPrepaidCard = Reload::walletToPrepaidCard()->find($id);
-
-            if (! $walletToPrepaidCard) {
-                throw (new ModelNotFoundException)->setModel(config('fintech.reload.wallet_to_prepaid_card_model'), $id);
-            }
-
-            return new WalletToPrepaidCardResource($walletToPrepaidCard);
-
-        } catch (ModelNotFoundException $exception) {
-
-            return response()->notfound($exception->getMessage());
-
-        } catch (Exception $exception) {
-
-            return response()->failed($exception);
-        }
-    }
-
-    /**
-     * @lrd:start
      * Update a specified *WalletToPrepaidCard* resource using id.
      *
      * @lrd:end
@@ -208,18 +178,48 @@ class WalletToPrepaidCardController extends Controller
 
             $walletToPrepaidCard = Reload::walletToPrepaidCard()->find($id);
 
-            if (! $walletToPrepaidCard) {
+            if (!$walletToPrepaidCard) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.reload.wallet_to_prepaid_card_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! Reload::walletToPrepaidCard()->update($id, $inputs)) {
+            if (!Reload::walletToPrepaidCard()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.reload.wallet_to_prepaid_card_model'), $id);
             }
 
             return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Wallet To Prepaid Card']));
+
+        } catch (ModelNotFoundException $exception) {
+
+            return response()->notfound($exception->getMessage());
+
+        } catch (Exception $exception) {
+
+            return response()->failed($exception);
+        }
+    }
+
+    /**
+     * @lrd:start
+     * Return a specified *WalletToPrepaidCard* resource found by id.
+     *
+     * @lrd:end
+     *
+     * @throws ModelNotFoundException
+     */
+    public function show(string|int $id): WalletToPrepaidCardResource|JsonResponse
+    {
+        try {
+
+            $walletToPrepaidCard = Reload::walletToPrepaidCard()->find($id);
+
+            if (!$walletToPrepaidCard) {
+                throw (new ModelNotFoundException)->setModel(config('fintech.reload.wallet_to_prepaid_card_model'), $id);
+            }
+
+            return new WalletToPrepaidCardResource($walletToPrepaidCard);
 
         } catch (ModelNotFoundException $exception) {
 
@@ -248,11 +248,11 @@ class WalletToPrepaidCardController extends Controller
 
             $walletToPrepaidCard = Reload::walletToPrepaidCard()->find($id);
 
-            if (! $walletToPrepaidCard) {
+            if (!$walletToPrepaidCard) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.reload.wallet_to_prepaid_card_model'), $id);
             }
 
-            if (! Reload::walletToPrepaidCard()->destroy($id)) {
+            if (!Reload::walletToPrepaidCard()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.reload.wallet_to_prepaid_card_model'), $id);
             }
@@ -284,11 +284,11 @@ class WalletToPrepaidCardController extends Controller
 
             $walletToPrepaidCard = Reload::walletToPrepaidCard()->find($id, true);
 
-            if (! $walletToPrepaidCard) {
+            if (!$walletToPrepaidCard) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.reload.wallet_to_prepaid_card_model'), $id);
             }
 
-            if (! Reload::walletToPrepaidCard()->restore($id)) {
+            if (!Reload::walletToPrepaidCard()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.reload.wallet_to_prepaid_card_model'), $id);
             }

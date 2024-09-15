@@ -4,7 +4,6 @@ namespace Fintech\RestApi\Http\Resources\Business;
 
 use Fintech\Core\Facades\Core;
 use Fintech\Core\Supports\Constant;
-use Fintech\MetaData\Facades\MetaData;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
@@ -39,7 +38,7 @@ class CurrencyRateCollection extends ResourceCollection
     /**
      * Transform the resource collection into an array.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @return array
      */
     public function toArray($request)

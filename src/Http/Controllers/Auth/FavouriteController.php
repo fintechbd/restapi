@@ -67,7 +67,7 @@ class FavouriteController extends Controller
 
             $favourite = Auth::favourite()->create($inputs);
 
-            if (! $favourite) {
+            if (!$favourite) {
                 throw (new StoreOperationException)->setModel(config('fintech.auth.favourite_model'));
             }
 
@@ -96,7 +96,7 @@ class FavouriteController extends Controller
 
             $favourite = Auth::favourite()->find($id);
 
-            if (! $favourite) {
+            if (!$favourite) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.auth.favourite_model'), $id);
             }
 
@@ -127,13 +127,13 @@ class FavouriteController extends Controller
 
             $favourite = Auth::favourite()->find($id);
 
-            if (! $favourite) {
+            if (!$favourite) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.auth.favourite_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! Auth::favourite()->update($id, $inputs)) {
+            if (!Auth::favourite()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.auth.favourite_model'), $id);
             }
@@ -167,11 +167,11 @@ class FavouriteController extends Controller
 
             $favourite = Auth::favourite()->find($id);
 
-            if (! $favourite) {
+            if (!$favourite) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.auth.favourite_model'), $id);
             }
 
-            if (! Auth::favourite()->destroy($id)) {
+            if (!Auth::favourite()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.auth.favourite_model'), $id);
             }
@@ -203,11 +203,11 @@ class FavouriteController extends Controller
 
             $favourite = Auth::favourite()->find($id, true);
 
-            if (! $favourite) {
+            if (!$favourite) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.auth.favourite_model'), $id);
             }
 
-            if (! Auth::favourite()->restore($id)) {
+            if (!Auth::favourite()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.auth.favourite_model'), $id);
             }

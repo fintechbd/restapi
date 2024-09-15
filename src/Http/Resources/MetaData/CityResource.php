@@ -21,7 +21,7 @@ class CityResource extends JsonResource
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
             'enabled' => $this->enabled,
-            'vendor_code' => $this->vendor_code ?? (object) [],
+            'vendor_code' => $this->vendor_code ?? (object)[],
             'city_data' => $this->city_data,
             'country_id' => $this->country_id ?? null,
             'country_name' => ($this->country != null) ? $this->country->name : null,

@@ -60,7 +60,7 @@ class ApiLogController extends Controller
 
             $apiLog = Core::apiLog()->find($id);
 
-            if (! $apiLog) {
+            if (!$apiLog) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.core.api_log_model'), $id);
             }
 
@@ -92,11 +92,11 @@ class ApiLogController extends Controller
 
             $apiLog = Core::apiLog()->find($id);
 
-            if (! $apiLog) {
+            if (!$apiLog) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.core.api_log_model'), $id);
             }
 
-            if (! Core::apiLog()->destroy($id)) {
+            if (!Core::apiLog()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.core.api_log_model'), $id);
             }

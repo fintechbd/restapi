@@ -67,7 +67,7 @@ class TriggerActionController extends Controller
 
             $triggerAction = Bell::triggerAction()->create($inputs);
 
-            if (! $triggerAction) {
+            if (!$triggerAction) {
                 throw (new StoreOperationException)->setModel(config('fintech.bell.trigger_action_model'));
             }
 
@@ -96,7 +96,7 @@ class TriggerActionController extends Controller
 
             $triggerAction = Bell::triggerAction()->find($id);
 
-            if (! $triggerAction) {
+            if (!$triggerAction) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.bell.trigger_action_model'), $id);
             }
 
@@ -127,13 +127,13 @@ class TriggerActionController extends Controller
 
             $triggerAction = Bell::triggerAction()->find($id);
 
-            if (! $triggerAction) {
+            if (!$triggerAction) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.bell.trigger_action_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! Bell::triggerAction()->update($id, $inputs)) {
+            if (!Bell::triggerAction()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.bell.trigger_action_model'), $id);
             }
@@ -167,11 +167,11 @@ class TriggerActionController extends Controller
 
             $triggerAction = Bell::triggerAction()->find($id);
 
-            if (! $triggerAction) {
+            if (!$triggerAction) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.bell.trigger_action_model'), $id);
             }
 
-            if (! Bell::triggerAction()->destroy($id)) {
+            if (!Bell::triggerAction()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.bell.trigger_action_model'), $id);
             }
@@ -203,11 +203,11 @@ class TriggerActionController extends Controller
 
             $triggerAction = Bell::triggerAction()->find($id, true);
 
-            if (! $triggerAction) {
+            if (!$triggerAction) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.bell.trigger_action_model'), $id);
             }
 
-            if (! Bell::triggerAction()->restore($id)) {
+            if (!Bell::triggerAction()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.bell.trigger_action_model'), $id);
             }

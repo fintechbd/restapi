@@ -75,7 +75,7 @@ class CurrencyRateController extends Controller
 
             $currencyRate = Business::currencyRate()->create($inputs);
 
-            if (! $currencyRate) {
+            if (!$currencyRate) {
                 throw (new StoreOperationException)->setModel(config('fintech.business.currency_rate_model'));
             }
 
@@ -104,7 +104,7 @@ class CurrencyRateController extends Controller
 
             $currencyRate = Business::currencyRate()->find($id);
 
-            if (! $currencyRate) {
+            if (!$currencyRate) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.currency_rate_model'), $id);
             }
 
@@ -135,13 +135,13 @@ class CurrencyRateController extends Controller
 
             $currencyRate = Business::currencyRate()->find($id);
 
-            if (! $currencyRate) {
+            if (!$currencyRate) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.currency_rate_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! Business::currencyRate()->update($id, $inputs)) {
+            if (!Business::currencyRate()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.currency_rate_model'), $id);
             }
@@ -214,11 +214,11 @@ class CurrencyRateController extends Controller
 
             $currencyRate = Business::currencyRate()->find($id);
 
-            if (! $currencyRate) {
+            if (!$currencyRate) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.currency_rate_model'), $id);
             }
 
-            if (! Business::currencyRate()->destroy($id)) {
+            if (!Business::currencyRate()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.business.currency_rate_model'), $id);
             }
@@ -250,11 +250,11 @@ class CurrencyRateController extends Controller
 
             $currencyRate = Business::currencyRate()->find($id, true);
 
-            if (! $currencyRate) {
+            if (!$currencyRate) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.currency_rate_model'), $id);
             }
 
-            if (! Business::currencyRate()->restore($id)) {
+            if (!Business::currencyRate()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.business.currency_rate_model'), $id);
             }
@@ -332,12 +332,12 @@ class CurrencyRateController extends Controller
 
             $attribute = 'id';
 
-            if (! empty($filters['label'])) {
+            if (!empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (! empty($filters['attribute'])) {
+            if (!empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }

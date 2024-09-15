@@ -69,7 +69,7 @@ class BeneficiaryAccountTypeController extends Controller
 
             $beneficiaryAccountType = Banco::beneficiaryAccountType()->create($inputs);
 
-            if (! $beneficiaryAccountType) {
+            if (!$beneficiaryAccountType) {
                 throw (new StoreOperationException)->setModel(config('fintech.banco.beneficiary_account_type_model'));
             }
 
@@ -98,7 +98,7 @@ class BeneficiaryAccountTypeController extends Controller
 
             $beneficiaryAccountType = Banco::beneficiaryAccountType()->find($id);
 
-            if (! $beneficiaryAccountType) {
+            if (!$beneficiaryAccountType) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.banco.beneficiary_account_type_model'), $id);
             }
 
@@ -129,13 +129,13 @@ class BeneficiaryAccountTypeController extends Controller
 
             $beneficiaryAccountType = Banco::beneficiaryAccountType()->find($id);
 
-            if (! $beneficiaryAccountType) {
+            if (!$beneficiaryAccountType) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.banco.beneficiary_account_type_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! Banco::beneficiaryAccountType()->update($id, $inputs)) {
+            if (!Banco::beneficiaryAccountType()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.banco.beneficiary_account_type_model'), $id);
             }
@@ -169,11 +169,11 @@ class BeneficiaryAccountTypeController extends Controller
 
             $beneficiaryAccountType = Banco::beneficiaryAccountType()->find($id);
 
-            if (! $beneficiaryAccountType) {
+            if (!$beneficiaryAccountType) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.banco.beneficiary_account_type_model'), $id);
             }
 
-            if (! Banco::beneficiaryAccountType()->destroy($id)) {
+            if (!Banco::beneficiaryAccountType()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.banco.beneficiary_account_type_model'), $id);
             }
@@ -205,11 +205,11 @@ class BeneficiaryAccountTypeController extends Controller
 
             $beneficiaryAccountType = Banco::beneficiaryAccountType()->find($id, true);
 
-            if (! $beneficiaryAccountType) {
+            if (!$beneficiaryAccountType) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.banco.beneficiary_account_type_model'), $id);
             }
 
-            if (! Banco::beneficiaryAccountType()->restore($id)) {
+            if (!Banco::beneficiaryAccountType()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.banco.beneficiary_account_type_model'), $id);
             }
@@ -283,12 +283,12 @@ class BeneficiaryAccountTypeController extends Controller
 
             $attribute = 'id';
 
-            if (! empty($filters['label'])) {
+            if (!empty($filters['label'])) {
                 $label = $filters['label'];
                 unset($filters['label']);
             }
 
-            if (! empty($filters['attribute'])) {
+            if (!empty($filters['attribute'])) {
                 $attribute = $filters['attribute'];
                 unset($filters['attribute']);
             }

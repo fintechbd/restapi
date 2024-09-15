@@ -25,7 +25,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->routes(function () use (&$root_prefix) {
             Route::prefix(config('fintech.restapi.root_prefix', 'api'))
                 ->middleware(['api', 'http_log'])
-                ->group(function () {});
+                ->group(function () {
+                });
             //                ->group(__DIR__.'/../../routes/api.php');
         });
     }

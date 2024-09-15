@@ -3,19 +3,14 @@
 namespace Fintech\RestApi\Http\Controllers\Airtime;
 
 use Exception;
-use Fintech\Airtime\Exceptions\AirtimeException;
-use Fintech\Airtime\Facades\Airtime;
 use Fintech\Auth\Facades\Auth;
 use Fintech\Business\Facades\Business;
-use Fintech\Core\Abstracts\BaseModel;
-use Fintech\Core\Enums\Transaction\OrderStatus;
 use Fintech\RestApi\Http\Requests\Airtime\AirtimeCostRequest;
 use Fintech\RestApi\Http\Resources\Business\ServiceCostResource;
 use Fintech\RestApi\Http\Resources\Business\ServicePackageCollection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Str;
 
 class CalculateCostController extends Controller
 {
