@@ -79,6 +79,10 @@ class InteracTransferController extends Controller
         try {
             $inputs = $request->validated();
 
+            $inputs['order_data']['interac_data']['channel'] = 'Interac';
+            $inputs['order_data']['interac_data']['currency'] = $inputs['currency'] ?? 'CAD';
+            $inputs['order_data']['interac_data']['amount'] = intval($inputs['amount']);
+
             if (isset($inputs['user_id']) && $request->input('user_id') > 0) {
                 $user_id = $request->input('user_id');
             }
@@ -133,7 +137,7 @@ class InteracTransferController extends Controller
 
                 $order_data = $deposit->order_data;
                 $order_data['purchase_number'] = entry_number($deposit->getKey(), $deposit->sourceCountry->iso3, OrderStatusConfig::Purchased->value);
-
+                $order_data['interac_data']['reference'] =  $order_data['purchase_number'];
                 Reload::deposit()->update($deposit->getKey(), ['order_data' => $order_data, 'order_number' => $order_data['purchase_number']]);
 
                 Transaction::orderQueue()->removeFromQueueUserWise($user_id);

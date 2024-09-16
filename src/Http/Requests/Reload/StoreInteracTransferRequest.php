@@ -2,6 +2,7 @@
 
 namespace Fintech\RestApi\Http\Requests\Reload;
 
+use Fintech\Core\Rules\MobileNumber;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -32,20 +33,12 @@ class StoreInteracTransferRequest extends FormRequest
             'currency' => ['required', 'string', 'size:3'],
             'order_data' => ['nullable', 'array'],
             'order_data.request_from' => ['string', 'required'],
-            'order_data.request_from' => ['string', 'required'],
-            'slip' => ['nullable', 'string'],
-        ];
-    }
-
-    /**
-     * Get the validation attributes that apply to the request.
-     *
-     * @return array
-     */
-    public function attributes()
-    {
-        return [
-            //
+            'order_data.interac_data' => ['array', 'required'],
+            'order_data.interac_data.narration' => ['string', 'nullable', 'max:255'],
+            'order_data.interac_data.email' => ['string', 'required', 'email:rfc,dns'],
+            'order_data.interac_data.first_name' => ['string', 'required', 'min:2', 'max:255'],
+            'order_data.interac_data.last_name' => ['string', 'required', 'min:2', 'max:255'],
+            'order_data.interac_data.phone' => ['string', 'required', new MobileNumber()]
         ];
     }
 
