@@ -4,6 +4,7 @@ namespace Fintech\RestApi\Http\Controllers\Auth;
 
 use Exception;
 use Fintech\Auth\Facades\Auth;
+use Fintech\RestApi\Http\Resources\Auth\PulseCheckResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -27,27 +28,17 @@ class PulseCheckController extends Controller
      *
      * @lrd:end
      */
-    public function __invoke(Request $request): JsonResponse
+    public function __invoke(Request $request): JsonResponse|PulseCheckResource
     {
         try {
 
-            $ipinfo = Auth::geoip()->find($request->filled('ip') ? $request->input('ip') : $request->ip());
+            $info = (object)Auth::geoip()->find($request->filled('ip') ? $request->input('ip') : $request->ip());
 
-            return response()->success(['data' => $ipinfo]);
+            return new PulseCheckResource($info);
 
         } catch (Exception $exception) {
 
             return response()->failed($exception);
         }
-    }
-
-    private function validTimezone(Request $request): bool
-    {
-        return true;
-    }
-
-    private function validHeaders(Request $request): bool
-    {
-        return true;
     }
 }
