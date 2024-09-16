@@ -32,7 +32,7 @@ class PulseCheckController extends Controller
     {
         try {
 
-            $info = (object)Auth::geoip()->find($request->filled('ip') ? $request->input('ip') : $request->ip());
+            $info = (object) Auth::geoip()->find($request->filled('ip') ? $request->input('ip') : $request->ip());
 
             return new PulseCheckResource($info);
 
