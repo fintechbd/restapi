@@ -38,7 +38,7 @@ class StoreInteracTransferRequest extends FormRequest
             'order_data.interac_data.email' => ['string', 'required', 'email:rfc,dns'],
             'order_data.interac_data.first_name' => ['string', 'required', 'min:2', 'max:255'],
             'order_data.interac_data.last_name' => ['string', 'required', 'min:2', 'max:255'],
-            'order_data.interac_data.phone' => ['string', 'required', new MobileNumber()]
+            'order_data.interac_data.phone' => ['string', 'required', new MobileNumber],
         ];
     }
 

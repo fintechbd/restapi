@@ -137,7 +137,7 @@ class InteracTransferController extends Controller
 
                 $order_data = $deposit->order_data;
                 $order_data['purchase_number'] = entry_number($deposit->getKey(), $deposit->sourceCountry->iso3, OrderStatusConfig::Purchased->value);
-                $order_data['interac_data']['reference'] =  $order_data['purchase_number'];
+                $order_data['interac_data']['reference'] = $order_data['purchase_number'];
                 Reload::deposit()->update($deposit->getKey(), ['order_data' => $order_data, 'order_number' => $order_data['purchase_number']]);
 
                 Transaction::orderQueue()->removeFromQueueUserWise($user_id);
