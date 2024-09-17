@@ -16,6 +16,7 @@ use Fintech\Reload\Events\DepositCancelled;
 use Fintech\Reload\Events\DepositReceived;
 use Fintech\Reload\Events\DepositRejected;
 use Fintech\Reload\Facades\Reload;
+use Fintech\Reload\Vendors\LeatherBack;
 use Fintech\RestApi\Http\Requests\Reload\CheckDepositRequest;
 use Fintech\RestApi\Http\Requests\Reload\ImportDepositRequest;
 use Fintech\RestApi\Http\Requests\Reload\IndexDepositRequest;
@@ -25,6 +26,7 @@ use Fintech\RestApi\Http\Resources\Reload\DepositResource;
 use Fintech\Transaction\Facades\Transaction;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
 /**
@@ -79,10 +81,6 @@ class InteracTransferController extends Controller
         try {
             $inputs = $request->validated();
 
-            $inputs['order_data']['interac_data']['channel'] = 'Interac';
-            $inputs['order_data']['interac_data']['currency'] = $inputs['currency'] ?? 'CAD';
-            $inputs['order_data']['interac_data']['amount'] = intval($inputs['amount']);
-
             if (isset($inputs['user_id']) && $request->input('user_id') > 0) {
                 $user_id = $request->input('user_id');
             }
@@ -121,6 +119,7 @@ class InteracTransferController extends Controller
                 $inputs['risk'] = RiskProfile::Low->value;
                 $inputs['order_data']['created_by'] = $depositor->name;
                 $inputs['order_data']['created_by_mobile_number'] = $depositor->mobile;
+                $inputs['order_data']['created_by_email'] = $depositor->email;
                 $inputs['order_data']['created_at'] = now();
                 $inputs['order_data']['current_amount'] = ($depositAccount->user_account_data['available_amount'] ?? 0) + $inputs['amount'];
                 $inputs['order_data']['previous_amount'] = $depositAccount->user_account_data['available_amount'] ?? 0;
@@ -142,10 +141,13 @@ class InteracTransferController extends Controller
 
                 Transaction::orderQueue()->removeFromQueueUserWise($user_id);
 
-                event(new DepositReceived($deposit));
+                $leatherBack = app(LeatherBack::class);
+
+                $leatherBack->initPayment($deposit);
+
 
                 return response()->created([
-                    'message' => __('restapi::messages.resource.created', ['model' => 'Deposit']),
+                    'message' => __('restapi::messages.resource.created', ['model' => 'Interac-E-Transfer']),
                     'id' => $deposit->id,
                 ]);
 
@@ -469,5 +471,10 @@ class InteracTransferController extends Controller
 
             return response()->failed($exception);
         }
+    }
+
+    public function callback(Request $request)
+    {
+        logger("Interac-E-Transfer Log", [$request->all()]);
     }
 }
