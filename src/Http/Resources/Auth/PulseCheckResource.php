@@ -49,6 +49,8 @@ class PulseCheckResource extends JsonResource
         $data['currency']['name'] = $data['country']?->currency_name ?? null;
         $data['currency']['symbol'] = $data['country']?->currency_symbol ?? null;
 
+        $data['security']['allow_to_signup'] = in_array($data['location']['country']['id'], MetaData::country()->servingIds());
+        $data['security']['allow_to_login'] = in_array($data['location']['country']['id'], MetaData::country()->servingIds());
         $data['security']['is_proxy'] = null;
         $data['security']['proxy_type'] = null;
         $data['security']['proxy_last_detected'] = null;
