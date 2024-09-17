@@ -26,17 +26,17 @@ class PulseCheckResource extends JsonResource
             default => $this->local($request)
         };
 
-        $data['location']['country']['id'] = $data['country']?->getKey() ?? null;
+        $data['location']['country']['id'] = $data['country']?->id ?? null;
         $data['location']['country']['name'] = $data['country']?->name ?? null;
         $data['location']['country']['code'] = $data['country']?->iso2 ?? null;
         $data['location']['country']['logo_png'] = $data['country']?->getFirstMedia('logo_png') ?? null;
         $data['location']['country']['logo_svg'] = $data['country']?->getFirstMedia('logo_svg') ?? null;
 
-        $data['location']['state']['id'] = $data['state']?->getKey() ?? null;
+        $data['location']['state']['id'] = $data['state']?->id ?? null;
         $data['location']['state']['type'] = $data['state']?->type ?? null;
         $data['location']['state']['name'] = $data['state']?->name ?? null;
 
-        $data['location']['city']['id'] = $data['city']?->getKey() ?? null;
+        $data['location']['city']['id'] = $data['city']?->id ?? null;
         $data['location']['city']['type'] = $data['city']?->type ?? null;
         $data['location']['city']['name'] = $data['city']?->name ?? null;
 
@@ -44,7 +44,7 @@ class PulseCheckResource extends JsonResource
         $data['location']['language'] = $data['country']?->language ?? [];
         $data['location']['calling_code'] = '+'.str_replace(['+', '-'], '', ($data['country']?->phone_code ?? ''));
 
-        $data['currency']['id'] = $data['country']?->getKey() ?? null;
+        $data['currency']['id'] = $data['country']?->id ?? null;
         $data['currency']['code'] = $data['country']?->currency ?? null;
         $data['currency']['name'] = $data['country']?->currency_name ?? null;
         $data['currency']['symbol'] = $data['country']?->currency_symbol ?? null;
