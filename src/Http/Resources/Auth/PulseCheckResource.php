@@ -42,7 +42,7 @@ class PulseCheckResource extends JsonResource
 
         $data['location']['timezones'] = $data['country']?->timezones ?? [];
         $data['location']['language'] = $data['country']?->language ?? [];
-        $data['location']['calling_code'] = '+' . str_replace(['+', '-'], '', ($data['country']?->phone_code ?? ''));
+        $data['location']['calling_code'] = '+'.str_replace(['+', '-'], '', ($data['country']?->phone_code ?? ''));
 
         $data['currency']['id'] = $data['country']?->getKey() ?? null;
         $data['currency']['code'] = $data['country']?->currency ?? null;
@@ -57,7 +57,7 @@ class PulseCheckResource extends JsonResource
         $data['security']['crawler_name'] = null;
         $data['security']['crawler_type'] = null;
         $data['security']['is_tor'] = false;
-        $data['security']['threat_level'] = "low";
+        $data['security']['threat_level'] = 'low';
         $data['security']['threat_types'] = null;
         $data['security']['vpn_service'] = null;
         $data['security']['anonymizer_status'] = null;
