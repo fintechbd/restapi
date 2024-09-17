@@ -43,7 +43,8 @@ class PulseCheckController extends Controller
                 ];
             }
 
-            $info = (object)$info;
+            $info = (object) $info;
+
             return new PulseCheckResource($info);
 
         } catch (Exception $exception) {
