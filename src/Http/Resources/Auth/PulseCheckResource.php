@@ -29,8 +29,8 @@ class PulseCheckResource extends JsonResource
         $data['location']['country']['id'] = $data['country']?->id ?? null;
         $data['location']['country']['name'] = $data['country']?->name ?? null;
         $data['location']['country']['code'] = $data['country']?->iso2 ?? null;
-        $data['location']['country']['logo_png'] = $data['country']?->getFirstMedia('logo_png') ?? null;
-        $data['location']['country']['logo_svg'] = $data['country']?->getFirstMedia('logo_svg') ?? null;
+        $data['location']['country']['logo_png'] = $data['country']?->getFirstMediaUrl('logo_png') ?? null;
+        $data['location']['country']['logo_svg'] = $data['country']?->getFirstMediaUrl('logo_svg') ?? null;
 
         $data['location']['state']['id'] = $data['state']?->id ?? null;
         $data['location']['state']['type'] = $data['state']?->type ?? null;
