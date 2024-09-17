@@ -40,9 +40,9 @@ class PulseCheckResource extends JsonResource
         $data['location']['city']['type'] = $data['city']?->type ?? null;
         $data['location']['city']['name'] = $data['city']?->name ?? null;
 
-        $data['location']['timezones'] = $data['country']?->timezones ?? [];
-        $data['location']['language'] = $data['country']?->language ?? [];
-        $data['location']['calling_code'] = '+'.str_replace(['+', '-'], '', ($data['country']?->phone_code ?? ''));
+        $data['timezones'] = $data['country']?->timezones ?? [];
+        $data['language'] = $data['country']?->language ?? [];
+        $data['calling_code'] = '+'.str_replace(['+', '-'], '', ($data['country']?->phone_code ?? ''));
 
         $data['currency']['id'] = $data['country']?->id ?? null;
         $data['currency']['code'] = $data['country']?->currency ?? null;
