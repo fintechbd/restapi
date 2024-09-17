@@ -13,7 +13,6 @@ use Fintech\Core\Enums\Transaction\OrderStatusConfig;
 use Fintech\Core\Exceptions\StoreOperationException;
 use Fintech\Reload\Events\DepositAccepted;
 use Fintech\Reload\Events\DepositCancelled;
-use Fintech\Reload\Events\DepositReceived;
 use Fintech\Reload\Events\DepositRejected;
 use Fintech\Reload\Facades\Reload;
 use Fintech\Reload\Vendors\LeatherBack;
@@ -144,7 +143,6 @@ class InteracTransferController extends Controller
                 $leatherBack = app(LeatherBack::class);
 
                 $leatherBack->initPayment($deposit);
-
 
                 return response()->created([
                     'message' => __('restapi::messages.resource.created', ['model' => 'Interac-E-Transfer']),
@@ -475,6 +473,6 @@ class InteracTransferController extends Controller
 
     public function callback(Request $request)
     {
-        logger("Interac-E-Transfer Log", [$request->all()]);
+        logger('Interac-E-Transfer Log', [$request->all()]);
     }
 }
