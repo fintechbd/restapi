@@ -23,7 +23,8 @@ class PulseCheckResource extends JsonResource
             'cloudflare' => $this->cloudflare($request),
             'kloudend' => $this->kloudend($request),
             'maxmind' => $this->maxmind($request),
-            default => $this->local($request)
+            'local' => $this->local($request),
+            default => $this->development($request),
         };
 
         $data['location']['country']['id'] = $data['country']?->id ?? null;
@@ -37,7 +38,6 @@ class PulseCheckResource extends JsonResource
         $data['location']['state']['name'] = $data['state']?->name ?? null;
 
         $data['location']['city']['id'] = $data['city']?->id ?? null;
-        $data['location']['city']['type'] = $data['city']?->type ?? null;
         $data['location']['city']['name'] = $data['city']?->name ?? null;
 
         $data['timezone'] = $data['country']?->timezones ?? [(object) []];
@@ -120,6 +120,37 @@ class PulseCheckResource extends JsonResource
 
     private function local(Request $request): array
     {
-        return [];
+        $country = MetaData::country()->list(['iso2' => 'BD'])->first();
+        $state = MetaData::state()->list(['country_id' => $country->id, 'search' => 'Dhaka District'])->first();
+        $city = MetaData::city()->list(['country_id' => $country->id, 'state_id' => $state->id, 'search' => 'Dhaka'])->first();
+
+        return [
+            'ip' => $this->ip ?? null,
+            'type' => $this->type ?? 'ipv4',
+            'country' => $country ?? null,
+            'state' => $state ?? null,
+            'city' => $city ?? null,
+            'zip' => $this->zip ?? null,
+            'latitude' => $this->latitude ?? 0,
+            'longitude' => $this->longitude ?? 0,
+        ];
+    }
+
+    private function development(Request $request): array
+    {
+        $country = MetaData::country()->list(['iso2' => 'BD'])->first();
+        $state = MetaData::state()->list(['country_id' => $country->id, 'search' => 'Dhaka District'])->first();
+        $city = MetaData::city()->list(['country_id' => $country->id, 'state_id' => $state->id, 'search' => 'Dhaka'])->first();
+
+        return [
+            'ip' => $this->ip ?? null,
+            'type' => $this->type ?? 'ipv4',
+            'country' => $country ?? null,
+            'state' => $state ?? null,
+            'city' => $city ?? null,
+            'zip' => '1212',
+            'latitude' => 23.787710189819336,
+            'longitude' => 90.3798828125,
+        ];
     }
 }
