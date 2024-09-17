@@ -4,6 +4,7 @@ namespace Fintech\RestApi\Http\Requests\Transaction;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreUserAccountRequest extends FormRequest
 {
