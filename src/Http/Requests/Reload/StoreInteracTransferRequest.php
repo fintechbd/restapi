@@ -42,15 +42,14 @@ class StoreInteracTransferRequest extends FormRequest
         ];
     }
 
-    /**
-     * Get the validation messages that apply to the request.
-     *
-     * @return array
-     */
-    public function messages()
+    public function attributes()
     {
         return [
-            //
+            'order_data.interac_data.narration' => 'narration',
+            'order_data.interac_data.email' => 'interac-e-transfer email',
+            'order_data.interac_data.first_name' => 'first name',
+            'order_data.interac_data.last_name' => 'last name',
+            'order_data.interac_data.phone' => 'phone number',
         ];
     }
 }
