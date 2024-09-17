@@ -34,7 +34,7 @@ class PulseCheckController extends Controller
 
             $ip = $request->filled('ip') ? $request->input('ip') : $request->ip();
 
-            if (!in_array($ip, config('fintech.auth.geoip.whitelist'), true)) {
+            if (! in_array($ip, config('fintech.auth.geoip.whitelist'), true)) {
                 $info = Auth::geoip()->find($ip);
             } else {
                 config()->set('fintech.auth.geoip.default', 'debug');
@@ -43,7 +43,8 @@ class PulseCheckController extends Controller
                 ];
             }
 
-            $info = (object)$info;
+            $info = (object) $info;
+
             return new PulseCheckResource($info);
 
         } catch (Exception $exception) {
