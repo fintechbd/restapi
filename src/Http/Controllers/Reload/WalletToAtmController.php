@@ -12,6 +12,7 @@ use Fintech\Core\Enums\Transaction\OrderStatus;
 use Fintech\Core\Exceptions\DeleteOperationException;
 use Fintech\Core\Exceptions\RestoreOperationException;
 use Fintech\Core\Exceptions\StoreOperationException;
+use Fintech\Core\Exceptions\Transaction\CurrencyUnavailableException;
 use Fintech\Core\Exceptions\UpdateOperationException;
 use Fintech\Reload\Facades\Reload;
 use Fintech\Remit\Facades\Remit;
@@ -91,7 +92,7 @@ class WalletToAtmController extends Controller
                 ])->first();
 
                 if (! $depositAccount) {
-                    throw new Exception("User don't have account deposit balance");
+                    throw new CurrencyUnavailableException($request->input('source_country_id', $depositor->profile?->present_country_id));
                 }
 
                 $masterUser = Auth::user()->list([

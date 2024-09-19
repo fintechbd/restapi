@@ -68,7 +68,7 @@ class UserAuthResetRequest extends FormRequest
 
         $seconds = RateLimiter::availableIn($this->throttleKey());
 
-        abort(Response::HTTP_TOO_MANY_REQUESTS, trans('auth::messages.throttle', [
+        abort(Response::HTTP_TOO_MANY_REQUESTS, __('auth::messages.throttle', [
             'seconds' => $seconds,
             'minutes' => ceil($seconds / 60),
         ]));

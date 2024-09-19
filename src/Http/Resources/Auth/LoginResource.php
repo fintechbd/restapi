@@ -63,7 +63,7 @@ class LoginResource extends JsonResource
                 'type' => 'bearer',
                 'permissions' => $permissions,
             ],
-            'message' => trans('auth::messages.success'),
+            'message' => __('auth::messages.success'),
         ];
     }
 

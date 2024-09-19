@@ -11,6 +11,7 @@ use Fintech\Core\Enums\Auth\SystemRole;
 use Fintech\Core\Enums\Reload\DepositStatus;
 use Fintech\Core\Enums\Transaction\OrderStatusConfig;
 use Fintech\Core\Exceptions\StoreOperationException;
+use Fintech\Core\Exceptions\Transaction\CurrencyUnavailableException;
 use Fintech\Reload\Events\DepositAccepted;
 use Fintech\Reload\Events\DepositCancelled;
 use Fintech\Reload\Events\DepositRejected;
@@ -93,7 +94,7 @@ class InteracTransferController extends Controller
                 ])->first();
 
                 if (! $depositAccount) {
-                    throw new Exception("User don't have account deposit balance");
+                    throw new CurrencyUnavailableException($request->input('source_country_id', $depositor->profile?->present_country_id));
                 }
 
                 $masterUser = Auth::user()->list([

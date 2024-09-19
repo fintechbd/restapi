@@ -15,6 +15,7 @@ use Fintech\Core\Enums\Transaction\OrderStatusConfig;
 use Fintech\Core\Exceptions\DeleteOperationException;
 use Fintech\Core\Exceptions\RestoreOperationException;
 use Fintech\Core\Exceptions\StoreOperationException;
+use Fintech\Core\Exceptions\Transaction\CurrencyUnavailableException;
 use Fintech\Core\Exceptions\UpdateOperationException;
 use Fintech\Reload\Facades\Reload;
 use Fintech\RestApi\Http\Requests\Reload\CheckDepositRequest;
@@ -93,7 +94,7 @@ class RequestMoneyController extends Controller
                 ])->first();
 
                 if (! $depositAccount) {
-                    throw new Exception("User don't have account deposit balance");
+                    throw new CurrencyUnavailableException($request->input('source_country_id', $depositor->profile?->present_country_id));
                 }
 
                 $masterUser = Auth::user()->list([
@@ -227,7 +228,7 @@ class RequestMoneyController extends Controller
         ])->first();
 
         if (! $requestMoneyAccount) {
-            throw new Exception("User don't have account deposit balance");
+            throw new CurrencyUnavailableException($request->input('source_country_id', $depositor->profile?->present_country_id));
         }
 
         //set pre defined conditions of deposit
@@ -531,7 +532,7 @@ class RequestMoneyController extends Controller
                 ])->first();
 
                 if (! $depositAccount) {
-                    throw new Exception("User don't have account deposit balance");
+                    throw new CurrencyUnavailableException($request->input('source_country_id', $withdraw->profile?->present_country_id));
                 }
 
                 $receiver = Auth::user()->find($withdraw->sender_receiver_id);
@@ -620,7 +621,7 @@ class RequestMoneyController extends Controller
             ])->first();
 
             if (! $depositAccount) {
-                throw new Exception("User don't have account deposit balance");
+                throw new CurrencyUnavailableException($deposit->profile?->present_country_id);
             }
 
             $receiver = Auth::user()->find($deposit->sender_receiver_id);

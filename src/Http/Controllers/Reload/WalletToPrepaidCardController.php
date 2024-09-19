@@ -12,6 +12,7 @@ use Fintech\Core\Enums\Transaction\OrderStatusConfig;
 use Fintech\Core\Exceptions\DeleteOperationException;
 use Fintech\Core\Exceptions\RestoreOperationException;
 use Fintech\Core\Exceptions\StoreOperationException;
+use Fintech\Core\Exceptions\Transaction\CurrencyUnavailableException;
 use Fintech\Core\Exceptions\UpdateOperationException;
 use Fintech\Reload\Events\DepositReceived;
 use Fintech\Reload\Facades\Reload;
@@ -92,7 +93,7 @@ class WalletToPrepaidCardController extends Controller
                 ])->first();
 
                 if (! $walletUserAccount) {
-                    throw new Exception("User don't have account deposit balance");
+                    throw new CurrencyUnavailableException($request->input('source_country_id', $walletUser->profile?->present_country_id));
                 }
 
                 $masterUser = Auth::user()->list([
