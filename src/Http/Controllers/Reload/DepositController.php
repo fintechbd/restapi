@@ -223,10 +223,7 @@ class DepositController extends Controller
 
                 $depositor = $deposit->user;
 
-                $depositedAccount = Transaction::userAccount()->list([
-                    'user_id' => $depositor->getKey(),
-                    'country_id' => $deposit->destination_country_id,
-                ])->first();
+                $depositedAccount = Transaction::userAccount()->findWhere(['user_id' => $depositor->getKey(), 'country_id' => $deposit->destination_country_id,]);
 
                 $updateData = $deposit->toArray();
                 $updateData['status'] = DepositStatus::Accepted->value;
@@ -304,10 +301,7 @@ class DepositController extends Controller
 
                 $depositor = $deposit->user;
 
-                $depositedAccount = Transaction::userAccount()->list([
-                    'user_id' => $depositor->getKey(),
-                    'country_id' => $deposit->destination_country_id,
-                ])->first();
+                $depositedAccount = Transaction::userAccount()->findWhere(['user_id' => $depositor->getKey(), 'country_id' => $deposit->destination_country_id,]);
 
                 $updateData = $deposit->toArray();
                 $updateData['status'] = DepositStatus::Cancelled->value;

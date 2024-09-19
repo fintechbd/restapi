@@ -88,19 +88,13 @@ class InteracTransferController extends Controller
 
             if (Transaction::orderQueue()->addToQueueUserWise(($user_id ?? $depositor->getKey())) > 0) {
 
-                $depositAccount = Transaction::userAccount()->list([
-                    'user_id' => $user_id ?? $depositor->getKey(),
-                    'country_id' => $request->input('source_country_id', $depositor->profile?->country_id),
-                ])->first();
+                $depositAccount = Transaction::userAccount()->findWhere(['user_id' => $user_id ?? $depositor->getKey(), 'country_id' => $request->input('source_country_id', $depositor->profile?->country_id),]);
 
                 if (! $depositAccount) {
                     throw new CurrencyUnavailableException($request->input('source_country_id', $depositor->profile?->present_country_id));
                 }
 
-                $masterUser = Auth::user()->list([
-                    'role_name' => SystemRole::MasterUser->value,
-                    'country_id' => $request->input('source_country_id', $depositor->profile?->country_id),
-                ])->first();
+                $masterUser = Auth::user()->findWhere(['role_name' => SystemRole::MasterUser->value, 'country_id' => $request->input('source_country_id', $depositor->profile?->country_id),]);
 
                 if (! $masterUser) {
                     throw new Exception('Master User Account not found for '.$request->input('source_country_id', $depositor->profile?->country_id).' country');
@@ -291,10 +285,7 @@ class InteracTransferController extends Controller
 
                 $depositor = $deposit->user;
 
-                $depositedAccount = Transaction::userAccount()->list([
-                    'user_id' => $depositor->getKey(),
-                    'country_id' => $deposit->destination_country_id,
-                ])->first();
+                $depositedAccount = Transaction::userAccount()->findWhere(['user_id' => $depositor->getKey(), 'country_id' => $deposit->destination_country_id,]);
 
                 $updateData = $deposit->toArray();
                 $updateData['status'] = DepositStatus::Accepted->value;
@@ -372,10 +363,7 @@ class InteracTransferController extends Controller
 
                 $depositor = $deposit->user;
 
-                $depositedAccount = Transaction::userAccount()->list([
-                    'user_id' => $depositor->getKey(),
-                    'country_id' => $deposit->destination_country_id,
-                ])->first();
+                $depositedAccount = Transaction::userAccount()->findWhere(['user_id' => $depositor->getKey(), 'country_id' => $deposit->destination_country_id,]);
 
                 $updateData = $deposit->toArray();
                 $updateData['status'] = DepositStatus::Cancelled->value;

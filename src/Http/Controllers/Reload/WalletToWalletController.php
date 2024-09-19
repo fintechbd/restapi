@@ -89,29 +89,20 @@ class WalletToWalletController extends Controller
             }
             if (Transaction::orderQueue()->addToQueueUserWise(($user_id ?? $depositor->getKey())) > 0) {
 
-                $depositAccount = Transaction::userAccount()->list([
-                    'user_id' => $user_id ?? $depositor->getKey(),
-                    'currency' => $request->input('currency', $depositor->profile?->presentCountry?->currency),
-                ])->first();
+                $depositAccount = Transaction::userAccount()->findWhere(['user_id' => $user_id ?? $depositor->getKey(), 'currency' => $request->input('currency', $depositor->profile?->presentCountry?->currency),]);
 
                 if (! $depositAccount) {
                     throw new CurrencyUnavailableException($request->input('source_country_id', $depositor->profile?->present_country_id));
                 }
 
                 $receiver = Auth::user()->find($inputs['order_data']['sender_receiver_id']);
-                $receiverDepositAccount = Transaction::userAccount()->list([
-                    'user_id' => $inputs['order_data']['sender_receiver_id'],
-                    'currency' => $request->input('currency', $receiver->profile?->presentCountry?->currency),
-                ])->first();
+                $receiverDepositAccount = Transaction::userAccount()->findWhere(['user_id' => $inputs['order_data']['sender_receiver_id'], 'currency' => $request->input('currency', $receiver->profile?->presentCountry?->currency),]);
 
                 if (! $receiverDepositAccount) {
                     throw new Exception("Receiver don't have account deposit balance");
                 }
 
-                $masterUser = Auth::user()->list([
-                    'role_name' => SystemRole::MasterUser->value,
-                    'country_id' => $request->input('source_country_id', $depositor->profile?->present_country_id),
-                ])->first();
+                $masterUser = Auth::user()->findWhere(['role_name' => SystemRole::MasterUser->value, 'country_id' => $request->input('source_country_id', $depositor->profile?->present_country_id),]);
 
                 if (! $masterUser) {
                     throw new Exception('Master User Account not found for '.$request->input('source_country_id', $depositor->profile?->country_id).' country');
@@ -168,10 +159,7 @@ class WalletToWalletController extends Controller
                 $walletToWallet->order_data = $order_data;
                 $userUpdatedBalance = Reload::walletToWallet()->debitTransaction($walletToWallet);
                 //source country or destination country change to currency name
-                $depositedAccount = Transaction::userAccount()->list([
-                    'user_id' => $depositor->getKey(),
-                    'currency' => $walletToWallet->converted_currency,
-                ])->first();
+                $depositedAccount = Transaction::userAccount()->findWhere(['user_id' => $depositor->getKey(), 'currency' => $walletToWallet->converted_currency,]);
 
                 //update User Account
                 $depositedUpdatedAccount = $depositedAccount->toArray();
@@ -263,10 +251,7 @@ class WalletToWalletController extends Controller
         $receiverInputs['user_id'] = $deposit['order_data']['sender_receiver_id'];
         $receiverInputs['order_data']['sender_receiver_id'] = $deposit['user_id'];
 
-        $depositAccount = Transaction::userAccount()->list([
-            'user_id' => $receiverInputs['user_id'],
-            'currency' => $receiverInputs['converted_currency'],
-        ])->first();
+        $depositAccount = Transaction::userAccount()->findWhere(['user_id' => $receiverInputs['user_id'], 'currency' => $receiverInputs['converted_currency'],]);
 
         if (! $depositAccount) {
             throw new Exception("User don't have account deposit balance");
@@ -291,10 +276,7 @@ class WalletToWalletController extends Controller
         $walletToWallet->order_data = $order_data;
         $userUpdatedBalance = Reload::walletToWallet()->walletToWalletAccept($walletToWallet);
         //source country or destination country change to currency name
-        $depositedAccount = Transaction::userAccount()->list([
-            'user_id' => $walletToWallet->user_id,
-            'currency' => $walletToWallet->converted_currency,
-        ])->first();
+        $depositedAccount = Transaction::userAccount()->findWhere(['user_id' => $walletToWallet->user_id, 'currency' => $walletToWallet->converted_currency,]);
 
         //update User Account
         $depositedUpdatedAccount = $depositedAccount->toArray();
