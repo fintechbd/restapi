@@ -19,6 +19,8 @@ class CatalogCollection extends ResourceCollection
     {
         return $this->collection->map(function ($item) {
 
+            logger("Catalog Type", [$item->id, $item->type]);
+
             return [
                 'id' => $item->getKey(),
                 'name' => $item->name,
