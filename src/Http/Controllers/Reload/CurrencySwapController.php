@@ -90,13 +90,13 @@ class CurrencySwapController extends Controller
             }
             if (Transaction::orderQueue()->addToQueueUserWise(($user_id ?? $depositor->getKey())) > 0) {
 
-                $depositAccount = Transaction::userAccount()->findWhere(['user_id' => $user_id ?? $depositor->getKey(), 'currency' => $request->input('converted_currency', $depositor->profile?->presentCountry?->currency),]);
+                $depositAccount = Transaction::userAccount()->findWhere(['user_id' => $user_id ?? $depositor->getKey(), 'currency' => $request->input('converted_currency', $depositor->profile?->presentCountry?->currency)]);
 
                 if (! $depositAccount) {
                     throw new CurrencyUnavailableException($request->input('source_country_id', $depositor->profile?->present_country_id));
                 }
 
-                $masterUser = Auth::user()->findWhere(['role_name' => SystemRole::MasterUser->value, 'country_id' => $request->input('source_country_id', $depositor->profile?->present_country_id),]);
+                $masterUser = Auth::user()->findWhere(['role_name' => SystemRole::MasterUser->value, 'country_id' => $request->input('source_country_id', $depositor->profile?->present_country_id)]);
 
                 if (! $masterUser) {
                     throw new Exception('Master User Account not found for '.$request->input('source_country_id', $depositor->profile?->country_id).' country');
@@ -149,7 +149,7 @@ class CurrencySwapController extends Controller
                 $currencySwap->order_data = $order_data;
                 $userUpdatedBalance = Reload::currencySwap()->debitTransaction($currencySwap);
                 //source country or destination country change to currency name
-                $depositedAccount = Transaction::userAccount()->findWhere(['user_id' => $depositor->getKey(), 'currency' => $currencySwap->converted_currency,]);
+                $depositedAccount = Transaction::userAccount()->findWhere(['user_id' => $depositor->getKey(), 'currency' => $currencySwap->converted_currency]);
 
                 //update User Account
                 $depositedUpdatedAccount = $depositedAccount->toArray();
@@ -243,7 +243,7 @@ class CurrencySwapController extends Controller
         $receiverInputs['converted_amount'] = $deposit['amount'];
         $receiverInputs['converted_currency'] = $deposit['currency'];
 
-        $depositAccount = Transaction::userAccount()->findWhere(['user_id' => $deposit->user_id, 'currency' => $receiverInputs['converted_currency'],]);
+        $depositAccount = Transaction::userAccount()->findWhere(['user_id' => $deposit->user_id, 'currency' => $receiverInputs['converted_currency']]);
 
         if (! $depositAccount) {
             throw new CurrencyUnavailableException($request->input('source_country_id', $depositor->profile?->present_country_id));
@@ -268,7 +268,7 @@ class CurrencySwapController extends Controller
         $currencySwap->order_data = $order_data;
         $userUpdatedBalance = Reload::currencySwap()->currencySwapAccept($currencySwap);
         //source country or destination country change to currency name
-        $depositedAccount = Transaction::userAccount()->findWhere(['user_id' => $currencySwap->user_id, 'currency' => $currencySwap->converted_currency,]);
+        $depositedAccount = Transaction::userAccount()->findWhere(['user_id' => $currencySwap->user_id, 'currency' => $currencySwap->converted_currency]);
 
         //update User Account
         $depositedUpdatedAccount = $depositedAccount->toArray();

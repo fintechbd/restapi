@@ -88,20 +88,20 @@ class RequestMoneyController extends Controller
 
             if (Transaction::orderQueue()->addToQueueUserWise(($user_id ?? $depositor->getKey())) > 0) {
 
-                $depositAccount = Transaction::userAccount()->findWhere(['user_id' => $user_id ?? $depositor->getKey(), 'currency' => $request->input('currency', $depositor->profile?->presentCountry?->currency),]);
+                $depositAccount = Transaction::userAccount()->findWhere(['user_id' => $user_id ?? $depositor->getKey(), 'currency' => $request->input('currency', $depositor->profile?->presentCountry?->currency)]);
 
                 if (! $depositAccount) {
                     throw new CurrencyUnavailableException($request->input('source_country_id', $depositor->profile?->present_country_id));
                 }
 
-                $masterUser = Auth::user()->findWhere(['role_name' => SystemRole::MasterUser->value, 'country_id' => $request->input('source_country_id', $depositor->profile?->present_country_id),]);
+                $masterUser = Auth::user()->findWhere(['role_name' => SystemRole::MasterUser->value, 'country_id' => $request->input('source_country_id', $depositor->profile?->present_country_id)]);
 
                 if (! $masterUser) {
                     throw new Exception('Master User Account not found for '.$request->input('source_country_id', $depositor->profile?->country_id).' country');
                 }
 
                 $receiver = Auth::user()->find($inputs['sender_receiver_id']);
-                $receiverDepositAccount = Transaction::userAccount()->findWhere(['user_id' => $inputs['sender_receiver_id'], 'currency' => $request->input('currency', $receiver->profile?->presentCountry?->currency),]);
+                $receiverDepositAccount = Transaction::userAccount()->findWhere(['user_id' => $inputs['sender_receiver_id'], 'currency' => $request->input('currency', $receiver->profile?->presentCountry?->currency)]);
 
                 if (! $receiverDepositAccount) {
                     throw new Exception("Receiver don't have account deposit balance");
@@ -213,7 +213,7 @@ class RequestMoneyController extends Controller
         $receiverInputs['user_id'] = $requestMoney['sender_receiver_id'];
         $receiverInputs['sender_receiver_id'] = $requestMoney['user_id'];
 
-        $requestMoneyAccount = Transaction::userAccount()->findWhere(['user_id' => $receiverInputs['user_id'], 'currency' => $receiverInputs['converted_currency'],]);
+        $requestMoneyAccount = Transaction::userAccount()->findWhere(['user_id' => $receiverInputs['user_id'], 'currency' => $receiverInputs['converted_currency']]);
 
         if (! $requestMoneyAccount) {
             throw new CurrencyUnavailableException($request->input('source_country_id', $depositor->profile?->present_country_id));
@@ -514,20 +514,20 @@ class RequestMoneyController extends Controller
             if (Transaction::orderQueue()->addToQueueOrderWise($id) > 0) {
                 $withdraw = $this->authenticateDeposit($id, DepositStatus::Processing, DepositStatus::Accepted);
 
-                $depositAccount = Transaction::userAccount()->findWhere(['user_id' => $withdraw->user_id, 'currency' => $request->input('currency', $withdraw->profile?->presentCountry?->currency),]);
+                $depositAccount = Transaction::userAccount()->findWhere(['user_id' => $withdraw->user_id, 'currency' => $request->input('currency', $withdraw->profile?->presentCountry?->currency)]);
 
                 if (! $depositAccount) {
                     throw new CurrencyUnavailableException($request->input('source_country_id', $withdraw->profile?->present_country_id));
                 }
 
                 $receiver = Auth::user()->find($withdraw->sender_receiver_id);
-                $receiverDepositAccount = Transaction::userAccount()->findWhere(['user_id' => $withdraw->sender_receiver_id, 'currency' => $request->input('currency', $receiver->profile?->presentCountry?->currency),]);
+                $receiverDepositAccount = Transaction::userAccount()->findWhere(['user_id' => $withdraw->sender_receiver_id, 'currency' => $request->input('currency', $receiver->profile?->presentCountry?->currency)]);
 
                 if (! $receiverDepositAccount) {
                     throw new Exception("Receiver don't have account deposit balance");
                 }
 
-                $masterUser = Auth::user()->findWhere(['role_name' => SystemRole::MasterUser->value, 'country_id' => $request->input('source_country_id', $withdraw->profile?->present_country_id),]);
+                $masterUser = Auth::user()->findWhere(['role_name' => SystemRole::MasterUser->value, 'country_id' => $request->input('source_country_id', $withdraw->profile?->present_country_id)]);
 
                 if (! $masterUser) {
                     throw new Exception('Master User Account not found for '.$request->input('source_country_id', $withdraw->profile?->country_id).' country');
@@ -544,7 +544,7 @@ class RequestMoneyController extends Controller
 
                 $userUpdatedBalance = Reload::requestMoney()->debitTransaction($withdraw);
                 //source country or destination country change to currency name
-                $depositedAccount = Transaction::userAccount()->findWhere(['user_id' => $withdraw->user_id, 'currency' => $withdraw->converted_currency,]);
+                $depositedAccount = Transaction::userAccount()->findWhere(['user_id' => $withdraw->user_id, 'currency' => $withdraw->converted_currency]);
 
                 //update User Account
                 $depositedUpdatedAccount = $depositedAccount->toArray();
@@ -591,20 +591,20 @@ class RequestMoneyController extends Controller
 
             $deposit = $this->authenticateDeposit($requestMoney->id, DepositStatus::Processing, DepositStatus::Accepted);
 
-            $depositAccount = Transaction::userAccount()->findWhere(['user_id' => $deposit->user_id, 'currency' => $deposit->profile?->presentCountry?->currency,]);
+            $depositAccount = Transaction::userAccount()->findWhere(['user_id' => $deposit->user_id, 'currency' => $deposit->profile?->presentCountry?->currency]);
 
             if (! $depositAccount) {
                 throw new CurrencyUnavailableException($deposit->profile?->present_country_id);
             }
 
             $receiver = Auth::user()->find($deposit->sender_receiver_id);
-            $receiverDepositAccount = Transaction::userAccount()->findWhere(['user_id' => $deposit->sender_receiver_id, 'currency' => $receiver->profile?->presentCountry?->currency,]);
+            $receiverDepositAccount = Transaction::userAccount()->findWhere(['user_id' => $deposit->sender_receiver_id, 'currency' => $receiver->profile?->presentCountry?->currency]);
             //print_r($receiverDepositAccount);exit();
             if (! $receiverDepositAccount) {
                 throw new Exception("Receiver don't have account deposit balance");
             }
 
-            $masterUser = Auth::user()->findWhere(['role_name' => SystemRole::MasterUser->value, 'country_id' => $deposit->profile?->present_country_id,]);
+            $masterUser = Auth::user()->findWhere(['role_name' => SystemRole::MasterUser->value, 'country_id' => $deposit->profile?->present_country_id]);
 
             if (! $masterUser) {
                 throw new Exception('Master User Account not found for '.$deposit->profile?->country_id.' country');
@@ -620,7 +620,7 @@ class RequestMoneyController extends Controller
             $deposit['sender_receiver_id'] = $masterUser->getKey();
             $userUpdatedBalance = Reload::requestMoney()->creditTransaction($deposit);
             //source country or destination country change to currency name
-            $depositedAccount = Transaction::userAccount()->findWhere(['user_id' => $deposit->user_id, 'currency' => $deposit->converted_currency,]);
+            $depositedAccount = Transaction::userAccount()->findWhere(['user_id' => $deposit->user_id, 'currency' => $deposit->converted_currency]);
 
             //update User Account
             $depositedUpdatedAccount = $depositedAccount->toArray();
