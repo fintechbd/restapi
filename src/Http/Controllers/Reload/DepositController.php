@@ -79,6 +79,14 @@ class DepositController extends Controller
             ? $request->input('user_id')
             : $request->user('sanctum')->getKey();
 
+        if ($request->filled('order_data.interac_email')) :
+            $inputs['order_data']['is_interac_transfer'] = true;
+        elseif ($request->filled('order_data.card_token')) :
+            $inputs['order_data']['is_card_deposit'] = true;
+        else :
+            $inputs['order_data']['is_bank_deposit'] = true;
+        endif;
+
         try {
 
             $orderQueueId = Transaction::orderQueue()->addToQueueUserWise($inputs['user_id']);
@@ -100,7 +108,8 @@ class DepositController extends Controller
                 'id' => $deposit->getKey(),
             ]);
 
-        } catch (Exception $exception) {
+        }
+        catch (Exception $exception) {
 
             Transaction::orderQueue()->removeFromQueueUserWise($inputs['user_id']);
 
