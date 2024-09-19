@@ -14,7 +14,7 @@ use Fintech\Core\Exceptions\RestoreOperationException;
 use Fintech\Core\Exceptions\StoreOperationException;
 use Fintech\Core\Exceptions\Transaction\CurrencyUnavailableException;
 use Fintech\Core\Exceptions\UpdateOperationException;
-use Fintech\Reload\Events\DepositReceived;
+use Fintech\Reload\Events\BankDepositReceived;
 use Fintech\Reload\Facades\Reload;
 use Fintech\RestApi\Http\Requests\Reload\ImportWalletToPrepaidCardRequest;
 use Fintech\RestApi\Http\Requests\Reload\IndexWalletToPrepaidCardRequest;
@@ -139,7 +139,7 @@ class WalletToPrepaidCardController extends Controller
 
                 $prepaidCard->save();
 
-                event(new DepositReceived($walletToPrepaidCard));
+                event(new BankDepositReceived($walletToPrepaidCard));
 
                 return response()->created([
                     'message' => __('restapi::messages.resource.created', ['model' => 'Wallet To Prepaid Card']),
