@@ -22,7 +22,7 @@ class VerifyIdDocumentController extends Controller
         try {
             $inputs = $request->validated();
 
-            $idDocType = Auth::profile()->list($inputs)->first();
+            $idDocType = Auth::profile()->findWhere($inputs);
 
             return new VerifyIdDocTypeResource($idDocType);
 

@@ -54,7 +54,7 @@ class CurrencySwapController extends Controller
     {
         try {
             $inputs = $request->validated();
-            //$inputs['transaction_form_id'] = Transaction::transactionForm()->list(['code' => 'currency_swap'])->first()->getKey();
+            //$inputs['transaction_form_id'] = Transaction::transactionForm()->findWhere(['code' => 'currency_swap'])->getKey();
             $inputs['transaction_form_code'] = 'currency_swap';
             //$inputs['service_id'] = Business::serviceType()->list(['service_type_slug'=>'currency_swap']);
             //$inputs['service_type_slug'] = 'currency_swap';
@@ -109,7 +109,7 @@ class CurrencySwapController extends Controller
                 }
 
                 //set pre defined conditions of deposit
-                $inputs['transaction_form_id'] = Transaction::transactionForm()->list(['code' => 'currency_swap'])->first()->getKey();
+                $inputs['transaction_form_id'] = Transaction::transactionForm()->findWhere(['code' => 'currency_swap'])->getKey();
                 $inputs['user_id'] = $user_id ?? $depositor->getKey();
                 $delayCheck = Transaction::order()->transactionDelayCheck($inputs);
                 if ($delayCheck['countValue'] > 0) {
@@ -262,7 +262,7 @@ class CurrencySwapController extends Controller
         }
 
         //set pre defined conditions of deposit
-        $receiverInputs['transaction_form_id'] = Transaction::transactionForm()->list(['code' => 'point_reload'])->first()->getKey();
+        $receiverInputs['transaction_form_id'] = Transaction::transactionForm()->findWhere(['code' => 'point_reload'])->getKey();
         $receiverInputs['notes'] = 'Currency Swap receive from '.$receiverInputs['amount'].' '.$receiverInputs['currency'].' to '.$receiverInputs['converted_amount'].' '.$receiverInputs['converted_currency'];
         $receiverInputs['parent_id'] = $id;
 

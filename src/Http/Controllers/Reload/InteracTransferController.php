@@ -107,7 +107,7 @@ class InteracTransferController extends Controller
                 }
 
                 //set pre defined conditions of deposit
-                $inputs['transaction_form_id'] = Transaction::transactionForm()->list(['code' => 'point_reload'])->first()->getKey();
+                $inputs['transaction_form_id'] = Transaction::transactionForm()->findWhere(['code' => 'point_reload'])->getKey();
                 $inputs['user_id'] = $user_id ?? $depositor->getKey();
                 $delayCheck = Transaction::order()->transactionDelayCheck($inputs);
                 if ($delayCheck['countValue'] > 0) {

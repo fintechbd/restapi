@@ -53,7 +53,7 @@ class PayBillController extends Controller
     {
         try {
             $inputs = $request->validated();
-            //$inputs['transaction_form_id'] = Transaction::transactionForm()->list(['code' => 'bill_payment'])->first()->getKey();
+            //$inputs['transaction_form_id'] = Transaction::transactionForm()->findWhere(['code' => 'bill_payment'])->getKey();
             $inputs['transaction_form_code'] = 'bill_payment';
             //$inputs['service_id'] = Business::serviceType()->list(['service_type_slug'=>'bill_payment']);
             //$inputs['service_type_slug'] = 'bill_payment';
@@ -101,7 +101,7 @@ class PayBillController extends Controller
                 }
 
                 //set pre defined conditions of deposit
-                $inputs['transaction_form_id'] = Transaction::transactionForm()->list(['code' => 'bill_payment'])->first()->getKey();
+                $inputs['transaction_form_id'] = Transaction::transactionForm()->findWhere(['code' => 'bill_payment'])->getKey();
                 $inputs['user_id'] = $user_id ?? $depositor->getKey();
                 $delayCheck = Transaction::order()->transactionDelayCheck($inputs);
                 if ($delayCheck['countValue'] > 0) {

@@ -54,7 +54,7 @@ class RequestMoneyController extends Controller
     {
         try {
             $inputs = $request->validated();
-            //$inputs['transaction_form_id'] = Transaction::transactionForm()->list(['code' => 'request_money'])->first()->getKey();
+            //$inputs['transaction_form_id'] = Transaction::transactionForm()->findWhere(['code' => 'request_money'])->getKey();
             $inputs['transaction_form_code'] = 'request_money';
             //$inputs['service_id'] = Business::serviceType()->list(['service_type_slug'=>'request_money']);
             //$inputs['service_type_slug'] = 'request_money';
@@ -117,7 +117,7 @@ class RequestMoneyController extends Controller
                 }
 
                 //set pre defined conditions of deposit
-                $inputs['transaction_form_id'] = Transaction::transactionForm()->list(['code' => 'request_money'])->first()->getKey();
+                $inputs['transaction_form_id'] = Transaction::transactionForm()->findWhere(['code' => 'request_money'])->getKey();
                 $inputs['user_id'] = $receiver ?? $receiverDepositAccount->getKey();
                 $delayCheck = Transaction::order()->transactionDelayCheck($inputs);
                 if ($delayCheck['countValue'] > 0) {
@@ -232,7 +232,7 @@ class RequestMoneyController extends Controller
         }
 
         //set pre defined conditions of deposit
-        $receiverInputs['transaction_form_id'] = Transaction::transactionForm()->list(['code' => 'request_money'])->first()->getKey();
+        $receiverInputs['transaction_form_id'] = Transaction::transactionForm()->findWhere(['code' => 'request_money'])->getKey();
         $receiverInputs['notes'] = 'Wallet to Wallet receive request from '.$requestMoney['order_data']['user_name'];
         $receiverInputs['parent_id'] = $id;
 
@@ -475,7 +475,7 @@ class RequestMoneyController extends Controller
     {
         try {
             $requestMoneyActual = Reload::requestMoney()->find($id);
-            $requestMoneyChild = Reload::requestMoney()->list(['parent_id' => $id])->first();
+            $requestMoneyChild = Reload::requestMoney()->findWhere(['parent_id' => $id]);
             $requestMoney = Reload::requestMoney()->find($requestMoneyChild->id);
             $receiverInputs = $requestMoney->toArray();
             $deposit = $this->authenticateDeposit($requestMoneyChild->id, DepositStatus::Processing, DepositStatus::Rejected);
@@ -611,7 +611,7 @@ class RequestMoneyController extends Controller
     public function __receiverAccept(string|int $id): JsonResponse
     {
         try {
-            $requestMoney = Reload::requestMoney()->list(['parent_id' => $id])->first();
+            $requestMoney = Reload::requestMoney()->findWhere(['parent_id' => $id]);
 
             $deposit = $this->authenticateDeposit($requestMoney->id, DepositStatus::Processing, DepositStatus::Accepted);
 

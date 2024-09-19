@@ -54,7 +54,7 @@ class WalletToWalletController extends Controller
     {
         try {
             $inputs = $request->validated();
-            //$inputs['transaction_form_id'] = Transaction::transactionForm()->list(['code' => 'point_transfer'])->first()->getKey();
+            //$inputs['transaction_form_id'] = Transaction::transactionForm()->findWhere(['code' => 'point_transfer'])->getKey();
             $inputs['transaction_form_code'] = 'point_transfer';
             //$inputs['service_id'] = Business::serviceType()->list(['service_type_slug'=>'wallet_to_wallet']);
             //$inputs['service_type_slug'] = 'wallet_to_wallet';
@@ -118,7 +118,7 @@ class WalletToWalletController extends Controller
                 }
 
                 //set pre defined conditions of deposit
-                $inputs['transaction_form_id'] = Transaction::transactionForm()->list(['code' => 'point_transfer'])->first()->getKey();
+                $inputs['transaction_form_id'] = Transaction::transactionForm()->findWhere(['code' => 'point_transfer'])->getKey();
                 $inputs['user_id'] = $user_id ?? $depositor->getKey();
                 $delayCheck = Transaction::order()->transactionDelayCheck($inputs);
                 if ($delayCheck['countValue'] > 0) {
@@ -273,7 +273,7 @@ class WalletToWalletController extends Controller
         }
 
         //set pre defined conditions of deposit
-        $receiverInputs['transaction_form_id'] = Transaction::transactionForm()->list(['code' => 'point_reload'])->first()->getKey();
+        $receiverInputs['transaction_form_id'] = Transaction::transactionForm()->findWhere(['code' => 'point_reload'])->getKey();
         $receiverInputs['notes'] = 'Wallet to Wallet receive from '.$deposit['order_data']['sender_name'];
         $receiverInputs['parent_id'] = $id;
 

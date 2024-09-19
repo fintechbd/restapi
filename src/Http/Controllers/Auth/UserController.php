@@ -345,7 +345,7 @@ class UserController extends Controller
                 throw new InvalidArgumentException('Input field must be one of (mobile, email, login_id) is not present or value is empty.');
             }
 
-            $userExists = Auth::user()->list([$targetField => $targetValue])->first();
+            $userExists = Auth::user()->findWhere([$targetField => $targetValue]);
 
             $response = [
                 'data' => [

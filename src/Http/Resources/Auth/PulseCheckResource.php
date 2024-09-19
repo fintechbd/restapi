@@ -73,8 +73,8 @@ class PulseCheckResource extends JsonResource
 
     private function ipapi(Request $request): array
     {
-        $country = MetaData::country()->list(['iso2' => $this->country_code])->first();
-        $state = MetaData::state()->list(['country_id' => $country->id, 'search' => $this->region_name])->first();
+        $country = MetaData::country()->findWhere(['iso2' => $this->country_code]);
+        $state = MetaData::state()->findWhere(['country_id' => $country->id, 'search' => $this->region_name]);
 
         return [
             'ip' => $this->ip ?? null,
@@ -120,9 +120,9 @@ class PulseCheckResource extends JsonResource
 
     private function local(Request $request): array
     {
-        $country = MetaData::country()->list(['iso2' => 'BD'])->first();
-        $state = MetaData::state()->list(['country_id' => $country->id, 'search' => 'Dhaka District'])->first();
-        $city = MetaData::city()->list(['country_id' => $country->id, 'state_id' => $state->id, 'search' => 'Dhaka'])->first();
+        $country = MetaData::country()->findWhere(['iso2' => 'BD']);
+        $state = MetaData::state()->findWhere(['country_id' => $country->id, 'search' => 'Dhaka District']);
+        $city = MetaData::city()->findWhere(['country_id' => $country->id, 'state_id' => $state->id, 'search' => 'Dhaka']);
 
         return [
             'ip' => $this->ip ?? null,
@@ -138,9 +138,9 @@ class PulseCheckResource extends JsonResource
 
     private function development(Request $request): array
     {
-        $country = MetaData::country()->list(['iso2' => 'BD'])->first();
-        $state = MetaData::state()->list(['country_id' => $country->id, 'search' => 'Dhaka District'])->first();
-        $city = MetaData::city()->list(['country_id' => $country->id, 'state_id' => $state->id, 'search' => 'Dhaka'])->first();
+        $country = MetaData::country()->findWhere(['iso2' => 'BD']);
+        $state = MetaData::state()->findWhere(['country_id' => $country->id, 'search' => 'Dhaka District']);
+        $city = MetaData::city()->findWhere(['country_id' => $country->id, 'state_id' => $state->id, 'search' => 'Dhaka']);
 
         return [
             'ip' => $this->ip ?? null,

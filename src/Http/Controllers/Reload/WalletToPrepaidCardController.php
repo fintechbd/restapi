@@ -106,7 +106,7 @@ class WalletToPrepaidCardController extends Controller
                 }
 
                 //set pre defined conditions of deposit
-                $inputs['transaction_form_id'] = Transaction::transactionForm()->list(['code' => 'wallet_prepaid_card'])->first()->getKey();
+                $inputs['transaction_form_id'] = Transaction::transactionForm()->findWhere(['code' => 'wallet_prepaid_card'])->getKey();
                 $inputs['user_id'] = $user_id ?? $walletUser->getKey();
                 $delayCheck = Transaction::order()->transactionDelayCheck($inputs);
                 if ($delayCheck['countValue'] > 0) {
