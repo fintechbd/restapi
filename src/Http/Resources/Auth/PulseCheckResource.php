@@ -138,9 +138,20 @@ class PulseCheckResource extends JsonResource
 
     private function development(Request $request): array
     {
-        $country = MetaData::country()->findWhere(['iso2' => 'BD']);
-        $state = MetaData::state()->findWhere(['country_id' => $country->id, 'search' => 'Dhaka District']);
-        $city = MetaData::city()->findWhere(['country_id' => $country->id, 'state_id' => $state->id, 'search' => 'Dhaka']);
+        $country = MetaData::country()->findWhere(['iso2' => 'BD', 'enabled' => true]);
+
+        $state = MetaData::state()->findWhere([
+            'country_id' => $country->id,
+            'search' => 'Dhaka District',
+            'enabled' => true
+        ]);
+
+        $city = MetaData::city()->findWhere([
+            'country_id' => $country->id,
+            'state_id' => $state?->id ?? null,
+            'search' => 'Dhaka',
+            'enabled' => true
+        ]);
 
         return [
             'ip' => $this->ip ?? null,
