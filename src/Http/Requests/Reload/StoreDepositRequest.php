@@ -32,7 +32,7 @@ class StoreDepositRequest extends FormRequest
             'currency' => ['required', 'string', 'size:3'],
             'order_data' => ['nullable', 'array'],
             'order_data.request_from' => ['string', 'required'],
-            'order_data.interac_email' => ['string', 'required'],
+            'order_data.interac_email' => ['nullable', 'email:rfc,dns', 'min:5', 'max:255'],
             'slip' => ['nullable', 'string'],
         ];
     }

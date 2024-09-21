@@ -8,6 +8,7 @@ use Fintech\Business\Facades\Business;
 use Fintech\Core\Enums\Reload\DepositStatus;
 use Fintech\Core\Enums\Transaction\OrderStatusConfig;
 use Fintech\Core\Exceptions\StoreOperationException;
+use Fintech\Core\Exceptions\Transaction\RequestOrderExistsException;
 use Fintech\Reload\Events\DepositAccepted;
 use Fintech\Reload\Events\DepositCancelled;
 use Fintech\Reload\Events\DepositRejected;
@@ -75,22 +76,40 @@ class DepositController extends Controller
         $inputs = $request->validated();
 
         $inputs['user_id'] = ($request->filled('user_id'))
-        ? $request->input('user_id')
-        : $request->user('sanctum')->getKey();
+            ? $request->input('user_id')
+            : $request->user('sanctum')->getKey();
+
+        if ($request->filled('order_data.interac_email')) {
+            $inputs['order_data']['is_interac_transfer'] = true;
+        } elseif ($request->filled('order_data.card_token')) {
+            $inputs['order_data']['is_card_deposit'] = true;
+        } else {
+            $inputs['order_data']['is_bank_deposit'] = true;
+        }
 
         try {
+
+            $orderQueueId = Transaction::orderQueue()->addToQueueUserWise($inputs['user_id']);
+
+            if ($orderQueueId == 0) {
+                throw new RequestOrderExistsException;
+            }
+
             $deposit = Reload::deposit()->create($inputs);
 
             if (! $deposit) {
                 throw (new StoreOperationException)->setModel(config('fintech.reload.deposit_model'));
             }
 
+            Transaction::orderQueue()->update($orderQueueId, ['order_id' => $deposit->getKey()]);
+
             return response()->created([
                 'message' => __('restapi::messages.resource.created', ['model' => 'Deposit']),
-                'id' => $deposit->id,
+                'id' => $deposit->getKey(),
             ]);
 
         } catch (Exception $exception) {
+
             Transaction::orderQueue()->removeFromQueueUserWise($inputs['user_id']);
 
             return response()->failed($exception);
