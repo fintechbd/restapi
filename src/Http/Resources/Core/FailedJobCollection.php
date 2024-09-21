@@ -16,7 +16,22 @@ class FailedJobCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return $this->collection->map(function ($job) {
+            return [
+                'id' => $job->id,
+                'uuid' => $job->uuid,
+                'connection' => $job->connection,
+                'queue' => $job->queue,
+                'display_name' => class_basename($job->payload['displayName']),
+                'max_tries' => $job->payload['maxTries'] ?? 1,
+                'exception' => $job->exception,
+                'data' => [
+                    'command' => $job->payload['data']['commandName'],
+                    'payload' => json_encode(unserialize($job->payload['data']['command'])),
+                ],
+                'created_at' => $job->failed_at,
+            ];
+        })->toArray();
     }
 
     /**
