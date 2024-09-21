@@ -2,6 +2,7 @@
 
 namespace Fintech\RestApi\Http\Resources\Reload;
 
+use Fintech\Core\Enums\Transaction\OrderStatus;
 use Fintech\Core\Facades\Core;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -41,8 +42,10 @@ class DepositResource extends JsonResource
             'risk_profile' => $this->risk_profile ?? null,
             'notes' => $this->notes ?? null,
             'is_refunded' => $this->is_refunded ?? null,
+            'timeline' => $this->timeline ?? [],
             'order_data' => $this->order_data ?? new stdClass,
-            'status' => $this->status ?? null,
+            'status' => $this->status,
+            'status_formatted' => OrderStatus::value($this->status)->label(),
             'created_at' => $this->created_at ?? null,
             'updated_at' => $this->updated_at ?? null,
         ];
