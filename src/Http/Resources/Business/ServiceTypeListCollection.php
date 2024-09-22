@@ -76,8 +76,8 @@ class ServiceTypeListCollection extends ResourceCollection
                 'service_data' => array_merge($settings, ($item->service_data ?? [])),
                 'service_vendor_id' => $item->service_vendor_id ?? null,
                 'service_vendor_name' => $item->service_vendor_name ?? '',
-                'destination_country_id' => $item->destination_country_id ?? $request->integer('destination_country_id'),
-                'source_country_id' => $item->source_country_id ?? $request->integer('source_country_id'),
+                'destination_country_id' => $item->destination_country_id ?? null,
+                'source_country_id' => $item->source_country_id ?? null,
                 'menu_position' => $item->service_serial ?? -1,
             ];
         });
