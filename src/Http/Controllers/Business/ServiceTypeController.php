@@ -274,6 +274,10 @@ class ServiceTypeController extends Controller
                 ? $request->input('role_id')
                 : auth()->user()?->roles?->first()?->getKey() ?? config('fintech.auth.customer_roles', [7])[0];
 
+            if ($request->filled('reload') && $request->boolean('reload')) {
+                $input['destination_country_id'] = $input['source_country_id'];
+            }
+
             if ($request->filled('service_type_parent_slug')) {
                 $serviceType = Business::serviceType()->findWhere(['service_type_slug' => $input['service_type_parent_slug'], 'get' => ['service_types.id']]);
                 $input['service_type_parent_id'] = $serviceType->id;
