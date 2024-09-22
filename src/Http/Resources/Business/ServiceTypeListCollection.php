@@ -43,7 +43,7 @@ class ServiceTypeListCollection extends ResourceCollection
                 }
             });
 
-        $services = $this->collection->map(function ($item) use ($request, $settings) {
+        $services = $this->collection->map(function ($item) use ($settings) {
 
             $entries = [];
 
