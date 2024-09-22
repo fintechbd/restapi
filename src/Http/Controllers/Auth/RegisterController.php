@@ -19,7 +19,7 @@ class RegisterController extends Controller
         $userFields = [
             'name', 'mobile', 'email', 'login_id', 'password', 'pin',
             'language', 'currency', 'app_version', 'fcm_token', 'photo',
-            'parent_id'
+            'parent_id',
         ];
 
         try {
