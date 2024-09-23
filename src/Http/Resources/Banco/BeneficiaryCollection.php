@@ -48,7 +48,7 @@ class BeneficiaryCollection extends ResourceCollection
                 'state_name' => $beneficiary->state_name ?? null,
                 'country_id' => $beneficiary->country_id ?? null,
                 'country_name' => $beneficiary->country_name ?? null,
-                'beneficiary_type_id' => $beneficiary->beneficiary_type_id ? (int) $beneficiary->beneficiary_type_id: null,
+                'beneficiary_type_id' => $beneficiary->beneficiary_type_id ? (int) $beneficiary->beneficiary_type_id : null,
                 'beneficiary_type_name' => $beneficiary->beneficiary_type_name ?? null,
                 'relation_id' => $beneficiary->relation_id ?? null,
                 'relation_name' => $beneficiary->relation_name ?? null,
