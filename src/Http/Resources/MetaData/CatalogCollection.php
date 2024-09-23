@@ -26,7 +26,7 @@ class CatalogCollection extends ResourceCollection
                 'name' => $item->name,
                 'code' => $item->code,
                 'type' => $item->type,
-                'type_name' => CatalogType::value($item->type)->label(),
+                'type_name' => CatalogType::from($item->type)->label(),
                 'enabled' => $item->enabled,
                 'countries' => $item->countries ? $item->countries->pluck('id')->toArray() : [],
                 'vendor_code' => $item->vendor_code ?: [],

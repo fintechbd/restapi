@@ -45,7 +45,7 @@ class DepositResource extends JsonResource
             'timeline' => $this->timeline ?? [],
             'order_data' => $this->order_data ?? new stdClass,
             'status' => $this->status,
-            'status_formatted' => OrderStatus::value($this->status)->label(),
+            'status_formatted' => OrderStatus::from($this->status)->label(),
             'created_at' => $this->created_at ?? null,
             'updated_at' => $this->updated_at ?? null,
         ];
