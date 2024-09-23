@@ -2,13 +2,14 @@
 
 namespace Fintech\RestApi\Http\Controllers\Transaction;
 
+use Fintech\Core\Enums\RequestPlatform;
 use Fintech\Core\Enums\Transaction\OrderStatus;
 use Fintech\RestApi\Http\Requests\Core\DropDownRequest;
 use Fintech\RestApi\Http\Resources\Core\DropDownCollection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 
-class OrderStatusDropdownController extends Controller
+class RequestPlatformDropdownController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -18,7 +19,7 @@ class OrderStatusDropdownController extends Controller
         try {
             $entries = collect();
 
-            foreach (OrderStatus::cases() as $status) {
+            foreach (RequestPlatform::cases() as $status) {
                 $entries->push(['label' => $status->label(), 'attribute' => $status->value]);
             }
 
