@@ -3,7 +3,6 @@
 namespace Fintech\RestApi\Http\Controllers\Transaction;
 
 use Fintech\Core\Enums\RequestPlatform;
-use Fintech\Core\Enums\Transaction\OrderStatus;
 use Fintech\RestApi\Http\Requests\Core\DropDownRequest;
 use Fintech\RestApi\Http\Resources\Core\DropDownCollection;
 use Illuminate\Http\JsonResponse;
