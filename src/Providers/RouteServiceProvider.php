@@ -20,11 +20,9 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->configureRateLimiting();
 
-        $root_prefix = Config::get('restapi.root_prefix', 'api');
-
-        $this->routes(function () use (&$root_prefix) {
+        $this->routes(function () {
             Route::prefix(config('fintech.restapi.root_prefix', 'api'))
-                ->middleware(['api', 'http_log'])
+                ->middleware(['api'])
                 ->group(function () {});
             //                ->group(__DIR__.'/../../routes/api.php');
         });
