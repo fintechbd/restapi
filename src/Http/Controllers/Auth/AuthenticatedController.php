@@ -44,6 +44,8 @@ class AuthenticatedController extends Controller
 
             $credentials[$passwordField] = $request->input($passwordField);
 
+            $credentials['platform'] = $request->platform();
+
             $attemptUser = \Fintech\Auth\Facades\Auth::user()->login($credentials, 'web');
 
             $request->clearRateLimited();
