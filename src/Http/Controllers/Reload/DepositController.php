@@ -83,17 +83,17 @@ class DepositController extends Controller
 
             $orderQueueId = Transaction::orderQueue()->addToQueueUserWise($inputs['user_id']);
 
-            logger('order Query Id: '.$orderQueueId);
-
             if ($orderQueueId == 0) {
                 throw new RequestOrderExistsException;
             }
 
             if ($request->filled('order_data.interac_email')) {
                 $inputs['order_data']['deposit_type'] = 'interac_e_transfer';
-            } elseif ($request->filled('order_data.card_token')) {
+            }
+            elseif ($request->filled('order_data.card_token')) {
                 $inputs['order_data']['deposit_type'] = 'card_deposit';
-            } else {
+            }
+            else {
                 $inputs['order_data']['deposit_type'] = 'bank_deposit';
             }
 
@@ -109,10 +109,6 @@ class DepositController extends Controller
                 'message' => __('restapi::messages.resource.created', ['model' => 'Deposit']),
                 'id' => $deposit->getKey(),
             ]);
-
-        } catch (RequestOrderExistsException $exception) {
-
-            return response()->failed($exception);
 
         } catch (Exception $exception) {
 
