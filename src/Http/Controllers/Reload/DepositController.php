@@ -83,7 +83,7 @@ class DepositController extends Controller
 
             $orderQueueId = Transaction::orderQueue()->addToQueueUserWise($inputs['user_id']);
 
-            logger("order Query Id: " . $orderQueueId);
+            logger('order Query Id: '.$orderQueueId);
 
             if ($orderQueueId == 0) {
                 throw new RequestOrderExistsException;
