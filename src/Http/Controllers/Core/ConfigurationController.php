@@ -66,6 +66,8 @@ class ConfigurationController extends Controller
                 Core::setting()->setValue($configuration, $key, $value, gettype($value));
             }
 
+            cache()->forget('fintech.setting');
+
             return response()->updated(__('restapi::messages.setting.saved', ['package' => config("fintech.core.packages.{$configuration}", 'System')]));
 
         } catch (Exception $exception) {
