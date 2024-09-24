@@ -79,14 +79,6 @@ class DepositController extends Controller
             ? $request->input('user_id')
             : $request->user('sanctum')->getKey();
 
-        if ($request->filled('order_data.interac_email')) {
-            $inputs['order_data']['is_interac_transfer'] = true;
-        } elseif ($request->filled('order_data.card_token')) {
-            $inputs['order_data']['is_card_deposit'] = true;
-        } else {
-            $inputs['order_data']['is_bank_deposit'] = true;
-        }
-
         try {
 
             $orderQueueId = Transaction::orderQueue()->addToQueueUserWise($inputs['user_id']);
@@ -95,9 +87,14 @@ class DepositController extends Controller
                 throw new RequestOrderExistsException;
             }
 
+            $inputs['order_data']['is_interac_transfer'] = $request->filled('order_data.interac_email');
+            $inputs['order_data']['is_card_deposit'] = $request->filled('order_data.card_token');
+            $inputs['order_data']['is_bank_deposit'] = ($request->missing('order_data.interac_email') && $request->missing('order_data.card_token'));
+
+
             $deposit = Reload::deposit()->create($inputs);
 
-            if (! $deposit) {
+            if (!$deposit) {
                 throw (new StoreOperationException)->setModel(config('fintech.reload.deposit_model'));
             }
 
@@ -130,7 +127,7 @@ class DepositController extends Controller
 
             $deposit = Reload::deposit()->find($id);
 
-            if (! $deposit) {
+            if (!$deposit) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.reload.deposit_model'), $id);
             }
 
@@ -173,7 +170,7 @@ class DepositController extends Controller
                 $updateData['order_data']['previous_amount'] = $depositAccount->user_account_data['available_amount'] ?? 0;
                 $updateData['order_data']['current_amount'] = $updateData['order_data']['previous_amount'] - $updateData['amount'];
 
-                if (! Reload::deposit()->update($deposit->getKey(), $updateData)) {
+                if (!Reload::deposit()->update($deposit->getKey(), $updateData)) {
                     throw new Exception(__('reload::messages.status_change_failed', [
                         'current_status' => $deposit->currentStatus(),
                         'target_status' => DepositStatus::Rejected->name,
@@ -210,15 +207,15 @@ class DepositController extends Controller
     {
         $deposit = Reload::deposit()->find($id);
 
-        if (! $deposit) {
+        if (!$deposit) {
             throw (new ModelNotFoundException)->setModel(config('fintech.reload.deposit_model'), $id);
         }
 
         if ($deposit->currentStatus() != $requiredStatus->value) {
             throw new Exception(__('reload::messages.deposit.invalid_status', [
-                'current_status' => $deposit->currentStatus(),
-                'target_status' => $targetStatus->name,
-            ])
+                    'current_status' => $deposit->currentStatus(),
+                    'target_status' => $targetStatus->name,
+                ])
             );
         }
 
@@ -257,7 +254,7 @@ class DepositController extends Controller
                 $updateData['order_data']['previous_amount'] = $depositedAccount->user_account_data['available_amount'];
                 $updateData['order_data']['current_amount'] = ($updateData['order_data']['previous_amount'] + $updateData['amount']);
 
-                if (! Reload::deposit()->update($deposit->getKey(), $updateData)) {
+                if (!Reload::deposit()->update($deposit->getKey(), $updateData)) {
                     throw new Exception(__('reload::messages.status_change_failed', [
                         'current_status' => $deposit->currentStatus(),
                         'target_status' => DepositStatus::Accepted->name,
@@ -270,10 +267,10 @@ class DepositController extends Controller
 
                 //update User Account
                 $depositedUpdatedAccount = $depositedAccount->toArray();
-                $depositedUpdatedAccount['user_account_data']['deposit_amount'] = (float) $depositedUpdatedAccount['user_account_data']['deposit_amount'] + (float) $userUpdatedBalance['deposit_amount'];
-                $depositedUpdatedAccount['user_account_data']['available_amount'] = (float) $userUpdatedBalance['current_amount'];
+                $depositedUpdatedAccount['user_account_data']['deposit_amount'] = (float)$depositedUpdatedAccount['user_account_data']['deposit_amount'] + (float)$userUpdatedBalance['deposit_amount'];
+                $depositedUpdatedAccount['user_account_data']['available_amount'] = (float)$userUpdatedBalance['current_amount'];
 
-                if (! Transaction::userAccount()->update($depositedAccount->getKey(), $depositedUpdatedAccount)) {
+                if (!Transaction::userAccount()->update($depositedAccount->getKey(), $depositedUpdatedAccount)) {
                     throw new Exception(__('reload::messages.status_change_failed', [
                         'current_status' => $deposit->currentStatus(),
                         'target_status' => DepositStatus::Accepted->name,
@@ -333,7 +330,7 @@ class DepositController extends Controller
                 $updateData['order_data']['previous_amount'] = $updateData['order_data']['current_amount'];
                 $updateData['order_data']['current_amount'] = ($updateData['order_data']['current_amount'] - $deposit->amount);
 
-                if (! Reload::deposit()->update($deposit->getKey(), $updateData)) {
+                if (!Reload::deposit()->update($deposit->getKey(), $updateData)) {
                     throw new Exception(__('reload::messages.status_change_failed', [
                         'current_status' => $deposit->currentStatus(),
                         'target_status' => DepositStatus::Cancelled->name,
@@ -345,10 +342,10 @@ class DepositController extends Controller
 
                 //update User Account
                 $depositedUpdatedAccount = $depositedAccount->toArray();
-                $depositedUpdatedAccount['user_account_data']['deposit_amount'] = (float) $depositedUpdatedAccount['user_account_data']['deposit_amount'] + (float) $updatedUserBalance['deposit_amount'];
-                $depositedUpdatedAccount['user_account_data']['available_amount'] = (float) $updatedUserBalance['current_amount'];
+                $depositedUpdatedAccount['user_account_data']['deposit_amount'] = (float)$depositedUpdatedAccount['user_account_data']['deposit_amount'] + (float)$updatedUserBalance['deposit_amount'];
+                $depositedUpdatedAccount['user_account_data']['available_amount'] = (float)$updatedUserBalance['current_amount'];
 
-                if (! Transaction::userAccount()->update($depositedAccount->getKey(), $depositedUpdatedAccount)) {
+                if (!Transaction::userAccount()->update($depositedAccount->getKey(), $depositedUpdatedAccount)) {
                     throw new Exception(__('reload::messages.status_change_failed', [
                         'current_status' => $deposit->currentStatus(),
                         'target_status' => DepositStatus::Accepted->name,
