@@ -159,7 +159,6 @@ class DepositController extends Controller
                 $deposit = $this->authenticateDeposit($id, DepositStatus::Processing, DepositStatus::Rejected);
 
                 $approver = $request->user('sanctum');
-
                 $updateData = $deposit->toArray();
                 $updateData['status'] = DepositStatus::Rejected->value;
                 $updateData['order_data']['rejected_by'] = $approver->name;
@@ -169,6 +168,14 @@ class DepositController extends Controller
                 $updateData['order_data']['rejected_by_mobile_number'] = $approver->mobile;
                 $updateData['order_data']['previous_amount'] = $depositAccount->user_account_data['available_amount'] ?? 0;
                 $updateData['order_data']['current_amount'] = $updateData['order_data']['previous_amount'] - $updateData['amount'];
+
+                $service = Business::service()->find($updateData['service_id']);
+
+                $updateData['timeline'][] = [
+                    'message' => $service->service_name." deposit rejected by ({$approver->name}). Note: ",
+                    'flag' => 'error',
+                    'timestamp' => now(),
+                ];
 
                 if (!Reload::deposit()->update($deposit->getKey(), $updateData)) {
                     throw new Exception(__('reload::messages.status_change_failed', [
@@ -241,9 +248,11 @@ class DepositController extends Controller
 
                 $depositedAccount = Transaction::userAccount()->findWhere(['user_id' => $depositor->getKey(), 'country_id' => $deposit->destination_country_id]);
 
+                $approver = $request->user('sanctum');
+
                 $updateData = $deposit->toArray();
                 $updateData['status'] = DepositStatus::Accepted->value;
-                $updateData['order_data']['accepted_by'] = $request->user('sanctum')->name;
+                $updateData['order_data']['accepted_by'] = $approver->name;
                 $updateData['order_data']['accepted_at'] = now();
                 $updateData['order_data']['accepted_number'] = entry_number($deposit->getKey(), $deposit->sourceCountry->iso3, OrderStatusConfig::Accepted->value);
                 $updateData['order_number'] = entry_number($deposit->getKey(), $deposit->sourceCountry->iso3, OrderStatusConfig::Accepted->value);
@@ -253,6 +262,14 @@ class DepositController extends Controller
 
                 $updateData['order_data']['previous_amount'] = $depositedAccount->user_account_data['available_amount'];
                 $updateData['order_data']['current_amount'] = ($updateData['order_data']['previous_amount'] + $updateData['amount']);
+
+                $service = Business::service()->find($updateData['service_id']);
+
+                $updateData['timeline'][] = [
+                    'message' => $service->service_name." deposit accepted by ({$approver->name}).",
+                    'flag' => 'success',
+                    'timestamp' => now(),
+                ];
 
                 if (!Reload::deposit()->update($deposit->getKey(), $updateData)) {
                     throw new Exception(__('reload::messages.status_change_failed', [
@@ -317,11 +334,13 @@ class DepositController extends Controller
 
                 $depositor = $deposit->user;
 
+                $approver = $request->user('sanctum');
+
                 $depositedAccount = Transaction::userAccount()->findWhere(['user_id' => $depositor->getKey(), 'country_id' => $deposit->destination_country_id]);
 
                 $updateData = $deposit->toArray();
                 $updateData['status'] = DepositStatus::Cancelled->value;
-                $updateData['order_data']['cancelled_by'] = $request->user('sanctum')->name;
+                $updateData['order_data']['cancelled_by'] = $approver->name;
                 $updateData['order_data']['cancelled_at'] = now();
                 $updateData['order_data']['cancelled_number'] = entry_number($deposit->getKey(), $deposit->sourceCountry->iso3, OrderStatusConfig::Cancelled->value);
                 $updateData['order_number'] = entry_number($deposit->getKey(), $deposit->sourceCountry->iso3, OrderStatusConfig::Cancelled->value);
@@ -329,6 +348,14 @@ class DepositController extends Controller
 
                 $updateData['order_data']['previous_amount'] = $updateData['order_data']['current_amount'];
                 $updateData['order_data']['current_amount'] = ($updateData['order_data']['current_amount'] - $deposit->amount);
+
+                $service = Business::service()->find($updateData['service_id']);
+
+                $updateData['timeline'][] = [
+                    'message' => "{$service->service_name} deposit cancelled by ({$approver->name}).",
+                    'flag' => 'error',
+                    'timestamp' => now(),
+                ];
 
                 if (!Reload::deposit()->update($deposit->getKey(), $updateData)) {
                     throw new Exception(__('reload::messages.status_change_failed', [
