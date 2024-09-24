@@ -97,7 +97,7 @@ class DepositController extends Controller
 
             $deposit = Reload::deposit()->create($inputs);
 
-            if (!$deposit) {
+            if (! $deposit) {
                 throw (new StoreOperationException)->setModel(config('fintech.reload.deposit_model'));
             }
 
@@ -131,7 +131,7 @@ class DepositController extends Controller
 
             $deposit = Reload::deposit()->find($id);
 
-            if (!$deposit) {
+            if (! $deposit) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.reload.deposit_model'), $id);
             }
 
@@ -176,12 +176,12 @@ class DepositController extends Controller
                 $service = Business::service()->find($updateData['service_id']);
 
                 $updateData['timeline'][] = [
-                    'message' => ucwords(strtolower($service->service_name)) . " deposit rejected by ({$approver->name}). Note: ",
+                    'message' => ucwords(strtolower($service->service_name))." deposit rejected by ({$approver->name}). Note: ",
                     'flag' => 'error',
                     'timestamp' => now(),
                 ];
 
-                if (!Reload::deposit()->update($deposit->getKey(), $updateData)) {
+                if (! Reload::deposit()->update($deposit->getKey(), $updateData)) {
                     throw new Exception(__('reload::messages.status_change_failed', [
                         'current_status' => $deposit->status->label(),
                         'target_status' => DepositStatus::Rejected->label(),
@@ -218,15 +218,15 @@ class DepositController extends Controller
     {
         $deposit = Reload::deposit()->find($id);
 
-        if (!$deposit) {
+        if (! $deposit) {
             throw (new ModelNotFoundException)->setModel(config('fintech.reload.deposit_model'), $id);
         }
 
-        if (!in_array($deposit->status ,$requiredStatuses)) {
+        if (! in_array($deposit->status, $requiredStatuses)) {
             throw new Exception(__('reload::messages.deposit.invalid_status', [
-                    'current_status' => $deposit->status->label(),
-                    'target_status' => $targetStatus->label(),
-                ])
+                'current_status' => $deposit->status->label(),
+                'target_status' => $targetStatus->label(),
+            ])
             );
         }
 
@@ -276,12 +276,12 @@ class DepositController extends Controller
             $service = Business::service()->find($updateData['service_id']);
 
             $updateData['timeline'][] = [
-                'message' => ucwords(strtolower($service->service_name)) . " deposit manually accepted by ({$approver->name}).",
+                'message' => ucwords(strtolower($service->service_name))." deposit manually accepted by ({$approver->name}).",
                 'flag' => 'success',
                 'timestamp' => now(),
             ];
 
-            if (!Reload::deposit()->update($deposit->getKey(), $updateData)) {
+            if (! Reload::deposit()->update($deposit->getKey(), $updateData)) {
                 throw new Exception(__('reload::messages.status_change_failed', [
                     'current_status' => $deposit->status->label(),
                     'target_status' => DepositStatus::Accepted->label(),
@@ -294,10 +294,10 @@ class DepositController extends Controller
 
             //update User Account
             $depositedUpdatedAccount = $depositedAccount->toArray();
-            $depositedUpdatedAccount['user_account_data']['deposit_amount'] = (float)$depositedUpdatedAccount['user_account_data']['deposit_amount'] + (float)$userUpdatedBalance['deposit_amount'];
-            $depositedUpdatedAccount['user_account_data']['available_amount'] = (float)$userUpdatedBalance['current_amount'];
+            $depositedUpdatedAccount['user_account_data']['deposit_amount'] = (float) $depositedUpdatedAccount['user_account_data']['deposit_amount'] + (float) $userUpdatedBalance['deposit_amount'];
+            $depositedUpdatedAccount['user_account_data']['available_amount'] = (float) $userUpdatedBalance['current_amount'];
 
-            if (!Transaction::userAccount()->update($depositedAccount->getKey(), $depositedUpdatedAccount)) {
+            if (! Transaction::userAccount()->update($depositedAccount->getKey(), $depositedUpdatedAccount)) {
                 throw new Exception(__('reload::messages.status_change_failed', [
                     'current_status' => $deposit->status->label(),
                     'target_status' => DepositStatus::Accepted->label(),
@@ -364,7 +364,7 @@ class DepositController extends Controller
                     'timestamp' => now(),
                 ];
 
-                if (!Reload::deposit()->update($deposit->getKey(), $updateData)) {
+                if (! Reload::deposit()->update($deposit->getKey(), $updateData)) {
                     throw new Exception(__('reload::messages.status_change_failed', [
                         'current_status' => $deposit->status->label(),
                         'target_status' => DepositStatus::Cancelled->label(),
@@ -376,10 +376,10 @@ class DepositController extends Controller
 
                 //update User Account
                 $depositedUpdatedAccount = $depositedAccount->toArray();
-                $depositedUpdatedAccount['user_account_data']['deposit_amount'] = (float)$depositedUpdatedAccount['user_account_data']['deposit_amount'] + (float)$updatedUserBalance['deposit_amount'];
-                $depositedUpdatedAccount['user_account_data']['available_amount'] = (float)$updatedUserBalance['current_amount'];
+                $depositedUpdatedAccount['user_account_data']['deposit_amount'] = (float) $depositedUpdatedAccount['user_account_data']['deposit_amount'] + (float) $updatedUserBalance['deposit_amount'];
+                $depositedUpdatedAccount['user_account_data']['available_amount'] = (float) $updatedUserBalance['current_amount'];
 
-                if (!Transaction::userAccount()->update($depositedAccount->getKey(), $depositedUpdatedAccount)) {
+                if (! Transaction::userAccount()->update($depositedAccount->getKey(), $depositedUpdatedAccount)) {
                     throw new Exception(__('reload::messages.status_change_failed', [
                         'current_status' => $deposit->status->label(),
                         'target_status' => DepositStatus::Accepted->label(),
