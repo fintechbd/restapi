@@ -87,10 +87,13 @@ class DepositController extends Controller
                 throw new RequestOrderExistsException;
             }
 
-            $inputs['order_data']['is_interac_transfer'] = $request->filled('order_data.interac_email');
-            $inputs['order_data']['is_card_deposit'] = $request->filled('order_data.card_token');
-            $inputs['order_data']['is_bank_deposit'] = ($request->missing('order_data.interac_email') && $request->missing('order_data.card_token'));
-
+            if ($request->filled('order_data.interac_email')) {
+                $inputs['order_data']['deposit_type'] = 'interac_e_transfer';
+            } elseif ($request->filled('order_data.card_token')) {
+                $inputs['order_data']['deposit_type'] = 'card_deposit';
+            } else {
+                $inputs['order_data']['deposit_type'] = 'bank_deposit';
+            }
 
             $deposit = Reload::deposit()->create($inputs);
 
@@ -172,7 +175,7 @@ class DepositController extends Controller
                 $service = Business::service()->find($updateData['service_id']);
 
                 $updateData['timeline'][] = [
-                    'message' => $service->service_name." deposit rejected by ({$approver->name}). Note: ",
+                    'message' => ucwords(strtolower($service->service_name)) . " deposit rejected by ({$approver->name}). Note: ",
                     'flag' => 'error',
                     'timestamp' => now(),
                 ];
@@ -266,7 +269,7 @@ class DepositController extends Controller
                 $service = Business::service()->find($updateData['service_id']);
 
                 $updateData['timeline'][] = [
-                    'message' => $service->service_name." deposit accepted by ({$approver->name}).",
+                    'message' => ucwords(strtolower($service->service_name)) . " deposit accepted by ({$approver->name}).",
                     'flag' => 'success',
                     'timestamp' => now(),
                 ];
