@@ -2,7 +2,6 @@
 
 namespace Fintech\RestApi\Http\Resources\Reload;
 
-use Fintech\Core\Enums\Transaction\OrderStatus;
 use Fintech\Core\Facades\Core;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
