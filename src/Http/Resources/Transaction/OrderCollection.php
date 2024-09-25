@@ -64,6 +64,8 @@ class OrderCollection extends ResourceCollection
 
             if (Core::packageExists('Business')) {
                 $data['service_name'] = $order->service?->service_name ?? null;
+                $data['service_logo_png'] = $order->service?->getFirstMediaUrl('logo_png') ?? null;
+                $data['service_logo_svg'] = $order->service?->getFirstMediaUrl('logo_svg') ?? null;
                 $data['service_type'] = $order->service->serviceType?->all_parent_list ?? null;
             }
 
