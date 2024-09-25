@@ -87,14 +87,6 @@ class DepositController extends Controller
                 throw new RequestOrderExistsException;
             }
 
-            if ($request->filled('order_data.interac_email')) {
-                $inputs['order_data']['deposit_type'] = 'interac_e_transfer';
-            } elseif ($request->filled('order_data.card_token')) {
-                $inputs['order_data']['deposit_type'] = 'card_deposit';
-            } else {
-                $inputs['order_data']['deposit_type'] = 'bank_deposit';
-            }
-
             $deposit = Reload::deposit()->create($inputs);
 
             if (! $deposit) {
