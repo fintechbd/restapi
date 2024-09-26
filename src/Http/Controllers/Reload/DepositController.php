@@ -53,15 +53,14 @@ class DepositController extends Controller
 
         if (! in_array($deposit->status, $requiredStatuses)) {
             throw new Exception(__('reload::messages.deposit.invalid_status', [
-                    'current_status' => $deposit->status->label(),
-                    'target_status' => $targetStatus->label(),
-                ])
+                'current_status' => $deposit->status->label(),
+                'target_status' => $targetStatus->label(),
+            ])
             );
         }
 
         return $deposit;
     }
-
 
     /**
      * @lrd:start
