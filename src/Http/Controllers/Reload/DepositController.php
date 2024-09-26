@@ -256,14 +256,15 @@ class DepositController extends Controller
             $updateData['status'] = DepositStatus::Accepted->value;
             $updateData['order_data']['accepted_by'] = $approver->name;
             $updateData['order_data']['accepted_at'] = now();
-            $updateData['order_data']['accepted_number'] = entry_number($deposit->getKey(), $deposit->sourceCountry->iso3, OrderStatusConfig::Accepted->value);
-            $updateData['order_number'] = entry_number($deposit->getKey(), $deposit->sourceCountry->iso3, OrderStatusConfig::Accepted->value);
+            $updateData['order_data']['accepted_number'] = entry_number($updateData['order_data']['purchase_number'], $deposit->sourceCountry->iso3, OrderStatusConfig::Accepted->value);
+            $updateData['order_number'] = entry_number($updateData['order_data']['purchase_number'], $deposit->sourceCountry->iso3, OrderStatusConfig::Accepted->value);
             $updateData['order_data']['accepted_by_mobile_number'] = $approver->mobile;
             $updateData['order_data']['service_stat_data'] = Business::serviceStat()->serviceStateData($deposit);
             $updateData['order_data']['user_name'] = $depositor->name;
 
             $updateData['order_data']['previous_amount'] = $depositedAccount->user_account_data['available_amount'];
-            $updateData['order_data']['current_amount'] = ($updateData['order_data']['previous_amount'] + $updateData['amount']);
+            $updateData['order_data']['after_accept_current_amount'] = ($updateData['order_data']['previous_amount'] + $updateData['amount']);
+            $updateData['order_data']['current_amount'] = $updateData['order_data']['after_accept_current_amount'];
 
             $service = Business::service()->find($updateData['service_id']);
 
