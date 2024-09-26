@@ -2,6 +2,7 @@
 
 namespace Fintech\RestApi\Http\Resources\Transaction;
 
+use Fintech\Core\Enums\Transaction\OrderType;
 use Fintech\Core\Facades\Core;
 use Fintech\Core\Supports\Constant;
 use Illuminate\Http\Request;
@@ -85,6 +86,7 @@ class OrderCollection extends ResourceCollection
                 'dir' => Constant::SORT_DIRECTIONS,
                 'per_page' => Constant::PAGINATE_LENGTHS,
                 'sort' => ['id', 'name', 'created_at', 'updated_at'],
+                'order_type' => OrderType::values()
             ],
             'query' => $request->all(),
         ];

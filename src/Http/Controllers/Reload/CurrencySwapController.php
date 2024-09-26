@@ -8,6 +8,7 @@ use Fintech\Business\Facades\Business;
 use Fintech\Core\Enums\Auth\RiskProfile;
 use Fintech\Core\Enums\Auth\SystemRole;
 use Fintech\Core\Enums\Transaction\OrderStatus;
+use Fintech\Core\Enums\Transaction\OrderType;
 use Fintech\Core\Exceptions\DeleteOperationException;
 use Fintech\Core\Exceptions\RestoreOperationException;
 use Fintech\Core\Exceptions\StoreOperationException;
@@ -129,7 +130,7 @@ class CurrencySwapController extends Controller
                 $inputs['order_data']['system_notification_variable_failed'] = 'currency_swap_failed';
                 $inputs['order_data']['source_country_id'] = $inputs['source_country_id'];
                 $inputs['order_data']['destination_country_id'] = $inputs['destination_country_id'];
-
+                $inputs['order_data']['order_type'] = OrderType::CurrencySwap;
                 //new concept add
                 $inputs['source_country_id'] = $inputs['order_data']['serving_country_id'];
                 $inputs['destination_country_id'] = $inputs['order_data']['serving_country_id'];

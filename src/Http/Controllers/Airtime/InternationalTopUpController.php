@@ -10,6 +10,7 @@ use Fintech\Business\Facades\Business;
 use Fintech\Core\Enums\Auth\RiskProfile;
 use Fintech\Core\Enums\Auth\SystemRole;
 use Fintech\Core\Enums\Transaction\OrderStatus;
+use Fintech\Core\Enums\Transaction\OrderType;
 use Fintech\Core\Exceptions\DeleteOperationException;
 use Fintech\Core\Exceptions\RestoreOperationException;
 use Fintech\Core\Exceptions\StoreOperationException;
@@ -123,7 +124,7 @@ class InternationalTopUpController extends Controller
                 //$inputs['order_data']['operator_short_code'] = $request->input('operator_short_code', null);
                 $inputs['order_data']['system_notification_variable_success'] = 'international_top_up_success';
                 $inputs['order_data']['system_notification_variable_failed'] = 'international_top_up_failed';
-
+                $inputs['order_data']['order_type'] = OrderType::Airtime;
                 $internationalTopUp = Airtime::internationalTopUp()->create($inputs);
 
                 if (! $internationalTopUp) {

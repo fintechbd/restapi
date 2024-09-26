@@ -9,6 +9,7 @@ use Fintech\Business\Facades\Business;
 use Fintech\Core\Enums\Auth\RiskProfile;
 use Fintech\Core\Enums\Auth\SystemRole;
 use Fintech\Core\Enums\Transaction\OrderStatus;
+use Fintech\Core\Enums\Transaction\OrderType;
 use Fintech\Core\Exceptions\DeleteOperationException;
 use Fintech\Core\Exceptions\RestoreOperationException;
 use Fintech\Core\Exceptions\StoreOperationException;
@@ -122,6 +123,7 @@ class WalletToAtmController extends Controller
                 $inputs['order_data']['assign_order'] = 'no';
                 $inputs['order_data']['system_notification_variable_success'] = 'local_atm_transfer_success';
                 $inputs['order_data']['system_notification_variable_failed'] = 'local_atm_transfer_failed';
+                $inputs['order_data']['order_type'] = OrderType::WalletToAtm;
                 unset($inputs['pin'], $inputs['password']);
 
                 $walletToAtm = Reload::walletToAtm()->create($inputs);

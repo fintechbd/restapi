@@ -12,6 +12,7 @@ use Fintech\Core\Enums\Auth\SystemRole;
 use Fintech\Core\Enums\Reload\DepositStatus;
 use Fintech\Core\Enums\Transaction\OrderStatus;
 use Fintech\Core\Enums\Transaction\OrderStatusConfig;
+use Fintech\Core\Enums\Transaction\OrderType;
 use Fintech\Core\Exceptions\DeleteOperationException;
 use Fintech\Core\Exceptions\RestoreOperationException;
 use Fintech\Core\Exceptions\StoreOperationException;
@@ -134,6 +135,7 @@ class RequestMoneyController extends Controller
                 $inputs['order_data']['destination_country_id'] = $inputs['destination_country_id'];
                 $inputs['converted_amount'] = $inputs['amount'];
                 $inputs['converted_currency'] = $inputs['currency'];
+                $inputs['order_data']['order_type'] = OrderType::RequestMoney;
                 unset($inputs['pin'], $inputs['password']);
                 $requestMoney = Reload::requestMoney()->create($inputs);
 

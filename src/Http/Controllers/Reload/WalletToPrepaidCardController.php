@@ -9,6 +9,7 @@ use Fintech\Core\Enums\Auth\RiskProfile;
 use Fintech\Core\Enums\Auth\SystemRole;
 use Fintech\Core\Enums\Transaction\OrderStatus;
 use Fintech\Core\Enums\Transaction\OrderStatusConfig;
+use Fintech\Core\Enums\Transaction\OrderType;
 use Fintech\Core\Exceptions\DeleteOperationException;
 use Fintech\Core\Exceptions\RestoreOperationException;
 use Fintech\Core\Exceptions\StoreOperationException;
@@ -118,6 +119,7 @@ class WalletToPrepaidCardController extends Controller
                 $inputs['converted_amount'] = $inputs['amount'];
                 $inputs['converted_currency'] = $inputs['currency'];
                 $inputs['order_data']['master_user_name'] = $masterUser['name'];
+                $inputs['order_data']['order_type'] = OrderType::WalletToPrepaidCard;
                 unset($inputs['pin'], $inputs['password']);
 
                 $walletToPrepaidCard = Reload::walletToPrepaidCard()->create($inputs);

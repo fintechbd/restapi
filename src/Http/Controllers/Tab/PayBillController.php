@@ -8,6 +8,7 @@ use Fintech\Business\Facades\Business;
 use Fintech\Core\Enums\Auth\RiskProfile;
 use Fintech\Core\Enums\Auth\SystemRole;
 use Fintech\Core\Enums\Transaction\OrderStatus;
+use Fintech\Core\Enums\Transaction\OrderType;
 use Fintech\Core\Exceptions\DeleteOperationException;
 use Fintech\Core\Exceptions\RestoreOperationException;
 use Fintech\Core\Exceptions\StoreOperationException;
@@ -117,6 +118,7 @@ class PayBillController extends Controller
                 //$inputs['order_data']['operator_short_code'] = $request->input('operator_short_code', null);
                 $inputs['order_data']['system_notification_variable_success'] = 'bill_payment_success';
                 $inputs['order_data']['system_notification_variable_failed'] = 'bill_payment_failed';
+                $inputs['order_data']['order_type'] = OrderType::BillPayment;
                 unset($inputs['pin'], $inputs['password']);
 
                 $payBill = Tab::payBill()->create($inputs);
