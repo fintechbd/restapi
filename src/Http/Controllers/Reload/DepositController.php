@@ -41,6 +41,29 @@ class DepositController extends Controller
     }
 
     /**
+     * @throws Exception
+     */
+    private function authenticateDeposit(string|int $id, array $requiredStatuses, BackedEnum $targetStatus)
+    {
+        $deposit = Reload::deposit()->find($id);
+
+        if (! $deposit) {
+            throw (new ModelNotFoundException)->setModel(config('fintech.reload.deposit_model'), $id);
+        }
+
+        if (! in_array($deposit->status, $requiredStatuses)) {
+            throw new Exception(__('reload::messages.deposit.invalid_status', [
+                    'current_status' => $deposit->status->label(),
+                    'target_status' => $targetStatus->label(),
+                ])
+            );
+        }
+
+        return $deposit;
+    }
+
+
+    /**
      * @lrd:start
      * Return a listing of the *Deposit* resource as collection.
      *
@@ -204,28 +227,6 @@ class DepositController extends Controller
     }
 
     /**
-     * @throws Exception
-     */
-    private function authenticateDeposit(string|int $id, array $requiredStatuses, BackedEnum $targetStatus)
-    {
-        $deposit = Reload::deposit()->find($id);
-
-        if (! $deposit) {
-            throw (new ModelNotFoundException)->setModel(config('fintech.reload.deposit_model'), $id);
-        }
-
-        if (! in_array($deposit->status, $requiredStatuses)) {
-            throw new Exception(__('reload::messages.deposit.invalid_status', [
-                'current_status' => $deposit->status->label(),
-                'target_status' => $targetStatus->label(),
-            ])
-            );
-        }
-
-        return $deposit;
-    }
-
-    /**
      * @lrd:start
      * Accept a  specified *Deposit* resource found by id.
      * if and only if deposit status is processing
@@ -259,11 +260,12 @@ class DepositController extends Controller
             $updateData['order_data']['accepted_number'] = entry_number($updateData['order_data']['purchase_number'], $deposit->sourceCountry->iso3, OrderStatusConfig::Accepted->value);
             $updateData['order_number'] = entry_number($updateData['order_data']['purchase_number'], $deposit->sourceCountry->iso3, OrderStatusConfig::Accepted->value);
             $updateData['order_data']['accepted_by_mobile_number'] = $approver->mobile;
-            $updateData['order_data']['service_stat_data'] = Business::serviceStat()->serviceStateData($deposit);
+            $serviceStatData = Business::serviceStat()->serviceStateData($deposit);
+            $updateData['order_data']['service_stat_data'] = $serviceStatData;
             $updateData['order_data']['user_name'] = $depositor->name;
 
             $updateData['order_data']['previous_amount'] = $depositedAccount->user_account_data['available_amount'];
-            $updateData['order_data']['after_accept_current_amount'] = ($updateData['order_data']['previous_amount'] + $updateData['amount']);
+            $updateData['order_data']['after_accept_current_amount'] = ($updateData['order_data']['previous_amount'] + $serviceStatData['total_amount']);
             $updateData['order_data']['current_amount'] = $updateData['order_data']['after_accept_current_amount'];
 
             $service = Business::service()->find($updateData['service_id']);
