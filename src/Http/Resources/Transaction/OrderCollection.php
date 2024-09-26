@@ -86,7 +86,7 @@ class OrderCollection extends ResourceCollection
                 'dir' => Constant::SORT_DIRECTIONS,
                 'per_page' => Constant::PAGINATE_LENGTHS,
                 'sort' => ['id', 'name', 'created_at', 'updated_at'],
-                'order_type' => OrderType::values()
+                'order_type' => OrderType::values(),
             ],
             'query' => $request->all(),
         ];
