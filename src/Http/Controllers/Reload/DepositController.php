@@ -293,6 +293,8 @@ class DepositController extends Controller
 
             $userUpdatedBalance = Reload::deposit()->accept($transactionOrder);
 
+            logger("updated Balance", $userUpdatedBalance);
+
             //update User Account
             $depositedUpdatedAccount = $depositedAccount->toArray();
             $depositedUpdatedAccount['user_account_data']['deposit_amount'] = (float) $depositedUpdatedAccount['user_account_data']['deposit_amount'] + (float) $userUpdatedBalance['deposit_amount'];
