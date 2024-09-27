@@ -30,6 +30,7 @@ class ServiceTypeListCollection extends ResourceCollection
             if ($item->service_type_parent_id != null && isset($this->serviceTypeList[$item->service_type_parent_id])) {
                 $parent = $this->serviceTypeList[$item->service_type_parent_id];
             }
+
             return [
                 'id' => $item->id,
                 'logo_svg' => $item->logo_svg,
@@ -56,7 +57,7 @@ class ServiceTypeListCollection extends ResourceCollection
 
     private function prepareServiceTypeMetaData(): void
     {
-        if (!cache()->has('fintech.serviceTypeList')) {
+        if (! cache()->has('fintech.serviceTypeList')) {
             Business::serviceType()->list([
                 'get' => [
                     'service_types.id',
@@ -67,7 +68,7 @@ class ServiceTypeListCollection extends ResourceCollection
                 'paginate' => false,
                 'sort' => 'service_types.id',
             ])
-                ->each(fn($serviceType) => $this->serviceTypeList[$serviceType->id] = $serviceType->toArray());
+                ->each(fn ($serviceType) => $this->serviceTypeList[$serviceType->id] = $serviceType->toArray());
             cache()->put('fintech.serviceTypeList', $this->serviceTypeList, HOUR);
         } else {
             $this->serviceTypeList = cache()->get('fintech.serviceTypeList', []);
@@ -84,8 +85,8 @@ class ServiceTypeListCollection extends ResourceCollection
                     };
                 } else {
                     $this->defaultServiceSettings[$item->service_setting_field_name] = match ($item->service_setting_type_field) {
-                        'text' => (string)$this->defaultServiceSettings[$item->service_setting_field_name],
-                        'number' => (int)$this->defaultServiceSettings[$item->service_setting_field_name],
+                        'text' => (string) $this->defaultServiceSettings[$item->service_setting_field_name],
+                        'number' => (int) $this->defaultServiceSettings[$item->service_setting_field_name],
                         default => $this->defaultServiceSettings[$item->service_setting_field_name]
                     };
                 }
@@ -101,8 +102,8 @@ class ServiceTypeListCollection extends ResourceCollection
         $settings = array_merge($this->defaultServiceSettings, $settings);
 
         foreach ($settings as $key => $value) {
-            $settings[$key] =  match ($key) {
-                'beneficiary_type_id', 'amount_range', 'operator_short_code' => empty($value) ? null : (int)$value,
+            $settings[$key] = match ($key) {
+                'beneficiary_type_id', 'amount_range', 'operator_short_code' => empty($value) ? null : (int) $value,
                 'visible_website', 'visible_android_app', 'visible_ios_app' => empty($value) ? 'no' : $value,
                 default => $value
             };
