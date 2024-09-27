@@ -2,14 +2,11 @@
 
 namespace Fintech\RestApi\Http\Controllers\Reload;
 
-use BackedEnum;
 use Exception;
 use Fintech\Business\Facades\Business;
 use Fintech\Core\Enums\Reload\DepositStatus;
 use Fintech\Core\Enums\Transaction\OrderStatusConfig;
 use Fintech\Core\Exceptions\StoreOperationException;
-use Fintech\Core\Exceptions\Transaction\RequestOrderExistsException;
-use Fintech\Reload\Events\DepositAccepted;
 use Fintech\Reload\Events\DepositCancelled;
 use Fintech\Reload\Events\DepositRejected;
 use Fintech\Reload\Facades\Reload;
@@ -48,15 +45,15 @@ class DepositController extends Controller
     {
         $deposit = Reload::deposit()->find($id);
 
-        if (!$deposit) {
+        if (! $deposit) {
             throw (new ModelNotFoundException)->setModel(config('fintech.reload.deposit_model'), $id);
         }
 
-        if (!in_array($deposit->status, $requiredStatuses)) {
+        if (! in_array($deposit->status, $requiredStatuses)) {
             throw new Exception(__('reload::messages.deposit.invalid_status', [
-                    'current_status' => $deposit->status->label(),
-                    'target_status' => $targetStatus->label(),
-                ])
+                'current_status' => $deposit->status->label(),
+                'target_status' => $targetStatus->label(),
+            ])
             );
         }
 
@@ -100,15 +97,17 @@ class DepositController extends Controller
         $inputs['user_id'] = ($request->filled('user_id')) ? $request->input('user_id') : $request->user('sanctum')->getKey();
         try {
             $deposit = Reload::deposit()->create($inputs);
-            if (!$deposit) {
+            if (! $deposit) {
                 throw new StoreOperationException(__('reload::messages.deposit.failed'));
             }
+
             return response()->created([
                 'message' => __('reload::messages.deposit.created'),
                 'id' => $deposit->getKey(),
             ]);
         } catch (Exception $exception) {
             Transaction::orderQueue()->removeFromQueueUserWise($inputs['user_id']);
+
             return response()->failed($exception);
         }
     }
@@ -127,7 +126,7 @@ class DepositController extends Controller
 
             $deposit = Reload::deposit()->find($id);
 
-            if (!$deposit) {
+            if (! $deposit) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.reload.deposit_model'), $id);
             }
 
@@ -172,12 +171,12 @@ class DepositController extends Controller
                 $service = Business::service()->find($updateData['service_id']);
 
                 $updateData['timeline'][] = [
-                    'message' => ucwords(strtolower($service->service_name)) . " deposit rejected by ({$approver->name}). Note: ",
+                    'message' => ucwords(strtolower($service->service_name))." deposit rejected by ({$approver->name}). Note: ",
                     'flag' => 'error',
                     'timestamp' => now(),
                 ];
 
-                if (!Reload::deposit()->update($deposit->getKey(), $updateData)) {
+                if (! Reload::deposit()->update($deposit->getKey(), $updateData)) {
                     throw new Exception(__('reload::messages.status_change_failed', [
                         'current_status' => $deposit->status->label(),
                         'target_status' => DepositStatus::Rejected->label(),
@@ -222,9 +221,10 @@ class DepositController extends Controller
         try {
             $deposit = $this->authenticateDeposit($id, [DepositStatus::Processing, DepositStatus::AdminVerification], DepositStatus::Accepted);
             $deposit = Reload::deposit()->accept($deposit, $inputs);
-            if (!$deposit) {
+            if (! $deposit) {
                 throw new Exception(__('reload::messages.status_change_failed', ['current_status' => $deposit->status->label(), 'target_status' => DepositStatus::Accepted->label()]));
             }
+
             return response()->success(__('reload::messages.deposit.status_change_success', [
                 'status' => DepositStatus::Accepted->name,
             ]));
@@ -233,6 +233,7 @@ class DepositController extends Controller
             return response()->notfound($exception->getMessage());
         } catch (Exception $exception) {
             Transaction::orderQueue()->removeFromQueueOrderWise($id);
+
             return response()->failed($exception);
         }
     }
@@ -277,7 +278,7 @@ class DepositController extends Controller
                     'timestamp' => now(),
                 ];
 
-                if (!Reload::deposit()->update($deposit->getKey(), $updateData)) {
+                if (! Reload::deposit()->update($deposit->getKey(), $updateData)) {
                     throw new Exception(__('reload::messages.status_change_failed', [
                         'current_status' => $deposit->status->label(),
                         'target_status' => DepositStatus::Cancelled->label(),
@@ -289,10 +290,10 @@ class DepositController extends Controller
 
                 //update User Account
                 $depositedUpdatedAccount = $depositedAccount->toArray();
-                $depositedUpdatedAccount['user_account_data']['deposit_amount'] = (float)$depositedUpdatedAccount['user_account_data']['deposit_amount'] + (float)$updatedUserBalance['deposit_amount'];
-                $depositedUpdatedAccount['user_account_data']['available_amount'] = (float)$updatedUserBalance['current_amount'];
+                $depositedUpdatedAccount['user_account_data']['deposit_amount'] = (float) $depositedUpdatedAccount['user_account_data']['deposit_amount'] + (float) $updatedUserBalance['deposit_amount'];
+                $depositedUpdatedAccount['user_account_data']['available_amount'] = (float) $updatedUserBalance['current_amount'];
 
-                if (!Transaction::userAccount()->update($depositedAccount->getKey(), $depositedUpdatedAccount)) {
+                if (! Transaction::userAccount()->update($depositedAccount->getKey(), $depositedUpdatedAccount)) {
                     throw new Exception(__('reload::messages.status_change_failed', [
                         'current_status' => $deposit->status->label(),
                         'target_status' => DepositStatus::Accepted->label(),
