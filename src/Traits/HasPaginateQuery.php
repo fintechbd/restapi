@@ -51,7 +51,7 @@ trait HasPaginateQuery
             $options['trashed'] = $this->boolean('trashed', true);
         }
         if ($this->filled('enabled')) {
-            $options['enabled'] = !in_array($this->input('enabled'), ['', '0', 0, 'false', false], true);
+            $options['enabled'] = ! in_array($this->input('enabled'), ['', '0', 0, 'false', false], true);
         }
 
         return $options;
