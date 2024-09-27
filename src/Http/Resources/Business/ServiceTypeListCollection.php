@@ -102,7 +102,8 @@ class ServiceTypeListCollection extends ResourceCollection
 
         foreach ($settings as $key => $value) {
             $settings[$key] =  match ($key) {
-                'beneficiary_type_id' => empty($value) ? null : (int)$value,
+                'beneficiary_type_id', 'amount_range', 'operator_short_code' => empty($value) ? null : (int)$value,
+                'visible_website', 'visible_android_app', 'visible_ios_app' => empty($value) ? 'no' : $value,
                 default => $value
             };
         }
