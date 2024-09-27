@@ -100,12 +100,14 @@ class ServiceTypeListCollection extends ResourceCollection
 
         $settings = array_merge($this->defaultServiceSettings, $settings);
 
-        return array_map(function ($entry) {
-            return match ($entry) {
-                'beneficiary_type_id' => empty($entry) ? null : (int)$entry,
-                default => $entry
+        foreach ($settings as $key => $value) {
+            $settings[$key] =  match ($key) {
+                'beneficiary_type_id' => empty($value) ? null : (int)$value,
+                default => $value
             };
-        }, $settings);
+        }
+
+        return $settings;
     }
 
     private function loadServiceTypeParentList(array &$collection, $parent_id = null): void
