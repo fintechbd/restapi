@@ -2,6 +2,7 @@
 
 namespace Fintech\RestApi\Http\Resources\Core;
 
+use Fintech\Core\Enums\RequestMethod;
 use Fintech\Core\Supports\Constant;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
@@ -22,7 +23,7 @@ class ApiLogCollection extends ResourceCollection
                 'direction' => $apiLog->direction,
                 'user_id' => $apiLog->user_id,
                 'user_name' => ($apiLog->user) ? $apiLog->user->name : null,
-                'method' => $apiLog->method,
+                'method' => RequestMethod::from($apiLog->method),
                 'host' => $apiLog->host,
                 'url' => $apiLog->url,
                 'type' => $apiLog->type,
