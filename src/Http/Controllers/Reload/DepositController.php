@@ -293,7 +293,7 @@ class DepositController extends Controller
 
             $userUpdatedBalance = Reload::deposit()->accept($transactionOrder);
 
-            logger("updated Balance", $userUpdatedBalance);
+            logger('updated Balance', $userUpdatedBalance);
 
             //update User Account
             $depositedUpdatedAccount = $depositedAccount->toArray();
