@@ -221,13 +221,12 @@ class DepositController extends Controller
         $inputs = $request->validated();
         try {
             $deposit = $this->authenticateDeposit($id, [DepositStatus::Processing, DepositStatus::AdminVerification], DepositStatus::Accepted);
+            $inputs['approver'] = $request->user('sanctum');
             $deposit = Reload::deposit()->accept($deposit, $inputs);
             if (!$deposit) {
                 throw new Exception(__('reload::messages.status_change_failed', ['current_status' => $deposit->status->label(), 'target_status' => DepositStatus::Accepted->label()]));
             }
-            return response()->success(__('reload::messages.deposit.status_change_success', [
-                'status' => DepositStatus::Accepted->name,
-            ]));
+            return response()->success(__('reload::messages.deposit.status_change_success', ['status' => DepositStatus::Accepted->name]));
 
         } catch (ModelNotFoundException $exception) {
             return response()->notfound($exception->getMessage());
