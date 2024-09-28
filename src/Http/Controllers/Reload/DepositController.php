@@ -231,6 +231,7 @@ class DepositController extends Controller
             return response()->notfound($exception->getMessage());
         } catch (Exception $exception) {
             Transaction::orderQueue()->removeFromQueueOrderWise($id);
+
             return response()->failed($exception);
         }
     }
