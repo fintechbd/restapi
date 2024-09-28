@@ -15,7 +15,7 @@ class OrderCollection extends ResourceCollection
     /**
      * Transform the resource collection into an array.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @return array
      */
     public function toArray($request)
@@ -42,6 +42,9 @@ class OrderCollection extends ResourceCollection
                 'currency' => $order->currency ?? null,
                 'converted_amount' => $order->converted_amount ?? null,
                 'converted_currency' => $order->converted_currency ?? null,
+                'charge_amount_formatted' => (string)\currency($order->order_data['service_stat_data']['charge_amount'] ?? null, $order->currency),
+                'discount_amount_formatted' => (string)\currency($order->order_data['service_stat_data']['discount_amount'] ?? null, $order->currency),
+                'commission_amount_formatted' => (string)\currency($order->order_data['service_stat_data']['commission_amount'] ?? null, $order->currency),
                 'order_number' => $order->order_number ?? null,
                 'risk' => $order->risk ?? null,
                 'notes' => $order->notes ?? null,
@@ -50,8 +53,8 @@ class OrderCollection extends ResourceCollection
                 'status' => $order->status ?? null,
             ];
 
-            $data['amount_formatted'] = (string) currency($data['amount'], $data['currency']);
-            $data['converted_amount_formatted'] = (string) currency($data['converted_amount'], $data['converted_currency']);
+            $data['amount_formatted'] = (string)currency($data['amount'], $data['currency']);
+            $data['converted_amount_formatted'] = (string)currency($data['converted_amount'], $data['converted_currency']);
 
             if (Core::packageExists('MetaData')) {
                 $data['source_country_name'] = $order->sourceCountry?->name ?? null;
