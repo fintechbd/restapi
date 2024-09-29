@@ -58,7 +58,7 @@ class DepositController extends Controller
             }
         }
 
-        if (!$exists) {
+        if (! $exists) {
             throw new Exception(__('reload::messages.deposit.invalid_status', ['current_status' => $deposit->status->label(), 'target_status' => $targetStatus->label()]));
         }
 
