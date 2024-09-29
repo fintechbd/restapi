@@ -94,22 +94,20 @@ class DepositController extends Controller
     public function store(StoreDepositRequest $request): JsonResponse
     {
         $inputs = $request->validated();
+
         $inputs['user_id'] = ($request->filled('user_id')) ? $request->input('user_id') : $request->user('sanctum')->getKey();
+
         try {
             $deposit = Reload::deposit()->create($inputs);
-            if (! $deposit) {
-                throw new StoreOperationException(__('reload::messages.deposit.failed'));
-            }
 
             $service = $deposit->service;
 
             return response()->created([
-                'message' => __('reload::messages.deposit.created', ['service' => ucwords(strtolower($service->service_name))]),
+                'message' => __('core::messages.transaction.request_created', ['service' => ucwords(strtolower($service->service_name))]),
                 'id' => $deposit->getKey(),
             ]);
         } catch (Exception $exception) {
             Transaction::orderQueue()->removeFromQueueUserWise($inputs['user_id']);
-
             return response()->failed($exception);
         }
     }
