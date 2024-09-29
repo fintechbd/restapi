@@ -49,12 +49,17 @@ class DepositController extends Controller
             throw (new ModelNotFoundException)->setModel(config('fintech.reload.deposit_model'), $id);
         }
 
-        if (! in_array($deposit->status, $requiredStatuses)) {
-            throw new Exception(__('reload::messages.deposit.invalid_status', [
-                'current_status' => $deposit->status->label(),
-                'target_status' => $targetStatus->label(),
-            ])
-            );
+        $exists = false;
+
+        foreach ($requiredStatuses as $requiredStatus) {
+            if ($deposit->status->value === $requiredStatus->value) {
+                $exists = true;
+                break;
+            }
+        }
+
+        if (!$exists) {
+            throw new Exception(__('reload::messages.deposit.invalid_status', ['current_status' => $deposit->status->label(), 'target_status' => $targetStatus->label()]));
         }
 
         return $deposit;
