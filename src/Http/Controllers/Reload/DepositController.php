@@ -113,6 +113,7 @@ class DepositController extends Controller
             ]);
         } catch (Exception $exception) {
             Transaction::orderQueue()->removeFromQueueUserWise($inputs['user_id']);
+
             return response()->failed($exception);
         }
     }
