@@ -65,6 +65,7 @@ class ServiceCostResource extends JsonResource
                     'lower_limit' => null,
                     'higher_limit' => null,
                 ],
+                'service_stat_id' => $this->service_stat_id ?? null,
                 'vendor_info' => $this->resource?->vendor_info ?? (object) [],
                 'offers' => $this->resource?->offers ?? (object) [],
             ],
