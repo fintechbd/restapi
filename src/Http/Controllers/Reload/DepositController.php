@@ -101,8 +101,10 @@ class DepositController extends Controller
                 throw new StoreOperationException(__('reload::messages.deposit.failed'));
             }
 
+            $service = $deposit->service;
+
             return response()->created([
-                'message' => __('reload::messages.deposit.created'),
+                'message' => __('reload::messages.deposit.created', ['service' => ucwords(strtolower($service->service_name))]),
                 'id' => $deposit->getKey(),
             ]);
         } catch (Exception $exception) {
