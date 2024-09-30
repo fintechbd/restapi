@@ -45,6 +45,7 @@ class StoreBangladeshTopUpRequest extends FormRequest
         $order_data['request_from'] = request()->platform()->value;
         $this->merge(['order_data' => $order_data]);
     }
+
     /**
      * Get the validation attributes that apply to the request.
      *
