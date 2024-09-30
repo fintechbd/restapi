@@ -2,6 +2,7 @@
 
 namespace Fintech\RestApi\Http\Resources\Transaction;
 
+use Fintech\Core\Enums\RequestPlatform;
 use Fintech\Core\Enums\Transaction\OrderType;
 use Fintech\Core\Facades\Core;
 use Fintech\Core\Supports\Constant;
@@ -39,8 +40,10 @@ class OrderCollection extends ResourceCollection
                 'transaction_form_name' => $order->transaction_form_name ?? null,
                 'ordered_at' => $order->ordered_at ?? null,
                 'amount' => $order->amount ?? null,
+                'amount_formatted' => (string) \currency($order->amount, $order->currency),
                 'currency' => $order->currency ?? null,
                 'converted_amount' => $order->converted_amount ?? null,
+                'converted_amount_formatted' => (string)\currency($order->converted_amount ?? null, $order->converted_currency),
                 'converted_currency' => $order->converted_currency ?? null,
                 'charge_amount_formatted' => (string) \currency($order->order_data['service_stat_data']['charge_amount'] ?? null, $order->currency),
                 'discount_amount_formatted' => (string) \currency($order->order_data['service_stat_data']['discount_amount'] ?? null, $order->currency),
@@ -53,10 +56,10 @@ class OrderCollection extends ResourceCollection
                 'is_refunded' => $order->is_refunded ?? null,
                 'order_data' => $order->order_data ?? null,
                 'status' => $order->status ?? null,
+                'request_platform' => RequestPlatform::tryFrom($order->order_data['request_from']),
+                'created_at' => $order->created_at ?? null,
+                'updated_at' => $order->updated_at ?? null,
             ];
-
-            $data['amount_formatted'] = (string) currency($data['amount'], $data['currency']);
-            $data['converted_amount_formatted'] = (string) currency($data['converted_amount'], $data['converted_currency']);
 
             if (Core::packageExists('MetaData')) {
                 $data['source_country_name'] = $order->sourceCountry?->name ?? null;

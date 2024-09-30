@@ -2,6 +2,7 @@
 
 namespace Fintech\RestApi\Http\Resources\Transaction;
 
+use Fintech\Core\Enums\RequestPlatform;
 use Fintech\Core\Facades\Core;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -35,8 +36,10 @@ class OrderResource extends JsonResource
             'transaction_form_name' => $this->transaction_form_name ?? null,
             'ordered_at' => $this->ordered_at ?? null,
             'amount' => $this->amount ?? null,
+            'amount_formatted' => (string)\currency($this->amount ?? null, $this->currency),
             'currency' => $this->currency ?? null,
             'converted_amount' => $this->converted_amount ?? null,
+            'converted_amount_formatted' => (string)\currency($this->converted_amount ?? null, $this->converted_currency),
             'converted_currency' => $this->converted_currency ?? null,
             'charge_amount_formatted' => (string) \currency($this->order_data['service_stat_data']['charge_amount'] ?? null, $this->currency),
             'discount_amount_formatted' => (string) \currency($this->order_data['service_stat_data']['discount_amount'] ?? null, $this->currency),
@@ -49,6 +52,9 @@ class OrderResource extends JsonResource
             'is_refunded' => $this->is_refunded ?? null,
             'order_data' => $this->order_data ?? null,
             'status' => $this->status ?? null,
+            'request_platform' => RequestPlatform::tryFrom($this->order_data['request_from']),
+            'created_at' => $this->created_at ?? null,
+            'updated_at' => $this->updated_at ?? null,
         ];
 
         if (Core::packageExists('MetaData')) {
