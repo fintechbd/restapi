@@ -40,6 +40,10 @@ class StoreWalletToBankRequest extends FormRequest
             'order_data.account_number' => ['string', 'nullable'],
         ];
     }
+    protected function prepareForValidation()
+    {
+        $this->mergeIfMissing(['order_data.request_from' => request()->platform()->value]);
+    }
 
     /**
      * Get the validation attributes that apply to the request.

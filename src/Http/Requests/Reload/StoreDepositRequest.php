@@ -37,27 +37,8 @@ class StoreDepositRequest extends FormRequest
         ];
     }
 
-    /**
-     * Get the validation attributes that apply to the request.
-     *
-     * @return array
-     */
-    public function attributes()
+    protected function prepareForValidation()
     {
-        return [
-            //
-        ];
-    }
-
-    /**
-     * Get the validation messages that apply to the request.
-     *
-     * @return array
-     */
-    public function messages()
-    {
-        return [
-            //
-        ];
+        $this->mergeIfMissing(['order_data.request_from' => request()->platform()->value]);
     }
 }

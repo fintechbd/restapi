@@ -36,6 +36,11 @@ class StoreWalletToPrepaidCardRequest extends FormRequest
         ];
     }
 
+    protected function prepareForValidation()
+    {
+        $this->mergeIfMissing(['order_data.request_from' => request()->platform()->value]);
+    }
+
     /**
      * Get the validation attributes that apply to the request.
      *
