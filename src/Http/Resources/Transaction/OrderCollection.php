@@ -9,8 +9,6 @@ use Fintech\Core\Supports\Constant;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-use function currency;
-
 class OrderCollection extends ResourceCollection
 {
     /**
@@ -43,7 +41,7 @@ class OrderCollection extends ResourceCollection
                 'amount_formatted' => (string) \currency($order->amount, $order->currency),
                 'currency' => $order->currency ?? null,
                 'converted_amount' => $order->converted_amount ?? null,
-                'converted_amount_formatted' => (string)\currency($order->converted_amount ?? null, $order->converted_currency),
+                'converted_amount_formatted' => (string) \currency($order->converted_amount ?? null, $order->converted_currency),
                 'converted_currency' => $order->converted_currency ?? null,
                 'charge_amount_formatted' => (string) \currency($order->order_data['service_stat_data']['charge_amount'] ?? null, $order->currency),
                 'discount_amount_formatted' => (string) \currency($order->order_data['service_stat_data']['discount_amount'] ?? null, $order->currency),
