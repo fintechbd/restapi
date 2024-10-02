@@ -4,6 +4,7 @@ namespace Fintech\RestApi\Http\Controllers\Airtime;
 
 use Exception;
 use Fintech\Airtime\Facades\Airtime;
+use Fintech\Airtime\Jobs\BangladeshTopUp\SslWirelessPackageSyncJob;
 use Fintech\Business\Facades\Business;
 use Fintech\Core\Exceptions\DeleteOperationException;
 use Fintech\Core\Exceptions\RestoreOperationException;
@@ -295,7 +296,9 @@ class BangladeshTopUpController extends Controller
     {
         try {
 
-            Artisan::call('airtime:sync-ssl-wireless-top-up-package');
+            if ($serviceVendor = Business::serviceVendor()->findWhere(['service_vendor_slug' => 'sslwireless', 'enabled' => true])) {
+                SslWirelessPackageSyncJob::dispatch();
+            }
 
             return response()->success(__('airtime::messages.synchronize-queued'));
 
