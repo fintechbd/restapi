@@ -3,19 +3,12 @@
 namespace Fintech\RestApi\Http\Controllers\Airtime;
 
 use Exception;
-use Fintech\Airtime\Events\BangladeshTopUpRequested;
 use Fintech\Airtime\Facades\Airtime;
-use Fintech\Auth\Facades\Auth;
 use Fintech\Business\Facades\Business;
-use Fintech\Core\Enums\Auth\RiskProfile;
-use Fintech\Core\Enums\Auth\SystemRole;
-use Fintech\Core\Enums\Transaction\OrderStatus;
-use Fintech\Core\Enums\Transaction\OrderType;
 use Fintech\Core\Exceptions\DeleteOperationException;
 use Fintech\Core\Exceptions\RestoreOperationException;
 use Fintech\Core\Exceptions\StoreOperationException;
 use Fintech\Core\Exceptions\UpdateOperationException;
-use Fintech\Remit\Facades\Remit;
 use Fintech\RestApi\Http\Requests\Airtime\ImportBangladeshTopUpRequest;
 use Fintech\RestApi\Http\Requests\Airtime\IndexBangladeshTopUpRequest;
 use Fintech\RestApi\Http\Requests\Airtime\StoreBangladeshTopUpRequest;
@@ -28,7 +21,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\DB;
 
 /**
  * Class BangladeshTopUpController
