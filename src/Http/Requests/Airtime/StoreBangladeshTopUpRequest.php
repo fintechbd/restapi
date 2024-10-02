@@ -2,6 +2,8 @@
 
 namespace Fintech\RestApi\Http\Requests\Airtime;
 
+use Fintech\Core\Rules\MobileNumber;
+use Fintech\Core\Supports\PhoneNumber;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -34,8 +36,9 @@ class StoreBangladeshTopUpRequest extends FormRequest
             'order_data' => ['nullable', 'array'],
             'order_data.request_from' => ['string', 'required'],
             'order_data.connection_type' => ['string', 'nullable'],
-            'order_data.receiver_mobile_number' => ['string', 'nullable'],
-            'order_data.role_id' => ['integer', 'nullable', 'min:1'],
+            'order_data.receiver_mobile_number' => ['string', 'required', 'min:10', new MobileNumber()],
+            'order_data.service_package_id' => ['integer', 'nullable', 'min:1'],
+            'order_data.airtime_data' => ['array', 'nullable'],
         ];
     }
 

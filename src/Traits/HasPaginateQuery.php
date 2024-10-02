@@ -54,6 +54,10 @@ trait HasPaginateQuery
             $options['enabled'] = ! in_array($this->input('enabled'), ['', '0', 0, 'false', false], true);
         }
 
+        if ($this->filled('blocked')) {
+            $options['blocked'] = ! in_array($this->input('blocked'), ['', '0', 0, 'false', false], true);
+        }
+
         return $options;
     }
 }

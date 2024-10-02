@@ -38,6 +38,7 @@ class IndexServicePackageRequest extends FormRequest
             'sort' => ['string', 'nullable', 'min:2', 'max:255'],
             'dir' => ['string', 'min:3', 'max:4'],
             'enabled' => ['nullable', 'boolean'],
+            'blocked' => ['nullable', 'boolean'],
             'trashed' => ['boolean', 'nullable'],
         ];
     }
