@@ -103,9 +103,4 @@ class KycHandlerController extends Controller
     {
         return response()->success(['data' => ['reference_no' => Ekyc::getReferenceToken()]]);
     }
-
-    public function statusCallback(Request $request): void
-    {
-        logger('Call Back', $request->all());
-    }
 }
