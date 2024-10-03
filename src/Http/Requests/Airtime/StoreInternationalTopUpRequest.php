@@ -29,6 +29,7 @@ class StoreInternationalTopUpRequest extends FormRequest
             'service_id' => ['required', 'integer', 'min:1'],
             'ordered_at' => ['required', 'date', 'date_format:Y-m-d H:i:s', 'before_or_equal:'.date('Y-m-d H:i:s', strtotime('+3 seconds'))],
             'amount' => ['required', 'numeric'],
+            'reverse' => ['nullable', 'boolean'],
             'currency' => ['required', 'string', 'size:3'],
             'converted_currency' => ['required', 'string', 'size:3'],
             'order_data' => ['nullable', 'array'],
