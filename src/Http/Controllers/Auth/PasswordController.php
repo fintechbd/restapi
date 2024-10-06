@@ -11,11 +11,14 @@ use Fintech\Auth\Traits\GuessAuthFieldTrait;
 use Fintech\Core\Exceptions\UpdateOperationException;
 use Fintech\RestApi\Http\Requests\Auth\ForgotPasswordRequest;
 use Fintech\RestApi\Http\Requests\Auth\PasswordResetRequest;
+use Fintech\RestApi\Http\Requests\Auth\UpdatePasswordRequest;
+use Fintech\RestApi\Http\Requests\Auth\UpdatePinRequest;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
-class PasswordResetController extends Controller
+class PasswordController extends Controller
 {
     use GuessAuthFieldTrait;
 
@@ -29,7 +32,7 @@ class PasswordResetController extends Controller
      *
      * @throws Exception
      */
-    public function store(ForgotPasswordRequest $request): JsonResponse
+    public function forgot(ForgotPasswordRequest $request): JsonResponse
     {
         try {
 
@@ -65,7 +68,7 @@ class PasswordResetController extends Controller
      *
      * @lrd:end
      */
-    public function update(PasswordResetRequest $request): JsonResponse
+    public function reset(PasswordResetRequest $request): JsonResponse
     {
         $passwordField = config('fintech.auth.password_field', 'password');
 
@@ -96,6 +99,70 @@ class PasswordResetController extends Controller
             return response()->updated(__('auth::messages.reset.success'));
 
         } catch (Exception $exception) {
+            return response()->failed($exception);
+        }
+    }
+
+    /**
+     * @LRDparam password_confirmation string|required|min:8
+     * @lrd:start
+     * Update requested User password
+     *
+     * @lrd:end
+     */
+    public function update(UpdatePasswordRequest $request): JsonResponse
+    {
+        try {
+            $inputs = $request->validated();
+
+            $user = $request->user('sanctum');
+
+            $response = Auth::user()->updateRaw($user->getKey(), ['password' => $inputs['password']]);
+
+            if (! $response) {
+                throw (new UpdateOperationException)->setModel(config('fintech.auth.user_model'), $user->getKey());
+            }
+
+            return response()->updated(__('auth::messages.update_password'));
+
+        } catch (ModelNotFoundException $exception) {
+
+            return response()->notfound($exception->getMessage());
+
+        } catch (Exception $exception) {
+
+            return response()->failed($exception);
+        }
+    }
+
+    /**
+     * @LRDparam pin_confirmation string|required|min:6
+     * @lrd:start
+     * Update requested user pin
+     *
+     * @lrd:end
+     */
+    public function updatePin(UpdatePinRequest $request): JsonResponse
+    {
+        try {
+            $inputs = $request->validated();
+
+            $user = $request->user('sanctum');
+
+            $response = Auth::user()->updateRaw($user->getKey(), ['pin' => $inputs['pin']]);
+
+            if (! $response) {
+                throw (new UpdateOperationException)->setModel(config('fintech.auth.user_model'), $user->getKey());
+            }
+
+            return response()->updated(__('auth::messages.update_pin'));
+
+        } catch (ModelNotFoundException $exception) {
+
+            return response()->notfound($exception->getMessage());
+
+        } catch (Exception $exception) {
+
             return response()->failed($exception);
         }
     }
