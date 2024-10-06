@@ -4,7 +4,6 @@ namespace Fintech\RestApi\Http\Requests\Auth;
 
 use Fintech\Core\Rules\CurrentPin;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class UpdatePinRequest extends FormRequest
 {

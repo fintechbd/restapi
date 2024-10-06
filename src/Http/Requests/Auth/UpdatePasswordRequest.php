@@ -24,12 +24,12 @@ class UpdatePasswordRequest extends FormRequest
         return [
             'current' => [
                 ...config('fintech.auth.password_field_rules', ['required', 'string', 'min:8']),
-                'current_password'
+                'current_password',
             ],
             config('fintech.auth.password_field', 'password') => [
                 ...config('fintech.auth.password_field_rules', ['required', 'string', 'min:8']),
-                'confirmed', 'different:current'
-            ]
+                'confirmed', 'different:current',
+            ],
         ];
     }
 }

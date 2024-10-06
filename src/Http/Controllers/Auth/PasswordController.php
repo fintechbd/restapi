@@ -105,6 +105,7 @@ class PasswordController extends Controller
 
     /**
      * @LRDparam password_confirmation string|required|min:8
+     *
      * @lrd:start
      * Update requested User password
      *
@@ -137,6 +138,7 @@ class PasswordController extends Controller
 
     /**
      * @LRDparam pin_confirmation string|required|min:6
+     *
      * @lrd:start
      * Update requested user pin
      *
