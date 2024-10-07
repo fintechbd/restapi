@@ -399,6 +399,12 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * @lrd:start
+     * Change User Profile Photo with the updated
+     *
+     * @lrd:end
+     */
     public function photo(UpdatePhotoRequest $request): JsonResponse
     {
         try {
