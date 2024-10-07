@@ -420,7 +420,7 @@ class UserController extends Controller
 
             return response()->updated(__('auth::messages.update_photo'));
 
-        }  catch (Exception $exception) {
+        } catch (Exception $exception) {
 
             return response()->failed($exception);
         }

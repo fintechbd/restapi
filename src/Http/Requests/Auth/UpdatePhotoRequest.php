@@ -23,7 +23,7 @@ class UpdatePhotoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'photo' => ['required', new Base64File()],
+            'photo' => ['required', new Base64File],
         ];
     }
 }
