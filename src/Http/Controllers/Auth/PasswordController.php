@@ -124,6 +124,8 @@ class PasswordController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.auth.user_model'), $user->getKey());
             }
 
+            \Illuminate\Support\Facades\Auth::guard('sanctum')->logout();
+
             return response()->updated(__('auth::messages.update_password'));
 
         } catch (ModelNotFoundException $exception) {
@@ -156,6 +158,8 @@ class PasswordController extends Controller
             if (! $response) {
                 throw (new UpdateOperationException)->setModel(config('fintech.auth.user_model'), $user->getKey());
             }
+
+            \Illuminate\Support\Facades\Auth::guard('sanctum')->logout();
 
             return response()->updated(__('auth::messages.update_pin'));
 
