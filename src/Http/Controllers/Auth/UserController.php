@@ -12,6 +12,7 @@ use Fintech\Core\Exceptions\UpdateOperationException;
 use Fintech\RestApi\Http\Requests\Auth\ImportUserRequest;
 use Fintech\RestApi\Http\Requests\Auth\IndexUserRequest;
 use Fintech\RestApi\Http\Requests\Auth\StoreUserRequest;
+use Fintech\RestApi\Http\Requests\Auth\UpdatePhotoRequest;
 use Fintech\RestApi\Http\Requests\Auth\UpdateUserRequest;
 use Fintech\RestApi\Http\Requests\Auth\UserAuthResetRequest;
 use Fintech\RestApi\Http\Requests\Auth\UserStatusChangeRequest;
@@ -393,6 +394,27 @@ class UserController extends Controller
             return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
+
+            return response()->failed($exception);
+        }
+    }
+
+    public function photo(UpdatePhotoRequest $request): JsonResponse
+    {
+        try {
+            $inputs = $request->validated();
+
+            $user = $request->user();
+
+            $response = Auth::user()->updateRaw($user->getKey(), ['photo' => $inputs['photo']]);
+
+            if (! $response) {
+                throw (new UpdateOperationException)->setModel(config('fintech.auth.user_model'), $inputs['user_id']);
+            }
+
+            return response()->updated(__('auth::messages.update_photo'));
+
+        }  catch (Exception $exception) {
 
             return response()->failed($exception);
         }
