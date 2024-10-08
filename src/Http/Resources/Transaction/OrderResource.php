@@ -19,6 +19,7 @@ class OrderResource extends JsonResource
     {
         $data = [
             'id' => $this->getKey(),
+            'description' => $this->description ?? null,
             'source_country_id' => $this->source_country_id ?? null,
             'source_country_name' => null,
             'destination_country_id' => $this->destination_country_id ?? null,

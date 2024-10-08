@@ -23,6 +23,7 @@ class OrderCollection extends ResourceCollection
             $data = [
                 'id' => $order->getKey(),
                 'source_country_id' => $order->source_country_id ?? null,
+                'description' => $order->description ?? null,
                 'source_country_name' => null,
                 'destination_country_id' => $order->destination_country_id ?? null,
                 'destination_country_name' => null,
