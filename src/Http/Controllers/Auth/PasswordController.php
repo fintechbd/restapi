@@ -25,7 +25,7 @@ class PasswordController extends Controller
     /**
      * @lrd:start
      * This api receive `login_id` as unique user then as per configuration
-     * and send temporary password or reset link or One Time Pin verifcation
+     * and send temporary password or reset link or One Time Pin verification
      * to proceed
      *
      * @lrd:end
