@@ -27,22 +27,22 @@ class ServiceCostResource extends JsonResource
             'output' => $this->output,
             'output_unit' => $this->output_unit,
 
-            'amount' => (string) $this->amount,
+            'amount' => (string) currency($this->amount, $this->input)->float(),
             'amount_formatted' => (string) currency($this->amount, $this->input),
 
-            'converted' => (string) $this->converted,
+            'converted' => (string) currency($this->converted, $this->output)->float(),
             'converted_formatted' => (string) currency($this->converted, $this->output),
 
-            'charge_amount' => (string) $this->charge_amount,
+            'charge_amount' => (string) currency($this->charge_amount, $this->base_currency)->float(),
             'charge_amount_formatted' => (string) currency($this->charge_amount, $this->base_currency),
 
-            'discount_amount' => (string) $this->discount_amount,
+            'discount_amount' => (string) currency($this->discount_amount, $this->base_currency)->float(),
             'discount_amount_formatted' => (string) currency($this->discount_amount, $this->base_currency),
 
-            'commission_amount' => (string) $this->commission_amount,
+            'commission_amount' => (string)currency( $this->commission_amount, $this->base_currency)->float(),
             'commission_amount_formatted' => (string) currency($this->commission_amount, $this->base_currency),
 
-            'total_amount' => (string) $this->total_amount,
+            'total_amount' => (string) currency($this->total_amount, $this->base_currency)->float(),
             'total_amount_formatted' => (string) currency($this->total_amount, $this->base_currency),
         ];
     }
