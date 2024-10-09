@@ -12,7 +12,6 @@ use Fintech\RestApi\Http\Resources\Auth\LoginResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Auth;
 
 /**
  * Class AuthenticatedSessionController
@@ -73,7 +72,7 @@ class AuthenticatedController extends Controller
     {
         event(new LoggedOut($request->user()));
 
-        Auth::guard('web')->logout();
+        \Illuminate\Support\Facades\Auth::guard('web')->logout();
 
         return response()->deleted(__('auth::messages.logout'));
     }
