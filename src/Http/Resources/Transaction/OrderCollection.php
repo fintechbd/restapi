@@ -50,7 +50,7 @@ class OrderCollection extends ResourceCollection
                 'cost_amount_formatted' => (string) \currency($order->order_data['service_stat_data']['cost_amount'] ?? null, $order->currency),
                 'total_amount_formatted' => (string) \currency($order->order_data['service_stat_data']['total_amount'] ?? null, $order->currency),
                 'order_number' => $order->order_number ?? null,
-                'risk' => $order->risk ?? null,
+                'risk_profile' => $order->risk_profile->value,
                 'notes' => $order->notes ?? null,
                 'is_refunded' => $order->is_refunded ?? null,
                 'order_data' => $order->order_data ?? null,
