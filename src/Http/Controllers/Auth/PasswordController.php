@@ -124,7 +124,7 @@ class PasswordController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.auth.user_model'), $user->getKey());
             }
 
-            \Illuminate\Support\Facades\Auth::guard('web')->logout();
+            $user->currentAccessToken()->delete();
 
             return response()->updated(__('auth::messages.update_password'));
 
@@ -159,7 +159,7 @@ class PasswordController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.auth.user_model'), $user->getKey());
             }
 
-            \Illuminate\Support\Facades\Auth::guard('web')->logout();
+            $user->currentAccessToken()->delete();
 
             return response()->updated(__('auth::messages.update_pin'));
 

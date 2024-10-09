@@ -72,7 +72,7 @@ class AuthenticatedController extends Controller
     {
         event(new LoggedOut($request->user()));
 
-        \Illuminate\Support\Facades\Auth::guard('web')->logout();
+        $request->user('sanctum')->currentAccessToken()->delete();
 
         return response()->deleted(__('auth::messages.logout'));
     }
