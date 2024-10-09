@@ -39,7 +39,7 @@ class ServiceCostResource extends JsonResource
             'discount_amount' => (string) currency($this->discount_amount, $this->base_currency)->float(),
             'discount_amount_formatted' => (string) currency($this->discount_amount, $this->base_currency),
 
-            'commission_amount' => (string)currency( $this->commission_amount, $this->base_currency)->float(),
+            'commission_amount' => (string) currency($this->commission_amount, $this->base_currency)->float(),
             'commission_amount_formatted' => (string) currency($this->commission_amount, $this->base_currency),
 
             'total_amount' => (string) currency($this->total_amount, $this->base_currency)->float(),
