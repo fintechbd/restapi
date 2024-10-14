@@ -4,7 +4,6 @@ namespace Fintech\RestApi\Http\Controllers\Auth;
 
 use ErrorException;
 use Exception;
-use Fintech\Auth\Events\PasswordResetRequested;
 use Fintech\Auth\Events\PasswordResetSuccessful;
 use Fintech\Auth\Facades\Auth;
 use Fintech\Auth\Traits\GuessAuthFieldTrait;
@@ -38,7 +37,7 @@ class PasswordController extends Controller
 
             $attemptUser = Auth::user()->findWhere($this->getAuthFieldFromInput($request));
 
-            if (!$attemptUser) {
+            if (! $attemptUser) {
                 throw new Exception(__('auth::messages.failed'));
             }
 
