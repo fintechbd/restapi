@@ -13,6 +13,7 @@ use Fintech\RestApi\Http\Requests\Transaction\StoreOrderRequest;
 use Fintech\RestApi\Http\Requests\Transaction\UpdateOrderRequest;
 use Fintech\RestApi\Http\Resources\Transaction\OrderCollection;
 use Fintech\RestApi\Http\Resources\Transaction\OrderResource;
+use Fintech\RestApi\Http\Resources\Transaction\TrackOrderResource;
 use Fintech\Transaction\Facades\Transaction;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
@@ -263,6 +264,36 @@ class OrderController extends Controller
             $orderPaginate = Transaction::order()->list($inputs);
 
             return new OrderCollection($orderPaginate);
+
+        } catch (Exception $exception) {
+
+            return response()->failed($exception);
+        }
+    }
+
+    /**
+     * @lrd:start
+     * Return a specified *Order* resource found by transaction number.
+     *
+     * @lrd:end
+     *
+     * @throws ModelNotFoundException
+     */
+    public function track(string|int $transactionId): TrackOrderResource|JsonResponse
+    {
+        try {
+
+            $order = Transaction::order()->findWhere(['transaction_id' => $transactionId]);
+
+            if (! $order) {
+                throw (new ModelNotFoundException)->setModel(config('fintech.transaction.order_model'), $transactionId);
+            }
+
+            return new TrackOrderResource($order);
+
+        } catch (ModelNotFoundException $exception) {
+
+            return response()->notfound($exception->getMessage());
 
         } catch (Exception $exception) {
 
