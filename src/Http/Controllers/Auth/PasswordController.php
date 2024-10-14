@@ -36,19 +36,17 @@ class PasswordController extends Controller
     {
         try {
 
-            $attemptUser = Auth::user()->list($this->getAuthFieldFromInput($request));
+            $attemptUser = Auth::user()->findWhere($this->getAuthFieldFromInput($request));
 
-            if ($attemptUser->isEmpty()) {
+            if (!$attemptUser) {
                 throw new Exception(__('auth::messages.failed'));
             }
 
-            $response = Auth::passwordReset()->notifyUser($attemptUser->first());
+            $response = Auth::passwordReset()->notifyUser($attemptUser);
 
             if (! $response['status']) {
                 throw new Exception($response['message']);
             }
-
-            event(new PasswordResetRequested($attemptUser));
 
             return response()->success($response['message']);
 
