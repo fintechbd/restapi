@@ -8,7 +8,6 @@ use Illuminate\Validation\Rule;
 
 class UpdateTranslationRequest extends FormRequest
 {
-
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -26,7 +25,7 @@ class UpdateTranslationRequest extends FormRequest
     {
         return [
             'key' => ['required', Rule::unique('translations', 'key')->ignore($this->route('translation'))],
-            'locale' => ['required', 'array', new Locale()],
+            'locale' => ['required', 'array', new Locale],
         ];
     }
 
