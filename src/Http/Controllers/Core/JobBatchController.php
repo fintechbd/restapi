@@ -1,33 +1,32 @@
 <?php
 
 namespace Fintech\RestApi\Http\Controllers\Core;
+
 use Exception;
-use Fintech\Core\Exceptions\StoreOperationException;
-use Fintech\Core\Exceptions\UpdateOperationException;
 use Fintech\Core\Exceptions\DeleteOperationException;
 use Fintech\Core\Exceptions\RestoreOperationException;
+use Fintech\Core\Exceptions\StoreOperationException;
+use Fintech\Core\Exceptions\UpdateOperationException;
 use Fintech\Core\Facades\Core;
-use Fintech\RestApi\Http\Resources\Core\JobBatchResource;
-use Fintech\RestApi\Http\Resources\Core\JobBatchCollection;
 use Fintech\RestApi\Http\Requests\Core\ImportJobBatchRequest;
+use Fintech\RestApi\Http\Requests\Core\IndexJobBatchRequest;
 use Fintech\RestApi\Http\Requests\Core\StoreJobBatchRequest;
 use Fintech\RestApi\Http\Requests\Core\UpdateJobBatchRequest;
-use Fintech\RestApi\Http\Requests\Core\IndexJobBatchRequest;
+use Fintech\RestApi\Http\Resources\Core\JobBatchCollection;
+use Fintech\RestApi\Http\Resources\Core\JobBatchResource;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 
 /**
  * Class JobBatchController
- * @package Fintech\RestApi\Http\Controllers\Core
  *
  * @lrd:start
  * This class handle create, display, update, delete & restore
  * operation related to JobBatch
- * @lrd:end
  *
+ * @lrd:end
  */
-
 class JobBatchController extends Controller
 {
     /**
@@ -35,10 +34,8 @@ class JobBatchController extends Controller
      * Return a listing of the *JobBatch* resource as collection.
      *
      * *```paginate=false``` returns all resource as list not pagination*
-     * @lrd:end
      *
-     * @param IndexJobBatchRequest $request
-     * @return JobBatchCollection|JsonResponse
+     * @lrd:end
      */
     public function index(IndexJobBatchRequest $request): JobBatchCollection|JsonResponse
     {
@@ -58,10 +55,9 @@ class JobBatchController extends Controller
     /**
      * @lrd:start
      * Create a new *JobBatch* resource in storage.
+     *
      * @lrd:end
      *
-     * @param StoreJobBatchRequest $request
-     * @return JsonResponse
      * @throws StoreOperationException
      */
     public function store(StoreJobBatchRequest $request): JsonResponse
@@ -71,14 +67,14 @@ class JobBatchController extends Controller
 
             $jobBatch = Core::jobBatch()->create($inputs);
 
-            if (!$jobBatch) {
+            if (! $jobBatch) {
                 throw (new StoreOperationException)->setModel(config('fintech.core.job_batch_model'));
             }
 
             return response()->created([
                 'message' => __('restapi::messages.resource.created', ['model' => 'Job Batch']),
-                'id' => $jobBatch->id
-             ]);
+                'id' => $jobBatch->id,
+            ]);
 
         } catch (Exception $exception) {
 
@@ -89,10 +85,9 @@ class JobBatchController extends Controller
     /**
      * @lrd:start
      * Return a specified *JobBatch* resource found by id.
+     *
      * @lrd:end
      *
-     * @param string|int $id
-     * @return JobBatchResource|JsonResponse
      * @throws ModelNotFoundException
      */
     public function show(string|int $id): JobBatchResource|JsonResponse
@@ -101,7 +96,7 @@ class JobBatchController extends Controller
 
             $jobBatch = Core::jobBatch()->find($id);
 
-            if (!$jobBatch) {
+            if (! $jobBatch) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.core.job_batch_model'), $id);
             }
 
@@ -120,11 +115,9 @@ class JobBatchController extends Controller
     /**
      * @lrd:start
      * Update a specified *JobBatch* resource using id.
+     *
      * @lrd:end
      *
-     * @param UpdateJobBatchRequest $request
-     * @param string|int $id
-     * @return JsonResponse
      * @throws ModelNotFoundException
      * @throws UpdateOperationException
      */
@@ -134,13 +127,13 @@ class JobBatchController extends Controller
 
             $jobBatch = Core::jobBatch()->find($id);
 
-            if (!$jobBatch) {
+            if (! $jobBatch) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.core.job_batch_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!Core::jobBatch()->update($id, $inputs)) {
+            if (! Core::jobBatch()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.core.job_batch_model'), $id);
             }
@@ -160,10 +153,11 @@ class JobBatchController extends Controller
     /**
      * @lrd:start
      * Soft delete a specified *JobBatch* resource using id.
+     *
      * @lrd:end
      *
-     * @param string|int $id
      * @return JsonResponse
+     *
      * @throws ModelNotFoundException
      * @throws DeleteOperationException
      */
@@ -173,13 +167,13 @@ class JobBatchController extends Controller
 
             $jobBatch = Core::jobBatch()->find($id);
 
-            if (!$jobBatch) {
+            if (! $jobBatch) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.core.job_batch_model'), $id);
             }
 
-            if (!Core::jobBatch()->destroy($id)) {
+            if (! Core::jobBatch()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.core.job_batch_model'), $id);
+                throw (new DeleteOperationException)->setModel(config('fintech.core.job_batch_model'), $id);
             }
 
             return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Job Batch']));
@@ -198,9 +192,9 @@ class JobBatchController extends Controller
      * @lrd:start
      * Restore the specified *JobBatch* resource from trash.
      * ** ```Soft Delete``` needs to enabled to use this feature**
+     *
      * @lrd:end
      *
-     * @param string|int $id
      * @return JsonResponse
      */
     public function restore(string|int $id)
@@ -209,13 +203,13 @@ class JobBatchController extends Controller
 
             $jobBatch = Core::jobBatch()->find($id, true);
 
-            if (!$jobBatch) {
+            if (! $jobBatch) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.core.job_batch_model'), $id);
             }
 
-            if (!Core::jobBatch()->restore($id)) {
+            if (! Core::jobBatch()->restore($id)) {
 
-                throw (new RestoreOperationException())->setModel(config('fintech.core.job_batch_model'), $id);
+                throw (new RestoreOperationException)->setModel(config('fintech.core.job_batch_model'), $id);
             }
 
             return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Job Batch']));
@@ -236,9 +230,6 @@ class JobBatchController extends Controller
      * After export job is done system will fire  export completed event
      *
      * @lrd:end
-     *
-     * @param IndexJobBatchRequest $request
-     * @return JsonResponse
      */
     public function export(IndexJobBatchRequest $request): JsonResponse
     {
@@ -262,7 +253,6 @@ class JobBatchController extends Controller
      *
      * @lrd:end
      *
-     * @param ImportJobBatchRequest $request
      * @return JobBatchCollection|JsonResponse
      */
     public function import(ImportJobBatchRequest $request): JsonResponse
