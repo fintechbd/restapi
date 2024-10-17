@@ -19,7 +19,7 @@ class ApiLogResource extends JsonResource
             'id' => $this->getKey(),
             'direction' => $this->direction,
             'user_id' => $this->user_id,
-            'user_name' => ($this->user) ? $this->user->name : null,
+            'user_name' => ($this->user_id != null) ? \Fintech\Auth\Facades\Auth::user()->find($this->user_id)?->name ?? null : null,
             'method' => $this->method,
             'host' => $this->host,
             'url' => $this->url,
