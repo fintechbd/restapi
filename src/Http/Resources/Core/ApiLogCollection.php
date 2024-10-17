@@ -22,7 +22,7 @@ class ApiLogCollection extends ResourceCollection
                 'id' => $apiLog->getKey(),
                 'direction' => $apiLog->direction,
                 'user_id' => $apiLog->user_id,
-                'user_name' => ($apiLog->user) ? $apiLog->user->name : null,
+                'user_name' => ($apiLog->user_id != null) ? \Fintech\Auth\Facades\Auth::user()->find($apiLog->user_id)?->name ?? null : null,
                 'method' => RequestMethod::from($apiLog->method),
                 'host' => $apiLog->host,
                 'url' => $apiLog->url,
