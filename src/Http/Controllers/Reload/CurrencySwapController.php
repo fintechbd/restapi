@@ -60,6 +60,10 @@ class CurrencySwapController extends Controller
             //$inputs['service_id'] = Business::serviceType()->list(['service_type_slug'=>'currency_swap']);
             //$inputs['service_type_slug'] = 'currency_swap';
 
+            if ($request->isAgent()) {
+                $inputs['creator_id'] = $request->user('sanctum')->getKey();
+            }
+
             $currencySwapPaginate = Reload::currencySwap()->list($inputs);
 
             return new CurrencySwapCollection($currencySwapPaginate);

@@ -55,12 +55,13 @@ class InternationalTopUpController extends Controller
     {
         try {
             $inputs = $request->validated();
-            //$inputs['transaction_form_id'] = Transaction::transactionForm()->findWhere(['code' => 'international_top_up'])->getKey();
-            $inputs['transaction_form_code'] = 'international_top_up';
-            //$inputs['service_id'] = Business::serviceType()->list(['service_type_slug'=>'international_top_up']);
-            $inputs['service_type_slug'] = 'international_top_up';
-            //$internationalTopUpPaginate = Airtime::internationalTopUp()->list($inputs);
-            $internationalTopUpPaginate = Transaction::order()->list($inputs);
+            $inputs['transaction_form_id'] = Transaction::transactionForm()->findWhere(['code' => 'international_top_up'])->getKey();
+
+            if ($request->isAgent()) {
+                $inputs['creator_id'] = $request->user('sanctum')->getKey();
+            }
+
+            $internationalTopUpPaginate = Airtime::internationalTopUp()->list($inputs);
 
             return new InternationalTopUpCollection($internationalTopUpPaginate);
 

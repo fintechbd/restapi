@@ -59,6 +59,11 @@ class WalletToAtmController extends Controller
             $inputs = $request->validated();
 
             $inputs['transaction_form_id'] = Transaction::transactionForm()->findWhere(['code' => 'local_atm_transfer'])->getKey();
+
+            if ($request->isAgent()) {
+                $inputs['creator_id'] = $request->user('sanctum')->getKey();
+            }
+
             $walletToAtmPaginate = Reload::walletToAtm()->list($inputs);
 
             return new WalletToAtmCollection($walletToAtmPaginate);

@@ -57,7 +57,13 @@ class WalletToPrepaidCardController extends Controller
 
         try {
             $inputs = $request->validated();
+
             $inputs['transaction_form_code'] = 'wallet_prepaid_card';
+
+            if ($request->isAgent()) {
+                $inputs['creator_id'] = $request->user('sanctum')->getKey();
+            }
+
             $walletToPrepaidCardPaginate = Reload::walletToPrepaidCard()->list($inputs);
 
             return new WalletToPrepaidCardCollection($walletToPrepaidCardPaginate);

@@ -60,6 +60,10 @@ class RequestMoneyController extends Controller
             //$inputs['service_id'] = Business::serviceType()->list(['service_type_slug'=>'request_money']);
             //$inputs['service_type_slug'] = 'request_money';
 
+            if ($request->isAgent()) {
+                $inputs['creator_id'] = $request->user('sanctum')->getKey();
+            }
+
             $requestMoneyPaginate = Reload::requestMoney()->list($inputs);
 
             return new RequestMoneyCollection($requestMoneyPaginate);

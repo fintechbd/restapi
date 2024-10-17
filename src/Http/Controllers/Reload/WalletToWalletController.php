@@ -59,6 +59,11 @@ class WalletToWalletController extends Controller
             $inputs['transaction_form_code'] = 'point_transfer';
             //$inputs['service_id'] = Business::serviceType()->list(['service_type_slug'=>'wallet_to_wallet']);
             //$inputs['service_type_slug'] = 'wallet_to_wallet';
+
+            if ($request->isAgent()) {
+                $inputs['creator_id'] = $request->user('sanctum')->getKey();
+            }
+
             $walletToWalletPaginate = Reload::walletToWallet()->list($inputs);
 
             return new WalletToWalletCollection($walletToWalletPaginate);

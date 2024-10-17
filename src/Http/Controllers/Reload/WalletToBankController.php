@@ -59,6 +59,11 @@ class WalletToBankController extends Controller
             $inputs = $request->validated();
 
             $inputs['transaction_form_id'] = Transaction::transactionForm()->findWhere(['code' => 'local_bank_transfer'])->getKey();
+
+            if ($request->isAgent()) {
+                $inputs['creator_id'] = $request->user('sanctum')->getKey();
+            }
+
             $walletToBankPaginate = Reload::walletToBank()->list($inputs);
 
             return new WalletToBankCollection($walletToBankPaginate);

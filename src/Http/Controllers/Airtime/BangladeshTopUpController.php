@@ -50,10 +50,13 @@ class BangladeshTopUpController extends Controller
     {
         try {
             $inputs = $request->validated();
-            //$inputs['transaction_form_id'] = Transaction::transactionForm()->findWhere(['code' => 'bangladesh_top_up'])->getKey();
-            $inputs['transaction_form_code'] = 'bangladesh_top_up';
-            //$inputs['service_id'] = Business::serviceType()->list(['service_type_slug'=>'bangladesh_top_up']);
-            //$inputs['service_type_slug'] = 'bangladesh_top_up';
+
+            $inputs['transaction_form_id'] = Transaction::transactionForm()->findWhere(['code' => 'bangladesh_top_up'])->getKey();
+
+            if ($request->isAgent()) {
+                $inputs['creator_id'] = $request->user('sanctum')->getKey();
+            }
+
             $bangladeshTopUpPaginate = Airtime::bangladeshTopUp()->list($inputs);
 
             return new BangladeshTopUpCollection($bangladeshTopUpPaginate);
