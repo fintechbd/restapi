@@ -26,9 +26,9 @@ class OrderCollection extends ResourceCollection
 
             Arr::forget($order_data, $this->hidden);
 
-            $order_data['current_amount'] = \currency($order_data['current_amount'], $order->currency);
-            $order_data['sending_amount'] = \currency($order_data['sending_amount'], $order->currency);
-            $order_data['previous_amount'] = \currency($order_data['previous_amount'], $order->currency);
+            $order_data['current_amount'] = \currency($order_data['current_amount'] ?? null, $order->currency);
+            $order_data['sending_amount'] = \currency($order_data['sending_amount'] ?? null, $order->currency);
+            $order_data['previous_amount'] = \currency($order_data['previous_amount'] ?? null, $order->currency);
 
             $data = [
                 'id' => $order->getKey(),
