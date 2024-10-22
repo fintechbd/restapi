@@ -43,13 +43,13 @@ class AvailableServiceController extends Controller
                 $input['service_type_parent_id_is_null'] = true;
             }
 
-            return Cache::remember(
+            return  Cache::remember(
                 $this->cacheIdentifier($input),
                 (App::environment('production') ? HOUR : 0),
-                function () use ($input) {
+//                HOUR,
+                function () use ($input, $request) {
                     $serviceTypes = Business::serviceType()->available($input);
-
-                    return new ServiceTypeListCollection($serviceTypes);
+                    return (new ServiceTypeListCollection($serviceTypes))->toResponse($request);
                 });
 
         } catch (Exception $exception) {
@@ -62,7 +62,7 @@ class AvailableServiceController extends Controller
     {
         $id = ['services'];
         foreach ($inputs as $key => $value) {
-            $id[] = "{$key}-".Utility::stringify($value);
+            $id[] = "{$key}-".Utility::stringify(gettype($value), $value);
         }
 
         return implode('-', $id);
