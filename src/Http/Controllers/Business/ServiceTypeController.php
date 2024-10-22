@@ -260,43 +260,6 @@ class ServiceTypeController extends Controller
             return response()->failed($exception);
         }
     }
-
-    public function serviceTypeList(ServiceTypeListRequest $request): ServiceTypeListCollection|JsonResponse
-    {
-        try {
-            $input = $request->validated();
-
-            $input['user_id'] = ($request->filled('user_id'))
-                ? $request->input('user_id')
-                : auth()->id();
-
-            $input['role_id'] = ($request->filled('role_id'))
-                ? $request->input('role_id')
-                : auth()->user()?->roles?->first()?->getKey() ?? config('fintech.auth.customer_roles', [7])[0];
-
-            if ($request->filled('reload') && $request->boolean('reload')) {
-                $input['destination_country_id'] = $input['source_country_id'];
-            }
-
-            if ($request->filled('service_type_parent_slug')) {
-                $serviceType = Business::serviceType()->findWhere(['service_type_slug' => $input['service_type_parent_slug'], 'get' => ['service_types.id']]);
-                $input['service_type_parent_id'] = $serviceType->id;
-            } elseif ($request->filled('service_type_parent_id')) {
-                $input['service_type_parent_id'] = $request->input('service_type_parent_id');
-            } else {
-                $input['service_type_parent_id_is_null'] = true;
-            }
-
-            $serviceTypes = Business::serviceType()->available($input);
-
-            return new ServiceTypeListCollection($serviceTypes);
-
-        } catch (Exception $exception) {
-
-            return response()->failed($exception);
-        }
-    }
-
     /**
      * @LRDparam search nullable|string
      * @LRDparam service_type_parent_id nullable|integer
