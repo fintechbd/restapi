@@ -10,12 +10,10 @@ use Fintech\Core\Exceptions\StoreOperationException;
 use Fintech\Core\Exceptions\UpdateOperationException;
 use Fintech\RestApi\Http\Requests\Business\ImportServiceTypeRequest;
 use Fintech\RestApi\Http\Requests\Business\IndexServiceTypeRequest;
-use Fintech\RestApi\Http\Requests\Business\ServiceTypeListRequest;
 use Fintech\RestApi\Http\Requests\Business\StoreServiceTypeRequest;
 use Fintech\RestApi\Http\Requests\Business\UpdateServiceTypeRequest;
 use Fintech\RestApi\Http\Requests\Core\DropDownRequest;
 use Fintech\RestApi\Http\Resources\Business\ServiceTypeCollection;
-use Fintech\RestApi\Http\Resources\Business\ServiceTypeListCollection;
 use Fintech\RestApi\Http\Resources\Business\ServiceTypeResource;
 use Fintech\RestApi\Http\Resources\Core\DropDownCollection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -260,6 +258,7 @@ class ServiceTypeController extends Controller
             return response()->failed($exception);
         }
     }
+
     /**
      * @LRDparam search nullable|string
      * @LRDparam service_type_parent_id nullable|integer

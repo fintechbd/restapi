@@ -22,9 +22,9 @@ class AvailableServiceController extends Controller
         try {
             $input = $request->validated();
 
-//            $input['user_id'] = ($request->filled('user_id'))
-//                ? $request->input('user_id')
-//                : auth()->id();
+            //            $input['user_id'] = ($request->filled('user_id'))
+            //                ? $request->input('user_id')
+            //                : auth()->id();
 
             $input['role_id'] = ($request->filled('role_id'))
                 ? $request->input('role_id')
@@ -48,6 +48,7 @@ class AvailableServiceController extends Controller
                 (App::environment('production') ? HOUR : 0),
                 function () use ($input) {
                     $serviceTypes = Business::serviceType()->available($input);
+
                     return new ServiceTypeListCollection($serviceTypes);
                 });
 
@@ -59,11 +60,11 @@ class AvailableServiceController extends Controller
 
     private function cacheIdentifier(array $inputs = []): string
     {
-        $id = ["services"];
+        $id = ['services'];
         foreach ($inputs as $key => $value) {
-            $id[] = "{$key}-" . Utility::stringify($value);
+            $id[] = "{$key}-".Utility::stringify($value);
         }
-        return implode("-", $id);
-    }
 
+        return implode('-', $id);
+    }
 }
