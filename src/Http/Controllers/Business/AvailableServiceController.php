@@ -43,12 +43,13 @@ class AvailableServiceController extends Controller
                 $input['service_type_parent_id_is_null'] = true;
             }
 
-            return  Cache::remember(
+            return Cache::remember(
                 $this->cacheIdentifier($input),
                 (App::environment('production') ? HOUR : 0),
-//                HOUR,
+                //                HOUR,
                 function () use ($input, $request) {
                     $serviceTypes = Business::serviceType()->available($input);
+
                     return (new ServiceTypeListCollection($serviceTypes))->toResponse($request);
                 });
 
