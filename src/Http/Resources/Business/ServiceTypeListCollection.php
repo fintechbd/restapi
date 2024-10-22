@@ -5,6 +5,7 @@ namespace Fintech\RestApi\Http\Resources\Business;
 use Fintech\Business\Facades\Business;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Support\Str;
 
 class ServiceTypeListCollection extends ResourceCollection
 {
@@ -41,6 +42,7 @@ class ServiceTypeListCollection extends ResourceCollection
                 'service_type_parent' => $parent,
                 'service_type_parent_list' => array_reverse($entries),
                 'service_type_slug' => $item->service_type_slug ?? '',
+                'service_type_locale' => Str::camel($item->service_type_slug ?? ''),
                 'service_type_step' => $item->service_type_step ?? 1,
                 'service_id' => $item->service_id ?? null,
                 'service_name' => $item->service_name ?? '',

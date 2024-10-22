@@ -4,10 +4,13 @@ namespace Fintech\RestApi\Http\Controllers\Business;
 
 use Exception;
 use Fintech\Business\Facades\Business;
+use Fintech\Core\Supports\Utility;
 use Fintech\RestApi\Http\Requests\Business\ServiceTypeListRequest;
 use Fintech\RestApi\Http\Resources\Business\ServiceTypeListCollection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Cache;
 
 class AvailableServiceController extends Controller
 {
@@ -19,9 +22,9 @@ class AvailableServiceController extends Controller
         try {
             $input = $request->validated();
 
-            $input['user_id'] = ($request->filled('user_id'))
-                ? $request->input('user_id')
-                : auth()->id();
+//            $input['user_id'] = ($request->filled('user_id'))
+//                ? $request->input('user_id')
+//                : auth()->id();
 
             $input['role_id'] = ($request->filled('role_id'))
                 ? $request->input('role_id')
@@ -40,14 +43,27 @@ class AvailableServiceController extends Controller
                 $input['service_type_parent_id_is_null'] = true;
             }
 
-            $serviceTypes = Business::serviceType()->available($input);
-
-            return new ServiceTypeListCollection($serviceTypes);
+            return Cache::remember(
+                $this->cacheIdentifier($input),
+                (App::environment('production') ? HOUR : 0),
+                function () use ($input) {
+                    $serviceTypes = Business::serviceType()->available($input);
+                    return new ServiceTypeListCollection($serviceTypes);
+                });
 
         } catch (Exception $exception) {
 
             return response()->failed($exception);
         }
+    }
+
+    private function cacheIdentifier(array $inputs = []): string
+    {
+        $id = ["services"];
+        foreach ($inputs as $key => $value) {
+            $id[] = "{$key}-" . Utility::stringify($value);
+        }
+        return implode("-", $id);
     }
 
 }
