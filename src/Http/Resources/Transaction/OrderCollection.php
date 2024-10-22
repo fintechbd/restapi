@@ -15,7 +15,7 @@ class OrderCollection extends ResourceCollection
     /**
      * Transform the resource collection into an array.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return array
      */
     public function toArray($request)
@@ -28,33 +28,33 @@ class OrderCollection extends ResourceCollection
 
             $data = [
                 'id' => $order->getKey(),
-//                'source_country_id' => $order->source_country_id ?? null,
+                //                'source_country_id' => $order->source_country_id ?? null,
                 'description' => $order->description ?? null,
                 'source_country_name' => null,
-//                'destination_country_id' => $order->destination_country_id ?? null,
+                //                'destination_country_id' => $order->destination_country_id ?? null,
                 'destination_country_name' => null,
-//                'parent_id' => $order->parent_id ?? null,
-//                'sender_receiver_id' => $order->sender_receiver_id ?? null,
+                //                'parent_id' => $order->parent_id ?? null,
+                //                'sender_receiver_id' => $order->sender_receiver_id ?? null,
                 'sender_receiver_name' => null,
-//                'user_id' => $order->user_id ?? null,
+                //                'user_id' => $order->user_id ?? null,
                 'user_name' => null,
-//                'service_id' => $order->service_id ?? null,
+                //                'service_id' => $order->service_id ?? null,
                 'service_name' => null,
                 'service_type' => null,
-//                'transaction_form_id' => $order->transaction_form_id ?? null,
+                //                'transaction_form_id' => $order->transaction_form_id ?? null,
                 'transaction_form_name' => $order->transaction_form_name ?? null,
                 'ordered_at' => $order->ordered_at ?? null,
-                'amount' => (string)($order->amount ?? null),
-                'amount_formatted' => (string)\currency($order->amount, $order->currency),
+                'amount' => (string) ($order->amount ?? null),
+                'amount_formatted' => (string) \currency($order->amount, $order->currency),
                 'currency' => $order->currency ?? null,
-                'converted_amount' => (string)($order->converted_amount ?? null),
-                'converted_amount_formatted' => (string)\currency($order->converted_amount ?? null, $order->converted_currency),
+                'converted_amount' => (string) ($order->converted_amount ?? null),
+                'converted_amount_formatted' => (string) \currency($order->converted_amount ?? null, $order->converted_currency),
                 'converted_currency' => $order->converted_currency ?? null,
-                'charge_amount_formatted' => (string)\currency($order->order_data['service_stat_data']['charge_amount'] ?? null, $order->currency),
-                'discount_amount_formatted' => (string)\currency($order->order_data['service_stat_data']['discount_amount'] ?? null, $order->currency),
-                'commission_amount_formatted' => (string)\currency($order->order_data['service_stat_data']['commission_amount'] ?? null, $order->currency),
-                'cost_amount_formatted' => (string)\currency($order->order_data['service_stat_data']['cost_amount'] ?? null, $order->currency),
-                'total_amount_formatted' => (string)\currency($order->order_data['service_stat_data']['total_amount'] ?? null, $order->currency),
+                'charge_amount_formatted' => (string) \currency($order->order_data['service_stat_data']['charge_amount'] ?? null, $order->currency),
+                'discount_amount_formatted' => (string) \currency($order->order_data['service_stat_data']['discount_amount'] ?? null, $order->currency),
+                'commission_amount_formatted' => (string) \currency($order->order_data['service_stat_data']['commission_amount'] ?? null, $order->currency),
+                'cost_amount_formatted' => (string) \currency($order->order_data['service_stat_data']['cost_amount'] ?? null, $order->currency),
+                'total_amount_formatted' => (string) \currency($order->order_data['service_stat_data']['total_amount'] ?? null, $order->currency),
                 'order_number' => $order->order_number ?? null,
                 'risk_profile' => $order->risk_profile->value,
                 'notes' => $order->notes ?? null,
