@@ -26,6 +26,10 @@ class OrderCollection extends ResourceCollection
 
             Arr::forget($order_data, $this->hidden);
 
+            $order_data['current_amount'] = \currency($order_data['current_amount'], $order->currency);
+            $order_data['sending_amount'] = \currency($order_data['sending_amount'], $order->currency);
+            $order_data['previous_amount'] = \currency($order_data['previous_amount'], $order->currency);
+
             $data = [
                 'id' => $order->getKey(),
                 //                'source_country_id' => $order->source_country_id ?? null,
@@ -132,8 +136,6 @@ class OrderCollection extends ResourceCollection
         'beneficiary_data.sender_information.language',
         'beneficiary_data.sender_information.currency',
         'beneficiary_data.sender_information.profile',
-        'beneficiary_data.wallet_information.vendor_code',
-        'beneficiary_data.wallet_information.bank_data',
         'beneficiary_data.receiver_information.city_id',
         'beneficiary_data.receiver_information.state_id',
         'beneficiary_data.receiver_information.country_id',
@@ -142,5 +144,14 @@ class OrderCollection extends ResourceCollection
         'beneficiary_data.receiver_information.country_data',
         'beneficiary_data.receiver_information.relation_data',
         'beneficiary_data.receiver_information.beneficiary_type_id',
+        'beneficiary_data.bank_information.bank_data',
+        'beneficiary_data.bank_information.vendor_code',
+        'beneficiary_data.branch_information.branch_data',
+        'beneficiary_data.branch_information.vendor_code',
+        'beneficiary_data.wallet_information.vendor_code',
+        'beneficiary_data.wallet_information.bank_data',
+        'beneficiary_data.cash_pickup_information.vendor_code',
+        'beneficiary_data.cash_pickup_information.bank_data',
+
     ];
 }
