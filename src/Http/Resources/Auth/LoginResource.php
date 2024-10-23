@@ -108,6 +108,14 @@ class LoginResource extends JsonResource
             $return['role_name'] = $role->name ?? null;
         }
 
+        foreach ($return['balances'] as $index => $balance) {
+            $balance['deposit_amount_formatted'] = (string) currency($balance['deposit_amount'], $balance['currency']);
+            $balance['available_amount_formatted'] = (string) currency($balance['available_amount'], $balance['currency']);
+            $balance['spent_amount_formatted'] = (string) currency($balance['spent_amount'], $balance['currency']);
+            $return['balances'][$index]['balance'] = $balance;
+        }
+            logger("balance", $return);
+
         return $return;
     }
 }

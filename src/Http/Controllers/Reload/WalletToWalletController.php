@@ -80,7 +80,6 @@ class WalletToWalletController extends Controller
      *
      * @lrd:end
      *
-     * @throws StoreOperationException
      */
     public function store(StoreWalletToWalletRequest $request): JsonResponse
     {
