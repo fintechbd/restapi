@@ -114,8 +114,6 @@ class LoginResource extends JsonResource
             $balance['spent_amount_formatted'] = (string) currency($balance['spent_amount'], $balance['currency']);
             $return['balances'][$index]['balance'] = $balance;
         }
-            logger("balance", $return);
-
         return $return;
     }
 }
