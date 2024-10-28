@@ -4,6 +4,7 @@ namespace Fintech\RestApi\Http\Resources\Auth;
 
 use Carbon\Carbon;
 use Fintech\Auth\Models\Profile;
+use Fintech\RestApi\Traits\IdDocTypeResourceTrait;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -40,32 +41,7 @@ use stdClass;
  */
 class LoginResource extends JsonResource
 {
-    /**
-     * Get additional data that should be returned with the resource array.
-     *
-     * @return array<string, mixed>
-     */
-    public function with(Request $request): array
-    {
-        $origin = Str::slug(config('app.name'));
-
-        $permissions = [];
-
-        $permissionCollection = $this->getAllPermissions();
-
-        if (! $permissionCollection->isEmpty()) {
-            $permissions = $permissionCollection->pluck('name')->toArray();
-        }
-
-        return [
-            'access' => [
-                'token' => $this->createToken($origin)->plainTextToken,
-                'type' => 'bearer',
-                'permissions' => $permissions,
-            ],
-            'message' => __('auth::messages.success'),
-        ];
-    }
+    use IdDocTypeResourceTrait;
 
     /**
      * Transform the resource into an array.
@@ -100,6 +76,8 @@ class LoginResource extends JsonResource
             'mobile_verified_at' => $this->mobile_verified_at,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'documents' => $this->formatMediaCollection($this->profile?->getMedia('documents') ?? null),
+            'proof_of_address' => $this->formatMediaCollection($this->profile?->getMedia('proof_of_address') ?? null),
         ];
 
         if ($this->roles != null) {
@@ -114,6 +92,35 @@ class LoginResource extends JsonResource
             $balance['spent_amount_formatted'] = (string) currency($balance['spent_amount'], $balance['currency']);
             $return['balances'][$index]['balance'] = $balance;
         }
+
         return $return;
     }
+
+    /**
+     * Get additional data that should be returned with the resource array.
+     *
+     * @return array<string, mixed>
+     */
+    public function with(Request $request): array
+    {
+        $origin = Str::slug(config('app.name'));
+
+        $permissions = [];
+
+        $permissionCollection = $this->getAllPermissions();
+
+        if (! $permissionCollection->isEmpty()) {
+            $permissions = $permissionCollection->pluck('name')->toArray();
+        }
+
+        return [
+            'access' => [
+                'token' => $this->createToken($origin)->plainTextToken,
+                'type' => 'bearer',
+                'permissions' => $permissions,
+            ],
+            'message' => __('auth::messages.success'),
+        ];
+    }
+
 }

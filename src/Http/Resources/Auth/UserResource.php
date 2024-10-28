@@ -5,6 +5,7 @@ namespace Fintech\RestApi\Http\Resources\Auth;
 use Carbon\Carbon;
 use Fintech\Auth\Models\Profile;
 use Fintech\Core\Facades\Core;
+use Fintech\RestApi\Traits\IdDocTypeResourceTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Collection;
@@ -38,6 +39,8 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  */
 class UserResource extends JsonResource
 {
+    use IdDocTypeResourceTrait;
+
     /**
      * Transform the resource into an array.
      */
@@ -114,18 +117,5 @@ class UserResource extends JsonResource
         }
 
         return array_merge($data, $profile_data);
-    }
-
-    private function formatMediaCollection($collection = null): array
-    {
-        $data = [];
-
-        if ($collection != null) {
-            $collection->each(function (Media $media) use (&$data) {
-                $data[$media->getCustomProperty('type')][$media->getCustomProperty('side')] = $media->getFullUrl();
-            });
-        }
-
-        return $data;
     }
 }

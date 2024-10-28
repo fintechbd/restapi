@@ -21,6 +21,7 @@ use Fintech\RestApi\Http\Requests\Core\DropDownRequest;
 use Fintech\RestApi\Http\Resources\Auth\UserCollection;
 use Fintech\RestApi\Http\Resources\Auth\UserResource;
 use Fintech\RestApi\Http\Resources\Core\DropDownCollection;
+use Fintech\RestApi\Traits\UserRequestFieldTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -37,11 +38,7 @@ use InvalidArgumentException;
  */
 class UserController extends Controller
 {
-    private array $userFields = [
-        'name', 'mobile', 'email', 'login_id', 'password', 'pin',
-        'language', 'currency', 'app_version', 'fcm_token', 'photo',
-        'roles', 'parent_id',
-    ];
+    use UserRequestFieldTrait;
 
     /**
      * @lrd:start
@@ -137,7 +134,6 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, string|int $id): JsonResponse
     {
-
         try {
 
             $user = Auth::user()->find($id);
@@ -146,7 +142,7 @@ class UserController extends Controller
                 throw (new ModelNotFoundException)->setModel(config('fintech.auth.user_model'), $id);
             }
 
-            if (! Auth::user()->update($id, $request->only($this->userFields)) ||
+            if (! Auth::user()->updateFromAdmin($id, $request->only($this->userFields)) ||
                 ! Auth::profile()->update($user->getKey(), $request->except($this->userFields))) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.auth.user_model'), $id);
@@ -381,7 +377,7 @@ class UserController extends Controller
                 throw (new ModelNotFoundException)->setModel(config('fintech.auth.user_model'), $inputs['user_id']);
             }
 
-            $response = Auth::user()->updateRaw($user->getKey(), ['status' => $inputs['status']]);
+            $response = Auth::user()->update($user->getKey(), ['status' => $inputs['status']]);
 
             if (! $response) {
                 throw (new UpdateOperationException)->setModel(config('fintech.auth.user_model'), $inputs['user_id']);
@@ -392,33 +388,6 @@ class UserController extends Controller
         } catch (ModelNotFoundException $exception) {
 
             return response()->notfound($exception->getMessage());
-
-        } catch (Exception $exception) {
-
-            return response()->failed($exception);
-        }
-    }
-
-    /**
-     * @lrd:start
-     * Change User Profile Photo with the updated
-     *
-     * @lrd:end
-     */
-    public function photo(UpdatePhotoRequest $request): JsonResponse
-    {
-        try {
-            $inputs = $request->validated();
-
-            $user = $request->user();
-
-            $response = Auth::user()->updateRaw($user->getKey(), ['photo' => $inputs['photo']]);
-
-            if (! $response) {
-                throw (new UpdateOperationException)->setModel(config('fintech.auth.user_model'), $inputs['user_id']);
-            }
-
-            return response()->updated(__('auth::messages.update_photo'));
 
         } catch (Exception $exception) {
 

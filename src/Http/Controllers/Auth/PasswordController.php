@@ -108,14 +108,14 @@ class PasswordController extends Controller
      *
      * @lrd:end
      */
-    public function update(UpdatePasswordRequest $request): JsonResponse
+    public function updatePassword(UpdatePasswordRequest $request): JsonResponse
     {
         try {
             $inputs = $request->validated();
 
             $user = $request->user('sanctum');
 
-            $response = Auth::user()->updateRaw($user->getKey(), ['password' => $inputs['password']]);
+            $response = Auth::user()->update($user->getKey(), ['password' => $inputs['password']]);
 
             if (! $response) {
                 throw (new UpdateOperationException)->setModel(config('fintech.auth.user_model'), $user->getKey());
@@ -150,7 +150,7 @@ class PasswordController extends Controller
 
             $user = $request->user('sanctum');
 
-            $response = Auth::user()->updateRaw($user->getKey(), ['pin' => $inputs['pin']]);
+            $response = Auth::user()->update($user->getKey(), ['pin' => $inputs['pin']]);
 
             if (! $response) {
                 throw (new UpdateOperationException)->setModel(config('fintech.auth.user_model'), $user->getKey());
