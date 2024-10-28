@@ -79,7 +79,6 @@ class WalletToWalletController extends Controller
      * Create a new *WalletToWallet* resource in storage.
      *
      * @lrd:end
-     *
      */
     public function store(StoreWalletToWalletRequest $request): JsonResponse
     {
