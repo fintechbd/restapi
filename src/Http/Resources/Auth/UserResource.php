@@ -9,7 +9,6 @@ use Fintech\RestApi\Traits\IdDocTypeResourceTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Collection;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
  * Class UserResource

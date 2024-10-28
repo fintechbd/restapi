@@ -12,7 +12,6 @@ use Fintech\Core\Exceptions\UpdateOperationException;
 use Fintech\RestApi\Http\Requests\Auth\ImportUserRequest;
 use Fintech\RestApi\Http\Requests\Auth\IndexUserRequest;
 use Fintech\RestApi\Http\Requests\Auth\StoreUserRequest;
-use Fintech\RestApi\Http\Requests\Auth\UpdatePhotoRequest;
 use Fintech\RestApi\Http\Requests\Auth\UpdateUserRequest;
 use Fintech\RestApi\Http\Requests\Auth\UserAuthResetRequest;
 use Fintech\RestApi\Http\Requests\Auth\UserStatusChangeRequest;

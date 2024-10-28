@@ -35,6 +35,7 @@ class ProfileController extends Controller
 
     /**
      * Handle the incoming request.
+     *
      * @throws UpdateOperationException|\ErrorException
      */
     public function update(UserProfileUpdateRequest $request): JsonResponse
@@ -43,13 +44,13 @@ class ProfileController extends Controller
 
             $user = $request->user('sanctum');
 
-            if (!Auth::user()->update($user->getKey(), $request->only($this->userFields))) {
+            if (! Auth::user()->update($user->getKey(), $request->only($this->userFields))) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.auth.user_model'), $user->getKey());
             }
 
             if ($request->except($this->userFields) != []) {
-                if (!Auth::profile()->update($user->getKey(), $request->except($this->userFields))) {
+                if (! Auth::profile()->update($user->getKey(), $request->except($this->userFields))) {
 
                     throw (new UpdateOperationException)->setModel(config('fintech.auth.user_model'), $user->getKey());
                 }
@@ -57,7 +58,7 @@ class ProfileController extends Controller
 
             return response()->updated(
                 __('auth::messages.user_profile_update', [
-                    'fields' => collect($request->validated())->keys()->map(fn($field) => ucfirst($field))->join(', ')
+                    'fields' => collect($request->validated())->keys()->map(fn ($field) => ucfirst($field))->join(', '),
                 ])
             );
 

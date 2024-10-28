@@ -122,5 +122,4 @@ class LoginResource extends JsonResource
             'message' => __('auth::messages.success'),
         ];
     }
-
 }

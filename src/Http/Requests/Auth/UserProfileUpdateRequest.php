@@ -9,7 +9,6 @@ use Fintech\Core\Rules\MobileNumber;
 use Fintech\MetaData\Facades\MetaData;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use Symfony\Component\Mime\Email;
 
 class UserProfileUpdateRequest extends FormRequest
 {
@@ -34,7 +33,7 @@ class UserProfileUpdateRequest extends FormRequest
                 ->ignore($this->user('sanctum')->getKey())],
             'email' => ['bail', 'nullable', 'string', 'max:255', 'min:5', 'email:dns,rfc',
                 Rule::unique('users', 'email')
-                    ->ignore($this->user('sanctum')->getKey())
+                    ->ignore($this->user('sanctum')->getKey()),
             ],
             'login_id' => ['bail', 'nullable', 'string', 'max:255', Rule::unique('users', 'login_id')
                 ->ignore($this->user('sanctum')->getKey())],
@@ -42,9 +41,8 @@ class UserProfileUpdateRequest extends FormRequest
             'language' => ['bail', 'nullable', 'string', 'max:255', Rule::in(MetaData::language()->list(['enabled' => true])->pluck('language.code')->unique()->toArray())],
             'currency' => ['bail', 'nullable', 'string', 'max:255', Rule::in(MetaData::currency()->list(['enabled' => true])->pluck('currency')->unique()->toArray())],
             'fcm_token' => ['bail', 'nullable', 'string', 'max:255'],
-            'photo' => ['bail', 'nullable', 'string', new Base64File()],
+            'photo' => ['bail', 'nullable', 'string', new Base64File],
         ];
-
 
         $profileRules = [
             'id_doc_type_id' => ['bail', 'nullable', 'integer'],
@@ -71,35 +69,34 @@ class UserProfileUpdateRequest extends FormRequest
             'user_profile_data.gender' => [
                 'bail', 'nullable', 'string', 'max:255',
                 Rule::exists('catalogs', 'code')
-                    ->where(fn($query) => $query->where([
+                    ->where(fn ($query) => $query->where([
                         'enabled' => true,
-                        'type' => CatalogType::Gender->value
-                    ]))
-                ,],
+                        'type' => CatalogType::Gender->value,
+                    ])), ],
             'user_profile_data.occupation' => [
                 'bail', 'nullable', 'string', 'max:255',
                 Rule::exists('catalogs', 'code')
-                    ->where(fn($query) => $query->where([
+                    ->where(fn ($query) => $query->where([
                         'enabled' => true,
-                        'type' => CatalogType::Occupation->value
-                    ]))
+                        'type' => CatalogType::Occupation->value,
+                    ])),
             ],
             'user_profile_data.marital_status' => [
                 'bail', 'nullable', 'string', 'max:255',
                 Rule::exists('catalogs', 'code')
-                    ->where(fn($query) => $query->where([
+                    ->where(fn ($query) => $query->where([
                         'enabled' => true,
-                        'type' => CatalogType::MaritalStatus->value
-                    ]))
+                        'type' => CatalogType::MaritalStatus->value,
+                    ])),
             ],
             'user_profile_data.source_of_income' => [
                 'bail', 'nullable', 'string', 'max:255',
                 Rule::exists('catalogs', 'code')
-                    ->where(fn($query) => $query->where([
+                    ->where(fn ($query) => $query->where([
                         'enabled' => true,
-                        'type' => CatalogType::FundSource->value
-                    ]))
-            ]
+                        'type' => CatalogType::FundSource->value,
+                    ])),
+            ],
         ];
 
         return $userRules + $profileRules;
