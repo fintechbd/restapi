@@ -8,7 +8,6 @@ use Fintech\Core\Enums\Reload\DepositStatus;
 use Fintech\Core\Enums\Transaction\OrderStatusConfig;
 use Fintech\Core\Exceptions\StoreOperationException;
 use Fintech\Reload\Events\DepositCancelled;
-use Fintech\Reload\Events\DepositRejected;
 use Fintech\Reload\Facades\Reload;
 use Fintech\RestApi\Http\Requests\Reload\CheckDepositRequest;
 use Fintech\RestApi\Http\Requests\Reload\ImportDepositRequest;
@@ -45,7 +44,7 @@ class DepositController extends Controller
     {
         $deposit = Reload::deposit()->find($id);
 
-        if (!$deposit) {
+        if (! $deposit) {
             throw (new ModelNotFoundException)->setModel(config('fintech.reload.deposit_model'), $id);
         }
 
@@ -58,7 +57,7 @@ class DepositController extends Controller
             }
         }
 
-        if (!$exists) {
+        if (! $exists) {
             throw new Exception(__('reload::messages.deposit.invalid_status', ['current_status' => $deposit->status->label(), 'target_status' => $targetStatus->label()]));
         }
 
@@ -133,7 +132,7 @@ class DepositController extends Controller
 
             $deposit = Reload::deposit()->find($id);
 
-            if (!$deposit) {
+            if (! $deposit) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.reload.deposit_model'), $id);
             }
 
@@ -178,6 +177,7 @@ class DepositController extends Controller
 
         } catch (Exception $exception) {
             Transaction::orderQueue()->removeFromQueueOrderWise($id);
+
             return response()->failed($exception);
         }
     }
@@ -209,6 +209,7 @@ class DepositController extends Controller
 
         } catch (Exception $exception) {
             Transaction::orderQueue()->removeFromQueueOrderWise($id);
+
             return response()->failed($exception);
         }
     }
@@ -253,7 +254,7 @@ class DepositController extends Controller
                     'timestamp' => now(),
                 ];
 
-                if (!Reload::deposit()->update($deposit->getKey(), $updateData)) {
+                if (! Reload::deposit()->update($deposit->getKey(), $updateData)) {
                     throw new Exception(__('reload::messages.status_change_failed', [
                         'current_status' => $deposit->status->label(),
                         'target_status' => DepositStatus::Cancelled->label(),
@@ -265,10 +266,10 @@ class DepositController extends Controller
 
                 //update User Account
                 $depositedUpdatedAccount = $depositedAccount->toArray();
-                $depositedUpdatedAccount['user_account_data']['deposit_amount'] = (float)$depositedUpdatedAccount['user_account_data']['deposit_amount'] + (float)$updatedUserBalance['deposit_amount'];
-                $depositedUpdatedAccount['user_account_data']['available_amount'] = (float)$updatedUserBalance['current_amount'];
+                $depositedUpdatedAccount['user_account_data']['deposit_amount'] = (float) $depositedUpdatedAccount['user_account_data']['deposit_amount'] + (float) $updatedUserBalance['deposit_amount'];
+                $depositedUpdatedAccount['user_account_data']['available_amount'] = (float) $updatedUserBalance['current_amount'];
 
-                if (!Transaction::userAccount()->update($depositedAccount->getKey(), $depositedUpdatedAccount)) {
+                if (! Transaction::userAccount()->update($depositedAccount->getKey(), $depositedUpdatedAccount)) {
                     throw new Exception(__('reload::messages.status_change_failed', [
                         'current_status' => $deposit->status->label(),
                         'target_status' => DepositStatus::Accepted->label(),
