@@ -20,7 +20,6 @@ use Fintech\Transaction\Jobs\Compliance;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Str;
 
 /**
  * Class ComplianceController
@@ -71,7 +70,7 @@ class ComplianceController extends Controller
 
             $compliance = Transaction::compliance()->create($inputs);
 
-            if (!$compliance) {
+            if (! $compliance) {
                 throw (new StoreOperationException)->setModel(config('fintech.transaction.compliance_model'));
             }
 
@@ -100,7 +99,7 @@ class ComplianceController extends Controller
 
             $compliance = Transaction::compliance()->find($id);
 
-            if (!$compliance) {
+            if (! $compliance) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.compliance_model'), $id);
             }
 
@@ -131,13 +130,13 @@ class ComplianceController extends Controller
 
             $compliance = Transaction::compliance()->find($id);
 
-            if (!$compliance) {
+            if (! $compliance) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.compliance_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!Transaction::compliance()->update($id, $inputs)) {
+            if (! Transaction::compliance()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.transaction.compliance_model'), $id);
             }
@@ -171,11 +170,11 @@ class ComplianceController extends Controller
 
             $compliance = Transaction::compliance()->find($id);
 
-            if (!$compliance) {
+            if (! $compliance) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.compliance_model'), $id);
             }
 
-            if (!Transaction::compliance()->destroy($id)) {
+            if (! Transaction::compliance()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.transaction.compliance_model'), $id);
             }
@@ -207,11 +206,11 @@ class ComplianceController extends Controller
 
             $compliance = Transaction::compliance()->find($id, true);
 
-            if (!$compliance) {
+            if (! $compliance) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.compliance_model'), $id);
             }
 
-            if (!Transaction::compliance()->restore($id)) {
+            if (! Transaction::compliance()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.transaction.compliance_model'), $id);
             }
@@ -285,59 +284,59 @@ class ComplianceController extends Controller
             $entries = collect([
                 [
                     'label' => 'Large Cash Transaction',
-                    'attribute' => 'CP001'
+                    'attribute' => 'CP001',
                 ],
                 [
                     'label' => 'Large Virtual Currency Transaction',
-                    'attribute' => 'CP002'
+                    'attribute' => 'CP002',
                 ],
                 [
                     'label' => 'Electronic Funds Transfer',
-                    'attribute' => 'CP003'
+                    'attribute' => 'CP003',
                 ],
                 [
                     'label' => 'Suspicious Transaction',
-                    'attribute' => 'CP004'
+                    'attribute' => 'CP004',
                 ],
                 [
                     'label' => 'Client Due Diligence',
-                    'attribute' => 'CP005'
+                    'attribute' => 'CP005',
                 ],
                 [
                     'label' => 'Structuring Detection',
-                    'attribute' => 'CP006'
+                    'attribute' => 'CP006',
                 ],
                 [
                     'label' => 'High-Risk Countries',
-                    'attribute' => 'CP007'
+                    'attribute' => 'CP007',
                 ],
                 [
                     'label' => 'HIO Detection',
-                    'attribute' => 'CP008'
+                    'attribute' => 'CP008',
                 ],
                 [
                     'label' => 'PEP Detection',
-                    'attribute' => 'CP009'
+                    'attribute' => 'CP009',
                 ],
                 [
                     'label' => 'Account Velocity',
-                    'attribute' => 'CP010'
+                    'attribute' => 'CP010',
                 ],
                 [
                     'label' => 'New Product Usage',
-                    'attribute' => 'CP011'
+                    'attribute' => 'CP011',
                 ],
                 [
                     'label' => 'Dormant Account Activity',
-                    'attribute' => 'CP012'
+                    'attribute' => 'CP012',
                 ],
                 [
                     'label' => 'Third-Party Transactions',
-                    'attribute' => 'CP013'
+                    'attribute' => 'CP013',
                 ],
                 [
                     'label' => 'Virtual Currency Travel Rule',
-                    'attribute' => 'CP014'
+                    'attribute' => 'CP014',
                 ],
 
             ]);
