@@ -1,11 +1,14 @@
 <?php
 
 namespace Fintech\RestApi\Http\Controllers\Transaction;
+
 use Exception;
 use Fintech\Core\Exceptions\StoreOperationException;
 use Fintech\Core\Exceptions\UpdateOperationException;
 use Fintech\Core\Exceptions\DeleteOperationException;
 use Fintech\Core\Exceptions\RestoreOperationException;
+use Fintech\RestApi\Http\Requests\Core\DropDownRequest;
+use Fintech\RestApi\Http\Resources\Core\DropDownCollection;
 use Fintech\Transaction\Facades\Transaction;
 use Fintech\RestApi\Http\Resources\Transaction\ComplianceResource;
 use Fintech\RestApi\Http\Resources\Transaction\ComplianceCollection;
@@ -13,9 +16,11 @@ use Fintech\RestApi\Http\Requests\Transaction\ImportComplianceRequest;
 use Fintech\RestApi\Http\Requests\Transaction\StoreComplianceRequest;
 use Fintech\RestApi\Http\Requests\Transaction\UpdateComplianceRequest;
 use Fintech\RestApi\Http\Requests\Transaction\IndexComplianceRequest;
+use Fintech\Transaction\Jobs\Compliance;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Str;
 
 /**
  * Class ComplianceController
@@ -27,7 +32,6 @@ use Illuminate\Routing\Controller;
  * @lrd:end
  *
  */
-
 class ComplianceController extends Controller
 {
     /**
@@ -78,7 +82,7 @@ class ComplianceController extends Controller
             return response()->created([
                 'message' => __('restapi::messages.resource.created', ['model' => 'Compliance']),
                 'id' => $compliance->id
-             ]);
+            ]);
 
         } catch (Exception $exception) {
 
@@ -278,5 +282,37 @@ class ComplianceController extends Controller
 
             return response()->failed($exception);
         }
+    }
+
+    /**
+     * Return a dropdown list of compliances
+     *
+     * @param DropDownRequest $request
+     * @return DropDownCollection|JsonResponse
+     */
+    public function dropdown(DropDownRequest $request): DropDownCollection|JsonResponse
+    {
+//        try {
+        $filters = $request->all();
+
+        $polices = collect(get_declared_classes())->filter(function ($class) {
+            return Str::contains($class, 'Fintech');
+        });
+
+
+        dd($polices);
+
+//            $entries = Auth::role()->list($filters)->map(function ($entry) use ($label, $attribute) {
+//                return [
+//                    'attribute' => $entry->{$attribute} ?? 'id',
+//                    'label' => $entry->{$label} ?? 'name',
+//                ];
+//            })->toArray();
+//
+//            return new DropDownCollection($entries);
+
+//        } catch (Exception $exception) {
+//            return response()->failed($exception);
+//        }
     }
 }
