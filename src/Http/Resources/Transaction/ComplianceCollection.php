@@ -25,7 +25,7 @@ class ComplianceCollection extends ResourceCollection
                 'risk' => $compliance->risk ?? null,
                 'priority' => $compliance->priority ?? null,
                 'description' => $compliance->description ?? null,
-                'compliance_data' => $compliance->compliance_data ?? (object)[],
+                'compliance_data' => $compliance->compliance_data ?? (object) [],
                 'user_name' => $compliance->user_name ?? null,
                 'user_mobile' => $compliance->user_mobile ?? null,
                 'order_source_country_name' => $compliance->source_country_name ?? null,
@@ -33,7 +33,7 @@ class ComplianceCollection extends ResourceCollection
                 'order_number' => $compliance->order_number ?? null,
                 'order_status' => $compliance->order_status ?? null,
                 'created_at' => $compliance->created_at ?? null,
-                'updated_at' => $compliance->updated_at ?? null
+                'updated_at' => $compliance->updated_at ?? null,
             ];
         })->toArray();
     }
