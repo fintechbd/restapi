@@ -2,9 +2,12 @@
 
 namespace Fintech\RestApi\Http\Requests\Core;
 
+use Fintech\Core\Enums\RequestDirection;
+use Fintech\Core\Enums\RequestMethod;
 use Fintech\RestApi\Traits\HasPaginateQuery;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class IndexApiLogRequest extends FormRequest
 {
@@ -27,6 +30,8 @@ class IndexApiLogRequest extends FormRequest
     {
         return [
             'search' => ['string', 'nullable', 'max:255'],
+            'method' => ['string', 'nullable', Rule::in(RequestMethod::values())],
+            'direction' => ['string', 'nullable', Rule::in(RequestDirection::values())],
             'per_page' => ['integer', 'nullable', 'min:10', 'max:500'],
             'page' => ['integer', 'nullable', 'min:1'],
             'paginate' => ['boolean'],
