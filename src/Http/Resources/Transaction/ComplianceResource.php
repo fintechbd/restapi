@@ -33,7 +33,7 @@ class ComplianceResource extends JsonResource
             'order_data' => $this->order?->order_data ?? null,
             'created_at' => $this->created_at ?? null,
             'updated_at' => $this->updated_at ?? null,
-            'order' => new OrderResource($this->order)
+            'order' => new OrderResource($this->order),
             //                'timestamp' => $this->timestamp ?? null,
         ];
     }
