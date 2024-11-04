@@ -2,7 +2,10 @@
 
 namespace Fintech\RestApi\Http\Requests\Transaction;
 
+use Fintech\Core\Enums\Auth\RiskProfile;
+use Fintech\Core\Enums\Transaction\OrderStatus;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class IndexComplianceRequest extends FormRequest
 {
@@ -32,6 +35,9 @@ class IndexComplianceRequest extends FormRequest
             'source_country_id' => ['integer', 'nullable', 'min:1'],
             'destination_country_id' => ['string', 'nullable'],
             'code' => ['string', 'nullable'],
+            'priority' => ['string', 'nullable', Rule::in(RiskProfile::values())],
+            'risk' => ['string', 'nullable', Rule::in(RiskProfile::values())],
+            'order_status' => ['string', 'nullable', Rule::in(OrderStatus::values())],
             'paginate' => ['boolean'],
             'sort' => ['string', 'nullable', 'min:2', 'max:255'],
             'dir' => ['string', 'min:3', 'max:4'],

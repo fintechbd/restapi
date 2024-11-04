@@ -16,7 +16,6 @@ use Fintech\RestApi\Http\Resources\Core\DropDownCollection;
 use Fintech\RestApi\Http\Resources\Transaction\ComplianceCollection;
 use Fintech\RestApi\Http\Resources\Transaction\ComplianceResource;
 use Fintech\Transaction\Facades\Transaction;
-use Fintech\Transaction\Jobs\Compliance;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
