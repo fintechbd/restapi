@@ -21,6 +21,7 @@ class ComplianceResource extends JsonResource
             'score' => $this->score ?? null,
             'risk' => $this->risk ?? null,
             'priority' => $this->priority ?? null,
+            'remarks' => $this->remarks ?? null,
             'description' => $this->order?->description ?? null,
             'compliance_data' => $this->compliance_data ?? (object) [],
             'user_name' => $this->order?->user?->name ?? null,
@@ -32,6 +33,7 @@ class ComplianceResource extends JsonResource
             'order_data' => $this->order?->order_data ?? null,
             'created_at' => $this->created_at ?? null,
             'updated_at' => $this->updated_at ?? null,
+            'order' => new OrderResource($this->order)
             //                'timestamp' => $this->timestamp ?? null,
         ];
     }
