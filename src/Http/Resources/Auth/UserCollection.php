@@ -4,6 +4,7 @@ namespace Fintech\RestApi\Http\Resources\Auth;
 
 use Carbon\Carbon;
 use Fintech\Auth\Models\Profile;
+use Fintech\Core\Enums\Auth\RiskProfile;
 use Fintech\Core\Facades\Core;
 use Fintech\Core\Supports\Constant;
 use Illuminate\Http\Request;
@@ -62,6 +63,7 @@ class UserCollection extends ResourceCollection
                 'language' => $user->language ?? null,
                 'currency' => $user->currency ?? null,
                 'app_version' => $user->app_version ?? null,
+                'risk_profile' => $user->risk_profile ?? RiskProfile::Low,
                 'roles' => ($user->roles) ? $user->roles->toArray() : [],
                 'created_at' => $user->created_at,
                 'updated_at' => $user->updated_at,

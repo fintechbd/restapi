@@ -4,6 +4,7 @@ namespace Fintech\RestApi\Http\Resources\Auth;
 
 use Carbon\Carbon;
 use Fintech\Auth\Models\Profile;
+use Fintech\Core\Enums\Auth\RiskProfile;
 use Fintech\Core\Facades\Core;
 use Fintech\RestApi\Traits\IdDocTypeResourceTrait;
 use Illuminate\Http\Request;
@@ -58,6 +59,7 @@ class UserResource extends JsonResource
             'language' => $this->language ?? null,
             'currency' => $this->currency ?? null,
             'app_version' => $this->app_version ?? null,
+            'risk_profile' => $this->risk_profile ?? RiskProfile::Low,
             'roles' => ($this->roles) ? $this->roles->toArray() : [],
             'balances' => ($this->userAccounts)
                 ? $this->userAccounts->pluck('user_account_data')->toArray()
