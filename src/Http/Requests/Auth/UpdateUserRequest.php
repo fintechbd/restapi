@@ -34,6 +34,7 @@ class UpdateUserRequest extends FormRequest
             'fcm_token' => ['nullable', 'string'],
             'language' => ['nullable', 'string'],
             'currency' => ['nullable', 'string'],
+            'risk_profile' => ['nullable', 'string'],
 
             //profile
             'father_name' => ['string', 'nullable'],
