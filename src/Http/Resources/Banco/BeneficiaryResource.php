@@ -52,7 +52,7 @@ class BeneficiaryResource extends JsonResource
             'relation_id' => $this->relation_id ?? null,
             'relation_name' => $this->relation->name ?? null,
             'beneficiary_name' => $this->beneficiary_name ?? null,
-            'beneficiary_photo' => $this->getFirstMediaUrl('photo') ?? null,
+            'photo' => $this->getFirstMediaUrl('photo') ?? null,
             'beneficiary_mobile' => $this->beneficiary_mobile ?? null,
             'beneficiary_address' => $this->beneficiary_address ?? null,
             'beneficiary_data' => $this->beneficiary_data ?? null,
