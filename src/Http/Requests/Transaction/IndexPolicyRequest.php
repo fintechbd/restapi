@@ -2,7 +2,9 @@
 
 namespace Fintech\RestApi\Http\Requests\Transaction;
 
+use Fintech\Core\Enums\Auth\RiskProfile;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class IndexPolicyRequest extends FormRequest
 {
@@ -24,6 +26,10 @@ class IndexPolicyRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'code' => ['nullable', 'string'],
+            'enabled' => ['required', 'boolean'],
+            'risk' => ['required', 'string'],
+            'priority' => ['required', 'string'],
             'search' => ['string', 'nullable', 'max:255'],
             'per_page' => ['integer', 'nullable', 'min:10', 'max:500'],
             'page' => ['integer', 'nullable', 'min:1'],
