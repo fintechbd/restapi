@@ -23,6 +23,13 @@ class UpdatePolicyRequest extends FormRequest
      */
     public function rules(): array
     {
+        if ($this->method() === 'PATCH') {
+            return [
+                'enabled' => ['nullable', 'boolean'],
+                'policy_data' => ['required', 'array'],
+            ];
+        }
+
         return [
             'name' => ['required', 'string', 'min:1', 'max:255'],
             'code' => ['required', 'string', 'min:1', 'max:255', Rule::unique('policies', 'code')->ignore($this->route('policy'))],
