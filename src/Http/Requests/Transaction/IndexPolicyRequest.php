@@ -2,9 +2,7 @@
 
 namespace Fintech\RestApi\Http\Requests\Transaction;
 
-use Fintech\Core\Enums\Auth\RiskProfile;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class IndexPolicyRequest extends FormRequest
 {
