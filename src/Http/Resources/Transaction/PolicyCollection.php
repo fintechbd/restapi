@@ -12,7 +12,7 @@ class PolicyCollection extends ResourceCollection
     /**
      * Transform the resource collection into an array.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return array
      */
     public function toArray($request)
@@ -27,7 +27,7 @@ class PolicyCollection extends ResourceCollection
                 'priority' => $policy->priority ?? RiskProfile::tryFrom('green'),
                 'policy_data' => $policy->policy_data ?? [],
                 'created_at' => $policy->created_at ?? null,
-                'updated_at' => $policy->updated_at ?? null
+                'updated_at' => $policy->updated_at ?? null,
             ];
         })->toArray();
     }

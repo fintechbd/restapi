@@ -24,7 +24,7 @@ class PolicyResource extends JsonResource
             'priority' => $this->priority ?? RiskProfile::tryFrom('green'),
             'policy_data' => $this->policy_data ?? [],
             'created_at' => $this->created_at ?? null,
-            'updated_at' => $this->updated_at ?? null
+            'updated_at' => $this->updated_at ?? null,
         ];
     }
 }
