@@ -43,7 +43,7 @@ class IndexBeneficiaryRequest extends FormRequest
             'beneficiary_mobile' => ['nullable', 'string', 'min:8', 'max:16', 'regex:/[0-9]{9}/'],
             'beneficiary_address' => ['nullable', 'string'],
             'beneficiary_data' => ['nullable', 'array'],
-            'enabled' => ['nullable', 'string'],
+            'enabled' => ['nullable', 'boolean'],
         ];
     }
 
