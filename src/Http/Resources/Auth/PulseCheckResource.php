@@ -73,8 +73,8 @@ class PulseCheckResource extends JsonResource
 
     private function ipapi(Request $request): array
     {
-        $country = MetaData::country()->findWhere(['iso2' => $this->country_code]);
-        $state = MetaData::state()->findWhere(['country_id' => $country->id, 'search' => $this->region_name]);
+        $country = (!empty($this->country_code)) ? MetaData::country()->findWhere(['iso2' => $this->country_code]) : null;
+        $state = (!empty($country)) ? MetaData::state()->findWhere(['country_id' => $country->id, 'search' => $this->region_name]) : null;
 
         return [
             'ip' => $this->ip ?? null,
