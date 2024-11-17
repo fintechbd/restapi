@@ -7,10 +7,12 @@ use Fintech\Core\Exceptions\DeleteOperationException;
 use Fintech\Core\Exceptions\RestoreOperationException;
 use Fintech\Core\Exceptions\StoreOperationException;
 use Fintech\Core\Exceptions\UpdateOperationException;
+use Fintech\RestApi\Http\Requests\Core\DropDownRequest;
 use Fintech\RestApi\Http\Requests\Transaction\ImportPolicyRequest;
 use Fintech\RestApi\Http\Requests\Transaction\IndexPolicyRequest;
 use Fintech\RestApi\Http\Requests\Transaction\StorePolicyRequest;
 use Fintech\RestApi\Http\Requests\Transaction\UpdatePolicyRequest;
+use Fintech\RestApi\Http\Resources\Core\DropDownCollection;
 use Fintech\RestApi\Http\Resources\Transaction\PolicyCollection;
 use Fintech\RestApi\Http\Resources\Transaction\PolicyResource;
 use Fintech\Transaction\Facades\Transaction;
@@ -266,6 +268,30 @@ class PolicyController extends Controller
 
         } catch (Exception $exception) {
 
+            return response()->failed($exception);
+        }
+    }
+
+    /**
+     * Return a dropdown list of compliances
+     */
+    public function dropdown(DropDownRequest $request): DropDownCollection|JsonResponse
+    {
+        try {
+            $filters = $request->all();
+
+            $filters['paginate'] = false;
+
+            $entries = Transaction::policy()->list($filters)->map(function ($entry) {
+                return [
+                    'attribute' => $entry->code,
+                    'label' => $entry->name,
+                ];
+            });
+
+            return new DropDownCollection($entries);
+
+        } catch (Exception $exception) {
             return response()->failed($exception);
         }
     }
