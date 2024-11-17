@@ -69,7 +69,7 @@ class PolicyController extends Controller
 
             $policy = Transaction::policy()->create($inputs);
 
-            if (! $policy) {
+            if (!$policy) {
                 throw (new StoreOperationException)->setModel(config('fintech.transaction.policy_model'));
             }
 
@@ -98,7 +98,7 @@ class PolicyController extends Controller
 
             $policy = Transaction::policy()->find($id);
 
-            if (! $policy) {
+            if (!$policy) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.policy_model'), $id);
             }
 
@@ -129,13 +129,13 @@ class PolicyController extends Controller
 
             $policy = Transaction::policy()->find($id);
 
-            if (! $policy) {
+            if (!$policy) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.policy_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! Transaction::policy()->update($id, $inputs)) {
+            if (!Transaction::policy()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.transaction.policy_model'), $id);
             }
@@ -169,11 +169,11 @@ class PolicyController extends Controller
 
             $policy = Transaction::policy()->find($id);
 
-            if (! $policy) {
+            if (!$policy) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.policy_model'), $id);
             }
 
-            if (! Transaction::policy()->destroy($id)) {
+            if (!Transaction::policy()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.transaction.policy_model'), $id);
             }
@@ -205,11 +205,11 @@ class PolicyController extends Controller
 
             $policy = Transaction::policy()->find($id, true);
 
-            if (! $policy) {
+            if (!$policy) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.policy_model'), $id);
             }
 
-            if (! Transaction::policy()->restore($id)) {
+            if (!Transaction::policy()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.transaction.policy_model'), $id);
             }
@@ -278,14 +278,19 @@ class PolicyController extends Controller
     public function dropdown(DropDownRequest $request): DropDownCollection|JsonResponse
     {
         try {
-            $filters = $request->all();
 
+            $filters = $request->all();
             $filters['paginate'] = false;
 
-            $entries = Transaction::policy()->list($filters)->map(function ($entry) {
+            $attribute = $filters['attribute'] ?? 'id';
+            $label = $filters['label'] ?? 'name';
+
+            unset($filters['attribute'], $filters['label']);
+
+            $entries = Transaction::policy()->list($filters)->map(function ($entry) use ($attribute, $label) {
                 return [
-                    'attribute' => $entry->code,
-                    'label' => $entry->name,
+                    'attribute' => $entry->{$attribute},
+                    'label' => $entry->{$label},
                 ];
             });
 
