@@ -7,12 +7,10 @@ use Fintech\Core\Exceptions\DeleteOperationException;
 use Fintech\Core\Exceptions\RestoreOperationException;
 use Fintech\Core\Exceptions\StoreOperationException;
 use Fintech\Core\Exceptions\UpdateOperationException;
-use Fintech\RestApi\Http\Requests\Core\DropDownRequest;
 use Fintech\RestApi\Http\Requests\Transaction\ImportComplianceRequest;
 use Fintech\RestApi\Http\Requests\Transaction\IndexComplianceRequest;
 use Fintech\RestApi\Http\Requests\Transaction\StoreComplianceRequest;
 use Fintech\RestApi\Http\Requests\Transaction\UpdateComplianceRequest;
-use Fintech\RestApi\Http\Resources\Core\DropDownCollection;
 use Fintech\RestApi\Http\Resources\Transaction\ComplianceCollection;
 use Fintech\RestApi\Http\Resources\Transaction\ComplianceResource;
 use Fintech\Transaction\Facades\Transaction;
@@ -69,7 +67,7 @@ class ComplianceController extends Controller
 
             $compliance = Transaction::compliance()->create($inputs);
 
-            if (!$compliance) {
+            if (! $compliance) {
                 throw (new StoreOperationException)->setModel(config('fintech.transaction.compliance_model'));
             }
 
@@ -98,7 +96,7 @@ class ComplianceController extends Controller
 
             $compliance = Transaction::compliance()->find($id);
 
-            if (!$compliance) {
+            if (! $compliance) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.compliance_model'), $id);
             }
 
@@ -129,13 +127,13 @@ class ComplianceController extends Controller
 
             $compliance = Transaction::compliance()->find($id);
 
-            if (!$compliance) {
+            if (! $compliance) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.compliance_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!Transaction::compliance()->update($id, $inputs)) {
+            if (! Transaction::compliance()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.transaction.compliance_model'), $id);
             }
@@ -169,11 +167,11 @@ class ComplianceController extends Controller
 
             $compliance = Transaction::compliance()->find($id);
 
-            if (!$compliance) {
+            if (! $compliance) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.compliance_model'), $id);
             }
 
-            if (!Transaction::compliance()->destroy($id)) {
+            if (! Transaction::compliance()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.transaction.compliance_model'), $id);
             }
@@ -205,11 +203,11 @@ class ComplianceController extends Controller
 
             $compliance = Transaction::compliance()->find($id, true);
 
-            if (!$compliance) {
+            if (! $compliance) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.transaction.compliance_model'), $id);
             }
 
-            if (!Transaction::compliance()->restore($id)) {
+            if (! Transaction::compliance()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.transaction.compliance_model'), $id);
             }
@@ -271,6 +269,4 @@ class ComplianceController extends Controller
             return response()->failed($exception);
         }
     }
-
-
 }
