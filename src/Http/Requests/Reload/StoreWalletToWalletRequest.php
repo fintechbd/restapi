@@ -31,6 +31,7 @@ class StoreWalletToWalletRequest extends FormRequest
             'amount' => ['required', 'numeric'],
             'reverse' => ['nullable', 'boolean'],
             'currency' => ['required', 'string', 'size:3'],
+            'converted_currency' => ['required', 'string', 'size:3'],
             'order_data' => ['nullable', 'array'],
             'order_data.request_from' => ['string', 'required'],
             'order_data.serving_country_id' => ['required', 'integer', 'min:1'],
