@@ -4,9 +4,9 @@ namespace Fintech\RestApi\Http\Controllers\Auth;
 
 use Exception;
 use Fintech\Auth\Facades\Auth;
+use Fintech\RestApi\Http\Requests\Auth\IpLookupRequest;
 use Fintech\RestApi\Http\Resources\Auth\PulseCheckResource;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
 /**
@@ -28,7 +28,7 @@ class PulseCheckController extends Controller
      *
      * @lrd:end
      */
-    public function __invoke(Request $request): JsonResponse|PulseCheckResource
+    public function __invoke(IpLookupRequest $request): JsonResponse|PulseCheckResource
     {
         try {
 
