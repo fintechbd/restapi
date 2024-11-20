@@ -21,6 +21,7 @@ class WalletToWalletCollection extends ResourceCollection
         return $this->collection->map(function ($walletToWallet) {
             $data = [
                 'id' => $walletToWallet->getKey(),
+                'description' => $deposit->description ?? null,
                 'source_country_id' => $walletToWallet->source_country_id ?? null,
                 'source_country_name' => null,
                 'destination_country_id' => $walletToWallet->destination_country_id ?? null,
@@ -36,8 +37,10 @@ class WalletToWalletCollection extends ResourceCollection
                 'transaction_form_name' => $walletToWallet->transaction_form_name ?? null,
                 'ordered_at' => $walletToWallet->ordered_at ?? null,
                 'amount' => $walletToWallet->amount ?? null,
+                'amount_formatted' => (string) currency($walletToWallet->amount ?? null, $walletToWallet->currency),
                 'currency' => $walletToWallet->currency ?? null,
                 'converted_amount' => $walletToWallet->converted_amount ?? null,
+                'converted_amount_formatted' => (string) currency($walletToWallet->converted_amount ?? null, $walletToWallet->converted_currency),
                 'converted_currency' => $walletToWallet->converted_currency ?? null,
                 'order_number' => $walletToWallet->order_number ?? null,
                 'risk_profile' => $walletToWallet->risk_profile ?? null,
