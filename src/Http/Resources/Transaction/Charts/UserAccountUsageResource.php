@@ -19,7 +19,7 @@ class UserAccountUsageResource extends ResourceCollection
             return [
                 'label' => $entry->currency,
                 'data' => round(floatval($entry->total), 2),
-                'color' => Currency::config($entry->currency)['color'] ?? '#000000',
+                'color' => Currency::config($entry->currency ?? config('fintech.core.default_currency_code', 'USD'))['color'] ?? '#000000',
             ];
         })->toArray();
     }
