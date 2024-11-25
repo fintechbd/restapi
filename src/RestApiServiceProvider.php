@@ -2,7 +2,7 @@
 
 namespace Fintech\RestApi;
 
-use Fintech\Core\Traits\RegisterPackageTrait;
+use Fintech\Core\Traits\Packages\RegisterPackageTrait;
 use Fintech\RestApi\Commands\InstallCommand;
 use Fintech\RestApi\Commands\RestApiCommand;
 use Fintech\RestApi\Providers\RepositoryServiceProvider;
